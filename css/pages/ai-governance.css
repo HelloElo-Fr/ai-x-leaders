@@ -1,0 +1,188 @@
+/* ===== AI GOVERNANCE PROGRAM - Blue Theme Overrides ===== */
+
+/* --- Buttons: blue instead of pink --- */
+.governance-page .btn-primary {
+  background: #0066FF !important;
+  border-color: #0066FF !important;
+}
+
+.governance-page .btn-primary:hover {
+  background: #0055DD !important;
+  border-color: #0055DD !important;
+}
+
+/* --- Header CTA stays pink (site-wide consistency) --- */
+.governance-page .header-cta.btn-primary {
+  background: var(--pink-primary) !important;
+  border-color: var(--pink-primary) !important;
+}
+
+.governance-page .header-cta.btn-primary:hover {
+  background: #e0408f !important;
+  border-color: #e0408f !important;
+}
+
+/* --- Method result arrows: blue --- */
+.governance-page .alp-method-result {
+  color: #0088FF;
+}
+
+/* --- Featured pricing card: blue border/bg --- */
+.governance-page .alp-pricing-card--featured {
+  border-color: #0066FF;
+  background: rgba(0, 102, 255, 0.05);
+}
+
+/* --- Pricing checkmarks: blue --- */
+.governance-page .alp-pricing-card ul li::before {
+  color: #0066FF;
+}
+
+/* --- Parcours card hover: blue --- */
+.governance-page .alp-parcours-card:hover {
+  border-color: rgba(0, 102, 255, 0.25);
+}
+
+/* --- Method card hover: blue --- */
+.governance-page .alp-method-card:hover {
+  border-color: rgba(0, 102, 255, 0.25);
+}
+
+/* --- Problem list markers (red X) --- */
+.governance-page .alp-list-problems {
+  list-style: none;
+  padding: 0;
+}
+
+.governance-page .alp-list-problems li {
+  padding: 8px 0;
+  padding-left: 28px;
+  position: relative;
+  color: var(--text-muted);
+}
+
+.governance-page .alp-list-problems li::before {
+  content: '\2717';
+  position: absolute;
+  left: 0;
+  color: #ff4444;
+  font-weight: 700;
+}
+
+/* --- Solution list markers (green check) --- */
+.governance-page .alp-list-solutions {
+  list-style: none;
+  padding: 0;
+}
+
+.governance-page .alp-list-solutions li {
+  padding: 8px 0;
+  padding-left: 28px;
+  position: relative;
+  color: var(--text-secondary);
+}
+
+.governance-page .alp-list-solutions li::before {
+  content: '\2713';
+  position: absolute;
+  left: 0;
+  color: #48ffa0;
+  font-weight: 700;
+}
+
+/* --- FAQ details (without .alp-faq-item wrapper) --- */
+.governance-page .alp-faq details {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 20px 0;
+}
+
+.governance-page .alp-faq details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1rem;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.governance-page .alp-faq details summary::-webkit-details-marker {
+  display: none;
+}
+
+.governance-page .alp-faq details summary::after {
+  content: '+';
+  font-size: 1.5rem;
+  color: #0066FF;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.governance-page .alp-faq details[open] summary::after {
+  content: '\2212';
+}
+
+.governance-page .alp-faq details p {
+  color: var(--text-muted);
+  margin-top: 12px;
+  line-height: 1.7;
+  font-size: var(--text-small);
+}
+
+/* --- Diff icons: bigger and inline-flex --- */
+.governance-page .alp-diff-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.governance-page .alp-diff-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* --- For-yes checkmarks: blue --- */
+.governance-page .alp-for-yes ul li::before {
+  color: #0066FF;
+}
+
+/* --- Blue accent text (replacing inline pink) --- */
+.governance-page .gov-accent {
+  color: #0088FF;
+}
+
+/* --- Blue inline highlight (for conclusion/result lines) --- */
+.governance-page .gov-blue-highlight {
+  color: #0088FF;
+}
+
+/* --- Method card icon (blue circle) --- */
+.governance-page .gov-method-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #0066FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+/* --- Social proof: force visible avatars --- */
+.governance-page .alp-social-proof {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
+
+/* --- Host name color (cyan/teal) --- */
+.governance-page .alp-host-card h4 {
+  color: #00D4AA;
+}

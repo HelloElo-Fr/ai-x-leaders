@@ -1,0 +1,363 @@
+/* ========== PROGRAMME HERO ========== */
+
+.programme-hero {
+  background: var(--bg-pure-black);
+  padding: 140px 0 80px;
+  position: relative;
+}
+
+.programme-hero-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.programme-hero h1 {
+  font-size: var(--text-hero);
+  margin-bottom: 24px;
+}
+
+.programme-hero .subtitle {
+  font-size: var(--text-body-lg);
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: var(--leading-relaxed);
+  margin-bottom: 12px;
+}
+
+.programme-hero .sub-subtitle {
+  color: var(--text-muted);
+  margin-bottom: 40px;
+}
+
+.programme-hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 767px) {
+  .programme-hero {
+    padding: 110px 0 60px;
+  }
+  .programme-hero-ctas {
+    flex-direction: column;
+  }
+  .programme-hero-ctas a {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ========== PROBLEME ========== */
+
+.probleme {
+  padding: 100px 0;
+}
+
+.probleme-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+@media (min-width: 768px) {
+  .probleme-grid {
+    grid-template-columns: 1fr auto 1fr;
+    align-items: start;
+  }
+}
+
+.probleme-col {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.probleme-col h3 {
+  font-size: var(--text-h3);
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+}
+
+.probleme-col ul li {
+  padding: 12px 0;
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-left: 24px;
+  position: relative;
+}
+
+.probleme-col ul li::before {
+  content: '\2717';
+  position: absolute;
+  left: 0;
+  color: var(--error);
+  font-weight: 600;
+}
+
+.probleme-col ul li:last-child {
+  border-bottom: none;
+}
+
+.probleme-vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.probleme-vs span {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--pink-primary);
+  background: rgba(255, 72, 170, 0.1);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.probleme-conclusion {
+  text-align: center;
+  font-size: var(--text-body-lg);
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.probleme-conclusion strong {
+  color: var(--pink-primary);
+}
+
+/* ========== METHODE ========== */
+
+.methode {
+  padding: 100px 0;
+}
+
+.methode-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 1024px) {
+  .methode-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.methode-card {
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.methode-card .icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  background: rgba(255, 72, 170, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 24px;
+}
+
+.methode-card h3 {
+  margin-bottom: 16px;
+}
+
+.methode-card p {
+  line-height: var(--leading-relaxed);
+}
+
+/* ========== PROGRAMME TIMELINE ========== */
+
+.programme-timeline {
+  padding: 100px 0;
+}
+
+.timeline {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 24px;
+  padding-bottom: 40px;
+  position: relative;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-marker {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline-dot {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--pink-primary);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: var(--text-small);
+  flex-shrink: 0;
+}
+
+.timeline-line {
+  width: 2px;
+  flex: 1;
+  background: rgba(255, 72, 170, 0.3);
+  margin-top: 8px;
+}
+
+.timeline-item:last-child .timeline-line {
+  display: none;
+}
+
+.timeline-content h3 {
+  margin-bottom: 8px;
+  padding-top: 10px;
+}
+
+.timeline-content p {
+  line-height: var(--leading-relaxed);
+}
+
+/* Bonus items */
+.bonus-list {
+  margin-top: 40px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bonus-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bonus-item:last-child {
+  border-bottom: none;
+}
+
+.bonus-icon {
+  color: var(--success);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.bonus-item p {
+  color: var(--text-secondary);
+}
+
+.bonus-item strong {
+  color: var(--text-primary);
+}
+
+/* ========== EQUIPE ========== */
+
+.equipe {
+  padding: 100px 0;
+}
+
+.equipe-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+@media (min-width: 768px) {
+  .equipe-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .equipe-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ========== RESULTATS ========== */
+
+.resultats {
+  padding: 100px 0;
+}
+
+.resultats-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+@media (min-width: 768px) {
+  .resultats-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ========== CTA FINALE ========== */
+
+.cta-finale {
+  padding: 100px 0;
+  text-align: center;
+}
+
+.cta-finale h2 {
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.cta-finale .subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 8px;
+}
+
+.cta-finale .places {
+  color: var(--pink-primary);
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.cta-finale .btn-primary {
+  font-size: 1.125rem;
+  padding: 20px 40px;
+}
+
+.cta-finale .cta-sub {
+  margin-top: 24px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--text-small);
+}
+
+.cta-finale .cta-sub a {
+  color: var(--text-primary);
+  text-decoration: underline;
+}

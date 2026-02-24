@@ -1,0 +1,280 @@
+/* ========== MASTERCLASS HERO — Dark mode ========== */
+
+.masterclass-hero {
+  background: var(--bg-pure-black);
+  padding: 140px 0 80px;
+}
+
+.masterclass-hero h1 {
+  font-size: var(--text-hero);
+  margin-bottom: 24px;
+}
+
+.masterclass-hero .subtitle,
+.masterclass-hero-subtitle {
+  font-size: var(--text-body-lg);
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: var(--leading-relaxed);
+  margin-bottom: 40px;
+}
+
+@media (max-width: 767px) {
+  .masterclass-hero {
+    padding: 110px 0 60px;
+  }
+}
+
+/* ========== PRICING ========== */
+
+.pricing {
+  padding: 100px 0;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pricing-card {
+  padding: 40px 32px;
+  text-align: center;
+  position: relative;
+  background: var(--bg-card);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pricing-card.featured {
+  border: 2px solid var(--pink-primary);
+  box-shadow: var(--shadow-pink);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--pink-primary);
+  color: white;
+  padding: 4px 16px;
+  border-radius: 100px;
+  font-size: var(--text-tag);
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pricing-card h3 {
+  margin-bottom: 8px;
+}
+
+.pricing-amount {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 3rem;
+  color: var(--text-primary);
+  line-height: 1;
+  margin: 24px 0 8px;
+}
+
+.pricing-period {
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  margin-bottom: 32px;
+}
+
+.pricing-features {
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+.pricing-features li {
+  padding: 10px 0;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-left: 28px;
+  position: relative;
+}
+
+.pricing-features li::before {
+  content: '\2713';
+  position: absolute;
+  left: 0;
+  color: var(--success);
+  font-weight: 700;
+}
+
+.pricing-features li:last-child {
+  border-bottom: none;
+}
+
+.pricing-card .btn-primary {
+  width: 100%;
+}
+
+/* ========== UPCOMING MASTERCLASS ========== */
+
+.upcoming {
+  padding: 100px 0;
+}
+
+.upcoming-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.upcoming-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  transition: all var(--transition-base);
+  background: var(--bg-card);
+}
+
+.upcoming-item:hover {
+  border-color: var(--pink-primary);
+  box-shadow: var(--shadow-pink);
+}
+
+.upcoming-date {
+  flex-shrink: 0;
+  text-align: center;
+  min-width: 60px;
+}
+
+.upcoming-date .day {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--pink-primary);
+  line-height: 1;
+}
+
+.upcoming-date .month {
+  font-size: var(--text-tag);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.upcoming-info {
+  flex: 1;
+}
+
+.upcoming-info h4 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.upcoming-info .speaker {
+  color: var(--text-secondary);
+  font-size: var(--text-small);
+}
+
+@media (max-width: 767px) {
+  .upcoming-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ========== FAQ ========== */
+
+.faq {
+  padding: 100px 0;
+}
+
+.faq .accordion {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ========== INCLUDED ========== */
+
+.included {
+  padding: 100px 0;
+}
+
+.included-list {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.included-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .included-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 40px;
+  }
+}
+
+.included-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.included-item:last-child {
+  border-bottom: none;
+}
+
+.included-icon {
+  color: var(--pink-primary);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.included-item h4 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.included-item p {
+  font-size: var(--text-small);
+}
+
+/* ========== BOOTCAMP NOTE ========== */
+
+.bootcamp-note {
+  background: rgba(255, 72, 170, 0.08);
+  border: 1px solid rgba(255, 72, 170, 0.2);
+  border-radius: 12px;
+  padding: 24px 32px;
+  max-width: 700px;
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.bootcamp-note p {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.bootcamp-note strong {
+  color: var(--pink-primary);
+}

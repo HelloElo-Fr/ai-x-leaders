@@ -1,0 +1,225 @@
+/* ========== ABOUT HERO — Dark mode ========== */
+
+.about-hero {
+  background: var(--bg-pure-black);
+  padding: 140px 0 80px;
+}
+
+.about-hero h1 {
+  font-size: var(--text-hero);
+  margin-bottom: 24px;
+}
+
+.about-hero .subtitle {
+  font-size: var(--text-body-lg);
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: var(--leading-relaxed);
+}
+
+@media (max-width: 767px) {
+  .about-hero {
+    padding: 110px 0 60px;
+  }
+}
+
+/* ========== MANIFESTE ========== */
+
+.manifeste {
+  padding: 100px 0;
+}
+
+.manifeste-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.manifeste-content h2 {
+  margin-bottom: 32px;
+}
+
+.manifeste-content p {
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 24px;
+  color: var(--text-secondary);
+}
+
+.manifeste-content p.accent {
+  color: var(--pink-primary);
+  font-weight: 600;
+  font-family: var(--font-heading);
+  font-size: var(--text-h3);
+  line-height: var(--leading-tight);
+}
+
+/* ========== HISTOIRE / TIMELINE ========== */
+
+.histoire {
+  padding: 100px 0;
+}
+
+.histoire-timeline {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.histoire-item {
+  display: flex;
+  gap: 24px;
+  padding-bottom: 40px;
+  position: relative;
+}
+
+.histoire-item:last-child {
+  padding-bottom: 0;
+}
+
+.histoire-year {
+  flex-shrink: 0;
+  width: 80px;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--pink-primary);
+  padding-top: 4px;
+}
+
+.histoire-line {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.histoire-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--pink-primary);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.histoire-connector {
+  width: 2px;
+  flex: 1;
+  background: rgba(255, 72, 170, 0.3);
+  margin-top: 4px;
+}
+
+.histoire-item:last-child .histoire-connector {
+  display: none;
+}
+
+.histoire-content h3 {
+  font-size: 1.125rem;
+  margin-bottom: 8px;
+}
+
+.histoire-content p {
+  color: var(--text-muted);
+  line-height: var(--leading-relaxed);
+  font-size: var(--text-small);
+}
+
+@media (max-width: 767px) {
+  .histoire-year {
+    width: 60px;
+    font-size: 1rem;
+  }
+}
+
+/* ========== EQUIPE ABOUT ========== */
+
+.about-equipe {
+  padding: 100px 0;
+}
+
+.about-equipe-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+}
+
+@media (min-width: 768px) {
+  .about-equipe-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.about-team-card {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.about-team-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 16px;
+  background: rgba(255, 72, 170, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.about-team-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-team-info h3 {
+  margin-bottom: 4px;
+}
+
+.about-team-info .role {
+  color: var(--pink-primary);
+  font-weight: 600;
+  font-size: var(--text-small);
+  margin-bottom: 12px;
+}
+
+.about-team-info .bio {
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  line-height: var(--leading-relaxed);
+}
+
+@media (max-width: 767px) {
+  .about-team-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* ========== LIGHTMEUP ========== */
+
+.lightmeup {
+  padding: 80px 0;
+}
+
+.lightmeup-box {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 40px 32px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.lightmeup-box h3 {
+  margin-bottom: 16px;
+}
+
+.lightmeup-box p {
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+}

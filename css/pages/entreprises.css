@@ -1,0 +1,161 @@
+/* ========== ENTREPRISES HERO — Dark mode ========== */
+
+.entreprises-hero {
+  background: var(--bg-pure-black);
+  padding: 140px 0 80px;
+}
+
+.entreprises-hero h1 {
+  font-size: var(--text-hero);
+  margin-bottom: 24px;
+}
+
+.entreprises-hero .subtitle {
+  font-size: var(--text-body-lg);
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: var(--leading-relaxed);
+  margin-bottom: 40px;
+}
+
+@media (max-width: 767px) {
+  .entreprises-hero {
+    padding: 110px 0 60px;
+  }
+}
+
+/* ========== PRESTATIONS ========== */
+
+.prestations {
+  padding: 100px 0;
+}
+
+.prestations-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .prestations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .prestations-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.prestation-card {
+  padding: 32px;
+  background: var(--bg-card);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all var(--transition-base);
+}
+
+.prestation-card:hover {
+  border-color: rgba(255, 72, 170, 0.2);
+  box-shadow: var(--shadow-glow);
+}
+
+.prestation-card .card-icon {
+  margin-bottom: 20px;
+}
+
+.prestation-card h3 {
+  font-size: var(--text-h3);
+  margin-bottom: 12px;
+}
+
+.prestation-card .description {
+  color: var(--text-muted);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+  font-size: var(--text-small);
+}
+
+/* ========== CLIENTS ========== */
+
+.clients-section {
+  padding: 100px 0;
+}
+
+.clients-section .section-header {
+  margin-bottom: 40px;
+}
+
+.clients-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.clients-philosophy {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: var(--leading-relaxed);
+}
+
+/* ========== CONTACT FORM ========== */
+
+.entreprises-contact {
+  padding: 100px 0;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+}
+
+@media (min-width: 768px) {
+  .contact-layout {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.contact-text h2 {
+  margin-bottom: 16px;
+}
+
+.contact-text p {
+  line-height: var(--leading-relaxed);
+  margin-bottom: 32px;
+  color: var(--text-secondary);
+}
+
+.contact-calendly {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.contact-calendly h4 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.contact-calendly p {
+  font-size: var(--text-small);
+  margin-bottom: 16px;
+}
+
+.contact-form {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 40px 32px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}

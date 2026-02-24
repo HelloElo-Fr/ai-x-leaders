@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | AI x Leaders</title>
+  <meta name="description" content="Contactez AI x Leaders. Bootcamp, masterclass, prestations entreprise ou presse — nous vous r&eacute;pondons sous 48h.">
+
+  <meta property="og:title" content="Contact | AI x Leaders">
+  <meta property="og:description" content="Contactez AI x Leaders pour toute question sur nos programmes et prestations.">
+  <meta property="og:image" content="https://aixleaders.com/images/og-image.jpg">
+  <meta property="og:url" content="https://aixleaders.com/contact.html">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/contact.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo" aria-label="AI x Leaders - Accueil">
+        AI <span class="x">&times;</span> Leaders
+      </a>
+      <nav class="header-nav" aria-label="Navigation principale">
+        <div class="nav-dropdown">
+          <a href="#">Programmes</a>
+          <div class="nav-dropdown-menu">
+            <ul>
+              <li><a href="programmes/ai-leadership.html">The AI Leadership Program</a></li>
+              <li><a href="programmes/ai-governance.html">The AI Governance Program</a></li>
+              <li><a href="programmes/sprints.html">Sprint AI Th&eacute;matiques</a></li>
+            </ul>
+          </div>
+        </div>
+        <a href="entreprises.html">Entreprises</a>
+        <a href="a-propos.html">&Agrave; propos</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="programmes/ai-leadership.html" class="btn-primary header-cta">Rejoindre le programme</a>
+      <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-overlay" aria-hidden="true"></div>
+  <nav class="mobile-menu" aria-label="Menu mobile">
+    <a href="programmes/ai-leadership.html">AI Leadership Program</a>
+    <a href="programmes/ai-governance.html">AI Governance Program</a>
+    <a href="programmes/sprints.html">Sprint AI Th&eacute;matiques</a>
+    <a href="entreprises.html">Entreprises</a>
+    <a href="a-propos.html">&Agrave; propos</a>
+    <a href="contact.html">Contact</a>
+    <a href="programmes/ai-leadership.html" class="btn-primary">Rejoindre le programme</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="contact-hero">
+    <div class="container">
+      <h1>Contactez-nous</h1>
+      <p class="subtitle">
+        Une question sur nos programmes, une demande de prestation
+        ou une opportunit&eacute; presse ? Nous vous r&eacute;pondons sous 48h.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-page">
+    <div class="container">
+      <div class="contact-page-layout">
+
+        <!-- Form -->
+        <div class="contact-page-form animate-on-scroll">
+          <h2>Envoyez-nous un message</h2>
+          <form id="contact-form">
+            <div class="form-group">
+              <label class="form-label" for="contact-name">Nom *</label>
+              <input type="text" id="contact-name" class="form-input" required placeholder="Votre nom complet">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-email">Email *</label>
+              <input type="email" id="contact-email" class="form-input" required placeholder="votre@email.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-phone">T&eacute;l&eacute;phone</label>
+              <input type="tel" id="contact-phone" class="form-input" placeholder="+33 6 00 00 00 00">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-company">Entreprise</label>
+              <input type="text" id="contact-company" class="form-input" placeholder="Votre entreprise">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-subject">Objet *</label>
+              <select id="contact-subject" class="form-select" required>
+                <option value="" disabled selected>S&eacute;lectionnez un objet</option>
+                <option value="leadership">AI Leadership Program</option>
+                <option value="governance">AI Governance Program</option>
+                <option value="sprint">Sprint AI Th&eacute;matiques</option>
+                <option value="prestation">Prestation studio</option>
+                <option value="evenement">&Eacute;v&eacute;nement</option>
+                <option value="presse">Presse</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-message">Message *</label>
+              <textarea id="contact-message" class="form-textarea" required placeholder="D&eacute;crivez votre demande..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%;">Envoyer</button>
+            <div class="form-message"></div>
+          </form>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="contact-sidebar animate-on-scroll delay-1">
+          <h3>Pr&eacute;f&eacute;rez un appel ?</h3>
+          <p>R&eacute;servez directement un cr&eacute;neau avec Elodie pour discuter de votre projet.</p>
+          <a href="#" class="btn-primary" style="width: 100%; text-align: center;">R&eacute;server un cr&eacute;neau</a>
+
+          <div class="contact-info-item" style="margin-top: 40px;">
+            <div class="contact-info-icon">&#9993;</div>
+            <div>
+              <div class="label">Email</div>
+              <div class="value"><a href="mailto:contact@aixleaders.com">contact@aixleaders.com</a></div>
+            </div>
+          </div>
+
+          <div class="contact-socials">
+            <h4>Suivez-nous</h4>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/elodiehughes/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn Elodie">in</a>
+              <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">&#9654;</a>
+              <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="Newsletter">&#9993;</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="header-logo">AI <span class="x">&times;</span> Leaders</a>
+          <p>Par BCF Group. Nous rendons les dirigeants autonomes face &agrave; l'IA et les accompagnons pour transformer leur entreprise.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Programmes</h4>
+          <a href="programmes/ai-leadership.html">AI Leadership Program</a>
+          <a href="programmes/ai-governance.html">AI Governance Program</a>
+          <a href="programmes/sprints.html">Sprint AI Th&eacute;matiques</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Entreprises</h4>
+          <a href="entreprises.html">Prestations B2B</a>
+          <a href="contact.html">Contact</a>
+          <a href="a-propos.html">&Agrave; propos</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Suivez-nous</h4>
+          <a href="#">LinkedIn Elodie</a>
+          <a href="#">LinkedIn Nash</a>
+          <a href="#">YouTube</a>
+          <a href="#">Newsletter</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 AI x Leaders &mdash; Un &eacute;cosyst&egrave;me by Lightmeup &middot; Certifi&eacute; Qualiopi</p>
+        <div class="footer-legal">
+          <a href="#">Mentions l&eacute;gales</a>
+          <a href="#">CGV</a>
+          <a href="#">Politique de confidentialit&eacute;</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/forms.js"></script>
+</body>
+</html>

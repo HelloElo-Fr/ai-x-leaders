@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI x Leaders | Programme d'acc&eacute;l&eacute;ration IA pour dirigeants</title>
+  <meta name="description" content="Nous rendons les dirigeants autonomes face &agrave; l'IA et les accompagnons pour transformer leur entreprise. Bootcamp, masterclass, sprints et prestations sur-mesure.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AI x Leaders | R&eacute;invente ton Leadership &agrave; l'&egrave;re de l'IA">
+  <meta property="og:description" content="Nous rendons les dirigeants autonomes face &agrave; l'IA et les accompagnons pour transformer leur entreprise.">
+  <meta property="og:image" content="https://aixleaders.com/images/og-image.jpg">
+  <meta property="og:url" content="https://aixleaders.com/">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages/home.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "AI x Leaders",
+    "url": "https://aixleaders.com",
+    "description": "Programme d'acc\u00e9l\u00e9ration IA pour dirigeants",
+    "founder": [
+      { "@type": "Person", "name": "Elodie Hughes" },
+      { "@type": "Person", "name": "Nash Hughes" }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo" aria-label="AI x Leaders - Accueil">
+        AI<span class="x">&times;</span>Leaders
+      </a>
+
+      <nav class="header-nav" aria-label="Navigation principale">
+        <div class="nav-dropdown">
+          <a href="#">Programmes</a>
+          <div class="nav-dropdown-menu">
+            <ul>
+              <li><a href="programmes/ai-leadership.html">The AI Leadership Program</a></li>
+              <li><a href="programmes/ai-governance.html">The AI Governance Program</a></li>
+              <li><a href="programmes/sprints.html">Sprint AI Th&eacute;matiques</a></li>
+            </ul>
+          </div>
+        </div>
+        <a href="entreprises.html">Entreprises</a>
+        <a href="a-propos.html">&Agrave; propos</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <a href="programmes/ai-leadership.html" class="btn-primary header-cta">Rejoindre le programme</a>
+
+      <button class="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <nav class="mobile-menu" aria-label="Menu mobile">
+    <a href="programmes/ai-leadership.html">AI Leadership Program</a>
+    <a href="programmes/ai-governance.html">AI Governance Program</a>
+    <a href="programmes/sprints.html">Sprint AI Th&eacute;matiques</a>
+    <a href="entreprises.html">Entreprises</a>
+    <a href="a-propos.html">&Agrave; propos</a>
+    <a href="contact.html">Contact</a>
+    <a href="programmes/ai-leadership.html" class="btn-primary">Rejoindre le programme</a>
+  </nav>
+  <div class="mobile-overlay"></div>
+
+  <!-- ===== 1. HERO ===== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content animate-on-scroll">
+        <p class="hero-label">AI &times; LEADERS</p>
+        <h1>R&eacute;invente ton Leadership<br>&agrave; l'&egrave;re de <span class="highlight">l'IA</span></h1>
+        <p class="hero-subtitle">Nous rendons les dirigeants autonomes face &agrave; l'IA &mdash; et nous les accompagnons pour transformer leur entreprise.</p>
+        <div class="hero-cta">
+          <a href="#programmes" class="btn-primary">D&eacute;couvrir nos programmes</a>
+        </div>
+        <div class="hero-social-proof">
+          <div class="hero-avatars">
+            <span>EH</span><span>NH</span><span>SM</span><span>RN</span><span>+</span>
+          </div>
+          <span>600+ Leaders accompagn&eacute;s</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 2. LOGOS CLIENTS ===== -->
+  <section class="logos-clients">
+    <div class="container">
+      <p class="section-label animate-on-scroll">Ils nous font confiance</p>
+      <div class="logo-strip animate-on-scroll">
+        <span class="logo-placeholder">HEC Paris</span>
+        <span class="logo-placeholder">McDonald's</span>
+        <span class="logo-placeholder">Canderel</span>
+        <span class="logo-placeholder">LVMH</span>
+        <span class="logo-placeholder">Natran</span>
+        <span class="logo-placeholder">Nestl&eacute; Waters</span>
+        <span class="logo-placeholder">Danone</span>
+        <span class="logo-placeholder">AXA</span>
+        <span class="logo-placeholder">SEB</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. NEWSLETTER + MASTERCLASS MINDSET ===== -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-box animate-on-scroll">
+        <h2>Restez &agrave; la pointe de l'IA, chaque semaine</h2>
+        <p class="subtitle">Recevez AI x Leaders dans votre bo&icirc;te mail</p>
+        <form class="form-inline" id="newsletter-form">
+          <input type="email" class="form-input" placeholder="votre@email.com" required>
+          <button type="submit" class="btn-primary">S'inscrire gratuitement</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="masterclass-mindset">
+    <div class="container">
+      <div class="mindset-header animate-on-scroll">
+        <h3>Masterclass gratuites</h3>
+        <p>Des masterclass mindset pour repenser votre leadership</p>
+      </div>
+      <div class="masterclass-gratuites-carousel animate-on-scroll">
+        <div class="masterclass-gratuites-track">
+          <!-- Julien Pelabère — En replay sur YouTube -->
+          <div class="carousel-card">
+            <a href="https://youtu.be/CdJ0_G4k9jE" target="_blank" rel="noopener" class="carousel-card-link">
+              <div class="carousel-card-image">
+                <img src="images/masterclass-pelabere.jpg" alt="Double IA &mdash; Julien Pelab&egrave;re" loading="lazy">
+              </div>
+              <div class="carousel-card-body">
+                <span class="tag tag-free">En replay</span>
+                <h4>Double IA : n&eacute;gocier avec l'IA, pas contre elle</h4>
+                <p>Julien Pelab&egrave;re</p>
+                <span class="btn-small">Voir sur YouTube &rarr;</span>
+              </div>
+            </a>
+          </div>
+          <!-- PPC — À venir -->
+          <div class="carousel-card">
+            <div class="carousel-card-image">
+              <img src="images/masterclass-ppc.png" alt="Mythe ou M&eacute;thode &mdash; PPC" loading="lazy">
+            </div>
+            <div class="carousel-card-body">
+              <span class="tag tag-warning">&Agrave; venir</span>
+              <h4>R&eacute;inventer son entreprise &agrave; l'&egrave;re de l'IA : mythe ou m&eacute;thode ?</h4>
+              <p>PPC &middot; Lundi 23 f&eacute;vrier &agrave; 12H30</p>
+              <a href="https://us06web.zoom.us/meeting/register/kPn5SQQCSAe6l814BMUA6Q" class="btn-small" target="_blank" rel="noopener">S'inscrire</a>
+            </div>
+          </div>
+          <!-- Arnaud Weber — À venir -->
+          <div class="carousel-card">
+            <div class="carousel-card-image">
+              <img src="images/masterclass-weber.png" alt="L'IA est un miroir &mdash; Arnaud Weber" loading="lazy">
+            </div>
+            <div class="carousel-card-body">
+              <span class="tag tag-warning">&Agrave; venir</span>
+              <h4>IA, langage et conscience : sommes-nous pr&ecirc;ts &agrave; accepter ce que l'IA nous renvoie ?</h4>
+              <p>Arnaud Weber &middot; Jeudi 26 f&eacute;vrier &agrave; 12H30</p>
+              <a href="https://us06web.zoom.us/meeting/register/ZH9umF-JQdaNJ60pPiK0zg" class="btn-small" target="_blank" rel="noopener">S'inscrire</a>
+            </div>
+          </div>
+          <!-- Claude Co-Work — En replay -->
+          <div class="carousel-card">
+            <a href="https://youtu.be/GMOcEpcEywc" target="_blank" rel="noopener" class="carousel-card-link">
+              <div class="carousel-card-image">
+                <img src="images/masterclass-claude-cowork.jpg" alt="Claude Co-Work" loading="lazy">
+              </div>
+              <div class="carousel-card-body">
+                <span class="tag tag-free">En replay</span>
+                <h4>Claude Co-Work : diriger &agrave; l'&egrave;re de l'IA autonome</h4>
+                <p>Elodie Hughes</p>
+                <span class="btn-small">Voir sur YouTube &rarr;</span>
+              </div>
+            </a>
+          </div>
+          <!-- Happy 2026 / Véo 3 — En replay -->
+          <div class="carousel-card">
+            <a href="https://youtu.be/wHZOx-FsMhg" target="_blank" rel="noopener" class="carousel-card-link">
+              <div class="carousel-card-image">
+                <img src="images/masterclass-veo3.jpg" alt="Happy 2026 &mdash; V&eacute;o 3" loading="lazy">
+              </div>
+              <div class="carousel-card-body">
+                <span class="tag tag-free">En replay</span>
+                <h4>Happy 2026 &mdash; Le tuto qui fait de toi une star avec V&eacute;o 3 !</h4>
+                <p>Elodie Hughes</p>
+                <span class="btn-small">Voir sur YouTube &rarr;</span>
+              </div>
+            </a>
+          </div>
+          <!-- COMET & ATLAS — En replay -->
+          <div class="carousel-card">
+            <a href="https://youtu.be/eok7Z7eO-WY" target="_blank" rel="noopener" class="carousel-card-link">
+              <div class="carousel-card-image">
+                <img src="images/masterclass-comet-atlas.jpg" alt="COMET &amp; ATLAS" loading="lazy">
+              </div>
+              <div class="carousel-card-body">
+                <span class="tag tag-free">En replay</span>
+                <h4>COMET &amp; ATLAS : les navigateurs IA qui bossent &agrave; ta place !</h4>
+                <p>Elodie Hughes</p>
+                <span class="btn-small">Voir sur YouTube &rarr;</span>
+              </div>
+            </a>
+          </div>
+          <!-- NotebookLM — En replay -->
+          <div class="carousel-card">
+            <a href="https://youtu.be/OOsWgu6TbiQ" target="_blank" rel="noopener" class="carousel-card-link">
+              <div class="carousel-card-image">
+                <img src="images/masterclass-notebooklm.jpg" alt="NotebookLM" loading="lazy">
+              </div>
+              <div class="carousel-card-body">
+                <span class="tag tag-free">En replay</span>
+                <h4>NotebookLM &mdash; L'outil qui va changer ta fa&ccedil;on d'apprendre</h4>
+                <p>Elodie Hughes</p>
+                <span class="btn-small">Voir sur YouTube &rarr;</span>
+              </div>
+            </a>
+          </div>
+          <!-- Seedance — Coming soon -->
+          <div class="carousel-card">
+            <div class="carousel-card-image carousel-card-image--placeholder placeholder--seedance">
+              <div class="placeholder-content">
+                <span class="placeholder-label">COMING SOON</span>
+                <span class="placeholder-title">SEEDANCE</span>
+                <span class="placeholder-sub">L'IA qui fait trembler Hollywood</span>
+              </div>
+            </div>
+            <div class="carousel-card-body">
+              <span class="tag tag-warning">Bient&ocirc;t</span>
+              <h4>Seedance : L'IA qui fait trembler Hollywood</h4>
+              <p>Elodie Hughes</p>
+            </div>
+          </div>
+        </div>
+        <div class="masterclass-gratuites-nav">
+          <button class="carousel-btn mc-prev" aria-label="Pr&eacute;c&eacute;dent">&#8592;</button>
+          <div class="masterclass-gratuites-dots"></div>
+          <button class="carousel-btn mc-next" aria-label="Suivant">&#8594;</button>
+        </div>
+      </div>
+      <div class="text-center mt-5 animate-on-scroll">
+        <a href="https://www.youtube.com/@AIxLeader" class="btn-secondary" target="_blank" rel="noopener">Voir toutes les masterclass gratuites sur YouTube &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 4. MASTERCLASS IA PAYANTES ===== -->
+  <section class="masterclass-ia" id="masterclass">
+    <div class="container">
+      <div class="section-header centered animate-on-scroll">
+        <h2>Masterclass IA : restez en avance</h2>
+        <p class="section-subtitle centered">Les derni&egrave;res nouveaut&eacute;s, outils et strat&eacute;gies IA d&eacute;crypt&eacute;s pour les dirigeants</p>
+      </div>
+
+      <div class="masterclass-ia-carousel animate-on-scroll">
+        <div class="masterclass-ia-grid">
+          <a href="https://youtu.be/GMOcEpcEywc" class="carousel-card" target="_blank" rel="noopener">
+            <div class="carousel-card-image">
+              <img src="https://img.youtube.com/vi/GMOcEpcEywc/hqdefault.jpg" alt="Claude Co-Work : diriger &agrave; l'&egrave;re de l'IA autonome" loading="lazy">
+            </div>
+            <div class="carousel-card-body">
+              <span class="tag tag-pink">Abonn&eacute;s</span>
+              <h4>Claude Co-Work : diriger &agrave; l'&egrave;re de l'IA autonome</h4>
+              <p>On a commenc&eacute; par la fin et personne ne s'en est vraiment remis &#129322; Un grand moment !</p>
+            </div>
+          </a>
+          <a href="https://youtu.be/eok7Z7eO-WY" class="carousel-card" target="_blank" rel="noopener">
+            <div class="carousel-card-image">
+              <img src="https://img.youtube.com/vi/eok7Z7eO-WY/hqdefault.jpg" alt="COMET &amp; ATLAS : les navigateurs IA qui bossent &agrave; ta place" loading="lazy">
+            </div>
+            <div class="carousel-card-body">
+              <span class="tag tag-pink">Abonn&eacute;s</span>
+              <h4>COMET &amp; ATLAS : les navigateurs IA qui bossent &agrave; ta place</h4>
+              <p>D&eacute;couvre les navigateurs IA capables de chercher, analyser, synth&eacute;tiser et d&eacute;cider &agrave; ta place.</p>
+            </div>
+          </a>
+          <a href="https://youtu.be/wHZOx-FsMhg" class="carousel-card" target="_blank" rel="noopener">
+            <div class="carousel-card-image">
+              <img src="https://img.youtube.com/vi/wHZOx-FsMhg/hqdefault.jpg" alt="Happy 2026 — De Nano Banana &agrave; Veo 3" loading="lazy">
+            </div>
+            <div class="carousel-card-body">
+              <span class="tag tag-pink">Abonn&eacute;s</span>
+              <h4>Happy 2026 — De Nano Banana &agrave; Veo 3</h4>
+              <p>Le tuto qui fait de toi une star : deviens un r&eacute;alisateur &agrave; Hollywood.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="masterclass-pricing-row animate-on-scroll">
+        <div class="pricing-pill" id="btn-single">
+          <span class="price">80&euro;</span>
+          <span class="label">&Agrave; l'unit&eacute;</span>
+        </div>
+        <div class="pricing-pill" id="btn-monthly">
+          <span class="price">50&euro;/mois</span>
+          <span class="label">Mensuel</span>
+        </div>
+        <div class="pricing-pill featured" id="btn-yearly">
+          <span class="price">500&euro;/an</span>
+          <span class="label">Annuel &mdash; 2 mois offerts</span>
+        </div>
+      </div>
+      <p class="masterclass-note">Pas de replay sans abonnement &mdash; chaque session est unique</p>
+    </div>
+  </section>
+
+  <!-- ===== 5. NOS PROGRAMMES (SLIDER) ===== -->
+  <section class="programmes-section" id="programmes">
+    <div class="container">
+      <div class="section-header centered animate-on-scroll">
+        <h2>Nos programmes</h2>
+        <p class="section-subtitle centered">Deux parcours pour passer de spectateur &agrave; pilote de l'IA</p>
+      </div>
+
+      <div class="programmes-slider animate-on-scroll">
+        <div class="programmes-slider-viewport">
+          <div class="programmes-slider-track">
+            <!-- Slide 1: AI Leadership Program -->
+            <div class="programme-slide" data-slide="0">
+              <div class="programme-slide-inner programme-slide--leadership">
+                <div class="programme-slide-tags">
+                  <span class="tag tag-pink">BOOTCAMP #5</span>
+                  <span class="tag tag-new">13 MARS 2026</span>
+                  <span class="tag tag-warning">8 PLACES</span>
+                </div>
+                <h3 class="programme-slide-title">The AI Leadership Program</h3>
+                <p class="programme-slide-subtitle">3 mois pour passer de spectateur &agrave; pilote de l'IA.</p>
+                <p class="programme-slide-desc">Le bootcamp par intelligence collective pour les dirigeants C-level.</p>
+                <div class="programme-slide-ctas">
+                  <a href="https://the-ai-leadership-program.circle.so/ai-leadership-program" class="btn-primary" target="_blank" rel="noopener">R&eacute;server ma place</a>
+                  <a href="programmes/ai-leadership.html" class="btn-ghost">En savoir plus &rarr;</a>
+                </div>
+              </div>
+            </div>
+            <!-- Slide 2: AI Governance Program -->
+            <div class="programme-slide" data-slide="1">
+              <div class="programme-slide-inner programme-slide--governance">
+                <div class="programme-slide-tags">
+                  <span class="tag tag-warning">BIENT&Ocirc;T DISPONIBLE</span>
+                </div>
+                <h3 class="programme-slide-title">The AI Governance Program</h3>
+                <p class="programme-slide-subtitle">Un nouveau programme d&eacute;di&eacute; aux enjeux de gouvernance IA pour les dirigeants et les organisations.</p>
+                <p class="programme-slide-desc">D&eacute;tails &agrave; venir.</p>
+                <div class="programme-slide-ctas">
+                  <a href="https://the-ai-leadership-program.circle.so/settings/pages/edit/30301" class="btn-blue" target="_blank" rel="noopener">En savoir plus &rarr;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="programmes-slider-nav">
+          <button class="carousel-btn prog-prev" aria-label="Pr&eacute;c&eacute;dent">&#8592;</button>
+          <div class="programmes-dots"></div>
+          <button class="carousel-btn prog-next" aria-label="Suivant">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 6. SPRINTS 4 SEMAINES ===== -->
+  <section class="sprints-section" id="sprints">
+    <div class="container">
+      <div class="animate-on-scroll">
+        <span class="tag tag-new mb-2" style="display:inline-block;">Nouveau</span>
+        <h2>Sprints 4 semaines</h2>
+        <p class="section-subtitle">D&eacute;couvrez l'IA sous un angle th&eacute;matique. 4 semaines pour monter en comp&eacute;tence sur un sujet pr&eacute;cis.</p>
+      </div>
+
+      <div class="sprint-cards-home mt-5 animate-on-scroll">
+        <div class="sprint-card-home">
+          <div class="sprint-icon">&#127919;</div>
+          <h4>Marketing IA</h4>
+          <p>4 semaines pour ma&icirc;triser l'IA en marketing</p>
+          <span class="sprint-price">800&ndash;1 500&euro;</span>
+        </div>
+        <div class="sprint-card-home">
+          <div class="sprint-icon">&#128176;</div>
+          <h4>Sales IA</h4>
+          <p>4 semaines pour int&eacute;grer l'IA dans votre process commercial</p>
+          <span class="sprint-price">800&ndash;1 500&euro;</span>
+        </div>
+        <div class="sprint-card-home">
+          <div class="sprint-icon">&#128269;</div>
+          <h4>Strat&eacute;gie IA</h4>
+          <p>4 semaines pour cr&eacute;er votre strat&eacute;gie IA</p>
+          <span class="sprint-price">800&ndash;1 500&euro;</span>
+        </div>
+      </div>
+
+      <p class="sprints-bridge animate-on-scroll">Pas s&ucirc;r&middot;e de vous engager sur 3 mois ? Commencez par un sprint de 4 semaines.</p>
+      <div class="text-center animate-on-scroll">
+        <a href="programmes/sprints.html" class="btn-primary">D&eacute;couvrir les sprints</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 7. ENTREPRISES / B2B ===== -->
+  <section class="b2b-section">
+    <div class="container">
+      <div class="section-header centered animate-on-scroll">
+        <h2>Vous &ecirc;tes une entreprise ?</h2>
+        <p class="section-subtitle centered">On accompagne vos &eacute;quipes de la prise de conscience au d&eacute;ploiement op&eacute;rationnel de l'IA.</p>
+      </div>
+
+      <div class="b2b-cards animate-on-scroll">
+        <div class="b2b-card">
+          <div class="b2b-icon">&#127891;</div>
+          <h4>Coaching &eacute;quipe</h4>
+          <p>Vos &eacute;quipes adoptent l'IA sur des cas concrets avec un ROI mesurable</p>
+        </div>
+        <div class="b2b-card">
+          <div class="b2b-icon">&#127919;</div>
+          <h4>Coaching dirigeant</h4>
+          <p>Accompagnement personnalis&eacute; C-level</p>
+        </div>
+        <div class="b2b-card">
+          <div class="b2b-icon">&#129302;</div>
+          <h4>Cr&eacute;ation d'agents IA</h4>
+          <p>Agents IA sur-mesure pour vos process</p>
+        </div>
+        <div class="b2b-card">
+          <div class="b2b-icon">&#128161;</div>
+          <h4>Audit IA</h4>
+          <p>Identifier les cas d'usage les plus pertinents pour votre entreprise</p>
+        </div>
+        <div class="b2b-card">
+          <div class="b2b-icon">&#127909;</div>
+          <h4>Films &amp; contenus IA</h4>
+          <p>Cr&eacute;ation de contenus augment&eacute;s par l'IA</p>
+        </div>
+        <div class="b2b-card">
+          <div class="b2b-icon">&#127878;</div>
+          <h4>&Eacute;v&eacute;nements IA</h4>
+          <p>Human x AI &middot; IA R&eacute;cr&eacute; &mdash; formats premium pour vos &eacute;quipes</p>
+        </div>
+      </div>
+
+      <div class="text-center animate-on-scroll">
+        <a href="contact.html" class="btn-primary">Prendre rendez-vous</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 8. TEMOIGNAGES (Google Reviews) ===== -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header centered animate-on-scroll">
+        <h2>Ce qu'ils en disent</h2>
+        <p class="section-subtitle centered">4.9&#9733; sur Google &middot; 38 avis</p>
+      </div>
+
+      <div class="testimonials-carousel animate-on-scroll">
+        <div class="testimonials-carousel-track">
+          <div class="testimonial-card">
+            <div style="color: #fbbf24; font-size: 14px; margin-bottom: 12px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="testimonial-quote">Excellente masterclass, &agrave; la fois claire, dynamique et tr&egrave;s concr&egrave;te. Les contenus sont pertinents, bien structur&eacute;s et directement applicables.</div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">AL</div>
+              <div class="testimonial-info">
+                <div class="name">Anne-Laure Laidet</div>
+                <div class="role">Via Google</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div style="color: #fbbf24; font-size: 14px; margin-bottom: 12px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="testimonial-quote">Enfin une formation pour appr&eacute;hender les outils IA qui sont vraiment utiles dans le quotidien d'un leader. Gagnez en efficacit&eacute;, en capacit&eacute; d'analyse, en cr&eacute;ativit&eacute;.</div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">CD</div>
+              <div class="testimonial-info">
+                <div class="name">Charlotte Delbes</div>
+                <div class="role">Via Google</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div style="color: #fbbf24; font-size: 14px; margin-bottom: 12px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="testimonial-quote">Un grand merci pour cette formation tr&egrave;s int&eacute;ressante, avec des applications et exemples concrets adapt&eacute;s &agrave; mes besoins, un must !</div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">CC</div>
+              <div class="testimonial-info">
+                <div class="name">Caroline Cornut</div>
+                <div class="role">Via Google</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div style="color: #fbbf24; font-size: 14px; margin-bottom: 12px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="testimonial-quote">Tr&egrave;s int&eacute;ressant ! On en apprend tous les jours sur l'IA, &ccedil;a &eacute;volue tellement vite ! Merci &agrave; &Eacute;lodie pour cette pr&eacute;sentation claire et concise.</div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">MD</div>
+              <div class="testimonial-info">
+                <div class="name">Martin Dixneuf</div>
+                <div class="role">Via Google</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div style="color: #fbbf24; font-size: 14px; margin-bottom: 12px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="testimonial-quote">Super claire, concise et permet de cerner les possibilit&eacute;s de l'IA. Animateurs impliqu&eacute;s. Je recommande.</div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">BT</div>
+              <div class="testimonial-info">
+                <div class="name">Belha Triks</div>
+                <div class="role">Local Guide Google</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div style="color: #fbbf24; font-size: 14px; margin-bottom: 12px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="testimonial-quote">Un &eacute;v&eacute;nement tr&egrave;s enrichissant. Une &eacute;quipe au top !</div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">RC</div>
+              <div class="testimonial-info">
+                <div class="name">Rapha&euml;lle Camus</div>
+                <div class="role">Via Google</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonials-carousel-nav">
+          <button class="carousel-btn testi-prev" aria-label="Pr&eacute;c&eacute;dent">&#8592;</button>
+          <div class="testimonials-dots"></div>
+          <button class="carousel-btn testi-next" aria-label="Suivant">&#8594;</button>
+        </div>
+      </div>
+
+      <div class="text-center mt-4 animate-on-scroll">
+        <a href="https://www.google.fr/maps/place/The+Ai+Leadership+Program/@19.432326,5.7855663,3z/data=!4m8!3m7!1s0x27e5b85e5d4e62e5:0xd03b438d8bbdf6e7!8m2!3d26.7903786!4d51.7279006!9m1!1b1!16s%2Fg%2F11ywjvw12j" class="btn-ghost" target="_blank" rel="noopener">Voir les 38 avis sur Google &#9733;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 9. MEDIA / YOUTUBE ===== -->
+  <section class="media-section">
+    <div class="container">
+      <div class="section-header centered animate-on-scroll">
+        <h2>Ils parlent de nous</h2>
+        <p class="section-subtitle centered">Retrouvez nos interventions, conf&eacute;rences et masterclass en vid&eacute;o</p>
+      </div>
+      <div class="media-carousel animate-on-scroll">
+        <div class="media-carousel-track">
+          <div class="media-carousel-item">
+            <div class="media-video">
+              <iframe src="https://www.youtube.com/embed/uPwhBiGrqzE" title="AI x Leaders — Vid&eacute;o 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="media-carousel-item">
+            <div class="media-video">
+              <iframe src="https://www.youtube.com/embed/P5acItHlmNQ?start=613" title="AI x Leaders — Vid&eacute;o 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="media-carousel-item">
+            <div class="media-video">
+              <iframe src="https://www.youtube.com/embed/DYwtvQz6xY4?start=513" title="AI x Leaders — Vid&eacute;o 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="media-carousel-item">
+            <div class="media-video">
+              <iframe src="https://www.youtube.com/embed/ZQbJGyRRR-c?start=251" title="AI x Leaders — Vid&eacute;o 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+        <div class="media-carousel-nav">
+          <button class="carousel-btn media-prev" aria-label="Pr&eacute;c&eacute;dent">&#8592;</button>
+          <div class="media-dots"></div>
+          <button class="carousel-btn media-next" aria-label="Suivant">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 10. NOS ÉVÉNEMENTS ===== -->
+  <section class="events-section">
+    <div class="container">
+      <div class="section-header centered animate-on-scroll">
+        <h2>Nos &eacute;v&eacute;nements</h2>
+        <p class="section-subtitle centered">Des formats uniques pour vivre l'IA autrement</p>
+      </div>
+
+      <div class="events-grid animate-on-scroll">
+        <!-- Human x AI -->
+        <a href="https://youtu.be/vwds7FgePUU" class="event-card" target="_blank" rel="noopener">
+          <div class="event-image">
+            <img src="https://img.youtube.com/vi/vwds7FgePUU/hqdefault.jpg" alt="Human x AI" loading="lazy">
+          </div>
+          <div class="event-card-body">
+            <span class="tag tag-pink">&Eacute;V&Eacute;NEMENT PHARE</span>
+            <h3>Human x AI</h3>
+            <p class="event-description">
+              Une soir&eacute;e immersive pour explorer la relation entre l'Humain et l'Intelligence Artificielle. Conf&eacute;rences, d&eacute;mos live et networking premium.
+            </p>
+            <div class="event-format">
+              <span class="event-format-label">Format</span>
+              <span class="event-format-value">Soir&eacute;e &middot; 100&ndash;300 personnes &middot; Sur invitation</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- IA Récré -->
+        <a href="https://youtu.be/HFyPByBedJ8" class="event-card" target="_blank" rel="noopener">
+          <div class="event-image">
+            <img src="https://img.youtube.com/vi/HFyPByBedJ8/maxresdefault.jpg" alt="IA R&eacute;cr&eacute;" loading="lazy">
+          </div>
+          <div class="event-card-body">
+            <span class="tag tag-new">FORMAT D&Eacute;CAL&Eacute;</span>
+            <h3>IA R&eacute;cr&eacute;</h3>
+            <p class="event-description">
+              Un format d&eacute;cal&eacute; et ludique pour d&eacute;couvrir l'IA sans prise de t&ecirc;te. Ateliers cr&eacute;atifs, d&eacute;fis et exp&eacute;riences surprenantes.
+            </p>
+            <div class="event-format">
+              <span class="event-format-label">Format</span>
+              <span class="event-format-value">Atelier &middot; 20&ndash;50 personnes &middot; Ouvert &agrave; tous</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="text-center animate-on-scroll" style="margin-top: 48px;">
+        <a href="contact.html" class="btn-primary">Organiser un &eacute;v&eacute;nement pour votre entreprise</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 11. AI x LEADERS COMMUNAUTÉ ===== -->
+  <section class="asknsolve-section">
+    <div class="container animate-on-scroll">
+      <h2>Rejoignez AI &times; Leaders</h2>
+      <p class="subtitle">Une newsletter et une communaut&eacute; d&eacute;di&eacute;es aux dirigeants qui s'int&eacute;ressent &agrave; l'IA</p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="#newsletter-form" class="btn-primary">S'inscrire &agrave; la newsletter</a>
+        <a href="#" class="btn-ghost">Rejoindre la communaut&eacute;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="header-logo">AI<span class="x">&times;</span>Leaders</a>
+          <p>Par BCF Group. Nous rendons les dirigeants autonomes face &agrave; l'IA et les accompagnons pour transformer leur entreprise.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Programmes</h4>
+          <a href="programmes/ai-leadership.html">AI Leadership Program</a>
+          <a href="programmes/ai-governance.html">AI Governance Program</a>
+          <a href="programmes/sprints.html">Sprint AI Th&eacute;matiques</a>
+        </div>
+        <div class="footer-col">
+          <h4>Entreprises</h4>
+          <a href="entreprises.html">Prestations B2B</a>
+          <a href="contact.html">Contact</a>
+          <a href="a-propos.html">&Agrave; propos</a>
+        </div>
+        <div class="footer-col">
+          <h4>Suivez-nous</h4>
+          <a href="#">LinkedIn Elodie</a>
+          <a href="#">LinkedIn Nash</a>
+          <a href="#">YouTube</a>
+          <a href="#">Newsletter</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 AI x Leaders &mdash; Un &eacute;cosyst&egrave;me by Lightmeup &middot; Certifi&eacute; Qualiopi</p>
+        <div class="footer-legal">
+          <a href="#">Mentions l&eacute;gales</a>
+          <a href="#">CGV</a>
+          <a href="#">Politique de confidentialit&eacute;</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="js/main.js"></script>
+  <script src="js/carousel.js"></script>
+  <script src="js/forms.js"></script>
+  <script>
+    // Masterclass gratuites carousel
+    (function() {
+      var track = document.querySelector('.masterclass-gratuites-track');
+      var cards = track ? track.querySelectorAll('.carousel-card') : [];
+      var prevBtn = document.querySelector('.mc-prev');
+      var nextBtn = document.querySelector('.mc-next');
+      var dotsContainer = document.querySelector('.masterclass-gratuites-dots');
+
+      if (!track || !cards.length) return;
+
+      // 3 cards per page on desktop, 8 cards total → 3 pages
+      var cardsPerPage = 3;
+      var totalPages = Math.ceil(cards.length / cardsPerPage);
+
+      for (var i = 0; i < totalPages; i++) {
+        var dot = document.createElement('button');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Page ' + (i + 1));
+        (function(idx) {
+          dot.addEventListener('click', function() { scrollToPage(idx); });
+        })(i);
+        dotsContainer.appendChild(dot);
+      }
+
+      function scrollToPage(pageIndex) {
+        var cardIndex = pageIndex * cardsPerPage;
+        if (cardIndex >= cards.length) cardIndex = 0;
+        var card = cards[cardIndex];
+        if (card) {
+          track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+        }
+      }
+
+      function updateDots() {
+        var scrollLeft = track.scrollLeft;
+        var cardWidth = cards[0].offsetWidth + 24;
+        var currentPage = Math.round(scrollLeft / (cardWidth * cardsPerPage));
+        if (currentPage >= totalPages) currentPage = totalPages - 1;
+        var dots = dotsContainer.querySelectorAll('.dot');
+        dots.forEach(function(d, i) {
+          d.classList.toggle('active', i === currentPage);
+        });
+      }
+
+      prevBtn.addEventListener('click', function() {
+        var cardWidth = cards[0].offsetWidth + 24;
+        track.scrollBy({ left: -(cardWidth * cardsPerPage), behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', function() {
+        var cardWidth = cards[0].offsetWidth + 24;
+        track.scrollBy({ left: cardWidth * cardsPerPage, behavior: 'smooth' });
+      });
+
+      track.addEventListener('scroll', updateDots);
+    })();
+
+    // Programmes slider
+    (function() {
+      var track = document.querySelector('.programmes-slider-track');
+      var slides = document.querySelectorAll('.programme-slide');
+      var prevBtn = document.querySelector('.prog-prev');
+      var nextBtn = document.querySelector('.prog-next');
+      var dotsBox = document.querySelector('.programmes-dots');
+      if (!track || !slides.length) return;
+
+      var current = 0;
+      var total = slides.length;
+
+      // Create dots
+      for (var i = 0; i < total; i++) {
+        var dot = document.createElement('button');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Programme ' + (i + 1));
+        (function(idx) {
+          dot.addEventListener('click', function() { goTo(idx); });
+        })(i);
+        dotsBox.appendChild(dot);
+      }
+
+      function goTo(index) {
+        current = index;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        var dots = dotsBox.querySelectorAll('.dot');
+        dots.forEach(function(d, j) { d.classList.toggle('active', j === current); });
+      }
+
+      prevBtn.addEventListener('click', function() {
+        goTo(current <= 0 ? total - 1 : current - 1);
+      });
+
+      nextBtn.addEventListener('click', function() {
+        goTo(current >= total - 1 ? 0 : current + 1);
+      });
+    })();
+
+    // Testimonials carousel
+    (function() {
+      const track = document.querySelector('.testimonials-carousel-track');
+      const cards = document.querySelectorAll('.testimonials-carousel-track .testimonial-card');
+      const prevBtn = document.querySelector('.testi-prev');
+      const nextBtn = document.querySelector('.testi-next');
+      const dotsContainer = document.querySelector('.testimonials-dots');
+
+      if (!track || !cards.length) return;
+
+      // On desktop, show 2 cards at a time → 3 "pages" for 6 cards
+      var totalDots = Math.ceil(cards.length / 2);
+      for (var i = 0; i < totalDots; i++) {
+        var dot = document.createElement('button');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Avis ' + (i + 1));
+        (function(idx) {
+          dot.addEventListener('click', function() { scrollToPage(idx); });
+        })(i);
+        dotsContainer.appendChild(dot);
+      }
+
+      function scrollToPage(pageIndex) {
+        var cardIndex = pageIndex * 2;
+        if (cardIndex >= cards.length) cardIndex = 0;
+        var card = cards[cardIndex];
+        if (card) {
+          track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+        }
+      }
+
+      function updateDots() {
+        var scrollLeft = track.scrollLeft;
+        var cardWidth = cards[0].offsetWidth + 24;
+        var currentPage = Math.round(scrollLeft / (cardWidth * 2));
+        var dots = dotsContainer.querySelectorAll('.dot');
+        dots.forEach(function(d, i) {
+          d.classList.toggle('active', i === currentPage);
+        });
+      }
+
+      prevBtn.addEventListener('click', function() {
+        var cardWidth = cards[0].offsetWidth + 24;
+        track.scrollBy({ left: -(cardWidth * 2), behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', function() {
+        var cardWidth = cards[0].offsetWidth + 24;
+        track.scrollBy({ left: cardWidth * 2, behavior: 'smooth' });
+      });
+
+      track.addEventListener('scroll', updateDots);
+    })();
+
+    // Media carousel
+    (function() {
+      const track = document.querySelector('.media-carousel-track');
+      const items = document.querySelectorAll('.media-carousel-item');
+      const prevBtn = document.querySelector('.media-prev');
+      const nextBtn = document.querySelector('.media-next');
+      const dotsContainer = document.querySelector('.media-dots');
+
+      if (!track || !items.length) return;
+
+      // Create dots
+      items.forEach(function(_, i) {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Vid\u00e9o ' + (i + 1));
+        dot.addEventListener('click', function() { scrollToItem(i); });
+        dotsContainer.appendChild(dot);
+      });
+
+      function scrollToItem(index) {
+        const item = items[index];
+        if (item) {
+          track.scrollTo({ left: item.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+        }
+      }
+
+      function updateDots() {
+        var scrollLeft = track.scrollLeft;
+        var itemWidth = items[0].offsetWidth + 24; // gap
+        var current = Math.round(scrollLeft / itemWidth);
+        var dots = dotsContainer.querySelectorAll('.dot');
+        dots.forEach(function(d, i) {
+          d.classList.toggle('active', i === current);
+        });
+      }
+
+      prevBtn.addEventListener('click', function() {
+        var itemWidth = items[0].offsetWidth + 24;
+        track.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', function() {
+        var itemWidth = items[0].offsetWidth + 24;
+        track.scrollBy({ left: itemWidth, behavior: 'smooth' });
+      });
+
+      track.addEventListener('scroll', updateDots);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+:root {
+  /* Couleurs principales — Dark mode luxe */
+  --bg-primary: #191B1F;
+  --bg-pure-black: #000000;
+  --bg-card: #2B2E33;
+  --pink-primary: #FF48AA;
+  --pink-hover: #FF5CB8;
+  --pink-bg: #FF48AA;
+
+  /* Texte */
+  --text-primary: #FFFFFF;
+  --text-secondary: #E4E7EB;
+  --text-muted: #9CA3AF;
+  --text-on-pink: #FFFFFF;
+
+  /* Legacy aliases (pour compatibilité) */
+  --rose-primary: #FF48AA;
+  --rose-light: rgba(255, 72, 170, 0.08);
+  --rose-medium: rgba(255, 72, 170, 0.3);
+  --navy: #FFFFFF;
+  --navy-dark: #000000;
+  --white: #FFFFFF;
+  --off-white: #191B1F;
+  --gray-100: #2B2E33;
+  --gray-200: rgba(255, 255, 255, 0.1);
+  --gray-400: #9CA3AF;
+  --gray-600: #E4E7EB;
+  --gray-800: #FFFFFF;
+  --black: #000000;
+
+  /* Fonctionnels */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+
+  /* Ombres (subtiles sur fond noir) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
+  --shadow-rose: 0 4px 20px rgba(255, 72, 170, 0.25);
+  --shadow-pink: 0 4px 20px rgba(255, 72, 170, 0.25);
+  --shadow-glow: 0 0 40px rgba(255, 72, 170, 0.15);
+
+  /* Espacements */
+  --section-padding: 100px 0;
+  --container-width: 1200px;
+  --container-padding: 0 24px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.6s ease;
+
+  /* Typographie */
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Tailles */
+  --text-hero: clamp(2.5rem, 5vw, 4rem);
+  --text-h1: clamp(2rem, 4vw, 3rem);
+  --text-h2: clamp(1.5rem, 3vw, 2rem);
+  --text-h3: clamp(1.2rem, 2vw, 1.5rem);
+  --text-body: 1.0625rem;
+  --text-body-lg: 1.1875rem;
+  --text-small: 0.875rem;
+  --text-tag: 0.75rem;
+
+  /* Line heights */
+  --leading-tight: 1.2;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.8;
+}
