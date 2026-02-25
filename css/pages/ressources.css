@@ -231,6 +231,16 @@
   object-fit: cover;
 }
 
+.linkedin-avatar--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 72, 170, 0.15);
+  color: var(--pink-primary);
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
 .linkedin-stats {
   font-weight: 600;
   font-size: var(--text-small);
