@@ -23,6 +23,61 @@
   }
 }
 
+/* ========== ASK & SOLVE BLOCK ========== */
+
+.ask-solve-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .ask-solve-block {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ask-solve-block-text h2 {
+  text-align: left;
+}
+
+.ask-solve-block-text p {
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 24px;
+}
+
+.ask-solve-block-text .social-proof {
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  font-weight: 600;
+  margin-top: 16px;
+}
+
+.ask-solve-block-visual {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ask-solve-block-visual .icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+
+.ask-solve-block-visual p {
+  font-size: var(--text-small);
+  color: var(--text-muted);
+}
+
 /* ========== SECTIONS ========== */
 
 .ressources-section {
@@ -110,6 +165,49 @@
   object-fit: cover;
 }
 
+/* ========== NEWSLETTER PREVIEW ========== */
+
+.newsletter-preview {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.preview-article {
+  display: block;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.preview-article:hover {
+  border-color: rgba(255, 72, 170, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.preview-date {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--pink-primary);
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.preview-title {
+  display: block;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
 /* ========== LINKEDIN CARD ========== */
 
 .ressource-card--linkedin {
@@ -117,6 +215,24 @@
   text-decoration: none;
   color: inherit;
   transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.linkedin-stats {
+  font-weight: 600;
+  font-size: var(--text-small);
+  color: var(--text-muted) !important;
+  margin-bottom: 8px !important;
+}
+
+.linkedin-latest {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--text-secondary) !important;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border-left: 3px solid var(--pink-primary);
+  margin-bottom: 16px !important;
 }
 
 /* ========== PRICING CARDS ========== */
