@@ -108,11 +108,48 @@ export async function injectContent(request, response, env) {
   const content = { ...(sharedContent || {}), ...(pageContent || {}) };
 
   // Apply HTMLRewriter transformations
-  return new HTMLRewriter()
+  const transformed = new HTMLRewriter()
     .on('[data-cms]', new CmsTextHandler(content))
     .on('[data-cms-href]', new CmsLinkHandler(content))
     .on('[data-cms-src]', new CmsImageHandler(content))
     .on('[data-cms-alt]', new CmsImageHandler(content))
     .on('[data-cms-content]', new CmsMetaHandler(content))
     .transform(response);
+
+  // Override cache headers so CMS changes appear immediately
+  const newHeaders = new Headers(transformed.headers);
+  newHeaders.set('Cache-Control', 'no-cache, must-revalidate');
+  newHeaders.delete('ETag');
+  newHeaders.set('X-CMS-Injected', 'true');
+
+  return new Response(transformed.body, {
+    status: transformed.status,
+    statusText: transformed.statusText,
+    headers: newHeaders,
+  });
+}
+
+/**
+ * Debug endpoint: GET /api/debug/ssr?page=index
+ * Returns KV content for a page to verify data is stored correctly
+ */
+export async function debugSSR(request, env) {
+  const url = new URL(request.url);
+  const pageId = url.searchParams.get('page') || 'index';
+
+  const [pageContent, sharedContent] = await Promise.all([
+    env.CMS_KV.get(`content:${pageId}`, 'json'),
+    env.CMS_KV.get('content:_shared', 'json'),
+  ]);
+
+  return new Response(JSON.stringify({
+    pageId,
+    hasPageContent: !!pageContent,
+    hasSharedContent: !!sharedContent,
+    pageContentKeys: pageContent ? Object.keys(pageContent) : [],
+    sharedContentKeys: sharedContent ? Object.keys(sharedContent) : [],
+    pageContent,
+  }, null, 2), {
+    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+  });
 }

@@ -14,7 +14,7 @@
 import { handleLogin, handleHashPassword, withAuth, CORS_HEADERS, jsonResponse } from './lib/auth.js';
 import { handleContentAPI } from './lib/content-api.js';
 import { handleImageAPI, serveImage } from './lib/image-api.js';
-import { injectContent } from './lib/ssr.js';
+import { injectContent, debugSSR } from './lib/ssr.js';
 
 // --- RSS Feed proxy (preservé de l'existant) ---
 
@@ -63,6 +63,26 @@ async function handleRSS(request, env) {
   }
 }
 
+/**
+ * Resolve URL path to the actual asset path
+ * Handles: / → /index.html, /page → /page.html, /dir/ → /dir/index.html
+ * Since html_handling is "none", we need to do this manually
+ */
+function resolveAssetPath(pathname) {
+  // Already has a file extension → return as-is
+  if (/\.\w+$/.test(pathname)) {
+    return pathname;
+  }
+
+  // Root or trailing slash → append index.html
+  if (pathname === '/' || pathname.endsWith('/')) {
+    return pathname + 'index.html';
+  }
+
+  // No extension → try adding .html
+  return pathname + '.html';
+}
+
 // --- Main Worker ---
 
 export default {
@@ -90,6 +110,11 @@ export default {
     // Password hash utility (dev/setup only)
     if (path === '/api/auth/hash') {
       return handleHashPassword(request, env);
+    }
+
+    // Debug SSR (temporary, for testing)
+    if (path === '/api/debug/ssr') {
+      return debugSSR(request, env);
     }
 
     // Content API (auth required)
@@ -123,17 +148,38 @@ export default {
     }
 
     // --- Static assets with SSR content injection ---
-    const response = await env.ASSETS.fetch(request);
+    // Resolve the path (/ → /index.html, /page → /page.html)
+    const resolvedPath = resolveAssetPath(path);
+    const assetUrl = new URL(resolvedPath, url.origin);
+    const assetRequest = new Request(assetUrl.toString(), request);
+    const response = await env.ASSETS.fetch(assetRequest);
 
-    // Only inject content into HTML pages (not CSS, JS, images, etc.)
+    // If asset not found with .html, try original path (for CSS, JS, images, etc.)
+    if (response.status === 404 && resolvedPath !== path) {
+      const originalResponse = await env.ASSETS.fetch(request);
+      if (originalResponse.status !== 404) {
+        return originalResponse;
+      }
+      // Both failed — return original 404
+      return response;
+    }
+
+    // Only inject CMS content into HTML pages (not CSS, JS, images, etc.)
     const contentType = response.headers.get('Content-Type') || '';
     if (contentType.includes('text/html') && !path.startsWith('/admin')) {
       try {
-        return await injectContent(request, response, env);
+        const injected = await injectContent(request, response, env);
+        return injected;
       } catch (err) {
-        // If SSR fails, serve original HTML
-        console.error('SSR injection error:', err);
-        return env.ASSETS.fetch(request);
+        // If SSR fails, return error details as a header + serve original HTML
+        console.error('SSR injection error:', err.message, err.stack);
+        const fallback = await env.ASSETS.fetch(assetRequest);
+        const fallbackHeaders = new Headers(fallback.headers);
+        fallbackHeaders.set('X-SSR-Error', err.message || 'unknown');
+        return new Response(fallback.body, {
+          status: fallback.status,
+          headers: fallbackHeaders,
+        });
       }
     }
 

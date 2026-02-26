@@ -93,25 +93,25 @@
   <section class="included section--offwhite">
     <div class="container">
       <div class="section-header centered">
-        <h2>Ce qui est inclus</h2>
+        <h2 data-cms="includes.title">Ce qui est inclus</h2>
       </div>
 
       <div class="included-grid">
         <div class="included-item">
-          <span class="included-icon">&bigstar;</span>
-          <span>Masterclass IA live chaque mois</span>
+          <span class="included-icon" data-cms="includes.items.0.icon">&bigstar;</span>
+          <span data-cms="includes.items.0.title">Masterclass IA live chaque mois</span>
         </div>
         <div class="included-item">
-          <span class="included-icon">&bigstar;</span>
-          <span>Acc&egrave;s &agrave; la communaut&eacute; Ask &amp; Solve</span>
+          <span class="included-icon" data-cms="includes.items.1.icon">&bigstar;</span>
+          <span data-cms="includes.items.1.title">Acc&egrave;s &agrave; la communaut&eacute; Ask &amp; Solve</span>
         </div>
         <div class="included-item">
-          <span class="included-icon">&bigstar;</span>
-          <span>Invitations aux masterclass mindset gratuites</span>
+          <span class="included-icon" data-cms="includes.items.2.icon">&bigstar;</span>
+          <span data-cms="includes.items.2.title">Invitations aux masterclass mindset gratuites</span>
         </div>
         <div class="included-item">
-          <span class="included-icon">&bigstar;</span>
-          <span>Replays des masterclass pass&eacute;es</span>
+          <span class="included-icon" data-cms="includes.items.3.icon">&bigstar;</span>
+          <span data-cms="includes.items.3.title">Replays des masterclass pass&eacute;es</span>
         </div>
       </div>
 
@@ -125,57 +125,57 @@
   <section class="pricing">
     <div class="container">
       <div class="section-header centered">
-        <h2>Choisissez votre formule</h2>
+        <h2 data-cms="pricing.title">Choisissez votre formule</h2>
       </div>
 
       <div class="pricing-grid" style="grid-template-columns: 1fr; max-width: 900px;">
         <!-- Unit -->
         <div class="pricing-card" style="text-align: center;">
-          <h3 class="pricing-title">&Agrave; l'unit&eacute;</h3>
+          <h3 class="pricing-title" data-cms="pricing.unit.title">&Agrave; l'unit&eacute;</h3>
           <div class="pricing-price">
             <span class="pricing-amount" data-cms="pricing.unit">80&euro;</span>
             <span class="pricing-period">/masterclass</span>
           </div>
-          <ul class="pricing-features">
+          <ul class="pricing-features" data-cms="pricing.unit.features">
             <li>1 masterclass IA live</li>
             <li>Id&eacute;al pour tester</li>
             <li>Sans engagement</li>
           </ul>
-          <button id="btn-single" class="btn-secondary" style="width: 100%;">Acheter cette masterclass</button>
+          <button id="btn-single" class="btn-secondary" style="width: 100%;" data-cms="pricing.unit.cta">Acheter cette masterclass</button>
         </div>
 
         <!-- Mensuel -->
         <div class="pricing-card" style="text-align: center;">
-          <h3 class="pricing-title">Mensuel</h3>
+          <h3 class="pricing-title" data-cms="pricing.monthly.title">Mensuel</h3>
           <div class="pricing-price">
             <span class="pricing-amount" data-cms="pricing.monthly">50&euro;</span>
             <span class="pricing-period">/mois</span>
           </div>
-          <ul class="pricing-features">
+          <ul class="pricing-features" data-cms="pricing.monthly.features">
             <li>Toutes les masterclass IA live</li>
             <li>Communaut&eacute; Ask &amp; Solve</li>
             <li>Masterclass mindset</li>
             <li>R&eacute;siliation &agrave; tout moment</li>
           </ul>
-          <button id="btn-monthly" class="btn-primary" style="width: 100%;">S'abonner : 50&euro;/mois</button>
+          <button id="btn-monthly" class="btn-primary" style="width: 100%;" data-cms="pricing.monthly.cta">S'abonner : 50&euro;/mois</button>
         </div>
 
         <!-- Annuel (featured) -->
         <div class="pricing-card pricing-card--featured" style="text-align: center; position: relative;">
-          <div class="pricing-badge">Meilleur rapport qualit&eacute;/prix</div>
-          <h3 class="pricing-title">Annuel</h3>
+          <div class="pricing-badge" data-cms="pricing.annual.badge">Meilleur rapport qualit&eacute;/prix</div>
+          <h3 class="pricing-title" data-cms="pricing.annual.title">Annuel</h3>
           <div class="pricing-price">
             <span class="pricing-amount" data-cms="pricing.annual">500&euro;</span>
             <span class="pricing-period">/an (2 mois offerts)</span>
           </div>
-          <ul class="pricing-features">
+          <ul class="pricing-features" data-cms="pricing.annual.features">
             <li>Toutes les masterclass IA live</li>
             <li>Communaut&eacute; Ask &amp; Solve</li>
             <li>Masterclass mindset</li>
             <li>2 mois offerts</li>
             <li>Acc&egrave;s prioritaire aux &eacute;v&eacute;nements</li>
           </ul>
-          <button id="btn-yearly" class="btn-primary" style="width: 100%;">S'abonner : 500&euro;/an</button>
+          <button id="btn-yearly" class="btn-primary" style="width: 100%;" data-cms="pricing.annual.cta">S'abonner : 500&euro;/an</button>
         </div>
       </div>
     </div>
@@ -185,40 +185,40 @@
   <section class="upcoming section--offwhite">
     <div class="container">
       <div class="section-header centered">
-        <h2>Prochaines masterclass</h2>
+        <h2 data-cms="upcoming.title">Prochaines masterclass</h2>
       </div>
 
       <div class="upcoming-list">
         <div class="upcoming-item">
-          <div class="upcoming-date">
+          <div class="upcoming-date" data-cms="upcoming.items.0.date">
             <span class="upcoming-day">15</span>
             <span class="upcoming-month">MAR</span>
           </div>
           <div class="upcoming-info">
-            <h3 class="upcoming-title">IA et productivit&eacute; : les nouveaux workflows</h3>
-            <p class="upcoming-speaker">Avec Elodie Hughes</p>
+            <h3 class="upcoming-title" data-cms="upcoming.items.0.title">IA et productivit&eacute; : les nouveaux workflows</h3>
+            <p class="upcoming-speaker" data-cms="upcoming.items.0.speaker">Avec Elodie Hughes</p>
           </div>
         </div>
 
         <div class="upcoming-item">
-          <div class="upcoming-date">
+          <div class="upcoming-date" data-cms="upcoming.items.1.date">
             <span class="upcoming-day">12</span>
             <span class="upcoming-month">AVR</span>
           </div>
           <div class="upcoming-info">
-            <h3 class="upcoming-title">Agents IA : comprendre et d&eacute;ployer</h3>
-            <p class="upcoming-speaker">Avec Nash Hughes</p>
+            <h3 class="upcoming-title" data-cms="upcoming.items.1.title">Agents IA : comprendre et d&eacute;ployer</h3>
+            <p class="upcoming-speaker" data-cms="upcoming.items.1.speaker">Avec Nash Hughes</p>
           </div>
         </div>
 
         <div class="upcoming-item">
-          <div class="upcoming-date">
+          <div class="upcoming-date" data-cms="upcoming.items.2.date">
             <span class="upcoming-day">17</span>
             <span class="upcoming-month">MAI</span>
           </div>
           <div class="upcoming-info">
-            <h3 class="upcoming-title">IA g&eacute;n&eacute;rative : &eacute;tat de l'art 2026</h3>
-            <p class="upcoming-speaker">Intervenant &agrave; confirmer</p>
+            <h3 class="upcoming-title" data-cms="upcoming.items.2.title">IA g&eacute;n&eacute;rative : &eacute;tat de l'art 2026</h3>
+            <p class="upcoming-speaker" data-cms="upcoming.items.2.speaker">Intervenant &agrave; confirmer</p>
           </div>
         </div>
       </div>
@@ -229,65 +229,65 @@
   <section class="faq">
     <div class="container">
       <div class="section-header centered">
-        <h2>Questions fr&eacute;quentes</h2>
+        <h2 data-cms="faq.title">Questions fr&eacute;quentes</h2>
       </div>
 
       <div class="accordion">
         <div class="accordion-item">
-          <button class="accordion-trigger" aria-expanded="false">
+          <button class="accordion-trigger" aria-expanded="false" data-cms="faq.items.0.question">
             Quelle est la fr&eacute;quence des masterclass ?
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <div class="accordion-body">
+            <div class="accordion-body" data-cms="faq.items.0.answer">
               Une masterclass IA par mois minimum, plus des masterclass mindset gratuites r&eacute;guli&egrave;res.
             </div>
           </div>
         </div>
 
         <div class="accordion-item">
-          <button class="accordion-trigger" aria-expanded="false">
+          <button class="accordion-trigger" aria-expanded="false" data-cms="faq.items.1.question">
             Quel est le format ?
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <div class="accordion-body">
+            <div class="accordion-body" data-cms="faq.items.1.answer">
               Sessions live de 60 &agrave; 90 minutes. Questions-r&eacute;ponses en direct. Pas de replay pour les non-abonn&eacute;s.
             </div>
           </div>
         </div>
 
         <div class="accordion-item">
-          <button class="accordion-trigger" aria-expanded="false">
+          <button class="accordion-trigger" aria-expanded="false" data-cms="faq.items.2.question">
             Comment acc&eacute;der aux masterclass ?
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <div class="accordion-body">
+            <div class="accordion-body" data-cms="faq.items.2.answer">
               Apr&egrave;s inscription, vous recevez un lien d'acc&egrave;s par email avant chaque session.
             </div>
           </div>
         </div>
 
         <div class="accordion-item">
-          <button class="accordion-trigger" aria-expanded="false">
+          <button class="accordion-trigger" aria-expanded="false" data-cms="faq.items.3.question">
             Puis-je annuler mon abonnement ?
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <div class="accordion-body">
+            <div class="accordion-body" data-cms="faq.items.3.answer">
               Oui, &agrave; tout moment pour l'abonnement mensuel. L'abonnement annuel est engageant sur 12 mois.
             </div>
           </div>
         </div>
 
         <div class="accordion-item">
-          <button class="accordion-trigger" aria-expanded="false">
+          <button class="accordion-trigger" aria-expanded="false" data-cms="faq.items.4.question">
             Que se passe-t-il si je suis en bootcamp ?
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <div class="accordion-body">
+            <div class="accordion-body" data-cms="faq.items.4.answer">
               L'abonnement masterclass est inclus pendant 1 an avec tout bootcamp. Pas besoin de souscrire s&eacute;par&eacute;ment.
             </div>
           </div>

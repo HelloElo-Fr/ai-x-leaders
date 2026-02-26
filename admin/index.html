@@ -610,6 +610,31 @@
       color: var(--text-primary);
       border-color: var(--text-muted);
     }
+
+    /* WYSIWYG Rich Editor (contenteditable) */
+    .rich-editor {
+      min-height: 80px;
+      max-height: 400px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      line-height: 1.6;
+      padding: 10px 14px;
+    }
+    .rich-editor:empty::before {
+      content: attr(data-placeholder);
+      color: var(--text-muted);
+      opacity: 0.5;
+    }
+    .rich-editor:focus {
+      border-color: var(--pink);
+      outline: none;
+    }
+    .rich-editor b, .rich-editor strong { font-weight: 700; }
+    .rich-editor i, .rich-editor em { font-style: italic; }
+    .rich-editor a { color: var(--pink); text-decoration: underline; }
+    .rich-editor ul, .rich-editor ol { padding-left: 20px; margin: 4px 0; }
+    .rich-editor br { display: block; content: ""; margin: 2px 0; }
   </style>
 </head>
 <body>
@@ -661,6 +686,8 @@
           fields: [
             { key: 'masterclass.title', label: 'Titre section', type: 'text' },
             { key: 'masterclass.subtitle', label: 'Sous-titre', type: 'text' },
+            { key: 'masterclass.cta.text', label: 'Bouton CTA', type: 'text' },
+            { key: 'masterclass.cta.href', label: 'Lien CTA', type: 'url' },
           ],
           list: {
             key: 'masterclass.items',
@@ -978,10 +1005,12 @@
           id: 'hero',
           title: 'Hero',
           fields: [
+            { key: 'hero.label', label: 'Label (petit texte)', type: 'text' },
             { key: 'hero.title', label: 'Titre', type: 'html' },
             { key: 'hero.subtitle', label: 'Sous-titre', type: 'html' },
             { key: 'hero.cta.text', label: 'Bouton CTA - texte', type: 'text' },
             { key: 'hero.cta.href', label: 'Bouton CTA - lien', type: 'url' },
+            { key: 'hero.socialProof', label: 'Social proof', type: 'text' },
           ]
         },
         {
@@ -994,26 +1023,152 @@
           ]
         },
         {
-          id: 'programme',
-          title: 'Programme / Curriculum',
+          id: 'intro',
+          title: 'Section introduction',
           fields: [
-            { key: 'programme.title', label: 'Titre section', type: 'text' },
-            { key: 'programme.subtitle', label: 'Sous-titre', type: 'html' },
+            { key: 'intro.title', label: 'Titre', type: 'text' },
+            { key: 'intro.content', label: 'Contenu', type: 'html' },
           ]
         },
         {
-          id: 'pricing',
-          title: 'Tarifs',
+          id: 'video',
+          title: 'Section video',
           fields: [
-            { key: 'pricing.individual.price', label: 'Prix individuel', type: 'text' },
-            { key: 'pricing.individual.label', label: 'Label individuel', type: 'text' },
-            { key: 'pricing.enterprise.price', label: 'Prix entreprise', type: 'text' },
-            { key: 'pricing.enterprise.label', label: 'Label entreprise', type: 'text' },
+            { key: 'video.title', label: 'Titre', type: 'text' },
+            { key: 'video.url', label: 'URL YouTube embed', type: 'url' },
+            { key: 'video.checklist', label: 'Liste de la video', type: 'html' },
           ]
+        },
+        {
+          id: 'pillars',
+          title: 'Pourquoi ca fonctionne (3 piliers)',
+          fields: [
+            { key: 'pillars.title', label: 'Titre section', type: 'text' },
+            { key: 'pillars.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
+          list: {
+            key: 'pillars.items',
+            label: 'Pilier',
+            fields: [
+              { key: 'icon', label: 'Icone (emoji)', type: 'text' },
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+            ]
+          }
+        },
+        {
+          id: 'problem',
+          title: 'Probleme / Solution',
+          fields: [
+            { key: 'problem.title', label: 'Titre section', type: 'text' },
+            { key: 'problem.heading', label: 'Titre probleme', type: 'text' },
+            { key: 'problem.content', label: 'Contenu probleme', type: 'html' },
+            { key: 'solution.heading', label: 'Titre solution', type: 'text' },
+            { key: 'solution.content', label: 'Contenu solution', type: 'html' },
+            { key: 'solution.result', label: 'Resultat (badge)', type: 'text' },
+          ]
+        },
+        {
+          id: 'method',
+          title: 'Methode (4 etapes)',
+          fields: [
+            { key: 'method.title', label: 'Titre section', type: 'text' },
+            { key: 'method.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
+          list: {
+            key: 'method.items',
+            label: 'Etape',
+            fields: [
+              { key: 'num', label: 'Numero', type: 'text' },
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+            ]
+          }
+        },
+        {
+          id: 'programme',
+          title: 'Parcours (4 phases)',
+          fields: [
+            { key: 'programme.title', label: 'Titre section', type: 'text' },
+            { key: 'programme.subtitle', label: 'Sous-titre', type: 'html' },
+          ],
+          list: {
+            key: 'programme.phases',
+            label: 'Phase',
+            fields: [
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+              { key: 'icon', label: 'Icone (emoji)', type: 'text' },
+            ]
+          }
+        },
+        {
+          id: 'diff',
+          title: 'Pourquoi ca marche (differenciateurs)',
+          fields: [
+            { key: 'diff.title', label: 'Titre section', type: 'text' },
+            { key: 'diff.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
+          list: {
+            key: 'diff.items',
+            label: 'Point',
+            fields: [
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+            ]
+          }
+        },
+        {
+          id: 'target',
+          title: 'Pour qui / Pas pour qui',
+          fields: [
+            { key: 'target.not.title', label: 'Titre "pas pour toi"', type: 'text' },
+            { key: 'target.not.content', label: 'Contenu', type: 'html' },
+            { key: 'target.yes.title', label: 'Titre "fait pour toi"', type: 'text' },
+            { key: 'target.yes.content', label: 'Contenu', type: 'html' },
+          ]
+        },
+        {
+          id: 'benefits',
+          title: 'Benefices',
+          fields: [
+            { key: 'benefits.title', label: 'Titre section', type: 'text' },
+            { key: 'benefits.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
+          list: {
+            key: 'benefits.items',
+            label: 'Benefice',
+            fields: [
+              { key: 'icon', label: 'Icone (emoji)', type: 'text' },
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+            ]
+          }
+        },
+        {
+          id: 'week',
+          title: 'Semaine type',
+          fields: [
+            { key: 'week.title', label: 'Titre section', type: 'text' },
+            { key: 'week.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
+          list: {
+            key: 'week.items',
+            label: 'Jour',
+            fields: [
+              { key: 'day', label: 'Jour', type: 'text' },
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+            ]
+          }
         },
         {
           id: 'testimonials',
           title: 'Temoignages',
+          fields: [
+            { key: 'testimonials.title', label: 'Titre section', type: 'text' },
+            { key: 'testimonials.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
           list: {
             key: 'testimonials.items',
             label: 'Temoignage',
@@ -1025,8 +1180,43 @@
           }
         },
         {
+          id: 'pricing',
+          title: 'Tarifs',
+          fields: [
+            { key: 'pricing.title', label: 'Titre section', type: 'text' },
+            { key: 'pricing.subtitle', label: 'Sous-titre', type: 'text' },
+            { key: 'pricing.individual.title', label: 'Carte 1 - titre', type: 'text' },
+            { key: 'pricing.individual.price', label: 'Carte 1 - prix', type: 'text' },
+            { key: 'pricing.individual.desc', label: 'Carte 1 - description', type: 'text' },
+            { key: 'pricing.individual.features', label: 'Carte 1 - fonctionnalites', type: 'html' },
+            { key: 'pricing.individual.cta', label: 'Carte 1 - bouton', type: 'text' },
+            { key: 'pricing.enterprise.title', label: 'Carte 2 - titre', type: 'text' },
+            { key: 'pricing.enterprise.price', label: 'Carte 2 - prix', type: 'text' },
+            { key: 'pricing.enterprise.desc', label: 'Carte 2 - description', type: 'text' },
+            { key: 'pricing.enterprise.features', label: 'Carte 2 - fonctionnalites', type: 'html' },
+            { key: 'pricing.enterprise.cta', label: 'Carte 2 - bouton', type: 'text' },
+          ]
+        },
+        {
+          id: 'hosts',
+          title: 'Animateurs du programme',
+          list: {
+            key: 'hosts.items',
+            label: 'Animateur',
+            fields: [
+              { key: 'name', label: 'Nom', type: 'text' },
+              { key: 'role', label: 'Role', type: 'text' },
+              { key: 'bio', label: 'Bio', type: 'html' },
+              { key: 'image', label: 'Photo', type: 'image' },
+            ]
+          }
+        },
+        {
           id: 'faq',
           title: 'FAQ',
+          fields: [
+            { key: 'faq.title', label: 'Titre section', type: 'text' },
+          ],
           list: {
             key: 'faq.items',
             label: 'Question',
@@ -1035,6 +1225,16 @@
               { key: 'answer', label: 'Reponse', type: 'html' },
             ]
           }
+        },
+        {
+          id: 'guarantee',
+          title: 'Garantie / CTA final',
+          fields: [
+            { key: 'guarantee.title', label: 'Titre', type: 'text' },
+            { key: 'guarantee.text', label: 'Texte', type: 'html' },
+            { key: 'guarantee.cta.text', label: 'Bouton CTA', type: 'text' },
+            { key: 'guarantee.cta.href', label: 'Lien CTA', type: 'url' },
+          ]
         },
       ]
     },
@@ -1046,10 +1246,12 @@
           id: 'hero',
           title: 'Hero',
           fields: [
+            { key: 'hero.label', label: 'Label (petit texte)', type: 'text' },
             { key: 'hero.title', label: 'Titre', type: 'html' },
             { key: 'hero.subtitle', label: 'Sous-titre', type: 'html' },
             { key: 'hero.cta.text', label: 'Bouton CTA - texte', type: 'text' },
             { key: 'hero.cta.href', label: 'Bouton CTA - lien', type: 'url' },
+            { key: 'hero.socialProof', label: 'Social proof', type: 'text' },
           ]
         },
         {
@@ -1062,24 +1264,183 @@
           ]
         },
         {
+          id: 'intro',
+          title: 'Section introduction',
+          fields: [
+            { key: 'intro.title', label: 'Titre', type: 'text' },
+            { key: 'intro.content', label: 'Contenu', type: 'html' },
+          ]
+        },
+        {
+          id: 'problem',
+          title: 'Probleme / Solution',
+          fields: [
+            { key: 'problem.title', label: 'Titre section', type: 'text' },
+            { key: 'problem.heading', label: 'Titre probleme', type: 'text' },
+            { key: 'problem.content', label: 'Contenu probleme', type: 'html' },
+            { key: 'solution.heading', label: 'Titre solution', type: 'text' },
+            { key: 'solution.content', label: 'Contenu solution', type: 'html' },
+            { key: 'solution.result', label: 'Resultat', type: 'text' },
+          ]
+        },
+        {
+          id: 'method',
+          title: 'Methode (4 etapes)',
+          fields: [
+            { key: 'method.title', label: 'Titre section', type: 'text' },
+            { key: 'method.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
+          list: {
+            key: 'method.items',
+            label: 'Etape',
+            fields: [
+              { key: 'num', label: 'Numero', type: 'text' },
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+            ]
+          }
+        },
+        {
           id: 'programme',
-          title: 'Programme / Curriculum',
+          title: 'Parcours (4 phases)',
           fields: [
             { key: 'programme.title', label: 'Titre section', type: 'text' },
             { key: 'programme.subtitle', label: 'Sous-titre', type: 'html' },
+          ],
+          list: {
+            key: 'programme.phases',
+            label: 'Phase',
+            fields: [
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+              { key: 'icon', label: 'Icone (emoji)', type: 'text' },
+            ]
+          }
+        },
+        {
+          id: 'diff',
+          title: 'Pourquoi ca marche (differenciateurs)',
+          fields: [
+            { key: 'diff.title', label: 'Titre section', type: 'text' },
+            { key: 'diff.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
+          list: {
+            key: 'diff.items',
+            label: 'Point',
+            fields: [
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+            ]
+          }
+        },
+        {
+          id: 'target',
+          title: 'Pour qui / Pas pour qui',
+          fields: [
+            { key: 'target.not.title', label: 'Titre "pas pour vous"', type: 'text' },
+            { key: 'target.not.content', label: 'Contenu', type: 'html' },
+            { key: 'target.yes.title', label: 'Titre "fait pour vous"', type: 'text' },
+            { key: 'target.yes.content', label: 'Contenu', type: 'html' },
           ]
+        },
+        {
+          id: 'benefits',
+          title: 'Benefices',
+          fields: [
+            { key: 'benefits.title', label: 'Titre section', type: 'text' },
+            { key: 'benefits.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
+          list: {
+            key: 'benefits.items',
+            label: 'Benefice',
+            fields: [
+              { key: 'icon', label: 'Icone (emoji)', type: 'text' },
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+            ]
+          }
+        },
+        {
+          id: 'week',
+          title: 'Semaine type',
+          fields: [
+            { key: 'week.title', label: 'Titre section', type: 'text' },
+            { key: 'week.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
+          list: {
+            key: 'week.items',
+            label: 'Jour',
+            fields: [
+              { key: 'day', label: 'Jour', type: 'text' },
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+            ]
+          }
+        },
+        {
+          id: 'bootcamp',
+          title: 'Ce que le bootcamp EST / N\'EST PAS',
+          fields: [
+            { key: 'bootcamp.title', label: 'Titre section', type: 'text' },
+            { key: 'bootcamp.isnot.title', label: 'Titre "N\'est pas"', type: 'text' },
+            { key: 'bootcamp.isnot.content', label: 'Contenu', type: 'html' },
+            { key: 'bootcamp.is.title', label: 'Titre "Est"', type: 'text' },
+            { key: 'bootcamp.is.content', label: 'Contenu', type: 'html' },
+          ]
+        },
+        {
+          id: 'testimonials',
+          title: 'Temoignages',
+          fields: [
+            { key: 'testimonials.title', label: 'Titre section', type: 'text' },
+            { key: 'testimonials.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
+          list: {
+            key: 'testimonials.items',
+            label: 'Temoignage',
+            fields: [
+              { key: 'quote', label: 'Citation', type: 'html' },
+              { key: 'name', label: 'Nom', type: 'text' },
+              { key: 'role', label: 'Role', type: 'text' },
+            ]
+          }
         },
         {
           id: 'pricing',
           title: 'Tarifs',
           fields: [
-            { key: 'pricing.individual.price', label: 'Prix individuel', type: 'text' },
-            { key: 'pricing.enterprise.price', label: 'Prix entreprise', type: 'text' },
+            { key: 'pricing.title', label: 'Titre section', type: 'text' },
+            { key: 'pricing.subtitle', label: 'Sous-titre', type: 'text' },
+            { key: 'pricing.individual.title', label: 'Carte 1 - titre', type: 'text' },
+            { key: 'pricing.individual.price', label: 'Carte 1 - prix', type: 'text' },
+            { key: 'pricing.individual.desc', label: 'Carte 1 - description', type: 'text' },
+            { key: 'pricing.individual.features', label: 'Carte 1 - fonctionnalites', type: 'html' },
+            { key: 'pricing.enterprise.title', label: 'Carte 2 - titre', type: 'text' },
+            { key: 'pricing.enterprise.price', label: 'Carte 2 - prix', type: 'text' },
+            { key: 'pricing.enterprise.desc', label: 'Carte 2 - description', type: 'text' },
+            { key: 'pricing.enterprise.features', label: 'Carte 2 - fonctionnalites', type: 'html' },
           ]
+        },
+        {
+          id: 'hosts',
+          title: 'Animateurs du programme',
+          list: {
+            key: 'hosts.items',
+            label: 'Animateur',
+            fields: [
+              { key: 'name', label: 'Nom', type: 'text' },
+              { key: 'role', label: 'Role', type: 'text' },
+              { key: 'bio', label: 'Bio', type: 'html' },
+              { key: 'image', label: 'Photo', type: 'image' },
+            ]
+          }
         },
         {
           id: 'faq',
           title: 'FAQ',
+          fields: [
+            { key: 'faq.title', label: 'Titre section', type: 'text' },
+          ],
           list: {
             key: 'faq.items',
             label: 'Question',
@@ -1088,6 +1449,16 @@
               { key: 'answer', label: 'Reponse', type: 'html' },
             ]
           }
+        },
+        {
+          id: 'guarantee',
+          title: 'Garantie / CTA final',
+          fields: [
+            { key: 'guarantee.title', label: 'Titre', type: 'text' },
+            { key: 'guarantee.text', label: 'Texte', type: 'html' },
+            { key: 'guarantee.cta.text', label: 'Bouton CTA', type: 'text' },
+            { key: 'guarantee.cta.href', label: 'Lien CTA', type: 'url' },
+          ]
         },
       ]
     },
@@ -1099,13 +1470,35 @@
           id: 'hero',
           title: 'Hero',
           fields: [
+            { key: 'hero.tag', label: 'Tag (ex: Nouveau)', type: 'text' },
             { key: 'hero.title', label: 'Titre', type: 'html' },
             { key: 'hero.subtitle', label: 'Sous-titre', type: 'html' },
+            { key: 'hero.subsubtitle', label: 'Ligne sous le sous-titre', type: 'text' },
           ]
+        },
+        {
+          id: 'concept',
+          title: 'Section concept',
+          fields: [
+            { key: 'concept.title', label: 'Titre', type: 'text' },
+            { key: 'concept.content', label: 'Contenu', type: 'html' },
+          ],
+          list: {
+            key: 'concept.highlights',
+            label: 'Point cle',
+            fields: [
+              { key: 'icon', label: 'Icone (emoji)', type: 'text' },
+              { key: 'text', label: 'Texte', type: 'text' },
+            ]
+          }
         },
         {
           id: 'sprints',
           title: 'Sprints disponibles',
+          fields: [
+            { key: 'sprints.title', label: 'Titre section', type: 'text' },
+            { key: 'sprints.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
           list: {
             key: 'sprints.items',
             label: 'Sprint',
@@ -1117,6 +1510,44 @@
               { key: 'duration', label: 'Duree', type: 'text' },
             ]
           }
+        },
+        {
+          id: 'format',
+          title: 'Le format',
+          fields: [
+            { key: 'format.title', label: 'Titre section', type: 'text' },
+          ],
+          list: {
+            key: 'format.items',
+            label: 'Element',
+            fields: [
+              { key: 'icon', label: 'Icone (emoji)', type: 'text' },
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'text' },
+            ]
+          }
+        },
+        {
+          id: 'pricing',
+          title: 'Tarif',
+          fields: [
+            { key: 'pricing.title', label: 'Titre section', type: 'text' },
+            { key: 'pricing.subtitle', label: 'Sous-titre', type: 'text' },
+            { key: 'pricing.price', label: 'Prix', type: 'text' },
+            { key: 'pricing.note', label: 'Note (ex: HT)', type: 'text' },
+            { key: 'pricing.cta.text', label: 'Bouton CTA', type: 'text' },
+            { key: 'pricing.cta.href', label: 'Lien CTA', type: 'url' },
+          ]
+        },
+        {
+          id: 'bridge',
+          title: 'Section passerelle (bootcamp)',
+          fields: [
+            { key: 'bridge.title', label: 'Titre', type: 'text' },
+            { key: 'bridge.content', label: 'Contenu', type: 'html' },
+            { key: 'bridge.cta.text', label: 'Bouton CTA', type: 'text' },
+            { key: 'bridge.cta.href', label: 'Lien CTA', type: 'url' },
+          ]
         },
       ]
     },
@@ -1133,13 +1564,73 @@
           ]
         },
         {
+          id: 'includes',
+          title: 'Ce qui est inclus',
+          fields: [
+            { key: 'includes.title', label: 'Titre section', type: 'text' },
+          ],
+          list: {
+            key: 'includes.items',
+            label: 'Element inclus',
+            fields: [
+              { key: 'icon', label: 'Icone (emoji)', type: 'text' },
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'text' },
+            ]
+          }
+        },
+        {
           id: 'pricing',
           title: 'Tarifs',
           fields: [
-            { key: 'pricing.unit', label: 'Prix unitaire', type: 'text' },
-            { key: 'pricing.monthly', label: 'Prix mensuel', type: 'text' },
-            { key: 'pricing.annual', label: 'Prix annuel', type: 'text' },
+            { key: 'pricing.title', label: 'Titre section', type: 'text' },
+            { key: 'pricing.unit.title', label: 'Unite - titre', type: 'text' },
+            { key: 'pricing.unit', label: 'Unite - prix', type: 'text' },
+            { key: 'pricing.unit.features', label: 'Unite - details', type: 'html' },
+            { key: 'pricing.unit.cta', label: 'Unite - bouton', type: 'text' },
+            { key: 'pricing.monthly.title', label: 'Mensuel - titre', type: 'text' },
+            { key: 'pricing.monthly', label: 'Mensuel - prix', type: 'text' },
+            { key: 'pricing.monthly.features', label: 'Mensuel - details', type: 'html' },
+            { key: 'pricing.monthly.cta', label: 'Mensuel - bouton', type: 'text' },
+            { key: 'pricing.annual.title', label: 'Annuel - titre', type: 'text' },
+            { key: 'pricing.annual', label: 'Annuel - prix', type: 'text' },
+            { key: 'pricing.annual.badge', label: 'Annuel - badge', type: 'text' },
+            { key: 'pricing.annual.features', label: 'Annuel - details', type: 'html' },
+            { key: 'pricing.annual.cta', label: 'Annuel - bouton', type: 'text' },
           ]
+        },
+        {
+          id: 'upcoming',
+          title: 'Prochaines masterclass',
+          fields: [
+            { key: 'upcoming.title', label: 'Titre section', type: 'text' },
+          ],
+          list: {
+            key: 'upcoming.items',
+            label: 'Masterclass',
+            fields: [
+              { key: 'date', label: 'Date', type: 'text' },
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'speaker', label: 'Intervenant', type: 'text' },
+              { key: 'tag', label: 'Tag (ex: Bientot)', type: 'text' },
+              { key: 'link', label: 'Lien inscription', type: 'url' },
+            ]
+          }
+        },
+        {
+          id: 'faq',
+          title: 'FAQ',
+          fields: [
+            { key: 'faq.title', label: 'Titre section', type: 'text' },
+          ],
+          list: {
+            key: 'faq.items',
+            label: 'Question',
+            fields: [
+              { key: 'question', label: 'Question', type: 'text' },
+              { key: 'answer', label: 'Reponse', type: 'html' },
+            ]
+          }
         },
       ]
     },
@@ -1436,14 +1927,18 @@
       return `
         <div class="field-row">
           <div class="field-key">${fullKey}</div>
-          <label class="form-label" for="${inputId}">${field.label}</label>
+          <label class="form-label">${field.label}</label>
           <div class="rich-toolbar">
-            <button type="button" onclick="insertTag('${inputId}', 'strong')"><b>B</b></button>
-            <button type="button" onclick="insertTag('${inputId}', 'em')"><i>I</i></button>
-            <button type="button" onclick="insertBr('${inputId}')">&lt;br&gt;</button>
+            <button type="button" onclick="execRichCmd('bold')" title="Gras"><b>B</b></button>
+            <button type="button" onclick="execRichCmd('italic')" title="Italique"><i>I</i></button>
+            <button type="button" onclick="execRichCmd('insertHTML', '&lt;br&gt;')" title="Retour à la ligne">↵</button>
+            <button type="button" onclick="execRichCmd('createLink')" title="Lien">🔗</button>
+            <button type="button" onclick="execRichCmd('unlink')" title="Retirer le lien">✂️</button>
+            <button type="button" onclick="execRichCmd('insertUnorderedList')" title="Liste">•</button>
           </div>
-          <textarea class="form-input" id="${inputId}" data-cms-key="${fullKey}" rows="3"
-                    oninput="markDirty()"></textarea>
+          <div class="form-input rich-editor" contenteditable="true" id="${inputId}" data-cms-key="${fullKey}"
+               data-placeholder="Saisissez votre texte ici..."
+               oninput="markDirty()"></div>
         </div>
       `;
     }
@@ -1454,16 +1949,17 @@
           <div class="field-key">${fullKey}</div>
           <label class="form-label">${field.label}</label>
           <div style="display:flex;align-items:flex-start;gap:12px">
-            <img class="image-preview" id="preview-${inputId}" src="" alt="" onerror="this.style.display='none'">
+            <img class="image-preview" id="preview-${inputId}" src="" alt="" onerror="this.style.display='none'" onclick="window.open(this.src,'_blank')">
             <div style="flex:1">
               <input class="form-input" id="${inputId}" data-cms-key="${fullKey}" type="text"
-                     placeholder="URL de l'image" oninput="markDirty(); updateImagePreview('${inputId}')">
-              <div style="margin-top:8px">
+                     placeholder="https://... ou /images/photo.jpg" oninput="markDirty(); updateImagePreview('${inputId}')">
+              <div style="display:flex;gap:8px;margin-top:8px;align-items:center">
                 <label class="btn btn-secondary btn-sm" style="cursor:pointer">
-                  Uploader une image
+                  📁 Uploader
                   <input type="file" accept="image/*" style="display:none"
                          onchange="uploadImage(this, '${inputId}')">
                 </label>
+                <span style="font-size:0.75rem;color:var(--text-muted)">ou collez une URL ci-dessus</span>
               </div>
             </div>
           </div>
@@ -1517,12 +2013,20 @@
     `;
   }
 
+  function setFieldValue(el, value) {
+    if (el.hasAttribute('contenteditable')) {
+      el.innerHTML = value;
+    } else {
+      el.value = value;
+    }
+  }
+
   function populateFields() {
     // Populate simple fields
     document.querySelectorAll('[data-cms-key]').forEach(el => {
       const key = el.dataset.cmsKey;
       if (currentContent[key] !== undefined) {
-        el.value = currentContent[key];
+        setFieldValue(el, currentContent[key]);
         // Update image previews
         if (el.id && el.id.startsWith('field-') && el.closest('.field-row')?.querySelector('.image-preview')) {
           updateImagePreview(el.id);
@@ -1564,7 +2068,7 @@
       container.querySelectorAll('[data-cms-key]').forEach(el => {
         const key = el.dataset.cmsKey;
         if (currentContent[key] !== undefined) {
-          el.value = currentContent[key];
+          setFieldValue(el, currentContent[key]);
         }
       });
     });
@@ -1705,7 +2209,12 @@
     const content = {};
     document.querySelectorAll('[data-cms-key]').forEach(el => {
       const key = el.dataset.cmsKey;
-      const val = el.value.trim();
+      let val;
+      if (el.hasAttribute('contenteditable')) {
+        val = el.innerHTML.trim();
+      } else {
+        val = el.value.trim();
+      }
       if (val) content[key] = val;
     });
     return content;
@@ -1857,24 +2366,12 @@
 
   // ===== RICH TEXT HELPERS =====
 
-  function insertTag(inputId, tag) {
-    const el = document.getElementById(inputId);
-    if (!el) return;
-    const start = el.selectionStart;
-    const end = el.selectionEnd;
-    const text = el.value;
-    const selected = text.slice(start, end);
-    el.value = text.slice(0, start) + `<${tag}>${selected}</${tag}>` + text.slice(end);
-    el.focus();
-    markDirty();
-  }
-
-  function insertBr(inputId) {
-    const el = document.getElementById(inputId);
-    if (!el) return;
-    const pos = el.selectionStart;
-    el.value = el.value.slice(0, pos) + '<br>' + el.value.slice(pos);
-    el.focus();
+  function execRichCmd(command, value = null) {
+    if (command === 'createLink') {
+      value = prompt('URL du lien :');
+      if (!value) return;
+    }
+    document.execCommand(command, false, value);
     markDirty();
   }
 
@@ -1913,12 +2410,16 @@
           markDirty();
         }
         showToast('Image uploadee avec succes !');
+      } else if (res.status === 503) {
+        showToast('Upload R2 non disponible. Utilisez une URL externe a la place.', 'error');
       } else {
         showToast(data.error || 'Erreur upload', 'error');
       }
     } catch (err) {
-      showToast('Erreur reseau lors de l\'upload', 'error');
+      showToast('Upload indisponible. Collez une URL d\'image a la place.', 'error');
     }
+    // Reset file input
+    fileInput.value = '';
   }
 
   // ===== INIT =====
