@@ -1374,7 +1374,7 @@
 
     attachSidebarEvents();
 
-    // Load content
+    // Load content from KV
     const data = await api(`/api/content/${currentPageId}`);
     if (!data) return;
     currentContent = data.content || {};
@@ -1382,7 +1382,18 @@
 
     const status = document.getElementById('editor-status');
     const saveBtn = document.getElementById('save-btn');
+
+    // If KV is empty, fetch existing content from live HTML page
+    if (Object.keys(currentContent).length === 0) {
+      status.textContent = 'Chargement du contenu existant...';
+      currentContent = await fetchExistingContent(currentPageId);
+      if (Object.keys(currentContent).length > 0) {
+        isDirty = true; // Mark dirty so user can save to KV
+      }
+    }
+
     status.textContent = currentPageId === '_shared' ? 'Contenu partage entre toutes les pages' : `Fichier: ${currentPageId}.html`;
+    if (isDirty) status.textContent += ' — Contenu charge depuis le HTML (non sauvegarde)';
     saveBtn.disabled = false;
 
     const editorBody = document.getElementById('editor-body');
@@ -1614,6 +1625,72 @@
         render();
       });
     });
+  }
+
+  // ===== FETCH EXISTING CONTENT FROM LIVE HTML =====
+
+  async function fetchExistingContent(pageId) {
+    // Determine which URL to fetch
+    let url;
+    if (pageId === '_shared') {
+      url = '/index.html'; // shared content (header/footer) is on every page
+    } else if (pageId === 'index') {
+      url = '/index.html';
+    } else {
+      url = `/${pageId}.html`;
+    }
+
+    try {
+      const res = await fetch(url);
+      if (!res.ok) return {};
+      const html = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const content = {};
+
+      // Extract data-cms (text/innerHTML)
+      doc.querySelectorAll('[data-cms]').forEach(el => {
+        const key = el.getAttribute('data-cms');
+        if (key) content[key] = el.innerHTML.trim();
+      });
+
+      // Extract data-cms-href (link hrefs)
+      doc.querySelectorAll('[data-cms-href]').forEach(el => {
+        const hrefKey = el.getAttribute('data-cms-href');
+        if (hrefKey) {
+          content[hrefKey] = el.getAttribute('href') || '';
+        }
+      });
+
+      // Extract data-cms-src (image sources)
+      doc.querySelectorAll('[data-cms-src]').forEach(el => {
+        const srcKey = el.getAttribute('data-cms-src');
+        if (srcKey) {
+          content[srcKey] = el.getAttribute('src') || '';
+        }
+      });
+
+      // Extract data-cms-alt (image alts)
+      doc.querySelectorAll('[data-cms-alt]').forEach(el => {
+        const altKey = el.getAttribute('data-cms-alt');
+        if (altKey) {
+          content[altKey] = el.getAttribute('alt') || '';
+        }
+      });
+
+      // Extract data-cms-content (meta tags)
+      doc.querySelectorAll('[data-cms-content]').forEach(el => {
+        const contentKey = el.getAttribute('data-cms-content');
+        if (contentKey) {
+          content[contentKey] = el.getAttribute('content') || '';
+        }
+      });
+
+      return content;
+    } catch (err) {
+      console.error('Error fetching existing content:', err);
+      return {};
+    }
   }
 
   // ===== ACTIONS =====
