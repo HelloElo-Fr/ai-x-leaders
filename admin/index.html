@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — AI x Leaders</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #191B1F;
+      --bg-card: #2B2E33;
+      --bg-input: #23262B;
+      --bg-sidebar: #15171A;
+      --pink: #FF48AA;
+      --pink-hover: #FF5CB8;
+      --text-primary: #FFFFFF;
+      --text-secondary: #E4E7EB;
+      --text-muted: #9CA3AF;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --error: #EF4444;
+      --border: rgba(255,255,255,0.08);
+      --radius: 8px;
+      --radius-lg: 12px;
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* ===== LOGIN ===== */
+    .login-page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .login-logo {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .login-logo .x { color: var(--pink); }
+
+    .login-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      border-color: var(--pink);
+    }
+
+    textarea.form-input {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--pink);
+      color: #fff;
+      width: 100%;
+    }
+
+    .btn-primary:hover { background: var(--pink-hover); }
+
+    .btn-secondary {
+      background: var(--bg-input);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--bg-card); }
+
+    .btn-danger {
+      background: transparent;
+      color: var(--error);
+      border: 1px solid var(--error);
+    }
+
+    .btn-danger:hover { background: rgba(239,68,68,0.1); }
+
+    .btn-sm { padding: 6px 12px; font-size: 0.8125rem; }
+
+    .alert {
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      margin-bottom: 16px;
+    }
+
+    .alert-error {
+      background: rgba(239,68,68,0.1);
+      color: var(--error);
+      border: 1px solid rgba(239,68,68,0.2);
+    }
+
+    .alert-success {
+      background: rgba(16,185,129,0.1);
+      color: var(--success);
+      border: 1px solid rgba(16,185,129,0.2);
+    }
+
+    /* ===== LAYOUT ===== */
+    .app-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      grid-template-rows: 56px 1fr;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .app-header {
+      grid-column: 1 / -1;
+      background: var(--bg-sidebar);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .app-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .app-header-logo {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.125rem;
+    }
+
+    .app-header-logo .x { color: var(--pink); }
+
+    .app-header-badge {
+      background: var(--pink);
+      color: #fff;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .app-header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .app-header-user {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    /* Sidebar */
+    .app-sidebar {
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border);
+      padding: 16px 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      padding: 0 12px;
+      margin-bottom: 24px;
+    }
+
+    .sidebar-section-title {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      padding: 0 12px;
+      margin-bottom: 8px;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .sidebar-link:hover {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-primary);
+    }
+
+    .sidebar-link.active {
+      background: rgba(255,72,170,0.1);
+      color: var(--pink);
+    }
+
+    .sidebar-link-icon {
+      font-size: 1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .sidebar-link-meta {
+      margin-left: auto;
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+    }
+
+    /* Main content */
+    .app-main {
+      padding: 32px;
+      overflow-y: auto;
+      max-height: calc(100vh - 56px);
+    }
+
+    .page-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .page-desc {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-bottom: 28px;
+    }
+
+    /* ===== DASHBOARD ===== */
+    .pages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .page-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .page-card:hover {
+      border-color: var(--pink);
+      transform: translateY(-2px);
+    }
+
+    .page-card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+    }
+
+    .page-card-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .page-card-file {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: monospace;
+      margin-bottom: 12px;
+    }
+
+    .page-card-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== EDITOR ===== */
+    .editor-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      position: sticky;
+      top: -32px;
+      background: var(--bg-primary);
+      padding: 32px 0 16px;
+      margin-top: -32px;
+      z-index: 10;
+    }
+
+    .editor-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .editor-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 20px;
+    }
+
+    .editor-section-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .editor-section-title {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.9375rem;
+    }
+
+    .editor-section-toggle {
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      transition: transform 0.2s;
+    }
+
+    .editor-section.collapsed .editor-section-body {
+      display: none;
+    }
+
+    .editor-section.collapsed .editor-section-toggle {
+      transform: rotate(-90deg);
+    }
+
+    .editor-section-body {
+      padding: 20px;
+    }
+
+    .field-row {
+      margin-bottom: 16px;
+    }
+
+    .field-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .field-key {
+      font-size: 0.6875rem;
+      font-family: monospace;
+      color: var(--pink);
+      margin-bottom: 4px;
+      opacity: 0.7;
+    }
+
+    /* List editor */
+    .list-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .list-item {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      position: relative;
+    }
+
+    .list-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .list-item-number {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--pink);
+      background: rgba(255,72,170,0.1);
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .list-item-actions {
+      display: flex;
+      gap: 4px;
+    }
+
+    .list-item-actions button {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .list-item-actions button:hover {
+      color: var(--text-primary);
+      border-color: var(--text-muted);
+    }
+
+    .list-item-actions button.delete-btn:hover {
+      color: var(--error);
+      border-color: var(--error);
+    }
+
+    .btn-add-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 12px;
+    }
+
+    .btn-add-item:hover {
+      border-color: var(--pink);
+      color: var(--pink);
+    }
+
+    /* Image upload */
+    .image-preview {
+      width: 120px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 8px;
+    }
+
+    .image-upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .image-upload-zone:hover {
+      border-color: var(--pink);
+    }
+
+    .image-upload-zone input {
+      display: none;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 12px 20px;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+      z-index: 1000;
+      animation: toast-in 0.3s ease;
+    }
+
+    .toast-success {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .toast-error {
+      background: var(--error);
+      color: #fff;
+    }
+
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-top-color: var(--pink);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .app-layout {
+        grid-template-columns: 1fr;
+      }
+      .app-sidebar {
+        display: none;
+      }
+    }
+
+    /* Rich text toolbar */
+    .rich-toolbar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+    .rich-toolbar button {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .rich-toolbar button:hover {
+      color: var(--text-primary);
+      border-color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+  // ===== AI x Leaders Admin SPA =====
+
+  const API_BASE = '';
+  let authToken = localStorage.getItem('admin_token');
+  let currentUser = localStorage.getItem('admin_user');
+  let pagesData = [];
+  let currentPageId = null;
+  let currentContent = {};
+  let isDirty = false;
+
+  // ===== PAGE SCHEMAS =====
+  // Defines the editable fields for each page, grouped by section
+
+  const PAGE_SCHEMAS = {
+    'index': {
+      label: 'Accueil',
+      icon: '🏠',
+      sections: [
+        {
+          id: 'hero',
+          title: 'Hero',
+          fields: [
+            { key: 'hero.label', label: 'Label', type: 'text' },
+            { key: 'hero.title', label: 'Titre', type: 'html' },
+            { key: 'hero.subtitle', label: 'Sous-titre', type: 'html' },
+            { key: 'hero.cta.text', label: 'Bouton CTA - texte', type: 'text' },
+            { key: 'hero.cta.href', label: 'Bouton CTA - lien', type: 'url' },
+            { key: 'hero.socialProof', label: 'Social proof', type: 'text' },
+          ]
+        },
+        {
+          id: 'newsletter',
+          title: 'Newsletter',
+          fields: [
+            { key: 'newsletter.title', label: 'Titre', type: 'text' },
+            { key: 'newsletter.subtitle', label: 'Sous-titre', type: 'text' },
+            { key: 'newsletter.button', label: 'Bouton', type: 'text' },
+          ]
+        },
+        {
+          id: 'masterclass',
+          title: 'Masterclass (carousel)',
+          fields: [
+            { key: 'masterclass.title', label: 'Titre section', type: 'text' },
+            { key: 'masterclass.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
+          list: {
+            key: 'masterclass.items',
+            label: 'Masterclass',
+            fields: [
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'speaker', label: 'Intervenant', type: 'text' },
+              { key: 'tag', label: 'Tag (ex: En replay)', type: 'text' },
+              { key: 'image', label: 'Image', type: 'image' },
+              { key: 'link', label: 'Lien YouTube', type: 'url' },
+            ]
+          }
+        },
+        {
+          id: 'programmes',
+          title: 'Programmes',
+          fields: [
+            { key: 'programmes.title', label: 'Titre section', type: 'text' },
+            { key: 'programmes.subtitle', label: 'Sous-titre', type: 'text' },
+          ]
+        },
+        {
+          id: 'sprints',
+          title: 'Sprints',
+          fields: [
+            { key: 'sprints.title', label: 'Titre section', type: 'text' },
+            { key: 'sprints.subtitle', label: 'Sous-titre', type: 'html' },
+          ]
+        },
+        {
+          id: 'b2b',
+          title: 'Services B2B',
+          fields: [
+            { key: 'b2b.title', label: 'Titre section', type: 'text' },
+            { key: 'b2b.subtitle', label: 'Sous-titre', type: 'text' },
+          ]
+        },
+        {
+          id: 'testimonials',
+          title: 'Temoignages',
+          fields: [
+            { key: 'testimonials.title', label: 'Titre section', type: 'text' },
+            { key: 'testimonials.subtitle', label: 'Sous-titre (note Google)', type: 'text' },
+          ],
+          list: {
+            key: 'testimonials.items',
+            label: 'Temoignage',
+            fields: [
+              { key: 'quote', label: 'Citation', type: 'html' },
+              { key: 'name', label: 'Nom', type: 'text' },
+              { key: 'role', label: 'Role / Source', type: 'text' },
+            ]
+          }
+        },
+        {
+          id: 'media',
+          title: 'Media / Videos',
+          fields: [
+            { key: 'media.title', label: 'Titre section', type: 'text' },
+            { key: 'media.subtitle', label: 'Sous-titre', type: 'text' },
+          ],
+          list: {
+            key: 'media.videos',
+            label: 'Video',
+            fields: [
+              { key: 'src', label: 'URL YouTube embed', type: 'url' },
+              { key: 'title', label: 'Titre', type: 'text' },
+            ]
+          }
+        },
+        {
+          id: 'events',
+          title: 'Evenements',
+          fields: [
+            { key: 'events.title', label: 'Titre section', type: 'text' },
+            { key: 'events.subtitle', label: 'Sous-titre', type: 'text' },
+          ]
+        },
+        {
+          id: 'community',
+          title: 'Communaute',
+          fields: [
+            { key: 'community.title', label: 'Titre', type: 'text' },
+            { key: 'community.subtitle', label: 'Sous-titre', type: 'html' },
+          ]
+        },
+      ]
+    },
+    'qui-sommes-nous': {
+      label: 'Qui sommes-nous',
+      icon: '👥',
+      sections: [
+        {
+          id: 'hero',
+          title: 'Hero',
+          fields: [
+            { key: 'hero.title', label: 'Titre', type: 'html' },
+            { key: 'hero.subtitle', label: 'Sous-titre', type: 'html' },
+          ]
+        },
+        {
+          id: 'team',
+          title: 'Equipe',
+          list: {
+            key: 'team.members',
+            label: 'Membre',
+            fields: [
+              { key: 'name', label: 'Nom', type: 'text' },
+              { key: 'role', label: 'Role', type: 'text' },
+              { key: 'bio', label: 'Bio', type: 'html' },
+              { key: 'image', label: 'Photo', type: 'image' },
+              { key: 'linkedin', label: 'LinkedIn URL', type: 'url' },
+            ]
+          }
+        },
+        {
+          id: 'timeline',
+          title: 'Timeline / Histoire',
+          list: {
+            key: 'timeline.items',
+            label: 'Etape',
+            fields: [
+              { key: 'year', label: 'Annee', type: 'text' },
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+            ]
+          }
+        },
+      ]
+    },
+    'a-propos': {
+      label: 'A propos',
+      icon: '📖',
+      sections: [
+        {
+          id: 'manifesto',
+          title: 'Manifeste',
+          fields: [
+            { key: 'manifesto.title', label: 'Titre', type: 'text' },
+            { key: 'manifesto.content', label: 'Contenu', type: 'html' },
+          ]
+        },
+        {
+          id: 'mission',
+          title: 'Mission',
+          fields: [
+            { key: 'mission.quote', label: 'Citation', type: 'html' },
+            { key: 'mission.text', label: 'Texte', type: 'html' },
+          ]
+        },
+      ]
+    },
+    'ressources': {
+      label: 'Ressources',
+      icon: '📚',
+      sections: [
+        {
+          id: 'hero',
+          title: 'Hero',
+          fields: [
+            { key: 'hero.title', label: 'Titre', type: 'html' },
+            { key: 'hero.subtitle', label: 'Sous-titre', type: 'html' },
+          ]
+        },
+        {
+          id: 'masterclass',
+          title: 'Masterclass',
+          fields: [
+            { key: 'masterclass.title', label: 'Titre section', type: 'text' },
+            { key: 'masterclass.subtitle', label: 'Sous-titre', type: 'text' },
+          ]
+        },
+        {
+          id: 'pricing',
+          title: 'Tarifs Masterclass',
+          fields: [
+            { key: 'pricing.unit.price', label: 'Prix unitaire', type: 'text' },
+            { key: 'pricing.unit.label', label: 'Label unitaire', type: 'text' },
+            { key: 'pricing.monthly.price', label: 'Prix mensuel', type: 'text' },
+            { key: 'pricing.monthly.label', label: 'Label mensuel', type: 'text' },
+            { key: 'pricing.annual.price', label: 'Prix annuel', type: 'text' },
+            { key: 'pricing.annual.label', label: 'Label annuel', type: 'text' },
+          ]
+        },
+        {
+          id: 'newsletters',
+          title: 'Newsletters',
+          fields: [
+            { key: 'newsletters.title', label: 'Titre section', type: 'text' },
+            { key: 'newsletters.subtitle', label: 'Sous-titre', type: 'text' },
+          ]
+        },
+        {
+          id: 'linkedin',
+          title: 'LinkedIn',
+          fields: [
+            { key: 'linkedin.title', label: 'Titre section', type: 'text' },
+            { key: 'linkedin.subtitle', label: 'Sous-titre', type: 'text' },
+          ]
+        },
+      ]
+    },
+    'entreprises': {
+      label: 'Studio IA',
+      icon: '🏢',
+      sections: [
+        {
+          id: 'hero',
+          title: 'Hero',
+          fields: [
+            { key: 'hero.title', label: 'Titre', type: 'html' },
+            { key: 'hero.subtitle', label: 'Sous-titre', type: 'html' },
+          ]
+        },
+        {
+          id: 'services',
+          title: 'Prestations',
+          list: {
+            key: 'services.items',
+            label: 'Prestation',
+            fields: [
+              { key: 'icon', label: 'Icone (emoji)', type: 'text' },
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+              { key: 'price', label: 'Prix', type: 'text' },
+            ]
+          }
+        },
+        {
+          id: 'philosophy',
+          title: 'Philosophie',
+          fields: [
+            { key: 'philosophy.title', label: 'Titre', type: 'text' },
+            { key: 'philosophy.text', label: 'Texte', type: 'html' },
+          ]
+        },
+      ]
+    },
+    'event-ia': {
+      label: 'Event IA',
+      icon: '🎤',
+      sections: [
+        {
+          id: 'hero',
+          title: 'Hero',
+          fields: [
+            { key: 'hero.title', label: 'Titre', type: 'html' },
+            { key: 'hero.subtitle', label: 'Sous-titre', type: 'html' },
+          ]
+        },
+        {
+          id: 'events',
+          title: 'Evenements',
+          list: {
+            key: 'events.items',
+            label: 'Evenement',
+            fields: [
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+              { key: 'format', label: 'Format', type: 'text' },
+              { key: 'image', label: 'Image', type: 'image' },
+              { key: 'link', label: 'Lien', type: 'url' },
+              { key: 'tag', label: 'Tag', type: 'text' },
+            ]
+          }
+        },
+      ]
+    },
+    'contact': {
+      label: 'Contact',
+      icon: '✉️',
+      sections: [
+        {
+          id: 'hero',
+          title: 'Hero',
+          fields: [
+            { key: 'hero.title', label: 'Titre', type: 'text' },
+            { key: 'hero.subtitle', label: 'Sous-titre', type: 'text' },
+          ]
+        },
+        {
+          id: 'sidebar',
+          title: 'Sidebar',
+          fields: [
+            { key: 'sidebar.calendly.text', label: 'Texte Calendly', type: 'text' },
+            { key: 'sidebar.calendly.href', label: 'Lien Calendly', type: 'url' },
+            { key: 'sidebar.email', label: 'Email contact', type: 'text' },
+          ]
+        },
+      ]
+    },
+    'merci': {
+      label: 'Page Merci',
+      icon: '🎉',
+      sections: [
+        {
+          id: 'content',
+          title: 'Contenu',
+          fields: [
+            { key: 'merci.title', label: 'Titre', type: 'text' },
+            { key: 'merci.subtitle', label: 'Sous-titre', type: 'html' },
+            { key: 'merci.cta1.text', label: 'Bouton 1 - texte', type: 'text' },
+            { key: 'merci.cta1.href', label: 'Bouton 1 - lien', type: 'url' },
+            { key: 'merci.cta2.text', label: 'Bouton 2 - texte', type: 'text' },
+            { key: 'merci.cta2.href', label: 'Bouton 2 - lien', type: 'url' },
+          ]
+        },
+      ]
+    },
+    'programmes/ai-leadership': {
+      label: 'AI Leadership Program',
+      icon: '🚀',
+      sections: [
+        {
+          id: 'hero',
+          title: 'Hero',
+          fields: [
+            { key: 'hero.title', label: 'Titre', type: 'html' },
+            { key: 'hero.subtitle', label: 'Sous-titre', type: 'html' },
+            { key: 'hero.cta.text', label: 'Bouton CTA - texte', type: 'text' },
+            { key: 'hero.cta.href', label: 'Bouton CTA - lien', type: 'url' },
+          ]
+        },
+        {
+          id: 'badges',
+          title: 'Badges / Tags',
+          fields: [
+            { key: 'badges.bootcamp', label: 'Numero bootcamp', type: 'text' },
+            { key: 'badges.date', label: 'Date', type: 'text' },
+            { key: 'badges.places', label: 'Places restantes', type: 'text' },
+          ]
+        },
+        {
+          id: 'programme',
+          title: 'Programme / Curriculum',
+          fields: [
+            { key: 'programme.title', label: 'Titre section', type: 'text' },
+            { key: 'programme.subtitle', label: 'Sous-titre', type: 'html' },
+          ]
+        },
+        {
+          id: 'pricing',
+          title: 'Tarifs',
+          fields: [
+            { key: 'pricing.individual.price', label: 'Prix individuel', type: 'text' },
+            { key: 'pricing.individual.label', label: 'Label individuel', type: 'text' },
+            { key: 'pricing.enterprise.price', label: 'Prix entreprise', type: 'text' },
+            { key: 'pricing.enterprise.label', label: 'Label entreprise', type: 'text' },
+          ]
+        },
+        {
+          id: 'testimonials',
+          title: 'Temoignages',
+          list: {
+            key: 'testimonials.items',
+            label: 'Temoignage',
+            fields: [
+              { key: 'quote', label: 'Citation', type: 'html' },
+              { key: 'name', label: 'Nom', type: 'text' },
+              { key: 'role', label: 'Role', type: 'text' },
+            ]
+          }
+        },
+        {
+          id: 'faq',
+          title: 'FAQ',
+          list: {
+            key: 'faq.items',
+            label: 'Question',
+            fields: [
+              { key: 'question', label: 'Question', type: 'text' },
+              { key: 'answer', label: 'Reponse', type: 'html' },
+            ]
+          }
+        },
+      ]
+    },
+    'programmes/ai-governance': {
+      label: 'AI Governance Program',
+      icon: '🏛️',
+      sections: [
+        {
+          id: 'hero',
+          title: 'Hero',
+          fields: [
+            { key: 'hero.title', label: 'Titre', type: 'html' },
+            { key: 'hero.subtitle', label: 'Sous-titre', type: 'html' },
+            { key: 'hero.cta.text', label: 'Bouton CTA - texte', type: 'text' },
+            { key: 'hero.cta.href', label: 'Bouton CTA - lien', type: 'url' },
+          ]
+        },
+        {
+          id: 'badges',
+          title: 'Badges / Tags',
+          fields: [
+            { key: 'badges.session', label: 'Numero session', type: 'text' },
+            { key: 'badges.date', label: 'Date', type: 'text' },
+            { key: 'badges.places', label: 'Places restantes', type: 'text' },
+          ]
+        },
+        {
+          id: 'programme',
+          title: 'Programme / Curriculum',
+          fields: [
+            { key: 'programme.title', label: 'Titre section', type: 'text' },
+            { key: 'programme.subtitle', label: 'Sous-titre', type: 'html' },
+          ]
+        },
+        {
+          id: 'pricing',
+          title: 'Tarifs',
+          fields: [
+            { key: 'pricing.individual.price', label: 'Prix individuel', type: 'text' },
+            { key: 'pricing.enterprise.price', label: 'Prix entreprise', type: 'text' },
+          ]
+        },
+        {
+          id: 'faq',
+          title: 'FAQ',
+          list: {
+            key: 'faq.items',
+            label: 'Question',
+            fields: [
+              { key: 'question', label: 'Question', type: 'text' },
+              { key: 'answer', label: 'Reponse', type: 'html' },
+            ]
+          }
+        },
+      ]
+    },
+    'programmes/sprints': {
+      label: 'Sprints',
+      icon: '⚡',
+      sections: [
+        {
+          id: 'hero',
+          title: 'Hero',
+          fields: [
+            { key: 'hero.title', label: 'Titre', type: 'html' },
+            { key: 'hero.subtitle', label: 'Sous-titre', type: 'html' },
+          ]
+        },
+        {
+          id: 'sprints',
+          title: 'Sprints disponibles',
+          list: {
+            key: 'sprints.items',
+            label: 'Sprint',
+            fields: [
+              { key: 'icon', label: 'Icone (emoji)', type: 'text' },
+              { key: 'title', label: 'Titre', type: 'text' },
+              { key: 'desc', label: 'Description', type: 'html' },
+              { key: 'price', label: 'Prix', type: 'text' },
+              { key: 'duration', label: 'Duree', type: 'text' },
+            ]
+          }
+        },
+      ]
+    },
+    'programmes/masterclass': {
+      label: 'Masterclass',
+      icon: '🎓',
+      sections: [
+        {
+          id: 'hero',
+          title: 'Hero',
+          fields: [
+            { key: 'hero.title', label: 'Titre', type: 'html' },
+            { key: 'hero.subtitle', label: 'Sous-titre', type: 'html' },
+          ]
+        },
+        {
+          id: 'pricing',
+          title: 'Tarifs',
+          fields: [
+            { key: 'pricing.unit', label: 'Prix unitaire', type: 'text' },
+            { key: 'pricing.monthly', label: 'Prix mensuel', type: 'text' },
+            { key: 'pricing.annual', label: 'Prix annuel', type: 'text' },
+          ]
+        },
+      ]
+    },
+    '_shared': {
+      label: 'Contenu partage',
+      icon: '🔗',
+      sections: [
+        {
+          id: 'header',
+          title: 'Header',
+          fields: [
+            { key: 'header.cta.text', label: 'Bouton CTA - texte', type: 'text' },
+            { key: 'header.cta.href', label: 'Bouton CTA - lien', type: 'url' },
+          ]
+        },
+        {
+          id: 'footer',
+          title: 'Footer',
+          fields: [
+            { key: 'footer.brand', label: 'Texte marque', type: 'html' },
+            { key: 'footer.copyright', label: 'Copyright', type: 'text' },
+          ]
+        },
+        {
+          id: 'newsletter-cta',
+          title: 'Newsletter CTA (commun)',
+          fields: [
+            { key: 'newsletterCTA.title', label: 'Titre', type: 'html' },
+            { key: 'newsletterCTA.subtitle', label: 'Sous-titre', type: 'text' },
+            { key: 'newsletterCTA.socialProof', label: 'Social proof', type: 'text' },
+          ]
+        },
+        {
+          id: 'social',
+          title: 'Liens sociaux',
+          fields: [
+            { key: 'social.linkedin.elodie', label: 'LinkedIn Elodie', type: 'url' },
+            { key: 'social.linkedin.nash', label: 'LinkedIn Nash', type: 'url' },
+            { key: 'social.youtube', label: 'YouTube', type: 'url' },
+            { key: 'social.newsletter', label: 'Newsletter URL', type: 'url' },
+          ]
+        },
+      ]
+    },
+  };
+
+  // ===== API HELPERS =====
+
+  async function api(path, options = {}) {
+    const headers = { ...options.headers };
+    if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+    if (options.body && typeof options.body === 'object' && !(options.body instanceof FormData)) {
+      headers['Content-Type'] = 'application/json';
+      options.body = JSON.stringify(options.body);
+    }
+    const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+    if (res.status === 401) {
+      logout();
+      return null;
+    }
+    return res.json();
+  }
+
+  function showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  }
+
+  // ===== AUTH =====
+
+  function logout() {
+    authToken = null;
+    currentUser = null;
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_user');
+    render();
+  }
+
+  async function handleLoginSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    const errorEl = document.getElementById('login-error');
+    const btn = e.target.querySelector('button');
+
+    btn.disabled = true;
+    btn.textContent = 'Connexion...';
+    errorEl.style.display = 'none';
+
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+
+      if (data.token) {
+        authToken = data.token;
+        currentUser = data.email;
+        localStorage.setItem('admin_token', authToken);
+        localStorage.setItem('admin_user', currentUser);
+        render();
+      } else {
+        errorEl.textContent = data.error || 'Erreur de connexion';
+        errorEl.style.display = 'block';
+      }
+    } catch (err) {
+      errorEl.textContent = 'Erreur reseau. Verifiez votre connexion.';
+      errorEl.style.display = 'block';
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Se connecter';
+  }
+
+  // ===== RENDERING =====
+
+  function render() {
+    const app = document.getElementById('app');
+
+    if (!authToken) {
+      app.innerHTML = renderLogin();
+      document.getElementById('login-form').addEventListener('submit', handleLoginSubmit);
+      return;
+    }
+
+    if (!currentPageId) {
+      renderDashboard();
+    } else {
+      renderEditor();
+    }
+  }
+
+  function renderLogin() {
+    return `
+      <div class="login-page">
+        <div class="login-card">
+          <div class="login-logo">AI<span class="x">&times;</span>Leaders</div>
+          <p class="login-subtitle">Administration du site</p>
+          <div id="login-error" class="alert alert-error" style="display:none"></div>
+          <form id="login-form">
+            <div class="form-group">
+              <label class="form-label" for="login-email">Email</label>
+              <input class="form-input" id="login-email" type="email" placeholder="votre@email.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="login-password">Mot de passe</label>
+              <input class="form-input" id="login-password" type="password" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+            <button class="btn btn-primary" type="submit">Se connecter</button>
+          </form>
+        </div>
+      </div>
+    `;
+  }
+
+  async function renderDashboard() {
+    const app = document.getElementById('app');
+    app.innerHTML = renderLayout(`
+      <h1 class="page-title">Tableau de bord</h1>
+      <p class="page-desc">Selectionnez une page pour modifier son contenu.</p>
+      <div class="pages-grid" id="pages-grid">
+        <div style="display:flex;align-items:center;gap:8px;color:var(--text-muted)">
+          <div class="spinner"></div> Chargement...
+        </div>
+      </div>
+    `);
+
+    attachSidebarEvents();
+
+    // Load page metadata
+    const data = await api('/api/content');
+    if (!data) return;
+    pagesData = data.pages || [];
+
+    const grid = document.getElementById('pages-grid');
+    grid.innerHTML = Object.entries(PAGE_SCHEMAS).map(([id, schema]) => {
+      const meta = pagesData.find(p => p.id === id);
+      const lastMod = meta?.lastModified
+        ? new Date(meta.lastModified).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+        : 'Jamais modifie';
+      const modBy = meta?.modifiedBy || '';
+
+      return `
+        <div class="page-card" data-page="${id}">
+          <div class="page-card-icon">${schema.icon}</div>
+          <div class="page-card-title">${schema.label}</div>
+          <div class="page-card-file">${id === '_shared' ? 'Header / Footer / Newsletter' : id + '.html'}</div>
+          <div class="page-card-meta">${lastMod}${modBy ? ` — ${modBy}` : ''}</div>
+        </div>
+      `;
+    }).join('');
+
+    grid.querySelectorAll('.page-card').forEach(card => {
+      card.addEventListener('click', () => {
+        currentPageId = card.dataset.page;
+        render();
+      });
+    });
+  }
+
+  async function renderEditor() {
+    const schema = PAGE_SCHEMAS[currentPageId];
+    if (!schema) {
+      currentPageId = null;
+      render();
+      return;
+    }
+
+    const app = document.getElementById('app');
+    app.innerHTML = renderLayout(`
+      <div class="editor-header">
+        <div>
+          <h1 class="page-title">${schema.icon} ${schema.label}</h1>
+          <p class="page-desc" id="editor-status">Chargement...</p>
+        </div>
+        <div class="editor-actions">
+          <button class="btn btn-secondary btn-sm" onclick="previewPage()">Previsualiser</button>
+          <button class="btn btn-primary btn-sm" id="save-btn" onclick="saveContent()" disabled>Sauvegarder</button>
+        </div>
+      </div>
+      <div id="editor-body">
+        <div style="display:flex;align-items:center;gap:8px;color:var(--text-muted);padding:40px 0">
+          <div class="spinner"></div> Chargement du contenu...
+        </div>
+      </div>
+    `, currentPageId);
+
+    attachSidebarEvents();
+
+    // Load content from KV
+    const data = await api(`/api/content/${currentPageId}`);
+    if (!data) return;
+    currentContent = data.content || {};
+    isDirty = false;
+
+    const status = document.getElementById('editor-status');
+    const saveBtn = document.getElementById('save-btn');
+
+    // If KV is empty, fetch existing content from live HTML page
+    if (Object.keys(currentContent).length === 0) {
+      status.textContent = 'Chargement du contenu existant...';
+      currentContent = await fetchExistingContent(currentPageId);
+      if (Object.keys(currentContent).length > 0) {
+        isDirty = true; // Mark dirty so user can save to KV
+      }
+    }
+
+    status.textContent = currentPageId === '_shared' ? 'Contenu partage entre toutes les pages' : `Fichier: ${currentPageId}.html`;
+    if (isDirty) status.textContent += ' — Contenu charge depuis le HTML (non sauvegarde)';
+    saveBtn.disabled = false;
+
+    const editorBody = document.getElementById('editor-body');
+    editorBody.innerHTML = schema.sections.map(section => renderSection(section)).join('');
+
+    // Populate field values
+    populateFields();
+
+    // Attach section toggle events
+    editorBody.querySelectorAll('.editor-section-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.parentElement.classList.toggle('collapsed');
+      });
+    });
+  }
+
+  function renderSection(section) {
+    const fieldsHTML = (section.fields || []).map(field => renderField(field)).join('');
+    const listHTML = section.list ? renderListEditor(section.list) : '';
+
+    return `
+      <div class="editor-section" data-section="${section.id}">
+        <div class="editor-section-header">
+          <span class="editor-section-title">${section.title}</span>
+          <span class="editor-section-toggle">▼</span>
+        </div>
+        <div class="editor-section-body">
+          ${fieldsHTML}
+          ${listHTML}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderField(field, prefix = '') {
+    const fullKey = prefix ? `${prefix}.${field.key}` : field.key;
+    const inputId = `field-${fullKey.replace(/\./g, '-')}`;
+
+    if (field.type === 'html') {
+      return `
+        <div class="field-row">
+          <div class="field-key">${fullKey}</div>
+          <label class="form-label" for="${inputId}">${field.label}</label>
+          <div class="rich-toolbar">
+            <button type="button" onclick="insertTag('${inputId}', 'strong')"><b>B</b></button>
+            <button type="button" onclick="insertTag('${inputId}', 'em')"><i>I</i></button>
+            <button type="button" onclick="insertBr('${inputId}')">&lt;br&gt;</button>
+          </div>
+          <textarea class="form-input" id="${inputId}" data-cms-key="${fullKey}" rows="3"
+                    oninput="markDirty()"></textarea>
+        </div>
+      `;
+    }
+
+    if (field.type === 'image') {
+      return `
+        <div class="field-row">
+          <div class="field-key">${fullKey}</div>
+          <label class="form-label">${field.label}</label>
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <img class="image-preview" id="preview-${inputId}" src="" alt="" onerror="this.style.display='none'">
+            <div style="flex:1">
+              <input class="form-input" id="${inputId}" data-cms-key="${fullKey}" type="text"
+                     placeholder="URL de l'image" oninput="markDirty(); updateImagePreview('${inputId}')">
+              <div style="margin-top:8px">
+                <label class="btn btn-secondary btn-sm" style="cursor:pointer">
+                  Uploader une image
+                  <input type="file" accept="image/*" style="display:none"
+                         onchange="uploadImage(this, '${inputId}')">
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="field-row">
+        <div class="field-key">${fullKey}</div>
+        <label class="form-label" for="${inputId}">${field.label}</label>
+        <input class="form-input" id="${inputId}" data-cms-key="${fullKey}"
+               type="${field.type === 'url' ? 'url' : 'text'}"
+               placeholder="${field.type === 'url' ? 'https://...' : ''}"
+               oninput="markDirty()">
+      </div>
+    `;
+  }
+
+  function renderListEditor(list) {
+    return `
+      <div class="list-editor" data-list-key="${list.key}">
+        <div class="form-label" style="margin-bottom:12px;font-weight:600">${list.label}s</div>
+        <div class="list-items" id="list-${list.key.replace(/\./g, '-')}"></div>
+        <button class="btn-add-item" onclick="addListItem('${list.key}')">
+          + Ajouter un(e) ${list.label.toLowerCase()}
+        </button>
+      </div>
+    `;
+  }
+
+  function renderListItem(list, index, itemData = {}) {
+    const containerId = `list-${list.key.replace(/\./g, '-')}`;
+    const fieldsHTML = list.fields.map(field => {
+      const fullKey = `${list.key}.${index}.${field.key}`;
+      return renderField({ ...field, key: fullKey }, '');
+    }).join('');
+
+    return `
+      <div class="list-item" data-list-index="${index}">
+        <div class="list-item-header">
+          <span class="list-item-number">#${index + 1}</span>
+          <div class="list-item-actions">
+            <button title="Monter" onclick="moveListItem('${list.key}', ${index}, -1)">↑</button>
+            <button title="Descendre" onclick="moveListItem('${list.key}', ${index}, 1)">↓</button>
+            <button class="delete-btn" title="Supprimer" onclick="removeListItem('${list.key}', ${index})">✕</button>
+          </div>
+        </div>
+        ${fieldsHTML}
+      </div>
+    `;
+  }
+
+  function populateFields() {
+    // Populate simple fields
+    document.querySelectorAll('[data-cms-key]').forEach(el => {
+      const key = el.dataset.cmsKey;
+      if (currentContent[key] !== undefined) {
+        el.value = currentContent[key];
+        // Update image previews
+        if (el.id && el.id.startsWith('field-') && el.closest('.field-row')?.querySelector('.image-preview')) {
+          updateImagePreview(el.id);
+        }
+      }
+    });
+
+    // Populate lists
+    const schema = PAGE_SCHEMAS[currentPageId];
+    if (!schema) return;
+
+    schema.sections.forEach(section => {
+      if (!section.list) return;
+      const listKey = section.list.key;
+      const containerId = `list-${listKey.replace(/\./g, '-')}`;
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      // Find all items for this list in currentContent
+      const items = [];
+      const prefix = `${listKey}.`;
+      const indices = new Set();
+
+      Object.keys(currentContent).forEach(key => {
+        if (key.startsWith(prefix)) {
+          const rest = key.slice(prefix.length);
+          const idx = parseInt(rest.split('.')[0]);
+          if (!isNaN(idx)) indices.add(idx);
+        }
+      });
+
+      const sortedIndices = [...indices].sort((a, b) => a - b);
+
+      container.innerHTML = sortedIndices.map(idx =>
+        renderListItem(section.list, idx)
+      ).join('');
+
+      // Populate list item fields
+      container.querySelectorAll('[data-cms-key]').forEach(el => {
+        const key = el.dataset.cmsKey;
+        if (currentContent[key] !== undefined) {
+          el.value = currentContent[key];
+        }
+      });
+    });
+  }
+
+  // ===== LAYOUT =====
+
+  function renderLayout(mainContent, activePageId = null) {
+    const sidebarPages = Object.entries(PAGE_SCHEMAS)
+      .filter(([id]) => id !== '_shared')
+      .map(([id, schema]) => `
+        <div class="sidebar-link ${activePageId === id ? 'active' : ''}" data-nav-page="${id}">
+          <span class="sidebar-link-icon">${schema.icon}</span>
+          ${schema.label}
+        </div>
+      `).join('');
+
+    return `
+      <div class="app-layout">
+        <header class="app-header">
+          <div class="app-header-left">
+            <span class="app-header-logo">AI<span class="x">&times;</span>Leaders</span>
+            <span class="app-header-badge">Admin</span>
+          </div>
+          <div class="app-header-right">
+            <span class="app-header-user">${currentUser || ''}</span>
+            <button class="btn btn-secondary btn-sm" onclick="currentPageId=null;render()">Dashboard</button>
+            <a class="btn btn-secondary btn-sm" href="/" target="_blank">Voir le site</a>
+            <button class="btn btn-secondary btn-sm" onclick="logout()">Deconnexion</button>
+          </div>
+        </header>
+        <nav class="app-sidebar">
+          <div class="sidebar-section">
+            <div class="sidebar-section-title">Pages</div>
+            ${sidebarPages}
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-section-title">Global</div>
+            <div class="sidebar-link ${activePageId === '_shared' ? 'active' : ''}" data-nav-page="_shared">
+              <span class="sidebar-link-icon">🔗</span>
+              Contenu partage
+            </div>
+          </div>
+        </nav>
+        <main class="app-main">
+          ${mainContent}
+        </main>
+      </div>
+    `;
+  }
+
+  function attachSidebarEvents() {
+    document.querySelectorAll('[data-nav-page]').forEach(link => {
+      link.addEventListener('click', () => {
+        if (isDirty && !confirm('Des modifications non sauvegardees seront perdues. Continuer ?')) return;
+        currentPageId = link.dataset.navPage;
+        isDirty = false;
+        render();
+      });
+    });
+  }
+
+  // ===== FETCH EXISTING CONTENT FROM LIVE HTML =====
+
+  async function fetchExistingContent(pageId) {
+    // Determine which URL to fetch
+    let url;
+    if (pageId === '_shared') {
+      url = '/index.html'; // shared content (header/footer) is on every page
+    } else if (pageId === 'index') {
+      url = '/index.html';
+    } else {
+      url = `/${pageId}.html`;
+    }
+
+    try {
+      const res = await fetch(url);
+      if (!res.ok) return {};
+      const html = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const content = {};
+
+      // Extract data-cms (text/innerHTML)
+      doc.querySelectorAll('[data-cms]').forEach(el => {
+        const key = el.getAttribute('data-cms');
+        if (key) content[key] = el.innerHTML.trim();
+      });
+
+      // Extract data-cms-href (link hrefs)
+      doc.querySelectorAll('[data-cms-href]').forEach(el => {
+        const hrefKey = el.getAttribute('data-cms-href');
+        if (hrefKey) {
+          content[hrefKey] = el.getAttribute('href') || '';
+        }
+      });
+
+      // Extract data-cms-src (image sources)
+      doc.querySelectorAll('[data-cms-src]').forEach(el => {
+        const srcKey = el.getAttribute('data-cms-src');
+        if (srcKey) {
+          content[srcKey] = el.getAttribute('src') || '';
+        }
+      });
+
+      // Extract data-cms-alt (image alts)
+      doc.querySelectorAll('[data-cms-alt]').forEach(el => {
+        const altKey = el.getAttribute('data-cms-alt');
+        if (altKey) {
+          content[altKey] = el.getAttribute('alt') || '';
+        }
+      });
+
+      // Extract data-cms-content (meta tags)
+      doc.querySelectorAll('[data-cms-content]').forEach(el => {
+        const contentKey = el.getAttribute('data-cms-content');
+        if (contentKey) {
+          content[contentKey] = el.getAttribute('content') || '';
+        }
+      });
+
+      return content;
+    } catch (err) {
+      console.error('Error fetching existing content:', err);
+      return {};
+    }
+  }
+
+  // ===== ACTIONS =====
+
+  function markDirty() {
+    isDirty = true;
+    const saveBtn = document.getElementById('save-btn');
+    if (saveBtn) saveBtn.style.background = 'var(--warning)';
+  }
+
+  function collectContent() {
+    const content = {};
+    document.querySelectorAll('[data-cms-key]').forEach(el => {
+      const key = el.dataset.cmsKey;
+      const val = el.value.trim();
+      if (val) content[key] = val;
+    });
+    return content;
+  }
+
+  async function saveContent() {
+    const saveBtn = document.getElementById('save-btn');
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Sauvegarde...';
+
+    const content = collectContent();
+
+    try {
+      const res = await api(`/api/content/${currentPageId}`, {
+        method: 'PUT',
+        body: { content },
+      });
+
+      if (res?.success) {
+        currentContent = content;
+        isDirty = false;
+        saveBtn.style.background = '';
+        showToast('Contenu sauvegarde avec succes !');
+      } else {
+        showToast(res?.error || 'Erreur lors de la sauvegarde', 'error');
+      }
+    } catch (err) {
+      showToast('Erreur reseau', 'error');
+    }
+
+    saveBtn.disabled = false;
+    saveBtn.textContent = 'Sauvegarder';
+  }
+
+  function previewPage() {
+    if (currentPageId === '_shared') {
+      window.open('/', '_blank');
+    } else if (currentPageId.includes('/')) {
+      window.open(`/${currentPageId}.html`, '_blank');
+    } else {
+      window.open(`/${currentPageId === 'index' ? '' : currentPageId + '.html'}`, '_blank');
+    }
+  }
+
+  // ===== LIST OPERATIONS =====
+
+  function addListItem(listKey) {
+    const schema = PAGE_SCHEMAS[currentPageId];
+    let listSchema = null;
+    for (const section of schema.sections) {
+      if (section.list?.key === listKey) { listSchema = section.list; break; }
+    }
+    if (!listSchema) return;
+
+    // Find the next index
+    const prefix = `${listKey}.`;
+    const indices = [];
+    document.querySelectorAll(`[data-cms-key^="${prefix}"]`).forEach(el => {
+      const rest = el.dataset.cmsKey.slice(prefix.length);
+      const idx = parseInt(rest.split('.')[0]);
+      if (!isNaN(idx)) indices.push(idx);
+    });
+    const nextIndex = indices.length > 0 ? Math.max(...indices) + 1 : 0;
+
+    const containerId = `list-${listKey.replace(/\./g, '-')}`;
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const itemHTML = renderListItem(listSchema, nextIndex);
+    container.insertAdjacentHTML('beforeend', itemHTML);
+    markDirty();
+  }
+
+  function removeListItem(listKey, index) {
+    if (!confirm('Supprimer cet element ?')) return;
+
+    // Remove from DOM and rebuild indices
+    const content = collectContent();
+    const prefix = `${listKey}.${index}.`;
+
+    // Remove all keys for this index
+    Object.keys(content).forEach(key => {
+      if (key.startsWith(prefix)) delete content[key];
+    });
+
+    // Reindex remaining items
+    reindexList(content, listKey);
+
+    currentContent = content;
+    isDirty = true;
+
+    // Re-render editor
+    renderEditor();
+  }
+
+  function moveListItem(listKey, index, direction) {
+    const targetIndex = index + direction;
+    if (targetIndex < 0) return;
+
+    const content = collectContent();
+    const prefix = `${listKey}.`;
+
+    // Check target exists
+    const targetExists = Object.keys(content).some(k => k.startsWith(`${prefix}${targetIndex}.`));
+    if (!targetExists) return;
+
+    // Swap items
+    const tempContent = {};
+    Object.entries(content).forEach(([key, val]) => {
+      if (key.startsWith(`${prefix}${index}.`)) {
+        tempContent[key.replace(`${prefix}${index}.`, `${prefix}${targetIndex}.`)] = val;
+      } else if (key.startsWith(`${prefix}${targetIndex}.`)) {
+        tempContent[key.replace(`${prefix}${targetIndex}.`, `${prefix}${index}.`)] = val;
+      } else {
+        tempContent[key] = val;
+      }
+    });
+
+    currentContent = tempContent;
+    isDirty = true;
+    renderEditor();
+  }
+
+  function reindexList(content, listKey) {
+    const prefix = `${listKey}.`;
+    const items = {};
+
+    // Collect items by their current index
+    Object.keys(content).forEach(key => {
+      if (key.startsWith(prefix)) {
+        const rest = key.slice(prefix.length);
+        const idx = parseInt(rest.split('.')[0]);
+        const field = rest.slice(rest.indexOf('.') + 1);
+        if (!isNaN(idx)) {
+          if (!items[idx]) items[idx] = {};
+          items[idx][field] = content[key];
+          delete content[key];
+        }
+      }
+    });
+
+    // Rewrite with sequential indices
+    Object.values(items).forEach((item, newIdx) => {
+      Object.entries(item).forEach(([field, val]) => {
+        content[`${prefix}${newIdx}.${field}`] = val;
+      });
+    });
+  }
+
+  // ===== RICH TEXT HELPERS =====
+
+  function insertTag(inputId, tag) {
+    const el = document.getElementById(inputId);
+    if (!el) return;
+    const start = el.selectionStart;
+    const end = el.selectionEnd;
+    const text = el.value;
+    const selected = text.slice(start, end);
+    el.value = text.slice(0, start) + `<${tag}>${selected}</${tag}>` + text.slice(end);
+    el.focus();
+    markDirty();
+  }
+
+  function insertBr(inputId) {
+    const el = document.getElementById(inputId);
+    if (!el) return;
+    const pos = el.selectionStart;
+    el.value = el.value.slice(0, pos) + '<br>' + el.value.slice(pos);
+    el.focus();
+    markDirty();
+  }
+
+  // ===== IMAGE UPLOAD =====
+
+  function updateImagePreview(inputId) {
+    const input = document.getElementById(inputId);
+    const preview = document.getElementById(`preview-${inputId}`);
+    if (input && preview) {
+      preview.src = input.value;
+      preview.style.display = input.value ? 'block' : 'none';
+    }
+  }
+
+  async function uploadImage(fileInput, targetInputId) {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      showToast('Upload en cours...', 'success');
+      const res = await fetch(`${API_BASE}/api/images/upload`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${authToken}` },
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (data.url) {
+        const input = document.getElementById(targetInputId);
+        if (input) {
+          input.value = data.url;
+          updateImagePreview(targetInputId);
+          markDirty();
+        }
+        showToast('Image uploadee avec succes !');
+      } else {
+        showToast(data.error || 'Erreur upload', 'error');
+      }
+    } catch (err) {
+      showToast('Erreur reseau lors de l\'upload', 'error');
+    }
+  }
+
+  // ===== INIT =====
+  render();
+  </script>
+</body>
+</html>

@@ -5,5 +5,19 @@
   "assets": {
     "directory": "./",
     "binding": "ASSETS"
-  }
+  },
+  "kv_namespaces": [
+    {
+      "binding": "CMS_KV",
+      "id": "d87ab1140b8b41c886131a652de70fa9"
+    }
+  ],
+  // R2 bucket — à activer dans le dashboard Cloudflare puis décommenter
+  // "r2_buckets": [
+  //   {
+  //     "binding": "CMS_IMAGES",
+  //     "bucket_name": "ai-x-leaders-cms-images"
+  //   }
+  // ]
+  "r2_buckets": []
 }
