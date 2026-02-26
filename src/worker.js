@@ -97,13 +97,19 @@ export default {
       return withAuth(request, env, handleContentAPI);
     }
 
-    // Image API (auth required)
+    // Image API (auth required) — requires R2
     if (path.startsWith('/api/images')) {
+      if (!env.CMS_IMAGES) {
+        return jsonResponse({ error: 'R2 non configuré. Activez R2 dans le dashboard Cloudflare.' }, 503);
+      }
       return withAuth(request, env, handleImageAPI);
     }
 
     // --- Serve R2 images (public) ---
     if (path.startsWith('/cms-images/')) {
+      if (!env.CMS_IMAGES) {
+        return new Response('R2 non configuré', { status: 503 });
+      }
       const key = path.replace('/cms-images/', '');
       return serveImage(key, env);
     }
