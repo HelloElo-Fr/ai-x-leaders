@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CRM — AI Leadership Program</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #f1f3f5; overflow: hidden; height: 100vh; }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-thumb { background: #c1c8d0; border-radius: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useMemo, useEffect } = React;
+
+const STORAGE_KEY = "crm_ailp_v3";
+
+const defaultLeads = [
+  { id: 1, prenom: "Linda", nom: "Heim", fonction: "Directrice marketing", entreprise: "", mc: "Comet & Atlas, Masterclass Welcome 2026, Think Like Me – GPT-5.1, Claude dans Excel", mcCount: 4, vanity: "linda-heim", connElodie: "1er", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: true, msgDate: "27/02 08:41", notes: "", statut: "Relancé", owner: "elodie", type: "bootcamp" },
+  { id: 2, prenom: "Anne-Laure", nom: "Tembely", fonction: "Directrice commerciale", entreprise: "DIM", mc: "Comet & Atlas, Claude dans Excel, Claude - co-work", mcCount: 3, vanity: "anne-laure-laidet-70034162", connElodie: "1er", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: true, msgDate: "27/02 08:45", notes: "Nom LinkedIn : Laidet", statut: "Relancé", owner: "elodie", type: "bootcamp" },
+  { id: 3, prenom: "Anne-Cécile", nom: "Le Dain", fonction: "Manager de projets digitaux", entreprise: "", mc: "Masterclass Welcome 2026, Claude - co-work", mcCount: 2, vanity: "ance29", connElodie: "1er", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: true, msgDate: "27/02 08:48", notes: "", statut: "Relancé", owner: "elodie", type: "bootcamp" },
+  { id: 4, prenom: "Etienne", nom: "Rivoallan", fonction: "Fondateur", entreprise: "UpToNum", mc: "Masterclass Welcome 2026, Claude - co-work", mcCount: 2, vanity: "etienne-rivoallan-93a10710", connElodie: "1er", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: true, msgDate: "27/02 08:52", notes: "", statut: "Relancé", owner: "elodie", type: "bootcamp" },
+  { id: 5, prenom: "Larisa", nom: "Krasheninnikova", fonction: "Business Developer IA", entreprise: "InterArgus consulting", mc: "AI Leadership Program x NegoBrain, Claude dans Excel", mcCount: 2, vanity: "larisa-krasheninnikova-govorov", connElodie: "2e", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: true, msgDate: "27/02 08:56", notes: "2e degré mais message gratuit OK", statut: "Relancé", owner: "elodie", type: "bootcamp" },
+  { id: 6, prenom: "Laetitia", nom: "De Oliveira", fonction: "", entreprise: "NEOTOA", mc: "AI Leadership Program x NegoBrain, Claude dans Excel, Claude - co-work", mcCount: 3, vanity: "laetitia-de-oliveira-5abb71103", connElodie: "2e", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: false, msgDate: "", notes: "Premium requis. Nom LinkedIn : De Oliveira Cueille", statut: "À inviter", owner: "elodie", type: "bootcamp" },
+  { id: 7, prenom: "Patxi", nom: "Hastoy", fonction: "Director Global Identity & Digital Protection", entreprise: "Generali Global Assistance", mc: "Claude dans Excel", mcCount: 1, vanity: "patxi", connElodie: "1er", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: true, msgDate: "27/02 09:22", notes: "", statut: "Relancé", owner: "elodie", type: "bootcamp" },
+  { id: 8, prenom: "Guillaume", nom: "Lelong", fonction: "Fondateur OCTO+ Conseil", entreprise: "ATASH", mc: "Claude dans Excel, Claude - co-work", mcCount: 2, vanity: "guillaume-lelong", connElodie: "1er", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: true, msgDate: "27/02 10:48", notes: "", statut: "Relancé", owner: "elodie", type: "bootcamp" },
+  { id: 9, prenom: "Muriel", nom: "Moscardini", fonction: "CEO", entreprise: "SDG Group / Fluendo", mc: "Claude dans Excel", mcCount: 1, vanity: "murielmoscardini", connElodie: "2e", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: false, msgDate: "", notes: "Premium requis", statut: "À inviter", owner: "elodie", type: "bootcamp" },
+  { id: 10, prenom: "Pascal", nom: "Mellul", fonction: "Director of Engagement", entreprise: "Inetum", mc: "Claude dans Excel", mcCount: 1, vanity: "pascalmellul", connElodie: "1er", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: true, msgDate: "27/02 10:53", notes: "", statut: "Relancé", owner: "elodie", type: "bootcamp" },
+  { id: 11, prenom: "Jean-Christophe", nom: "Laurent", fonction: "CEO", entreprise: "Penon Partners", mc: "Claude dans Excel", mcCount: 1, vanity: "jc-laurent", connElodie: "1er", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: true, msgDate: "27/02 10:56", notes: "", statut: "Relancé", owner: "elodie", type: "bootcamp" },
+  { id: 12, prenom: "Elodie", nom: "Déon", fonction: "Directrice des opérations", entreprise: "Bizao Afrique", mc: "Claude dans Excel", mcCount: 1, vanity: "elodie-barbier-d%C3%A9on-b1b79318", connElodie: "2e", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: false, msgDate: "", notes: "Premium requis. Nom LinkedIn : Elodie BARBIER DÉON", statut: "À inviter", owner: "elodie", type: "bootcamp" },
+  { id: 13, prenom: "Charlotte", nom: "Seurot", fonction: "Office Manager", entreprise: "MPG Partners", mc: "Claude dans Excel", mcCount: 1, vanity: "charlotte-seurot", connElodie: "2e", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: false, msgDate: "", notes: "Premium requis", statut: "À inviter", owner: "elodie", type: "bootcamp" },
+  { id: 14, prenom: "Emmanuelle", nom: "Houcke", fonction: "Directrice de la Transformation", entreprise: "Société Générale", mc: "Claude dans Excel", mcCount: 1, vanity: "emmanuelle-houcke-54670a8b", connElodie: "1er", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: true, msgDate: "27/02 11:03", notes: "", statut: "Relancé", owner: "elodie", type: "bootcamp" },
+  { id: 15, prenom: "Olivier", nom: "Stibler", fonction: "DAF / Group CFO", entreprise: "Groupe Santiane", mc: "Claude dans Excel", mcCount: 1, vanity: "olivier-stibler-1a34538", connElodie: "1er", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: true, msgDate: "27/02 11:07", notes: "", statut: "Relancé", owner: "elodie", type: "bootcamp" },
+  { id: 16, prenom: "Inés", nom: "Kucharz", fonction: "Executive Presentation Coach / CEO", entreprise: "CrossCulturalCommunication", mc: "Claude dans Excel", mcCount: 1, vanity: "in%C3%A9s-kucharz-827b765b", connElodie: "1er", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: true, msgDate: "27/02 11:10", notes: "", statut: "Relancé", owner: "elodie", type: "bootcamp" },
+  { id: 17, prenom: "Lucie", nom: "Leclercq", fonction: "Content Marketing", entreprise: "", mc: "Claude dans Excel", mcCount: 1, vanity: "lucie-leclercq", connElodie: "2e", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: false, msgDate: "", notes: "Premium requis", statut: "À inviter", owner: "elodie", type: "bootcamp" },
+  { id: 18, prenom: "Luc", nom: "Lu", fonction: "", entreprise: "France Shanghai Accueil", mc: "Claude dans Excel", mcCount: 1, vanity: "luc-lu-a809921a8", connElodie: "?", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: false, msgDate: "", notes: "Profil non trouvé dans la recherche LinkedIn", statut: "À vérifier", owner: "elodie", type: "bootcamp" },
+  { id: 19, prenom: "Emmanuelle", nom: "Grimbert", fonction: "Innovation Leader", entreprise: "Danone", mc: "Claude dans Excel", mcCount: 1, vanity: "emmanuelle-grimbert-b062752", connElodie: "2e", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: false, msgDate: "", notes: "Premium requis", statut: "À inviter", owner: "elodie", type: "bootcamp" },
+  { id: 20, prenom: "Jennifer", nom: "Magnan", fonction: "Office Manager", entreprise: "Lacoste", mc: "Claude dans Excel, Claude - co-work", mcCount: 2, vanity: "jennifer-magnan-a53bb7a4", connElodie: "3e+", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: false, msgDate: "", notes: "Premium requis", statut: "À inviter", owner: "elodie", type: "bootcamp" },
+];
+
+const PIPELINE = [
+  { key: "À inviter", label: "À inviter", color: "#f59e0b", icon: "👋" },
+  { key: "Invitation envoyée", label: "Invit. envoyée", color: "#818cf8", icon: "📨" },
+  { key: "Invitation acceptée", label: "Invit. acceptée", color: "#34d399", icon: "🤝" },
+  { key: "Relancé", label: "Relancé", color: "#60a5fa", icon: "💬" },
+  { key: "RDV pris", label: "RDV pris", color: "#22d3ee", icon: "📅" },
+  { key: "Inscrit", label: "Inscrit", color: "#4ade80", icon: "🎉" },
+  { key: "Perdu", label: "Perdu", color: "#f87171", icon: "❌" },
+  { key: "À vérifier", label: "À vérifier", color: "#a78bfa", icon: "❓" },
+];
+
+// Owner colors
+const OWNER_COLORS = {
+  elodie: { bg: "#fce7f3", border: "#f9a8d4", text: "#be185d", label: "Elodie", dot: "#ec4899" },
+  sonia: { bg: "#e0f2fe", border: "#7dd3fc", text: "#0369a1", label: "Sonia", dot: "#06b6d4" },
+};
+
+function CRM() {
+  const [leads, setLeads] = useState(() => {
+    try { const s = localStorage.getItem(STORAGE_KEY); if (s) return JSON.parse(s); } catch(e) {}
+    return defaultLeads;
+  });
+  const [activeTab, setActiveTab] = useState("leads");
+  const [selectedLead, setSelectedLead] = useState(null);
+  const [editNotes, setEditNotes] = useState("");
+  const [search, setSearch] = useState("");
+  const [draggedId, setDraggedId] = useState(null);
+  const [dragOverStage, setDragOverStage] = useState(null);
+  const [toast, setToast] = useState(null);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newLead, setNewLead] = useState({ prenom: "", nom: "", fonction: "", entreprise: "", mc: "", vanity: "", owner: "elodie", type: "bootcamp" });
+  const [sortBy, setSortBy] = useState("mcCount");
+  const [sortDir, setSortDir] = useState("desc");
+  const [filterStatut, setFilterStatut] = useState("Tous");
+  const [filterOwner, setFilterOwner] = useState("tous");
+
+  useEffect(() => { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(leads)); } catch(e) {} }, [leads]);
+
+  const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(null), 2500); };
+
+  const updateLead = (id, updates) => {
+    setLeads(prev => prev.map(l => l.id === id ? { ...l, ...updates } : l));
+    if (selectedLead?.id === id) setSelectedLead(prev => prev ? { ...prev, ...updates } : null);
+  };
+
+  const openDetail = (lead) => { setSelectedLead({...lead}); setEditNotes(lead.notes); };
+  const closeDetail = () => { if (selectedLead) { updateLead(selectedLead.id, { notes: editNotes }); showToast("Sauvegardé"); } setSelectedLead(null); };
+
+  const addLead = () => {
+    if (!newLead.prenom || !newLead.nom) return;
+    const mcCount = newLead.mc ? newLead.mc.split(",").length : 0;
+    const id = Math.max(0, ...leads.map(l => l.id)) + 1;
+    setLeads(prev => [...prev, { ...newLead, id, mcCount, connElodie: "", connSonia: "", invitEnvoyee: false, invitAcceptee: false, msgEnvoye: false, msgDate: "", notes: "", statut: "À inviter" }]);
+    setNewLead({ prenom: "", nom: "", fonction: "", entreprise: "", mc: "", vanity: "", owner: "elodie", type: "bootcamp" });
+    setShowAddForm(false);
+    showToast("Lead ajouté !");
+  };
+
+  const deleteLead = (id) => {
+    if (confirm("Supprimer ce lead ?")) { setLeads(prev => prev.filter(l => l.id !== id)); setSelectedLead(null); showToast("Supprimé"); }
+  };
+
+  const exportCSV = () => {
+    const h = ["Prénom","Nom","Fonction","Entreprise","Masterclasses","Nb MC","LinkedIn","Conn Elodie","Conn Sonia","Invit envoyée","Invit acceptée","Msg envoyé","Date msg","Statut","Responsable","Type","Notes"];
+    const rows = leads.map(l => [l.prenom,l.nom,l.fonction,l.entreprise,l.mc,l.mcCount,`https://linkedin.com/in/${l.vanity}/`,l.connElodie,l.connSonia,l.invitEnvoyee?"Oui":"Non",l.invitAcceptee?"Oui":"Non",l.msgEnvoye?"Oui":"Non",l.msgDate,l.statut,l.owner||"",l.type||"",l.notes]);
+    const csv = [h,...rows].map(r => r.map(c => `"${String(c||"").replace(/"/g,'""')}"`).join(",")).join("\n");
+    const blob = new Blob(["\uFEFF"+csv], {type:"text/csv;charset=utf-8"});
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "CRM_AILP.csv"; a.click();
+    showToast("CSV exporté !");
+  };
+
+  // Filter leads by tab
+  const getTabLeads = () => {
+    let r = leads;
+    if (activeTab === "bootcamp") r = r.filter(l => l.type === "bootcamp");
+    if (activeTab === "projets") r = r.filter(l => l.type === "projet");
+    if (filterOwner !== "tous") r = r.filter(l => l.owner === filterOwner);
+    return r;
+  };
+
+  // ============ OWNER DOT ============
+  const OwnerDot = ({ owner, size = 8 }) => {
+    const o = OWNER_COLORS[owner];
+    if (!o) return null;
+    return <span title={o.label} style={{ display: "inline-block", width: size, height: size, borderRadius: "50%", background: o.dot, flexShrink: 0 }}></span>;
+  };
+
+  const OwnerBadge = ({ owner }) => {
+    const o = OWNER_COLORS[owner];
+    if (!o) return <span style={{ color: "#94a3b8", fontSize: 11 }}>—</span>;
+    return <span style={{ padding: "2px 8px", borderRadius: 8, fontSize: 10, fontWeight: 600, background: o.bg, color: o.text, border: `1px solid ${o.border}` }}>{o.label}</span>;
+  };
+
+  // ============ CARD (used in pipeline) ============
+  const LeadCard = ({ lead, stage }) => {
+    const ownerColor = OWNER_COLORS[lead.owner] || { bg: "#f8fafc", border: "#e5e7eb" };
+    return (
+      <div
+        draggable
+        onDragStart={e => { setDraggedId(lead.id); e.dataTransfer.effectAllowed = "move"; }}
+        onClick={() => openDetail(lead)}
+        style={{
+          background: ownerColor.bg,
+          borderRadius: 10, padding: "12px 14px",
+          boxShadow: draggedId === lead.id ? "0 8px 25px rgba(0,0,0,.15)" : "0 1px 3px rgba(0,0,0,.06)",
+          cursor: "grab", transition: "all .15s",
+          opacity: draggedId === lead.id ? 0.4 : 1,
+          borderLeft: `3px solid ${ownerColor.dot || stage.color}`,
+          transform: draggedId === lead.id ? "rotate(-1deg)" : "none",
+        }}
+        onMouseEnter={e => { if (!draggedId) e.currentTarget.style.boxShadow = "0 4px 14px rgba(0,0,0,.1)"; }}
+        onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,.06)"; }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+          <OwnerDot owner={lead.owner} size={7} />
+          <span style={{ fontWeight: 600, fontSize: 13, color: "#1e293b" }}>{lead.prenom} {lead.nom}</span>
+        </div>
+        {lead.entreprise && <div style={{ fontSize: 11, color: "#64748b", marginBottom: 2 }}>{lead.entreprise}</div>}
+        {lead.fonction && <div style={{ fontSize: 10, color: "#94a3b8", marginBottom: 6 }}>{lead.fonction}</div>}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 4 }}>
+          <div style={{ display: "flex", gap: 4, alignItems: "center", flexWrap: "wrap" }}>
+            <span style={{ background: lead.mcCount >= 3 ? "#dbeafe" : "#f1f5f9", color: lead.mcCount >= 3 ? "#1e40af" : "#64748b", padding: "1px 6px", borderRadius: 6, fontSize: 10, fontWeight: 600 }}>{lead.mcCount} MC</span>
+            {lead.connElodie && <span style={{ padding: "1px 5px", borderRadius: 6, fontSize: 9, fontWeight: 500, background: lead.connElodie === "1er" ? "#d1fae5" : "#fef3c7", color: lead.connElodie === "1er" ? "#065f46" : "#92400e" }}>{lead.connElodie}</span>}
+          </div>
+          <div style={{ display: "flex", gap: 2 }}>
+            {lead.msgEnvoye && <span style={{ fontSize: 11 }}>💬</span>}
+            {lead.invitEnvoyee && <span style={{ fontSize: 11 }}>📨</span>}
+            {lead.invitAcceptee && <span style={{ fontSize: 11 }}>✅</span>}
+          </div>
+        </div>
+        {lead.notes && <div style={{ marginTop: 6, padding: "4px 7px", background: "rgba(255,255,255,.6)", borderRadius: 5, fontSize: 10, color: "#64748b", lineHeight: 1.3 }}>{lead.notes.length > 50 ? lead.notes.slice(0,50)+"…" : lead.notes}</div>}
+      </div>
+    );
+  };
+
+  // ============ PIPELINE VIEW ============
+  const PipelineView = () => {
+    const tabLeads = getTabLeads();
+    return (
+      <div style={{ display: "flex", gap: 10, overflowX: "auto", padding: "0 0 16px", height: "calc(100vh - 170px)" }}>
+        {PIPELINE.map(stage => {
+          const stageLeads = tabLeads.filter(l => l.statut === stage.key);
+          const isDragOver = dragOverStage === stage.key;
+          return (
+            <div key={stage.key}
+              onDragOver={e => { e.preventDefault(); setDragOverStage(stage.key); }}
+              onDragLeave={() => setDragOverStage(null)}
+              onDrop={e => { e.preventDefault(); if (draggedId !== null) { updateLead(draggedId, { statut: stage.key }); showToast("Déplacé !"); } setDraggedId(null); setDragOverStage(null); }}
+              style={{ minWidth: 240, maxWidth: 260, flex: "0 0 248px", background: isDragOver ? "#e8edff" : "#f8f9fb", borderRadius: 12, display: "flex", flexDirection: "column", border: isDragOver ? "2px dashed #6366f1" : "2px solid transparent", transition: "all .2s" }}>
+              <div style={{ padding: "12px 12px 8px", borderBottom: `2px solid ${stage.color}40` }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <span style={{ fontWeight: 700, fontSize: 12, color: "#1e293b" }}>{stage.icon} {stage.label}</span>
+                  <span style={{ background: stage.color+"20", color: stage.color, padding: "1px 9px", borderRadius: 20, fontSize: 11, fontWeight: 700 }}>{stageLeads.length}</span>
+                </div>
+              </div>
+              <div style={{ padding: 7, overflowY: "auto", flex: 1, display: "flex", flexDirection: "column", gap: 7 }}>
+                {stageLeads.map(lead => <LeadCard key={lead.id} lead={lead} stage={stage} />)}
+                {stageLeads.length === 0 && <div style={{ padding: 16, textAlign: "center", color: "#c1c8d0", fontSize: 11 }}>Glisser ici</div>}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  // ============ TABLE VIEW ============
+  const TableView = () => {
+    const handleSort = (col) => { if (sortBy === col) setSortDir(d => d==="asc"?"desc":"asc"); else { setSortBy(col); setSortDir("desc"); } };
+    const Arr = ({ col }) => sortBy === col ? <span style={{ marginLeft: 2, fontSize: 8 }}>{sortDir==="asc"?"▲":"▼"}</span> : null;
+
+    const filtered = useMemo(() => {
+      let r = getTabLeads();
+      if (filterStatut !== "Tous") r = r.filter(l => l.statut === filterStatut);
+      if (search) { const s = search.toLowerCase(); r = r.filter(l => `${l.prenom} ${l.nom} ${l.entreprise} ${l.fonction} ${l.notes}`.toLowerCase().includes(s)); }
+      return [...r].sort((a, b) => {
+        let va = a[sortBy], vb = b[sortBy];
+        if (typeof va === "string") { va = (va||"").toLowerCase(); vb = (vb||"").toLowerCase(); }
+        if (typeof va === "boolean") { va = va?1:0; vb = vb?1:0; }
+        if (va < vb) return sortDir === "asc" ? -1 : 1;
+        if (va > vb) return sortDir === "asc" ? 1 : -1;
+        return 0;
+      });
+    }, [leads, activeTab, filterStatut, filterOwner, search, sortBy, sortDir]);
+
+    return (
+      <div style={{ height: "calc(100vh - 170px)", display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", gap: 8, marginBottom: 12, alignItems: "center", flexWrap: "wrap" }}>
+          <input type="text" placeholder="Rechercher..." value={search} onChange={e => setSearch(e.target.value)}
+            style={{ padding: "7px 12px", borderRadius: 8, border: "1px solid #dde1e6", fontSize: 12, width: 200, outline: "none", background: "#fff" }} />
+          <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+            {["Tous", ...PIPELINE.map(s=>s.key)].map(s => (
+              <button key={s} onClick={() => setFilterStatut(s)}
+                style={{ padding: "4px 10px", borderRadius: 14, border: "1px solid", fontSize: 11, fontWeight: 500, cursor: "pointer",
+                  borderColor: filterStatut===s?"#6366f1":"#dde1e6", background: filterStatut===s?"#6366f1":"#fff", color: filterStatut===s?"#fff":"#64748b" }}>{s}</button>
+            ))}
+          </div>
+          <span style={{ marginLeft: "auto", fontSize: 11, color: "#94a3b8" }}>{filtered.length} leads</span>
+        </div>
+        <div style={{ background: "#fff", borderRadius: 12, boxShadow: "0 1px 3px rgba(0,0,0,.06)", overflow: "hidden", flex: 1 }}>
+          <div style={{ overflowY: "auto", maxHeight: "100%" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+              <thead>
+                <tr style={{ background: "#f8fafc", borderBottom: "2px solid #e2e8f0", position: "sticky", top: 0, zIndex: 2 }}>
+                  {[{k:"owner",l:""},{k:"prenom",l:"Nom"},{k:"entreprise",l:"Entreprise"},{k:"mcCount",l:"MC"},{k:"connElodie",l:"Elo."},{k:"connSonia",l:"Son."},{k:"invitEnvoyee",l:"Invit."},{k:"msgEnvoye",l:"Msg"},{k:"statut",l:"Statut"}].map(c => (
+                    <th key={c.k} onClick={() => handleSort(c.k)}
+                      style={{ padding: "9px 8px", textAlign: "left", fontWeight: 600, color: "#475569", cursor: "pointer", userSelect: "none", whiteSpace: "nowrap", fontSize: 11, background: "#f8fafc" }}>
+                      {c.l}<Arr col={c.k} />
+                    </th>
+                  ))}
+                  <th style={{ padding: "9px 8px", width: 40, background: "#f8fafc" }}></th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((lead, i) => {
+                  const oc = OWNER_COLORS[lead.owner];
+                  const rowBg = oc ? oc.bg + "80" : (i%2 ? "#fafbfc" : "#fff");
+                  return (
+                    <tr key={lead.id}
+                      style={{ borderBottom: "1px solid #f1f5f9", background: rowBg, cursor: "pointer" }}
+                      onMouseEnter={e => e.currentTarget.style.background = oc ? oc.bg : "#f0f4ff"}
+                      onMouseLeave={e => e.currentTarget.style.background = rowBg}
+                      onClick={() => openDetail(lead)}>
+                      <td style={{ padding: "8px 8px", textAlign: "center" }}><OwnerDot owner={lead.owner} size={9} /></td>
+                      <td style={{ padding: "8px" }}>
+                        <div style={{ fontWeight: 600, color: "#1e293b", fontSize: 12 }}>{lead.prenom} {lead.nom}</div>
+                        <div style={{ fontSize: 10, color: "#94a3b8" }}>{lead.fonction}</div>
+                      </td>
+                      <td style={{ padding: "8px", color: "#475569", fontSize: 11 }}>{lead.entreprise}</td>
+                      <td style={{ padding: "8px", textAlign: "center" }}>
+                        <span style={{ background: lead.mcCount>=3?"#dbeafe":"#f1f5f9", color: lead.mcCount>=3?"#1e40af":"#475569", padding: "1px 6px", borderRadius: 6, fontWeight: 600, fontSize: 10 }}>{lead.mcCount}</span>
+                      </td>
+                      <td style={{ padding: "8px", textAlign: "center" }}>
+                        {lead.connElodie ? <span style={{ padding: "1px 5px", borderRadius: 6, fontSize: 9, fontWeight: 500, background: lead.connElodie==="1er"?"#d1fae5":"#fef3c7", color: lead.connElodie==="1er"?"#065f46":"#92400e" }}>{lead.connElodie}</span> : "—"}
+                      </td>
+                      <td style={{ padding: "8px", textAlign: "center" }}>
+                        {lead.connSonia ? <span style={{ padding: "1px 5px", borderRadius: 6, fontSize: 9, fontWeight: 500, background: "#d1fae5", color: "#065f46" }}>{lead.connSonia}</span> : "—"}
+                      </td>
+                      <td style={{ padding: "8px", textAlign: "center", fontSize: 13 }}>{lead.invitEnvoyee ? "✅" : <span style={{ color: "#d1d5db" }}>—</span>}</td>
+                      <td style={{ padding: "8px", textAlign: "center", fontSize: 13 }}>{lead.msgEnvoye ? "✅" : "❌"}</td>
+                      <td style={{ padding: "8px" }}>
+                        <span style={{ padding: "2px 8px", borderRadius: 10, fontSize: 10, fontWeight: 600, background: (PIPELINE.find(p=>p.key===lead.statut)?.color||"#999")+"18", color: PIPELINE.find(p=>p.key===lead.statut)?.color||"#999", whiteSpace: "nowrap" }}>{lead.statut}</span>
+                      </td>
+                      <td style={{ padding: "8px" }}>
+                        <a href={`https://www.linkedin.com/in/${lead.vanity}/`} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}
+                          style={{ color: "#6366f1", fontSize: 10, textDecoration: "none", fontWeight: 500 }}>in↗</a>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // ============ MAIN ============
+  return (
+    <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+      {toast && <div style={{ position: "fixed", top: 14, right: 14, background: "#0f172a", color: "#fff", padding: "9px 18px", borderRadius: 10, fontSize: 12, fontWeight: 500, zIndex: 9999, boxShadow: "0 4px 16px rgba(0,0,0,.25)", animation: "fadeIn .2s" }}>{toast}</div>}
+
+      {/* TOP BAR */}
+      <div style={{ background: "#fff", borderBottom: "1px solid #e5e7eb", padding: "0 20px", display: "flex", alignItems: "center", height: 56, gap: 16, flexShrink: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div style={{ width: 30, height: 30, borderRadius: 8, background: "linear-gradient(135deg, #6366f1, #8b5cf6)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ color: "#fff", fontWeight: 800, fontSize: 12 }}>AI</span>
+          </div>
+          <span style={{ fontWeight: 700, fontSize: 15, color: "#0f172a" }}>AI Leadership Program</span>
+        </div>
+
+        {/* MAIN TABS */}
+        <div style={{ display: "flex", gap: 2, marginLeft: 16, background: "#f1f5f9", borderRadius: 10, padding: 3 }}>
+          {[
+            { key: "leads", label: "Tous les leads", icon: "📋" },
+            { key: "bootcamp", label: "Leads Bootcamp", icon: "🎓" },
+            { key: "projets", label: "Leads Projets", icon: "🚀" },
+          ].map(tab => (
+            <button key={tab.key} onClick={() => { setActiveTab(tab.key); setFilterStatut("Tous"); }}
+              style={{ padding: "6px 16px", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 12, fontWeight: 600, transition: "all .15s",
+                background: activeTab===tab.key ? "#fff" : "transparent",
+                color: activeTab===tab.key ? "#0f172a" : "#64748b",
+                boxShadow: activeTab===tab.key ? "0 1px 3px rgba(0,0,0,.1)" : "none",
+              }}>{tab.icon} {tab.label}</button>
+          ))}
+        </div>
+
+        {/* View toggle */}
+        <div style={{ display: "flex", gap: 2, marginLeft: 12, background: "#f1f5f9", borderRadius: 8, padding: 2 }}>
+          {[{k:"pipeline",l:"⚡ Pipeline"},{k:"table",l:"📊 Tableau"}].map(v => (
+            <button key={v.k} onClick={() => setSortBy(v.k === "pipeline" ? "mcCount" : sortBy) || document.querySelector(`[data-view="${v.k}"]`)?.click()}
+              style={{ display: "none" }}>{v.l}</button>
+          ))}
+        </div>
+
+        {/* Owner filter */}
+        <div style={{ display: "flex", gap: 4, marginLeft: 8 }}>
+          {[{k:"tous",l:"Tous",bg:"#f1f5f9",c:"#475569"},{k:"elodie",l:"Elodie",bg:OWNER_COLORS.elodie.bg,c:OWNER_COLORS.elodie.text},{k:"sonia",l:"Sonia",bg:OWNER_COLORS.sonia.bg,c:OWNER_COLORS.sonia.text}].map(o => (
+            <button key={o.k} onClick={() => setFilterOwner(o.k)}
+              style={{ padding: "4px 10px", borderRadius: 14, fontSize: 11, fontWeight: 600, cursor: "pointer", border: filterOwner===o.k ? `2px solid ${o.c}` : "2px solid transparent",
+                background: filterOwner===o.k ? o.bg : "#f8fafc", color: o.c, transition: "all .15s" }}>{o.l}</button>
+          ))}
+        </div>
+
+        <div style={{ marginLeft: "auto", display: "flex", gap: 6 }}>
+          <button onClick={exportCSV} style={{ padding: "6px 12px", borderRadius: 8, border: "1px solid #dde1e6", background: "#fff", color: "#475569", fontSize: 11, fontWeight: 500, cursor: "pointer" }}>CSV</button>
+          <button onClick={() => setShowAddForm(true)} style={{ padding: "6px 12px", borderRadius: 8, border: "none", background: "#6366f1", color: "#fff", fontSize: 11, fontWeight: 600, cursor: "pointer" }}>+ Lead</button>
+        </div>
+      </div>
+
+      {/* SUB BAR - view toggle */}
+      <div style={{ background: "#fff", borderBottom: "1px solid #eee", padding: "6px 20px", display: "flex", gap: 8, flexShrink: 0 }}>
+        <div style={{ display: "flex", gap: 2, background: "#f1f5f9", borderRadius: 8, padding: 2 }}>
+          <ViewToggle />
+        </div>
+        <div style={{ marginLeft: "auto", fontSize: 12, color: "#94a3b8", display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: OWNER_COLORS.elodie.dot, display: "inline-block" }}></span> Elodie</span>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: OWNER_COLORS.sonia.dot, display: "inline-block" }}></span> Sonia</span>
+          <span style={{ color: "#d1d5db" }}>|</span>
+          <span>{getTabLeads().length} leads</span>
+        </div>
+      </div>
+
+      {/* CONTENT */}
+      <div style={{ flex: 1, padding: "12px 20px", overflow: "hidden" }}>
+        <ViewContent />
+      </div>
+
+      {/* ADD MODAL */}
+      {showAddForm && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,.5)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 999 }}
+          onClick={() => setShowAddForm(false)}>
+          <div style={{ background: "#fff", borderRadius: 16, padding: 26, width: 440, boxShadow: "0 20px 60px rgba(0,0,0,.25)", animation: "slideIn .2s" }}
+            onClick={e => e.stopPropagation()}>
+            <h2 style={{ margin: "0 0 16px", fontSize: 17, fontWeight: 700 }}>Nouveau lead</h2>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }}>
+              <input placeholder="Prénom *" value={newLead.prenom} onChange={e => setNewLead({...newLead, prenom: e.target.value})}
+                style={{ padding: "8px 10px", borderRadius: 8, border: "1px solid #dde1e6", fontSize: 12, outline: "none" }} />
+              <input placeholder="Nom *" value={newLead.nom} onChange={e => setNewLead({...newLead, nom: e.target.value})}
+                style={{ padding: "8px 10px", borderRadius: 8, border: "1px solid #dde1e6", fontSize: 12, outline: "none" }} />
+            </div>
+            {["fonction","entreprise","mc","vanity"].map(f => (
+              <input key={f} placeholder={{fonction:"Fonction",entreprise:"Entreprise",mc:"Masterclasses (virgules)",vanity:"LinkedIn vanity URL"}[f]}
+                value={newLead[f]} onChange={e => setNewLead({...newLead, [f]: e.target.value})}
+                style={{ padding: "8px 10px", borderRadius: 8, border: "1px solid #dde1e6", fontSize: 12, width: "100%", marginBottom: 8, outline: "none", boxSizing: "border-box" }} />
+            ))}
+            <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+              <div>
+                <div style={{ fontSize: 10, color: "#94a3b8", fontWeight: 600, marginBottom: 4 }}>Responsable</div>
+                <div style={{ display: "flex", gap: 4 }}>
+                  {["elodie","sonia"].map(o => (
+                    <button key={o} onClick={() => setNewLead({...newLead, owner: o})}
+                      style={{ padding: "4px 12px", borderRadius: 8, fontSize: 11, fontWeight: 600, cursor: "pointer",
+                        border: newLead.owner===o ? `2px solid ${OWNER_COLORS[o].dot}` : "2px solid #e5e7eb",
+                        background: newLead.owner===o ? OWNER_COLORS[o].bg : "#fff",
+                        color: OWNER_COLORS[o].text }}>{OWNER_COLORS[o].label}</button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <div style={{ fontSize: 10, color: "#94a3b8", fontWeight: 600, marginBottom: 4 }}>Type</div>
+                <div style={{ display: "flex", gap: 4 }}>
+                  {[{k:"bootcamp",l:"🎓 Bootcamp"},{k:"projet",l:"🚀 Projet"}].map(t => (
+                    <button key={t.k} onClick={() => setNewLead({...newLead, type: t.k})}
+                      style={{ padding: "4px 12px", borderRadius: 8, fontSize: 11, fontWeight: 500, cursor: "pointer",
+                        border: newLead.type===t.k ? "2px solid #6366f1" : "2px solid #e5e7eb",
+                        background: newLead.type===t.k ? "#eef2ff" : "#fff", color: newLead.type===t.k ? "#6366f1" : "#64748b" }}>{t.l}</button>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+              <button onClick={() => setShowAddForm(false)} style={{ padding: "7px 16px", borderRadius: 8, border: "1px solid #dde1e6", background: "#fff", color: "#64748b", fontSize: 12, cursor: "pointer" }}>Annuler</button>
+              <button onClick={addLead} style={{ padding: "7px 16px", borderRadius: 8, border: "none", background: "#6366f1", color: "#fff", fontSize: 12, fontWeight: 600, cursor: "pointer", opacity: newLead.prenom&&newLead.nom?1:.4 }}>Ajouter</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* DETAIL SIDEBAR */}
+      {selectedLead && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,.4)", zIndex: 999, display: "flex", justifyContent: "flex-end" }} onClick={closeDetail}>
+          <div style={{ background: "#fff", width: 460, height: "100vh", overflow: "auto", boxShadow: "-10px 0 40px rgba(0,0,0,.15)", animation: "slideIn .2s", padding: 24 }}
+            onClick={e => e.stopPropagation()}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 18 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ width: 42, height: 42, borderRadius: "50%", background: OWNER_COLORS[selectedLead.owner]?.bg || "#f1f5f9", border: `2px solid ${OWNER_COLORS[selectedLead.owner]?.border || "#e5e7eb"}`, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 14, color: OWNER_COLORS[selectedLead.owner]?.text || "#475569" }}>
+                  {selectedLead.prenom[0]}{selectedLead.nom[0]}
+                </div>
+                <div>
+                  <h2 style={{ margin: 0, fontSize: 18, fontWeight: 700, color: "#0f172a" }}>{selectedLead.prenom} {selectedLead.nom}</h2>
+                  <p style={{ margin: 0, color: "#64748b", fontSize: 12 }}>{selectedLead.fonction}{selectedLead.entreprise ? ` • ${selectedLead.entreprise}` : ""}</p>
+                </div>
+              </div>
+              <button onClick={closeDetail} style={{ background: "none", border: "none", fontSize: 18, cursor: "pointer", color: "#94a3b8" }}>✕</button>
+            </div>
+
+            {/* Owner + Type */}
+            <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+              <div>
+                <div style={{ fontSize: 10, color: "#94a3b8", fontWeight: 700, marginBottom: 4, textTransform: "uppercase", letterSpacing: ".5px" }}>Responsable</div>
+                <div style={{ display: "flex", gap: 4 }}>
+                  {["elodie","sonia"].map(o => (
+                    <button key={o} onClick={() => updateLead(selectedLead.id, { owner: o })}
+                      style={{ padding: "4px 12px", borderRadius: 8, fontSize: 11, fontWeight: 600, cursor: "pointer",
+                        border: selectedLead.owner===o ? `2px solid ${OWNER_COLORS[o].dot}` : "2px solid #e5e7eb",
+                        background: selectedLead.owner===o ? OWNER_COLORS[o].bg : "#fff",
+                        color: OWNER_COLORS[o].text }}>{OWNER_COLORS[o].label}</button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <div style={{ fontSize: 10, color: "#94a3b8", fontWeight: 700, marginBottom: 4, textTransform: "uppercase", letterSpacing: ".5px" }}>Type</div>
+                <div style={{ display: "flex", gap: 4 }}>
+                  {[{k:"bootcamp",l:"🎓 Bootcamp"},{k:"projet",l:"🚀 Projet"}].map(t => (
+                    <button key={t.k} onClick={() => updateLead(selectedLead.id, { type: t.k })}
+                      style={{ padding: "4px 12px", borderRadius: 8, fontSize: 11, fontWeight: 500, cursor: "pointer",
+                        border: selectedLead.type===t.k ? "2px solid #6366f1" : "2px solid #e5e7eb",
+                        background: selectedLead.type===t.k ? "#eef2ff" : "#fff", color: selectedLead.type===t.k ? "#6366f1" : "#64748b" }}>{t.l}</button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 16 }}>
+              <div style={{ background: "#f8fafc", borderRadius: 10, padding: 12 }}>
+                <div style={{ fontSize: 9, color: "#94a3b8", textTransform: "uppercase", fontWeight: 700, marginBottom: 4, letterSpacing: ".5px" }}>Masterclasses ({selectedLead.mcCount})</div>
+                <div style={{ fontSize: 11, color: "#334155", lineHeight: 1.5 }}>{selectedLead.mc}</div>
+              </div>
+              <div style={{ background: "#f8fafc", borderRadius: 10, padding: 12 }}>
+                <div style={{ fontSize: 9, color: "#94a3b8", textTransform: "uppercase", fontWeight: 700, marginBottom: 4, letterSpacing: ".5px" }}>Connexion LinkedIn</div>
+                <div style={{ fontSize: 12, marginTop: 4 }}>
+                  <div style={{ marginBottom: 3 }}>Elodie : {selectedLead.connElodie || "—"}</div>
+                  <div>Sonia : {selectedLead.connSonia || "—"}</div>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginBottom: 14 }}>
+              <div style={{ fontSize: 9, color: "#94a3b8", textTransform: "uppercase", fontWeight: 700, marginBottom: 6, letterSpacing: ".5px" }}>Pipeline</div>
+              <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+                {PIPELINE.map(s => (
+                  <button key={s.key} onClick={() => updateLead(selectedLead.id, { statut: s.key })}
+                    style={{ padding: "4px 10px", borderRadius: 12, fontSize: 10, fontWeight: 600, cursor: "pointer",
+                      border: selectedLead.statut===s.key ? `2px solid ${s.color}` : "2px solid #e5e7eb",
+                      background: selectedLead.statut===s.key ? s.color+"18" : "#fff",
+                      color: selectedLead.statut===s.key ? s.color : "#64748b" }}>
+                    {s.icon} {s.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 14 }}>
+              {[{k:"invitEnvoyee",l:"Invitation envoyée",i:"📨"},{k:"invitAcceptee",l:"Invitation acceptée",i:"🤝"},{k:"msgEnvoye",l:"Message relance",i:"💬"}].map(t => (
+                <label key={t.k} style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: 11, color: "#334155", background: selectedLead[t.k] ? "#f0fdf4" : "#f8fafc", padding: "8px 10px", borderRadius: 8, border: selectedLead[t.k] ? "1px solid #bbf7d0" : "1px solid #f1f5f9" }}>
+                  <input type="checkbox" checked={selectedLead[t.k]} onChange={e => updateLead(selectedLead.id, { [t.k]: e.target.checked })} style={{ width: 14, height: 14, accentColor: "#6366f1" }} />
+                  {t.i} {t.l}
+                </label>
+              ))}
+            </div>
+
+            {selectedLead.msgEnvoye && selectedLead.msgDate && (
+              <div style={{ background: "#f0fdf4", borderRadius: 8, padding: "6px 10px", fontSize: 11, color: "#16a34a", marginBottom: 12, border: "1px solid #bbf7d0" }}>💬 Envoyé le {selectedLead.msgDate}</div>
+            )}
+
+            <div style={{ marginBottom: 14 }}>
+              <div style={{ fontSize: 9, color: "#94a3b8", textTransform: "uppercase", fontWeight: 700, marginBottom: 4, letterSpacing: ".5px" }}>Notes</div>
+              <textarea value={editNotes} onChange={e => setEditNotes(e.target.value)} placeholder="Notes..."
+                style={{ width: "100%", minHeight: 80, padding: 10, borderRadius: 8, border: "1px solid #e5e7eb", fontSize: 12, fontFamily: "inherit", resize: "vertical", outline: "none", boxSizing: "border-box" }} />
+            </div>
+
+            <div style={{ display: "flex", gap: 8, justifyContent: "space-between" }}>
+              <button onClick={() => deleteLead(selectedLead.id)} style={{ padding: "7px 12px", borderRadius: 8, background: "#fff", border: "1px solid #fca5a5", color: "#dc2626", fontSize: 11, cursor: "pointer" }}>Supprimer</button>
+              <div style={{ display: "flex", gap: 6 }}>
+                <a href={`https://www.linkedin.com/in/${selectedLead.vanity}/`} target="_blank" rel="noreferrer" style={{ padding: "7px 12px", borderRadius: 8, background: "#0a66c2", color: "#fff", textDecoration: "none", fontSize: 11, fontWeight: 600 }}>LinkedIn ↗</a>
+                <button onClick={closeDetail} style={{ padding: "7px 16px", borderRadius: 8, background: "#6366f1", color: "#fff", border: "none", fontSize: 11, fontWeight: 600, cursor: "pointer" }}>Fermer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  // Sub-components that need state
+  function ViewToggle() {
+    const [view, setView] = useState("pipeline");
+    // store view in parent-accessible way
+    window.__crmView = view;
+    window.__setCrmView = setView;
+    return (
+      <>
+        {[{k:"pipeline",l:"⚡ Pipeline"},{k:"table",l:"📊 Tableau"}].map(v => (
+          <button key={v.k} onClick={() => setView(v.k)}
+            style={{ padding: "4px 14px", borderRadius: 6, border: "none", cursor: "pointer", fontSize: 11, fontWeight: 600,
+              background: view===v.k ? "#fff" : "transparent", color: view===v.k ? "#0f172a" : "#94a3b8",
+              boxShadow: view===v.k ? "0 1px 2px rgba(0,0,0,.08)" : "none" }}>{v.l}</button>
+        ))}
+      </>
+    );
+  }
+
+  function ViewContent() {
+    const [, forceUpdate] = useState(0);
+    useEffect(() => {
+      const id = setInterval(() => forceUpdate(n => n+1), 200);
+      return () => clearInterval(id);
+    }, []);
+    const view = window.__crmView || "pipeline";
+    return view === "pipeline" ? <PipelineView /> : <TableView />;
+  }
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(CRM));
+</script>
+</body>
+</html>
