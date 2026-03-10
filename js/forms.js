@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Newsletter form
+  // Newsletter form — opens Substack with pre-filled email
   const newsletterForm = document.getElementById('newsletter-form');
   if (newsletterForm) {
     newsletterForm.addEventListener('submit', function(e) {
@@ -17,8 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Simulate success (replace with actual Substack/webhook integration)
-      showMessage(message, 'Bienvenue ! V\u00e9rifiez votre bo\u00eete mail.', 'success');
+      // Open Substack subscription page with pre-filled email
+      window.open('https://aixleaders.substack.com/?email=' + encodeURIComponent(email), '_blank');
+      showMessage(message, 'Finalisez votre inscription sur la page qui vient de s\u0027ouvrir.', 'success');
       emailInput.value = '';
     });
   }
