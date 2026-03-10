@@ -1,5 +1,14 @@
 /* ===== AI LEADERSHIP PROGRAM PAGE ===== */
 
+/* Section spacing */
+.alp-section h2 {
+  margin-bottom: 20px;
+}
+
+.alp-section .section-subtitle {
+  margin-bottom: 48px;
+}
+
 /* Hero */
 .alp-hero {
   background: var(--bg-pure-black);
@@ -474,7 +483,7 @@
 /* Week */
 .alp-week-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 24px;
 }
 
@@ -499,6 +508,14 @@
 }
 
 .alp-week-item--masterclass {
+  grid-column: span 3;
+}
+
+.alp-week-item--programme {
+  grid-column: span 3;
+}
+
+.alp-week-grid > .alp-week-item:nth-child(n+3) {
   grid-column: span 2;
 }
 
@@ -737,6 +754,16 @@
   .alp-parcours-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .alp-week-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .alp-week-item--masterclass,
+  .alp-week-item--programme,
+  .alp-week-grid > .alp-week-item:nth-child(n+3) {
+    grid-column: span 1;
+  }
 }
 
 /* Mobile responsive */
@@ -774,7 +801,9 @@
     grid-template-columns: 1fr;
   }
 
-  .alp-week-item--masterclass {
+  .alp-week-item--masterclass,
+  .alp-week-item--programme,
+  .alp-week-grid > .alp-week-item:nth-child(n+3) {
     grid-column: span 1;
   }
 }
