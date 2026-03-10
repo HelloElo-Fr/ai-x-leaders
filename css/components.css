@@ -285,6 +285,13 @@ a.btn-blue:hover,
   padding-right: 40px;
 }
 
+/* Newsletter content shared styles */
+.newsletter-content .subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  line-height: var(--leading-relaxed);
+}
+
 /* Inline form (newsletter) */
 .form-inline {
   display: flex;
@@ -448,6 +455,11 @@ a.btn-blue:hover,
   color: var(--pink-primary);
   font-size: var(--text-small);
   flex-shrink: 0;
+}
+
+img.testimonial-avatar {
+  object-fit: cover;
+  background: none;
 }
 
 .testimonial-info .name {
