@@ -9,10 +9,17 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
   font-weight: 800;
   line-height: var(--leading-tight);
   color: var(--text-primary);
+}
+
+h1, .text-hero {
+  font-family: var(--font-heading);
+}
+
+h2, h3, h4, h5, h6 {
+  font-family: var(--font-body);
 }
 
 h1 { font-size: var(--text-h1); }

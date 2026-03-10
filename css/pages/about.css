@@ -48,7 +48,7 @@
 .manifeste-content p.accent {
   color: var(--pink-primary);
   font-weight: 600;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: var(--text-h3);
   line-height: var(--leading-tight);
 }
@@ -78,7 +78,7 @@
 .histoire-year {
   flex-shrink: 0;
   width: 80px;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: 1.25rem;
   color: var(--pink-primary);

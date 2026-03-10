@@ -79,7 +79,7 @@
 }
 
 .pricing-amount {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: 3rem;
   color: var(--text-primary);
@@ -157,7 +157,7 @@
 }
 
 .upcoming-date .day {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: 1.5rem;
   color: var(--pink-primary);

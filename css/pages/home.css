@@ -27,7 +27,7 @@
 }
 
 .hero-label {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: var(--text-small);
   letter-spacing: 0.15em;
@@ -287,7 +287,7 @@
 .pricing-pill .price {
   font-weight: 800;
   color: var(--text-primary);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
 }
 
 .pricing-pill .label {
@@ -625,7 +625,7 @@
 
 .placeholder-title {
   display: block;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: 1.3rem;
   line-height: 1.2;
