@@ -58,6 +58,10 @@
 }
 
 .alp-hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
   margin-bottom: 32px;
 }
 
@@ -100,6 +104,27 @@
 
 .alp-section:not(.alp-section--dark) {
   background: var(--bg-primary);
+}
+
+.alp-section.alp-section--pink {
+  background: var(--pink-bg);
+  color: #fff;
+}
+
+.alp-section.alp-section--pink h2 {
+  color: #fff;
+}
+
+.alp-section.alp-section--pink .alp-text-block {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.alp-section.alp-section--pink .alp-text-block ul li::before {
+  color: #fff;
+}
+
+.alp-section.alp-section--pink .alp-highlight {
+  color: #FFD700;
 }
 
 /* Text blocks */
@@ -207,16 +232,19 @@
   line-height: 1.6;
 }
 
-/* Logos */
-.alp-logos {
-  text-align: center;
-  padding: 32px 0;
+/* Logos — harmonised with home page */
+.logos-clients {
+  background: var(--bg-pure-black);
+  padding: 60px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-.alp-logos img {
-  max-width: 100%;
-  height: auto;
-  opacity: 0.8;
+.logos-clients .section-label {
+  text-align: center;
+  font-size: var(--text-small);
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  font-weight: 500;
 }
 
 /* Problem / Solution */
@@ -390,6 +418,22 @@
 .alp-diff-item {
   padding: 20px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.alp-diff-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  width: 40px;
+  text-align: center;
+  line-height: 1;
+  padding-top: 2px;
+}
+
+.alp-diff-content {
+  flex: 1;
 }
 
 .alp-diff-item strong {
@@ -437,18 +481,29 @@
 }
 
 .alp-for-not ul li, .alp-for-yes ul li {
-  padding: 10px 0;
+  padding: 10px 0 10px 28px;
   color: var(--text-muted);
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
   line-height: 1.6;
+  position: relative;
 }
 
 .alp-for-not ul li strong {
   color: var(--text-secondary);
 }
 
+.alp-for-not ul li::before {
+  content: '\2717';
+  position: absolute;
+  left: 0;
+  color: #ff4444;
+  font-weight: 700;
+}
+
 .alp-for-yes ul li::before {
-  content: '\2713 ';
+  content: '\2713';
+  position: absolute;
+  left: 0;
   color: #48ffa0;
   font-weight: 700;
 }
