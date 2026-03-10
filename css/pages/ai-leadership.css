@@ -33,7 +33,19 @@
 .alp-hero-subtitle {
   font-size: 1.25rem;
   color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.alp-hero-badge {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 100px;
+  padding: 6px 16px;
   margin-bottom: 32px;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
 }
 
 .alp-hero-cta {
@@ -157,7 +169,7 @@
 /* Pillars */
 .alp-pillars {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
 
@@ -324,8 +336,13 @@
 /* Parcours */
 .alp-parcours-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+}
+
+.alp-parcours-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
 }
 
 .alp-parcours-card {
@@ -479,6 +496,36 @@
   color: var(--text-muted);
   font-size: var(--text-small);
   line-height: 1.6;
+}
+
+.alp-week-item--masterclass {
+  grid-column: span 2;
+}
+
+.alp-masterclass-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 12px;
+}
+
+.alp-masterclass-list li {
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  line-height: 1.6;
+}
+
+.alp-masterclass-list li::before {
+  content: '\25B8';
+  position: absolute;
+  left: 0;
+  color: var(--pink-primary);
+}
+
+.alp-masterclass-list li strong {
+  color: var(--text-secondary);
 }
 
 /* Testimonials */
@@ -681,6 +728,17 @@
   font-size: var(--text-small);
 }
 
+/* Tablet responsive */
+@media (max-width: 1023px) {
+  .alp-pillars {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .alp-parcours-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* Mobile responsive */
 @media (max-width: 767px) {
   .alp-hero-grid {
@@ -714,5 +772,9 @@
   .alp-for-grid,
   .alp-pricing-grid {
     grid-template-columns: 1fr;
+  }
+
+  .alp-week-item--masterclass {
+    grid-column: span 1;
   }
 }
