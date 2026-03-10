@@ -18,13 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Open Substack subscription page with pre-filled email
-      window.open('https://aixleaders.substack.com/?email=' + encodeURIComponent(email), '_blank');
+      window.open('https://aixleaders.substack.com/subscribe?utm_source=menu&simple=true&next=https%3A%2F%2Faixleaders.substack.com%2F&email=' + encodeURIComponent(email), '_blank');
       showMessage(message, 'Finalisez votre inscription sur la page qui vient de s\u0027ouvrir.', 'success');
       emailInput.value = '';
     });
   }
 
-  // Contact form
+  // Contact form — mailto
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
@@ -54,9 +54,21 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Simulate success (replace with actual form handling)
-      showMessage(message, 'Message envoy\u00e9 ! Nous vous r\u00e9pondrons sous 48h.', 'success');
-      this.reset();
+      // Build mailto link
+      var name = (document.getElementById('contact-name') || {}).value || '';
+      var email = (document.getElementById('contact-email') || {}).value || '';
+      var phone = (document.getElementById('contact-phone') || {}).value || '';
+      var company = (document.getElementById('contact-company') || {}).value || '';
+      var subject = (document.getElementById('contact-subject') || {}).value || '';
+      var msg = (document.getElementById('contact-message') || {}).value || '';
+
+      var body = 'Nom : ' + name + '\n'
+        + 'Email : ' + email + '\n'
+        + (phone ? 'T\u00e9l\u00e9phone : ' + phone + '\n' : '')
+        + (company ? 'Entreprise : ' + company + '\n' : '')
+        + '\n' + msg;
+
+      window.location.href = 'mailto:elodie@ai-x-leaders.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     });
   }
 

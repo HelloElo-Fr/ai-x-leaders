@@ -59,7 +59,7 @@
         <a href="qui-sommes-nous.html">Qui sommes-nous</a>
       </nav>
 
-      <a href="programmes/ai-leadership.html" class="btn-primary header-cta">Rejoindre le programme</a>
+      <a href="programmes/ai-leadership.html" class="btn-primary header-cta">Prochain bootcamp le 27 mars</a>
 
       <button class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
         <span></span>
@@ -80,7 +80,7 @@
     <a href="ressources.html">Ressources</a>
     <a href="a-propos.html">A propos</a>
     <a href="qui-sommes-nous.html">Qui sommes-nous</a>
-    <a href="programmes/ai-leadership.html" class="btn-primary">Rejoindre le programme</a>
+    <a href="programmes/ai-leadership.html" class="btn-primary">Prochain bootcamp le 27 mars</a>
   </nav>
 
   <!-- ========== HERO ========== -->
@@ -148,7 +148,7 @@
   </section>
 
   <!-- ========== PRICING / SUBSCRIPTION ========== -->
-  <section class="ressources-section ressources-pricing">
+  <section class="ressources-section ressources-pricing" id="pricing">
     <div class="container">
       <h2 class="section-title animate-on-scroll">S'abonner aux masterclass</h2>
       <p class="section-subtitle animate-on-scroll">Acc&eacute;dez &agrave; toutes les masterclass nouveaut&eacute;s IA en replay.</p>
@@ -157,20 +157,20 @@
           <h3>&Agrave; l'unit&eacute;</h3>
           <div class="price">80&euro;</div>
           <p>Par masterclass</p>
-          <button id="btn-single" class="btn-secondary">Choisir</button>
+          <a href="https://aixleaders.substack.com/subscribe?utm_source=menu&amp;simple=true&amp;next=https%3A%2F%2Faixleaders.substack.com%2F" class="btn-secondary" target="_blank" rel="noopener">Choisir</a>
         </div>
         <div class="pricing-card pricing-card--featured">
           <span class="tag tag-rose">Populaire</span>
           <h3>Mensuel</h3>
           <div class="price">50&euro;<span>/mois</span></div>
           <p>Acc&egrave;s &agrave; toutes les masterclass</p>
-          <button id="btn-monthly" class="btn-primary">S'abonner</button>
+          <a href="https://aixleaders.substack.com/subscribe?utm_source=menu&amp;simple=true&amp;next=https%3A%2F%2Faixleaders.substack.com%2F" class="btn-primary" target="_blank" rel="noopener">S'abonner</a>
         </div>
         <div class="pricing-card">
           <h3>Annuel</h3>
           <div class="price">500&euro;<span>/an</span></div>
           <p>2 mois offerts</p>
-          <button id="btn-yearly" class="btn-secondary">S'abonner</button>
+          <a href="https://aixleaders.substack.com/subscribe?utm_source=menu&amp;simple=true&amp;next=https%3A%2F%2Faixleaders.substack.com%2F" class="btn-secondary" target="_blank" rel="noopener">S'abonner</a>
         </div>
       </div>
     </div>
@@ -265,6 +265,45 @@
     </div>
   </section>
 
+  <!-- ========== ILS PARLENT DE NOUS ========== -->
+  <section class="media-section">
+    <div class="container">
+      <div class="section-header centered animate-on-scroll">
+        <h2>Ils parlent de nous</h2>
+        <p class="section-subtitle centered">Retrouvez nos interventions, conf&eacute;rences et masterclass en vid&eacute;o</p>
+      </div>
+      <div class="media-carousel animate-on-scroll">
+        <div class="media-carousel-track">
+          <div class="media-carousel-item">
+            <div class="media-video">
+              <iframe src="https://www.youtube.com/embed/uPwhBiGrqzE" title="AI x Leaders : Vid&eacute;o 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="media-carousel-item">
+            <div class="media-video">
+              <iframe src="https://www.youtube.com/embed/P5acItHlmNQ?start=613" title="AI x Leaders : Vid&eacute;o 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="media-carousel-item">
+            <div class="media-video">
+              <iframe src="https://www.youtube.com/embed/DYwtvQz6xY4?start=513" title="AI x Leaders : Vid&eacute;o 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="media-carousel-item">
+            <div class="media-video">
+              <iframe src="https://www.youtube.com/embed/ZQbJGyRRR-c?start=251" title="AI x Leaders : Vid&eacute;o 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+        <div class="media-carousel-nav">
+          <button class="carousel-btn media-prev" aria-label="Pr&eacute;c&eacute;dent">&#8592;</button>
+          <div class="media-dots"></div>
+          <button class="carousel-btn media-next" aria-label="Suivant">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== NEWSLETTER ========== -->
   <section class="newsletter section--navy" id="newsletter">
     <div class="container">
@@ -338,6 +377,55 @@
   <script src="js/main.js"></script>
   <script src="js/forms.js"></script>
   <script src="js/ressources.js"></script>
+  <script>
+    // Media carousel (Ils parlent de nous)
+    (function() {
+      const track = document.querySelector('.media-carousel-track');
+      const items = document.querySelectorAll('.media-carousel-item');
+      const prevBtn = document.querySelector('.media-prev');
+      const nextBtn = document.querySelector('.media-next');
+      const dotsContainer = document.querySelector('.media-dots');
+
+      if (!track || !items.length) return;
+
+      items.forEach(function(_, i) {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Vid\u00e9o ' + (i + 1));
+        dot.addEventListener('click', function() { scrollToItem(i); });
+        dotsContainer.appendChild(dot);
+      });
+
+      function scrollToItem(index) {
+        const item = items[index];
+        if (item) {
+          track.scrollTo({ left: item.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+        }
+      }
+
+      function updateDots() {
+        var scrollLeft = track.scrollLeft;
+        var itemWidth = items[0].offsetWidth + 24;
+        var current = Math.round(scrollLeft / itemWidth);
+        var dots = dotsContainer.querySelectorAll('.dot');
+        dots.forEach(function(d, i) {
+          d.classList.toggle('active', i === current);
+        });
+      }
+
+      prevBtn.addEventListener('click', function() {
+        var itemWidth = items[0].offsetWidth + 24;
+        track.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', function() {
+        var itemWidth = items[0].offsetWidth + 24;
+        track.scrollBy({ left: itemWidth, behavior: 'smooth' });
+      });
+
+      track.addEventListener('scroll', updateDots);
+    })();
+  </script>
 
 </body>
 </html>

@@ -220,7 +220,7 @@
 }
 
 .alp-pillar-card h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.15rem;
   color: var(--text-primary);
   margin-bottom: 12px;
@@ -271,7 +271,7 @@
 }
 
 .alp-problem h3, .alp-solution h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.5rem;
   color: var(--text-primary);
   margin-bottom: 16px;
@@ -329,7 +329,7 @@
 }
 
 .alp-result-number {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: 1.5rem;
   color: #48ffa0;
@@ -350,7 +350,7 @@
 }
 
 .alp-method-card h4 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.1rem;
   color: var(--text-primary);
   margin-bottom: 12px;
@@ -396,7 +396,7 @@
 }
 
 .alp-parcours-card h4 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.1rem;
   color: var(--text-primary);
   margin-bottom: 12px;
@@ -470,7 +470,7 @@
 }
 
 .alp-for-not h3, .alp-for-yes h3 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   color: var(--text-primary);
   margin-bottom: 20px;
 }
@@ -515,15 +515,31 @@
   gap: 24px;
 }
 
+.alp-benefits-grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
 .alp-benefit {
   background: var(--bg-card);
   border-radius: 16px;
   padding: 28px 24px;
   border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+.alp-benefit:hover {
+  border-color: rgba(255, 72, 170, 0.2);
+  transform: translateY(-4px);
+}
+
+.alp-benefit-icon {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 16px;
 }
 
 .alp-benefit h4 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1rem;
   color: var(--text-primary);
   margin-bottom: 8px;
@@ -550,7 +566,7 @@
 }
 
 .alp-week-item h4 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1rem;
   color: var(--text-primary);
   margin-bottom: 8px;
@@ -659,13 +675,13 @@
 }
 
 .alp-pricing-card h4 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   color: var(--text-primary);
   margin-bottom: 16px;
 }
 
 .alp-price {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: 2.5rem;
   color: var(--text-primary);
@@ -741,8 +757,18 @@
   margin: 0 auto 16px;
 }
 
+.alp-host-photo-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 16px;
+  display: block;
+  border: 3px solid rgba(255, 72, 170, 0.3);
+}
+
 .alp-host-card h4 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   color: var(--text-primary);
   margin-bottom: 4px;
 }
