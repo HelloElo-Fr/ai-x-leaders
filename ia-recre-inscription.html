@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IA Recre — Pre-inscription</title>
+  <meta name="description" content="Pre-inscription a IA Recre, le Battle Royale Creatif pour les 8-14 ans. 21 Mars 2026 au Theatre de l'IA.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Noto+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --fn-purple: #852DF2;
+      --fn-blue: #0078FF;
+      --fn-yellow: #F7EA15;
+      --fn-gold: #FFAA00;
+      --fn-dark: #121212;
+      --fn-card-bg: rgba(42, 42, 42, 0.9);
+      --font-action: 'Luckiest Guy', cursive;
+      --font-body: 'Noto Sans', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: #1a1a1a;
+      color: white;
+      overflow-x: hidden;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== NAV ===== */
+    .nav {
+      background: #18181c;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .nav-logo {
+      font-family: var(--font-action);
+      font-size: 1.9rem;
+      color: white;
+      letter-spacing: 2px;
+      margin-top: 4px;
+    }
+    .nav-back {
+      background: #333335;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.875rem;
+      transition: background 0.2s;
+    }
+    .nav-back:hover { background: #444447; }
+
+    /* ===== CONTAINER ===== */
+    .container { max-width: 680px; margin: 0 auto; padding: 48px 20px 80px; }
+
+    /* ===== FORM HEADER ===== */
+    .form-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .form-header h1 {
+      font-family: var(--font-action);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      text-transform: uppercase;
+      color: white;
+      text-shadow: 3px 3px 0 var(--fn-purple);
+      transform: skewX(-10deg);
+      margin-bottom: 12px;
+    }
+    .form-header p {
+      color: #ccc;
+      font-size: 1rem;
+    }
+    .form-header .event-info {
+      display: inline-block;
+      margin-top: 12px;
+      font-family: var(--font-action);
+      font-size: 1rem;
+      color: var(--fn-yellow);
+      letter-spacing: 1px;
+    }
+
+    /* ===== FORM SECTIONS ===== */
+    .form-section {
+      background: var(--fn-card-bg);
+      border-left: 8px solid var(--fn-purple);
+      padding: 32px 28px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .form-section.blue { border-left-color: var(--fn-blue); }
+    .form-section.yellow { border-left-color: var(--fn-yellow); }
+
+    .form-section-title {
+      font-family: var(--font-action);
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .form-section.blue .form-section-title { color: var(--fn-blue); }
+    .form-section.yellow .form-section-title { color: var(--fn-yellow); }
+    .form-section .form-section-subtitle {
+      font-size: 0.8rem;
+      color: #999;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    /* ===== FORM FIELDS ===== */
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .field-row.single {
+      grid-template-columns: 1fr;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+    .field label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #aaa;
+      margin-bottom: 6px;
+    }
+    .field label .required { color: var(--fn-yellow); }
+    .field input,
+    .field select,
+    .field textarea {
+      background: rgba(20, 20, 25, 0.8);
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: white;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      padding: 12px 14px;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--fn-blue);
+    }
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #666;
+    }
+    .field select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .field select option {
+      background: #2a2a2a;
+      color: white;
+    }
+    .field textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* ===== CHECKBOXES ===== */
+    .checkbox-field {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .checkbox-field input[type="checkbox"] {
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 4px;
+      background: rgba(20, 20, 25, 0.8);
+      cursor: pointer;
+      position: relative;
+      margin-top: 2px;
+    }
+    .checkbox-field input[type="checkbox"]:checked {
+      background: var(--fn-blue);
+      border-color: var(--fn-blue);
+    }
+    .checkbox-field input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 2px;
+      width: 6px;
+      height: 11px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    .checkbox-field label {
+      font-size: 0.85rem;
+      color: #ccc;
+      line-height: 1.5;
+      cursor: pointer;
+    }
+    .checkbox-field label strong {
+      color: white;
+    }
+
+    /* ===== SUBMIT BUTTON ===== */
+    .submit-wrap {
+      text-align: center;
+      margin-top: 32px;
+    }
+    .btn-fn {
+      display: inline-block;
+      padding: 16px 45px;
+      background: var(--fn-yellow);
+      color: black;
+      font-family: var(--font-action);
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      transform: skewX(-15deg);
+      border: 4px solid black;
+      box-shadow: 6px 6px 0px var(--fn-blue);
+      transition: 0.1s ease;
+      text-align: center;
+      cursor: pointer;
+    }
+    .btn-fn:hover {
+      transform: skewX(-15deg) translate(3px, 3px);
+      box-shadow: 2px 2px 0px var(--fn-blue);
+      background: white;
+    }
+    .price-info {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: #999;
+    }
+    .price-info strong {
+      color: var(--fn-yellow);
+      font-size: 1rem;
+    }
+
+    /* ===== SUCCESS MESSAGE ===== */
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .success-message.visible {
+      display: block;
+    }
+    .success-message h2 {
+      font-family: var(--font-action);
+      font-size: 3rem;
+      color: var(--fn-yellow);
+      text-transform: uppercase;
+      transform: skewX(-10deg);
+      margin-bottom: 16px;
+      text-shadow: 3px 3px 0 var(--fn-purple);
+    }
+    .success-message p {
+      color: #ccc;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .success-message .highlight {
+      color: var(--fn-blue);
+      font-weight: 700;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: #141416;
+      border-top: 1px solid #333;
+      color: #888;
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    .footer-team {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 20px;
+      margin-bottom: 16px;
+    }
+    .footer-team a {
+      color: #aaa;
+      transition: color 0.2s;
+    }
+    .footer-team a:hover { color: white; }
+    .footer p { color: #666; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      .container { padding: 32px 16px 60px; }
+      .form-section { padding: 24px 20px; }
+      .field-row { grid-template-columns: 1fr; }
+      .btn-fn { font-size: 1.4rem; padding: 14px 32px; width: 100%; }
+      .form-header h1 { font-size: 2rem; }
+      .success-message h2 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav">
+    <a href="ia-recre.html" class="nav-logo">IA RECRE</a>
+    <a href="ia-recre.html" class="nav-back">Retour au site</a>
+  </nav>
+
+  <div class="container">
+    <!-- ===== FORM HEADER ===== -->
+    <div class="form-header">
+      <h1>Pre-inscription</h1>
+      <p>Remplis le formulaire pour reserver ta place au Battle Royale Creatif.</p>
+      <div class="event-info">21 Mars 2026 &bull; 09h30 - 14h00 &bull; Artifex Lab, Paris 11e</div>
+    </div>
+
+    <!-- ===== FORM ===== -->
+    <form id="inscription-form" action="https://formsubmit.co/elodie@lightmeup.io" method="POST">
+      <!-- FormSubmit config -->
+      <input type="hidden" name="_next" value="https://buy.stripe.com/14AbJ1f0Kf3ocxscXofUQ06">
+      <input type="hidden" name="_subject" value="Nouvelle inscription IA Récré">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+
+      <!-- PARENT -->
+      <div class="form-section blue">
+        <div class="form-section-title">Joueur 1 — Parent</div>
+        <div class="form-section-subtitle">Responsable legal</div>
+        <div class="field-row">
+          <div class="field">
+            <label>Prenom <span class="required">*</span></label>
+            <input type="text" name="parent_prenom" required placeholder="Prenom du parent">
+          </div>
+          <div class="field">
+            <label>Nom <span class="required">*</span></label>
+            <input type="text" name="parent_nom" required placeholder="Nom du parent">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Email <span class="required">*</span></label>
+            <input type="email" name="parent_email" required placeholder="email@exemple.com">
+          </div>
+          <div class="field">
+            <label>Telephone <span style="color:#666;">(optionnel)</span></label>
+            <input type="tel" name="parent_tel" placeholder="06 12 34 56 78">
+          </div>
+        </div>
+      </div>
+
+      <!-- ENFANT -->
+      <div class="form-section yellow">
+        <div class="form-section-title">Joueur 2 — Enfant</div>
+        <div class="form-section-subtitle">Le createur en herbe</div>
+        <div class="field-row">
+          <div class="field">
+            <label>Prenom <span class="required">*</span></label>
+            <input type="text" name="enfant_prenom" required placeholder="Prenom de l'enfant">
+          </div>
+          <div class="field">
+            <label>Nom <span class="required">*</span></label>
+            <input type="text" name="enfant_nom" required placeholder="Nom de l'enfant">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Age <span class="required">*</span></label>
+            <select name="enfant_age" required>
+              <option value="" disabled selected>Choisir l'age</option>
+              <option value="8">8 ans</option>
+              <option value="9">9 ans</option>
+              <option value="10">10 ans</option>
+              <option value="11">11 ans</option>
+              <option value="12">12 ans</option>
+              <option value="13">13 ans</option>
+              <option value="14">14 ans</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field">
+            <label>Remarques / allergies alimentaires <span style="color:#666;">(optionnel)</span></label>
+            <textarea name="remarques" placeholder="Allergies, besoins particuliers, ou autre info utile..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONSENTEMENTS -->
+      <div class="form-section">
+        <div class="form-section-title">Consentements</div>
+        <div class="form-section-subtitle">Autorisations requises</div>
+        <div class="checkbox-field">
+          <input type="checkbox" id="consent-parent" name="consent_parental" required>
+          <label for="consent-parent"><strong>Autorisation parentale et droit a l'image</strong> — J'autorise mon enfant a participer a IA Recre et j'accepte que des photos/videos soient prises pendant l'evenement a des fins de communication.</label>
+        </div>
+        <div class="checkbox-field">
+          <input type="checkbox" id="consent-newsletter" name="consent_newsletter">
+          <label for="consent-newsletter">Je souhaite recevoir la newsletter AI x Leaders pour rester informe des prochains evenements.</label>
+        </div>
+      </div>
+
+      <!-- SUBMIT -->
+      <div class="submit-wrap">
+        <button type="submit" class="btn-fn">RESERVER MON SLOT</button>
+        <div class="price-info">
+          Participation : <strong>50 &euro;</strong> &mdash; vous serez redirige vers la page de paiement securise apres validation.
+        </div>
+      </div>
+    </form>
+
+    <!-- ===== SUCCESS ===== -->
+    <div class="success-message" id="success">
+      <h2>GG ! Inscription recue !</h2>
+      <p>Merci pour ton inscription. Tu vas etre redirige vers la <span class="highlight">page de paiement securise</span> pour finaliser ta reservation.</p>
+      <p>Prepare-toi pour le Battle Royale Creatif le <strong>21 Mars 2026</strong> !</p>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-team">
+      <a href="https://linkedin.com/in/elodiehughes" target="_blank">Elodie Hughes</a>
+      <a href="https://linkedin.com/in/nash-hughes-innovation" target="_blank">Nash Hughes</a>
+      <a href="https://linkedin.com/in/arnaud-weber" target="_blank">Arnaud Weber</a>
+      <a href="https://linkedin.com/in/john-edwin-graf" target="_blank">John-Edwin Graf</a>
+      <a href="https://linkedin.com/in/richard-ndumu-24005452" target="_blank">Richard Ndumu</a>
+    </div>
+    <p>&copy; 2026 IA Recre &middot; Un evenement <a href="https://aixleaders.substack.com" target="_blank" style="color:#aaa;">AI x Leaders</a></p>
+  </footer>
+
+  <script>
+    document.getElementById('inscription-form').addEventListener('submit', function() {
+      const btn = this.querySelector('.btn-fn');
+      btn.textContent = 'ENVOI EN COURS...';
+      btn.style.pointerEvents = 'none';
+      btn.style.opacity = '0.6';
+    });
+  </script>
+
+</body>
+</html>
