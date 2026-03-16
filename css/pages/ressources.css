@@ -259,6 +259,14 @@
   margin-bottom: 16px !important;
 }
 
+/* ========== PRICING SUB-SUBTITLE ========== */
+.section-subtitle-small {
+  text-align: center;
+  color: var(--pink-primary);
+  font-size: 0.95rem;
+  margin-bottom: 32px;
+}
+
 /* ========== PRICING CARDS ========== */
 
 .pricing-cards {
