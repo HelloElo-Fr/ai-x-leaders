@@ -1,0 +1,6 @@
+.dev.vars
+.wrangler
+.claude
+.git
+src
+node_modules

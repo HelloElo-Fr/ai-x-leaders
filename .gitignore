@@ -5,3 +5,4 @@
 .claude/
 download_images.sh
 .wrangler/
+.dev.vars

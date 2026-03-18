@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The AI Leadership Program — Bootcamp #4</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --pink: #FF48AA;
+            --pink-light: #FF6FBF;
+            --pink-glow: rgba(255, 72, 170, 0.15);
+            --pink-border: rgba(255, 72, 170, 0.25);
+            --bg: #191B1F;
+            --bg-card: #22252A;
+            --bg-card-hover: #2A2D33;
+            --text: #FFFFFF;
+            --text-muted: #9CA3AF;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 30% 0%, rgba(255, 72, 170, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 100%, rgba(255, 72, 170, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 40px 0 28px;
+            text-align: center;
+        }
+        .logo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+        }
+        .logo span { color: var(--pink); }
+        header h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            font-style: italic;
+            line-height: 1.15;
+            margin-bottom: 14px;
+        }
+        header h1 em { color: var(--pink); font-style: italic; }
+        header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Quick links */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+        .quick-link {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px 16px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 4px;
+        }
+        .quick-link:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--pink-border);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--pink-glow);
+        }
+        .quick-link .icon { font-size: 1.6rem; margin-bottom: 4px; }
+        .quick-link .label { font-weight: 600; font-size: 0.88rem; }
+        .quick-link .sub { font-size: 0.75rem; color: var(--text-muted); }
+
+        /* Section title */
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Chatbot */
+        .chatbot-section { margin-bottom: 36px; }
+        .chatbot-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .chatbot-header {
+            background: linear-gradient(135deg, #2A1525, #1F1028);
+            border-bottom: 1px solid var(--pink-border);
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .chatbot-avatar {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: var(--pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 800;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .chatbot-header-text h3 { font-size: 0.9rem; font-weight: 600; }
+        .chatbot-header-text p { font-size: 0.72rem; color: var(--text-muted); }
+        .chatbot-online {
+            width: 8px; height: 8px;
+            background: #34D399;
+            border-radius: 50%;
+            margin-left: auto;
+            box-shadow: 0 0 8px rgba(52, 211, 153, 0.5);
+        }
+        .chatbot-messages {
+            padding: 20px;
+            min-height: 140px;
+            max-height: 260px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .message {
+            max-width: 82%;
+            padding: 11px 15px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            line-height: 1.55;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message.bot {
+            background: rgba(255, 72, 170, 0.08);
+            border: 1px solid rgba(255, 72, 170, 0.15);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .message.user {
+            background: var(--pink);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .chatbot-input {
+            padding: 12px 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+        }
+        .chatbot-input input {
+            flex: 1;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 11px 14px;
+            color: var(--text);
+            font-size: 0.85rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .chatbot-input input::placeholder { color: var(--text-muted); }
+        .chatbot-input input:focus { border-color: var(--pink); }
+        .chatbot-input button {
+            background: var(--pink);
+            border: none;
+            border-radius: 10px;
+            padding: 11px 20px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: inherit;
+            font-size: 0.85rem;
+        }
+        .chatbot-input button:hover {
+            background: var(--pink-light);
+            box-shadow: 0 4px 20px var(--pink-glow);
+        }
+
+        /* Agenda */
+        .agenda-section { margin-bottom: 36px; }
+        .agenda-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        .agenda-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            transition: all 0.25s ease;
+        }
+        .agenda-card:hover {
+            border-color: var(--pink-border);
+            background: var(--bg-card-hover);
+        }
+        .agenda-day {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--pink);
+            text-align: center;
+            min-width: 40px;
+        }
+        .agenda-date {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text);
+            text-align: center;
+            min-width: 40px;
+            margin-top: -2px;
+        }
+        .agenda-content { flex: 1; }
+        .agenda-type {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+        .agenda-type.masterclass {
+            background: rgba(255, 72, 170, 0.12);
+            color: var(--pink-light);
+        }
+        .agenda-type.tuto {
+            background: rgba(99, 102, 241, 0.12);
+            color: #818CF8;
+        }
+        .agenda-title {
+            font-weight: 600;
+            font-size: 0.88rem;
+            margin-bottom: 4px;
+        }
+        .agenda-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .agenda-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Week grid */
+        .weeks-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+        .week-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 14px 16px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.25s ease;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .week-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--pink);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .week-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--pink-border);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--pink-glow);
+        }
+        .week-card:hover::after { transform: scaleX(1); }
+        .week-card .week-num {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--pink);
+        }
+        .week-card .week-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 500;
+        }
+        .week-card .week-date {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            opacity: 0.7;
+        }
+        .week-card .week-status {
+            margin-top: 8px;
+            font-size: 0.65rem;
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 8px;
+            font-weight: 500;
+            background: rgba(255, 72, 170, 0.1);
+            color: var(--pink-light);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 28px 0 40px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            border-top: 1px solid var(--border);
+        }
+        footer a { color: var(--pink); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .quick-links { grid-template-columns: 1fr; }
+            .weeks-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .weeks-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div class="container">
+        <header>
+            <div class="logo">AI <span>x</span> Leaders</div>
+            <h1>The AI Leadership<br>Program <em>#4</em></h1>
+            <p>Ton espace bootcamp. Ici → replays et devoirs. Sur Circle → tutos vidéo.</p>
+        </header>
+
+        <div class="quick-links">
+            <a href="https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9" class="quick-link" target="_blank">
+                <div class="icon">📚</div>
+                <div class="label">Accéder à Circle</div>
+                <div class="sub">Tutos vidéo et quiz</div>
+            </a>
+            <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1R1conKKEqDnYRaG9wt1Qf3JdXHp6y4jumg9mZCG17iM7v14oZpoDA77c80gEPuDsdkcv6Dx8x" class="quick-link" target="_blank">
+                <div class="icon">🤙</div>
+                <div class="label">Booker un coaching</div>
+                <div class="sub">Rendez-vous one-to-one</div>
+            </a>
+            <a href="#" class="quick-link">
+                <div class="icon">📺</div>
+                <div class="label">Masterclass vendredi</div>
+                <div class="sub">Lien Zoom à venir</div>
+            </a>
+        </div>
+
+        <div class="chatbot-section">
+            <div class="section-title"><span>💬</span> Demande à Elo IA</div>
+            <div class="chatbot-container">
+                <div class="chatbot-header">
+                    <div class="chatbot-avatar">E</div>
+                    <div class="chatbot-header-text">
+                        <h3>Elo IA</h3>
+                        <p>Ton assistante bootcamp</p>
+                    </div>
+                    <div class="chatbot-online"></div>
+                </div>
+                <div class="chatbot-messages" id="chatMessages">
+                    <div class="message bot">Salut ! 👋 Je suis Elo IA, ton assistante pour le bootcamp. Pose-moi tes questions sur le programme, les outils, les devoirs... Je suis là !</div>
+                </div>
+                <div class="chatbot-input">
+                    <input type="text" id="chatInput" placeholder="Pose ta question ici..." onkeypress="if(event.key==='Enter')sendMessage()">
+                    <button onclick="sendMessage()">Envoyer</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="agenda-section">
+            <div class="section-title"><span>🗓️</span> Cette semaine</div>
+            <div class="agenda-grid">
+                <div class="agenda-card">
+                    <div class="agenda-day">VEN</div>
+                    <div class="agenda-date">28 mars</div>
+                    <div class="agenda-content">
+                        <div class="agenda-type masterclass">Masterclass</div>
+                        <div class="agenda-title">Lancement Bootcamp #4</div>
+                        <div class="agenda-time">🕘 9H30 — 11H00 (visio) · 10H30 — 12H00 (présentiel)</div>
+                    </div>
+                </div>
+                <div class="agenda-card">
+                    <div class="agenda-day">LUN</div>
+                    <div class="agenda-date">31 mars</div>
+                    <div class="agenda-content">
+                        <div class="agenda-type tuto">Tutos Circle</div>
+                        <div class="agenda-title">À découvrir cette semaine</div>
+                        <div class="agenda-time">📚 Disponible dans Circle</div>
+                    </div>
+                </div>
+                <div class="agenda-card">
+                    <div class="agenda-day">VEN</div>
+                    <div class="agenda-date">4 avril</div>
+                    <div class="agenda-content">
+                        <div class="agenda-type masterclass">Masterclass</div>
+                        <div class="agenda-title">À venir</div>
+                        <div class="agenda-time">🕘 Horaire habituel</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title"><span>📆</span> Les 12 semaines</div>
+        <div class="weeks-grid">
+            <div class="week-card" onclick="openWeek(1)"><div class="week-num">01</div><div class="week-label">Semaine</div><div class="week-date">27 mars</div><div class="week-status">À venir</div></div>
+            <div class="week-card" onclick="openWeek(2)"><div class="week-num">02</div><div class="week-label">Semaine</div><div class="week-date">3 avril</div><div class="week-status">À venir</div></div>
+            <div class="week-card" onclick="openWeek(3)"><div class="week-num">03</div><div class="week-label">Semaine</div><div class="week-date">10 avril</div><div class="week-status">À venir</div></div>
+            <div class="week-card" onclick="openWeek(4)"><div class="week-num">04</div><div class="week-label">Semaine</div><div class="week-date">17 avril</div><div class="week-status">À venir</div></div>
+            <div class="week-card" onclick="openWeek(5)"><div class="week-num">05</div><div class="week-label">Semaine</div><div class="week-date">24 avril</div><div class="week-status">À venir</div></div>
+            <div class="week-card" onclick="openWeek(6)"><div class="week-num">06</div><div class="week-label">Semaine</div><div class="week-date">1 mai</div><div class="week-status">À venir</div></div>
+            <div class="week-card" onclick="openWeek(7)"><div class="week-num">07</div><div class="week-label">Semaine</div><div class="week-date">8 mai</div><div class="week-status">À venir</div></div>
+            <div class="week-card" onclick="openWeek(8)"><div class="week-num">08</div><div class="week-label">Semaine</div><div class="week-date">15 mai</div><div class="week-status">À venir</div></div>
+            <div class="week-card" onclick="openWeek(9)"><div class="week-num">09</div><div class="week-label">Semaine</div><div class="week-date">22 mai</div><div class="week-status">À venir</div></div>
+            <div class="week-card" onclick="openWeek(10)"><div class="week-num">10</div><div class="week-label">Semaine</div><div class="week-date">29 mai</div><div class="week-status">À venir</div></div>
+            <div class="week-card" onclick="openWeek(11)"><div class="week-num">11</div><div class="week-label">Semaine</div><div class="week-date">5 juin</div><div class="week-status">À venir</div></div>
+            <div class="week-card" onclick="openWeek(12)"><div class="week-num">12</div><div class="week-label">Semaine</div><div class="week-date">12 juin</div><div class="week-status">À venir</div></div>
+        </div>
+
+        <footer>
+            <p>The AI Leadership Program · <a href="https://ai-x-leaders.com" target="_blank">AI x Leaders</a> · <a href="https://poneycornflakes.substack.com/" target="_blank">Newsletter Hello Elo</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function openWeek(num) {
+            alert('Semaine ' + num + ' — Le contenu sera ajouté bientôt !');
+        }
+
+        const demoResponses = [
+            "Pour accéder à Circle, clique sur le bouton \"Accéder à Circle\" en haut. C'est là que tu retrouves tous les tutos vidéo et les quiz du programme.",
+            "Le coaching one-to-one, c'est un rendez-vous individuel avec Elodie. Tu peux booker ton créneau via le bouton en haut. C'est inclus dans le programme !",
+            "Les masterclass ont lieu tous les vendredis. Le lien Zoom sera ajouté dès qu'il sera disponible.",
+            "Si tu bloques sur un outil, commence par le tuto correspondant dans Circle. Et si tu bloques encore, pose ta question dans le WhatsApp du bootcamp !",
+            "Le programme dure 12 semaines. Chaque semaine : une masterclass le vendredi, des tutos dans Circle, et des devoirs pour pratiquer."
+        ];
+        let responseIndex = 0;
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const messages = document.getElementById('chatMessages');
+            const text = input.value.trim();
+            if (!text) return;
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.textContent = text;
+            messages.appendChild(userMsg);
+            input.value = '';
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'message bot';
+                botMsg.textContent = demoResponses[responseIndex % demoResponses.length];
+                messages.appendChild(botMsg);
+                messages.scrollTop = messages.scrollHeight;
+                responseIndex++;
+            }, 700);
+            messages.scrollTop = messages.scrollHeight;
+        }
+    </script>
+</body>
+</html>
