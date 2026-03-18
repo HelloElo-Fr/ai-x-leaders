@@ -19,6 +19,11 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
+    // --- Redirect ia-recre.com root → /ia-recre ---
+    if (url.hostname.includes('ia-recre') && url.pathname === '/') {
+      return Response.redirect(url.origin + '/ia-recre', 302);
+    }
+
     // --- API : proxy RSS ---
     if (url.pathname === '/api/rss') {
       const feedKey = url.searchParams.get('feed');
