@@ -344,8 +344,8 @@ export default {
           },
           body: JSON.stringify({
             model: 'claude-haiku-4-5-20251001',
-            max_tokens: 1024,
-            system: SYSTEM_PROMPT,
+            max_tokens: 400,
+            system: [{ type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }],
             messages,
           }),
         });
