@@ -451,6 +451,12 @@ section {
   color: var(--text-primary);
 }
 
+.footer-qualiopi {
+  height: 48px;
+  margin-top: 16px;
+  display: block;
+}
+
 /* ========== UTILITY ========== */
 
 .mt-0 { margin-top: 0; }
