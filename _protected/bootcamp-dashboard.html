@@ -365,6 +365,76 @@
             color: var(--pink-light);
         }
 
+        /* Calendar modal */
+        .cal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+        .cal-overlay.active { display: flex; }
+        .cal-modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 28px;
+            max-width: 360px;
+            width: 90%;
+            text-align: center;
+        }
+        .cal-modal h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .cal-modal p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+        }
+        .cal-buttons { display: flex; flex-direction: column; gap: 10px; }
+        .cal-btn {
+            display: block;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: all 0.25s;
+            font-family: inherit;
+        }
+        .cal-btn.visio {
+            background: var(--pink);
+            color: white;
+        }
+        .cal-btn.visio:hover {
+            background: var(--pink-light);
+            box-shadow: 0 4px 20px var(--pink-glow);
+        }
+        .cal-btn.presentiel {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+        .cal-btn.presentiel:hover {
+            border-color: var(--pink-border);
+            background: rgba(255,255,255,0.1);
+        }
+        .cal-close {
+            margin-top: 16px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .cal-close:hover { color: var(--pink); }
+
         /* Footer */
         footer {
             text-align: center;
@@ -456,13 +526,26 @@
             <div class="week-card" onclick="openWeek(3)"><div class="week-num">03</div><div class="week-label">Semaine</div><div class="week-date">10 avril</div><div class="week-status">À venir</div></div>
             <div class="week-card" onclick="openWeek(4)"><div class="week-num">04</div><div class="week-label">Semaine</div><div class="week-date">17 avril</div><div class="week-status">À venir</div></div>
             <div class="week-card" onclick="openWeek(5)"><div class="week-num">05</div><div class="week-label">Semaine</div><div class="week-date">24 avril</div><div class="week-status">À venir</div></div>
-            <div class="week-card" onclick="openWeek(6)"><div class="week-num">06</div><div class="week-label">Semaine</div><div class="week-date">1 mai</div><div class="week-status">À venir</div></div>
-            <div class="week-card" onclick="openWeek(7)"><div class="week-num">07</div><div class="week-label">Semaine</div><div class="week-date">8 mai</div><div class="week-status">À venir</div></div>
+            <div class="week-card" onclick="openWeek(6)"><div class="week-num">06</div><div class="week-label">Semaine</div><div class="week-date">30 avril</div><div class="week-status">À venir</div></div>
+            <div class="week-card" onclick="openWeek(7)"><div class="week-num">07</div><div class="week-label">Semaine</div><div class="week-date">7 mai</div><div class="week-status">À venir</div></div>
             <div class="week-card" onclick="openWeek(8)"><div class="week-num">08</div><div class="week-label">Semaine</div><div class="week-date">15 mai</div><div class="week-status">À venir</div></div>
             <div class="week-card" onclick="openWeek(9)"><div class="week-num">09</div><div class="week-label">Semaine</div><div class="week-date">22 mai</div><div class="week-status">À venir</div></div>
             <div class="week-card" onclick="openWeek(10)"><div class="week-num">10</div><div class="week-label">Semaine</div><div class="week-date">29 mai</div><div class="week-status">À venir</div></div>
             <div class="week-card" onclick="openWeek(11)"><div class="week-num">11</div><div class="week-label">Semaine</div><div class="week-date">5 juin</div><div class="week-status">À venir</div></div>
             <div class="week-card" onclick="openWeek(12)"><div class="week-num">12</div><div class="week-label">Semaine</div><div class="week-date">12 juin</div><div class="week-status">À venir</div></div>
+        </div>
+
+        <div class="cal-overlay" id="calOverlay" onclick="if(event.target===this)closeCal()">
+            <div class="cal-modal">
+                <h3 id="calTitle">Semaine 1</h3>
+                <p id="calDate"></p>
+                <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:16px;">Choisis ton format pour ajouter l'événement à ton Google Calendar 👇</p>
+                <div class="cal-buttons">
+                    <a id="calVisio" class="cal-btn visio" href="#" target="_blank">📹 Visio — 13H30 à 15H00</a>
+                    <a id="calPresentiel" class="cal-btn presentiel" href="#" target="_blank">🏢 Présentiel — 14H30 à 16H00</a>
+                </div>
+                <button class="cal-close" onclick="closeCal()">Fermer</button>
+            </div>
         </div>
 
         <footer>
@@ -471,8 +554,54 @@
     </div>
 
     <script>
+        const weekDates = {
+            1: '2026-03-27', 2: '2026-04-03', 3: '2026-04-10', 4: '2026-04-17',
+            5: '2026-04-24', 6: '2026-04-30', 7: '2026-05-07', 8: '2026-05-15',
+            9: '2026-05-22', 10: '2026-05-29', 11: '2026-06-05', 12: '2026-06-12'
+        };
+        const ZOOM_VISIO = 'https://us06web.zoom.us/j/89622246240?pwd=IEBMr7bgiqWr8fVgTsxf3rVvTEpbLo.1';
+        const ZOOM_PRESENTIEL = 'https://us06web.zoom.us/j/88998651713?pwd=P6C2tNfzJauMdqILsRJADkbSQ7bT2S.1';
+        const LIEU_PRESENTIEL = '25 rue de Lauriston, Paris 16';
+
+        function makeGCalUrl(date, startH, startM, endH, endM, title, location, description) {
+            const pad = n => String(n).padStart(2, '0');
+            const d = date.replace(/-/g, '');
+            const start = d + 'T' + pad(startH) + pad(startM) + '00';
+            const end = d + 'T' + pad(endH) + pad(endM) + '00';
+            const params = new URLSearchParams({
+                action: 'TEMPLATE',
+                text: title,
+                dates: start + '/' + end,
+                ctz: 'Europe/Paris',
+                location: location,
+                details: description
+            });
+            return 'https://calendar.google.com/calendar/render?' + params.toString();
+        }
+
         function openWeek(num) {
-            alert('Semaine ' + num + ' — Le contenu sera ajouté bientôt !');
+            const date = weekDates[num];
+            if (!date) return;
+            const label = new Date(date + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+            document.getElementById('calTitle').textContent = 'Semaine ' + num;
+            document.getElementById('calDate').textContent = label.charAt(0).toUpperCase() + label.slice(1);
+            document.getElementById('calVisio').href = makeGCalUrl(
+                date, 13, 30, 15, 0,
+                'Bootcamp #4 — Semaine ' + num + ' (visio)',
+                ZOOM_VISIO,
+                'Masterclass en visio\\nLien Zoom : ' + ZOOM_VISIO
+            );
+            document.getElementById('calPresentiel').href = makeGCalUrl(
+                date, 14, 30, 16, 0,
+                'Bootcamp #4 — Semaine ' + num + ' (présentiel)',
+                LIEU_PRESENTIEL,
+                'Masterclass en présentiel\\n' + LIEU_PRESENTIEL + '\\nLien Zoom backup : ' + ZOOM_PRESENTIEL
+            );
+            document.getElementById('calOverlay').classList.add('active');
+        }
+
+        function closeCal() {
+            document.getElementById('calOverlay').classList.remove('active');
         }
 
         const chatHistory = [];
