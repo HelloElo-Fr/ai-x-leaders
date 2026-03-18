@@ -553,6 +553,10 @@ img.testimonial-avatar {
   padding: 20px 24px;
 }
 
+.carousel-card-body .tag {
+  margin-bottom: 8px;
+}
+
 .carousel-card-body h4 {
   color: var(--text-primary);
   font-size: 1rem;
