@@ -74,6 +74,20 @@
 
 .hero-avatars {
   display: flex;
+  align-items: center;
+}
+
+.hero-avatars img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--bg-pure-black);
+  object-fit: cover;
+  margin-left: -8px;
+}
+
+.hero-avatars img:first-child {
+  margin-left: 0;
 }
 
 .hero-avatars span {
