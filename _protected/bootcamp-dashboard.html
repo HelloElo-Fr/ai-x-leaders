@@ -475,33 +475,70 @@
             alert('Semaine ' + num + ' — Le contenu sera ajouté bientôt !');
         }
 
-        const demoResponses = [
-            "Pour accéder à Circle, clique sur le bouton \"Accéder à Circle\" en haut. C'est là que tu retrouves tous les tutos vidéo et les quiz du programme.",
-            "Le coaching one-to-one, c'est un rendez-vous individuel avec Elodie. Tu peux booker ton créneau via le bouton en haut. C'est inclus dans le programme !",
-            "Les masterclass ont lieu tous les vendredis. Le lien Zoom sera ajouté dès qu'il sera disponible.",
-            "Si tu bloques sur un outil, commence par le tuto correspondant dans Circle. Et si tu bloques encore, pose ta question dans le WhatsApp du bootcamp !",
-            "Le programme dure 12 semaines. Chaque semaine : une masterclass le vendredi, des tutos dans Circle, et des devoirs pour pratiquer."
-        ];
-        let responseIndex = 0;
+        const chatHistory = [];
+        let isSending = false;
 
-        function sendMessage() {
+        function linkify(text) {
+            return text.replace(/(https?:\/\/[^\s)<]+)/g, '<a href="$1" target="_blank" style="color:var(--pink-light);text-decoration:underline;">$1</a>');
+        }
+
+        async function sendMessage() {
+            if (isSending) return;
             const input = document.getElementById('chatInput');
             const messages = document.getElementById('chatMessages');
             const text = input.value.trim();
             if (!text) return;
+
+            // Afficher le message utilisateur
             const userMsg = document.createElement('div');
             userMsg.className = 'message user';
             userMsg.textContent = text;
             messages.appendChild(userMsg);
             input.value = '';
-            setTimeout(() => {
-                const botMsg = document.createElement('div');
-                botMsg.className = 'message bot';
-                botMsg.textContent = demoResponses[responseIndex % demoResponses.length];
-                messages.appendChild(botMsg);
-                messages.scrollTop = messages.scrollHeight;
-                responseIndex++;
-            }, 700);
+            messages.scrollTop = messages.scrollHeight;
+
+            // Indicateur de frappe
+            const typing = document.createElement('div');
+            typing.className = 'message bot';
+            typing.innerHTML = '<span style="opacity:0.6">Elo IA réfléchit...</span>';
+            messages.appendChild(typing);
+            messages.scrollTop = messages.scrollHeight;
+
+            isSending = true;
+            try {
+                const res = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: text,
+                        history: chatHistory.slice(-10),
+                    }),
+                });
+                const data = await res.json();
+                messages.removeChild(typing);
+
+                if (data.reply) {
+                    chatHistory.push({ role: 'user', content: text });
+                    chatHistory.push({ role: 'assistant', content: data.reply });
+
+                    const botMsg = document.createElement('div');
+                    botMsg.className = 'message bot';
+                    botMsg.innerHTML = linkify(data.reply.replace(/\n/g, '<br>'));
+                    messages.appendChild(botMsg);
+                } else {
+                    const errMsg = document.createElement('div');
+                    errMsg.className = 'message bot';
+                    errMsg.textContent = 'Oups, un souci technique. Réessaie dans quelques secondes !';
+                    messages.appendChild(errMsg);
+                }
+            } catch (err) {
+                messages.removeChild(typing);
+                const errMsg = document.createElement('div');
+                errMsg.className = 'message bot';
+                errMsg.textContent = 'Oups, impossible de me connecter. Vérifie ta connexion et réessaie !';
+                messages.appendChild(errMsg);
+            }
+            isSending = false;
             messages.scrollTop = messages.scrollHeight;
         }
     </script>
