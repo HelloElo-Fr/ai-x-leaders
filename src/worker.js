@@ -344,7 +344,8 @@ export default {
           },
           body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
-            max_tokens: 400,
+            max_tokens: 250,
+            stream: true,
             system: [{ type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } }],
             messages,
           }),
@@ -358,13 +359,48 @@ export default {
           });
         }
 
-        const claudeData = await claudeRes.json();
-        const reply = claudeData.content?.[0]?.text || 'Hmm, je n\'ai pas réussi à formuler une réponse. Réessaie !';
+        // Stream the response as SSE
+        const { readable, writable } = new TransformStream();
+        const writer = writable.getWriter();
+        const encoder = new TextEncoder();
 
-        return new Response(JSON.stringify({ reply }), {
+        (async () => {
+          const reader = claudeRes.body.getReader();
+          const decoder = new TextDecoder();
+          let buffer = '';
+          try {
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              buffer += decoder.decode(value, { stream: true });
+              const lines = buffer.split('\n');
+              buffer = lines.pop() || '';
+              for (const line of lines) {
+                if (line.startsWith('data: ')) {
+                  const data = line.slice(6);
+                  if (data === '[DONE]') continue;
+                  try {
+                    const parsed = JSON.parse(data);
+                    if (parsed.type === 'content_block_delta' && parsed.delta?.text) {
+                      await writer.write(encoder.encode(`data: ${JSON.stringify({ text: parsed.delta.text })}\n\n`));
+                    }
+                  } catch {}
+                }
+              }
+            }
+            await writer.write(encoder.encode('data: [DONE]\n\n'));
+          } catch (err) {
+            await writer.write(encoder.encode(`data: ${JSON.stringify({ error: err.message })}\n\n`));
+          } finally {
+            await writer.close();
+          }
+        })();
+
+        return new Response(readable, {
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'text/event-stream',
             'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
           },
         });
       } catch (err) {
