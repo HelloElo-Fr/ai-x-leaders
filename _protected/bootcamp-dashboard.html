@@ -365,6 +365,59 @@
             color: var(--pink-light);
         }
 
+        /* Trombinoscope */
+        .trombi-section { margin-bottom: 36px; }
+        .trombi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+        .trombi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px 14px 16px;
+            text-align: center;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+        }
+        .trombi-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--pink-border);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--pink-glow);
+        }
+        .trombi-avatar {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            background: linear-gradient(135deg, var(--pink), #8B5CF6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: white;
+        }
+        .trombi-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 2px;
+        }
+        .trombi-link {
+            font-size: 0.7rem;
+            color: var(--pink-light);
+        }
+        @media (max-width: 768px) {
+            .trombi-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .trombi-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
         /* Calendar modal */
         .cal-overlay {
             display: none;
@@ -487,7 +540,7 @@
             <div class="section-title"><span>💬</span> Demande a Elod'AI</div>
             <div class="chatbot-container">
                 <div class="chatbot-header">
-                    <div class="chatbot-avatar">E</div>
+                    <img class="chatbot-avatar" src="/images/elodai-avatar.png" alt="Elod'AI" style="width:38px;height:38px;border-radius:50%;object-fit:cover;">
                     <div class="chatbot-header-text">
                         <h3>Elod'AI</h3>
                         <p>Ton assistante bootcamp</p>
@@ -533,6 +586,72 @@
             <div class="week-card" onclick="openWeek(10)"><div class="week-num">10</div><div class="week-label">Semaine</div><div class="week-date">29 mai</div><div class="week-status">À venir</div></div>
             <div class="week-card" onclick="openWeek(11)"><div class="week-num">11</div><div class="week-label">Semaine</div><div class="week-date">5 juin</div><div class="week-status">À venir</div></div>
             <div class="week-card" onclick="openWeek(12)"><div class="week-num">12</div><div class="week-label">Semaine</div><div class="week-date">12 juin</div><div class="week-status">À venir</div></div>
+        </div>
+
+        <div class="trombi-section">
+            <div class="section-title"><span>👥</span> La promo #4</div>
+            <div class="trombi-grid">
+                <a href="https://www.linkedin.com/in/veronique-fourniol" class="trombi-card" target="_blank">
+                    <div class="trombi-avatar">VF</div>
+                    <div class="trombi-name">Véronique Fourniol</div>
+                    <div class="trombi-link">Voir le profil LinkedIn</div>
+                </a>
+                <a href="https://www.linkedin.com/in/catherine-le-faou" class="trombi-card" target="_blank">
+                    <div class="trombi-avatar">CL</div>
+                    <div class="trombi-name">Catherine Le Faou</div>
+                    <div class="trombi-link">Voir le profil LinkedIn</div>
+                </a>
+                <a href="https://www.linkedin.com/in/myriam-julien-82549129" class="trombi-card" target="_blank">
+                    <div class="trombi-avatar">MJ</div>
+                    <div class="trombi-name">Myriam Julien</div>
+                    <div class="trombi-link">Voir le profil LinkedIn</div>
+                </a>
+                <a href="https://www.linkedin.com/in/laurenceroyrojo" class="trombi-card" target="_blank">
+                    <div class="trombi-avatar">LR</div>
+                    <div class="trombi-name">Laurence Roy</div>
+                    <div class="trombi-link">Voir le profil LinkedIn</div>
+                </a>
+                <a href="https://www.linkedin.com/in/marie-le-magueresse" class="trombi-card" target="_blank">
+                    <div class="trombi-avatar">ML</div>
+                    <div class="trombi-name">Marie Le Magueresse</div>
+                    <div class="trombi-link">Voir le profil LinkedIn</div>
+                </a>
+                <a href="https://www.linkedin.com/in/fran%C3%A7ois-wrzesinski" class="trombi-card" target="_blank">
+                    <div class="trombi-avatar">FW</div>
+                    <div class="trombi-name">François Wrzesinski</div>
+                    <div class="trombi-link">Voir le profil LinkedIn</div>
+                </a>
+                <a href="https://www.linkedin.com/in/marie-alix-leroy-30320538" class="trombi-card" target="_blank">
+                    <div class="trombi-avatar">MA</div>
+                    <div class="trombi-name">Marie-Alix Leroy</div>
+                    <div class="trombi-link">Voir le profil LinkedIn</div>
+                </a>
+                <a href="https://www.linkedin.com/in/claire-boulanger-marketing" class="trombi-card" target="_blank">
+                    <div class="trombi-avatar">CB</div>
+                    <div class="trombi-name">Claire Boulanger</div>
+                    <div class="trombi-link">Voir le profil LinkedIn</div>
+                </a>
+                <a href="https://www.linkedin.com/in/h%C3%A9l%C3%A8nelequeux" class="trombi-card" target="_blank">
+                    <div class="trombi-avatar">HL</div>
+                    <div class="trombi-name">Hélène Lequeux</div>
+                    <div class="trombi-link">Voir le profil LinkedIn</div>
+                </a>
+                <a href="https://www.linkedin.com/in/jerome-franconeri" class="trombi-card" target="_blank">
+                    <div class="trombi-avatar">JF</div>
+                    <div class="trombi-name">Jérôme Franconeri</div>
+                    <div class="trombi-link">Voir le profil LinkedIn</div>
+                </a>
+                <a href="https://www.linkedin.com/in/philippecaminade" class="trombi-card" target="_blank">
+                    <div class="trombi-avatar">PC</div>
+                    <div class="trombi-name">Philippe Caminade</div>
+                    <div class="trombi-link">Voir le profil LinkedIn</div>
+                </a>
+                <a href="https://www.linkedin.com/in/celine-riboulleau-3687a245" class="trombi-card" target="_blank">
+                    <div class="trombi-avatar">CR</div>
+                    <div class="trombi-name">Céline Riboulleau</div>
+                    <div class="trombi-link">Voir le profil LinkedIn</div>
+                </a>
+            </div>
         </div>
 
         <div class="cal-overlay" id="calOverlay" onclick="if(event.target===this)closeCal()">
