@@ -458,8 +458,13 @@ a.btn-blue:hover,
 }
 
 img.testimonial-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   object-fit: cover;
   background: none;
+  display: block;
+  flex-shrink: 0;
 }
 
 .testimonial-info .name {
