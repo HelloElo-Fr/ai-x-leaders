@@ -927,3 +927,25 @@ img.testimonial-avatar {
 .media-dots .dot.active {
   background: var(--pink-primary);
 }
+
+/* ========== LANGUAGE SWITCHER ========== */
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+}
+.lang-switch a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+}
+.lang-switch a.lang-active {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+.lang-switch .lang-sep {
+  color: var(--text-muted);
+  opacity: 0.4;
+}
