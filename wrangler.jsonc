@@ -1,7 +1,9 @@
 {
   "name": "ai-x-leaders",
   "compatibility_date": "2026-02-23",
+  "main": "src/worker.js",
   "assets": {
-    "directory": "./"
+    "directory": "./",
+    "binding": "ASSETS"
   }
 }
