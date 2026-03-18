@@ -2,7 +2,10 @@
  * Cloudflare Worker — AI x Leaders
  * - Proxy RSS Substack (/api/rss)
  * - Dashboard bootcamp protege par mot de passe (/bootcamp-dashboard)
+ * - Chatbot Elo IA (/api/chat)
  */
+
+import { SYSTEM_PROMPT } from './knowledge-base.js';
 
 const FEEDS = {
   aixleaders: 'https://aixleaders.substack.com/feed',
@@ -287,6 +290,98 @@ export default {
         headers: {
           'Content-Type': 'text/html; charset=utf-8',
           'Cache-Control': 'private, no-cache',
+        },
+      });
+    }
+
+    // ── API : chatbot Elo IA ──
+    if (url.pathname === '/api/chat' && request.method === 'POST') {
+      const apiKey = env.ANTHROPIC_API_KEY;
+      if (!apiKey) {
+        return new Response(JSON.stringify({ error: 'ANTHROPIC_API_KEY non configuree' }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+
+      // Verifier que l'utilisateur est authentifie
+      const isAuth = await verifySession(request.headers.get('Cookie'), secret);
+      if (!isAuth) {
+        return new Response(JSON.stringify({ error: 'Non autorise' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+
+      try {
+        const body = await request.json();
+        const userMessage = body.message || '';
+        const history = body.history || [];
+
+        if (!userMessage.trim()) {
+          return new Response(JSON.stringify({ error: 'Message vide' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+
+        // Construire les messages pour Claude
+        const messages = [];
+        for (const msg of history.slice(-10)) {
+          messages.push({
+            role: msg.role === 'user' ? 'user' : 'assistant',
+            content: msg.content,
+          });
+        }
+        messages.push({ role: 'user', content: userMessage });
+
+        const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+            'anthropic-version': '2023-06-01',
+          },
+          body: JSON.stringify({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 1024,
+            system: SYSTEM_PROMPT,
+            messages,
+          }),
+        });
+
+        if (!claudeRes.ok) {
+          const errText = await claudeRes.text();
+          return new Response(JSON.stringify({ error: 'Erreur API Claude', detail: errText }), {
+            status: 502,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+
+        const claudeData = await claudeRes.json();
+        const reply = claudeData.content?.[0]?.text || 'Hmm, je n\'ai pas réussi à formuler une réponse. Réessaie !';
+
+        return new Response(JSON.stringify({ reply }), {
+          headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
+          },
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: err.message }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+    }
+
+    // ── CORS preflight pour /api/chat ──
+    if (url.pathname === '/api/chat' && request.method === 'OPTIONS') {
+      return new Response(null, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST',
+          'Access-Control-Allow-Headers': 'Content-Type',
         },
       });
     }
