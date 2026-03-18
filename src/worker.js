@@ -214,8 +214,12 @@ export default {
     const url = new URL(request.url);
     const secret = env.DASHBOARD_PASSWORD || '';
 
-    // ── Bloquer l'acces direct aux fichiers proteges ──
-    if (url.pathname.startsWith('/_protected/')) {
+    // ── Bloquer l'acces direct aux fichiers proteges et sensibles ──
+    if (url.pathname.startsWith('/_protected/') ||
+        url.pathname === '/.dev.vars' ||
+        url.pathname.startsWith('/.wrangler/') ||
+        url.pathname.startsWith('/.claude/') ||
+        url.pathname.startsWith('/src/')) {
       return new Response('Not Found', { status: 404 });
     }
 
