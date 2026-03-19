@@ -32,7 +32,7 @@ Les participants constatent en moyenne un gain de temps de 30% en automatisant d
 ### Rythme hebdomadaire
 - **1 masterclass par semaine** (le vendredi)
 - **Durée** : 1h30 par session
-- **2 créneaux au choix** : visio (9H30-11H00) OU présentiel (10H30-12H00)
+- **2 créneaux au choix** : visio (13H30-15H00) OU présentiel (14H30-16H00)
 - Les participants peuvent alterner librement entre visio et présentiel selon leurs contraintes
 
 ### Lieu présentiel
