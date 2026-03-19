@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The AI Leadership Program | Elodie Hughes</title>
+  <meta name="description" content="The AI Leadership Program - En 12 semaines, deviens un leader clair, rapide et incontournable face à l'IA.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #191B1F;
+      --bg-card: #2B2E33;
+      --pink: #FF48AA;
+      --pink-hover: #FF5CB8;
+      --white: #FFFFFF;
+      --text-secondary: #E4E7EB;
+      --text-muted: #9CA3AF;
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(25, 27, 31, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .logo .x {
+      color: var(--pink);
+      margin: 0 2px;
+    }
+
+    header nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-left: 32px;
+      transition: color 0.2s;
+    }
+
+    header nav a:hover {
+      color: var(--pink);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 160px 0 100px;
+      text-align: center;
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--pink);
+      background: rgba(255, 72, 170, 0.08);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .highlight {
+      color: var(--pink);
+    }
+
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto 16px;
+    }
+
+    .hero-subtitle {
+      font-size: 0.9375rem !important;
+      color: var(--text-muted) !important;
+      margin-bottom: 36px !important;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--pink);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(255, 72, 170, 0.25);
+    }
+
+    .btn:hover {
+      background: var(--pink-hover);
+      box-shadow: 0 4px 30px rgba(255, 72, 170, 0.4);
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      padding: 80px 0;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--pink);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 48px;
+    }
+
+    /* ===== CE QUE JE FAIS ===== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .service-card:hover {
+      border-color: rgba(255, 72, 170, 0.3);
+      box-shadow: 0 0 30px rgba(255, 72, 170, 0.08);
+    }
+
+    .service-icon {
+      font-size: 1.75rem;
+      margin-bottom: 16px;
+    }
+
+    .service-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact {
+      text-align: center;
+    }
+
+    .contact-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 48px 32px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .contact-card p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-bottom: 28px;
+    }
+
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--pink);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(255, 72, 170, 0.25);
+    }
+
+    .contact-email:hover {
+      background: var(--pink-hover);
+      box-shadow: 0 4px 30px rgba(255, 72, 170, 0.4);
+    }
+
+    .contact-links {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .contact-links a {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-links a:hover {
+      color: var(--pink);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 130px 0 60px;
+      }
+
+      header nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <a href="#" class="logo">AI<span class="x">&times;</span>Leaders</a>
+      <nav>
+        <a href="#services">Ce que je fais</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-label">The AI Leadership Program</div>
+      <h1>Elodie Hughes<br><span class="highlight">Fondatrice AI x Leaders</span></h1>
+      <p>Je rends les dirigeants autonomes face &agrave; l'IA et les accompagne pour transformer leur entreprise.</p>
+      <p class="hero-subtitle">Bootcamp, coaching, sprints et prestations sur-mesure pour C-level &amp; managers.</p>
+      <a href="#contact" class="btn">Me contacter</a>
+    </div>
+  </section>
+
+  <!-- CE QUE JE FAIS -->
+  <section id="services">
+    <div class="container">
+      <p class="section-label">Ce que je fais</p>
+      <h2 class="section-title">Transformer les leaders &agrave; l'&egrave;re de l'IA</h2>
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-icon">&#x1F3AF;</div>
+          <h3>The AI Leadership Program</h3>
+          <p>Un bootcamp de 12 semaines pour devenir un leader clair, rapide et incontournable. Formation, coaching et mise en pratique intensive.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">&#x26A1;</div>
+          <h3>Sprints IA Th&eacute;matiques</h3>
+          <p>Des sprints cibl&eacute;s de 4 semaines pour int&eacute;grer l'IA dans un domaine pr&eacute;cis : strat&eacute;gie, RH, finance, marketing.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">&#x1F3E2;</div>
+          <h3>Studio IA Entreprise</h3>
+          <p>Accompagnement sur-mesure pour les organisations : diagnostic, feuille de route IA, formation des &eacute;quipes dirigeantes.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">&#x1F399;</div>
+          <h3>Events &amp; Masterclass</h3>
+          <p>Conf&eacute;rences, masterclass et &eacute;v&eacute;nements pour sensibiliser et inspirer vos &eacute;quipes autour de l'IA.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <p class="section-label">Me contacter</p>
+      <h2 class="section-title">&Eacute;changeons sur votre projet</h2>
+      <div class="contact-card">
+        <p>Vous &ecirc;tes dirigeant ou manager et souhaitez acc&eacute;l&eacute;rer sur l'IA&nbsp;? Discutons-en.</p>
+        <a href="mailto:contact@aixleaders.com" class="contact-email">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          contact@aixleaders.com
+        </a>
+        <div class="contact-links">
+          <a href="https://aixleaders.com" target="_blank" rel="noopener">aixleaders.com</a>
+          <a href="https://www.linkedin.com/in/elodiehughes/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 AI x Leaders &mdash; Elodie Hughes. Tous droits r&eacute;serv&eacute;s.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
