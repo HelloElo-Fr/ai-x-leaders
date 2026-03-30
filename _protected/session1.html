@@ -557,6 +557,12 @@
                 // All questions answered?
                 if (Object.keys(answers).length === totalQuestions) {
                     localStorage.setItem(SESSION_KEY, JSON.stringify(answers));
+                    // Send to server
+                    fetch('/api/survey', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ session: 'session1', answers })
+                    }).catch(() => {});
                     setTimeout(() => {
                         surveyBox.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
                         surveyBox.style.opacity = '0';

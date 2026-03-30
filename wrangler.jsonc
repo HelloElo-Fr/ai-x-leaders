@@ -5,5 +5,11 @@
   "assets": {
     "directory": "./",
     "binding": "ASSETS"
-  }
+  },
+  "kv_namespaces": [
+    {
+      "binding": "SURVEY_KV",
+      "id": "387ffd8b76fc432a8fd1f4695ae1cc3d"
+    }
+  ]
 }
