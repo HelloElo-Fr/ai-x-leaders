@@ -320,6 +320,7 @@
     <div class="gallery-tabs">
       <button class="gallery-tab active" onclick="filterGallery('all')">Tout</button>
       <button class="gallery-tab" onclick="filterGallery('event')">L'Event</button>
+      <button class="gallery-tab" onclick="filterGallery('dessin')">Dessins des Enfants</button>
       <button class="gallery-tab" onclick="filterGallery('art')">Univers Arnaud</button>
     </div>
 
@@ -371,23 +372,23 @@
     function showGallery() {
       document.getElementById('passwordScreen').style.display = 'none';
       document.getElementById('galleryContainer').style.display = 'block';
-      loadImages();
-    }
-
-    // Auto-login if session still valid
-    if (sessionStorage.getItem('galerie_auth') === '1') {
-      showGallery();
+      filterGallery('all');
     }
 
     // --- Gallery ---
-    const EVENT_COUNT = 60;  // event_000 to event_059
-    const ART_COUNT = 55;    // univers-arnaud_060 to univers-arnaud_114
-
+    const DESSIN_IDS = [0, 15, 23, 25, 34, 50, 52, 57];
     const allImages = [];
-    for (let i = 0; i < EVENT_COUNT; i++) {
-      allImages.push({ src: `galerie/event_${String(i).padStart(3,'0')}.jpg`, cat: 'event' });
+
+    // Event photos (event_XXX) — skip the ones that are dessins
+    for (let i = 0; i < 60; i++) {
+      if (DESSIN_IDS.includes(i)) {
+        allImages.push({ src: `galerie/dessin_${String(i).padStart(3,'0')}.jpg`, cat: 'dessin' });
+      } else {
+        allImages.push({ src: `galerie/event_${String(i).padStart(3,'0')}.jpg`, cat: 'event' });
+      }
     }
-    for (let i = 60; i < 60 + ART_COUNT; i++) {
+    // Univers Arnaud
+    for (let i = 60; i < 115; i++) {
       allImages.push({ src: `galerie/univers-arnaud_${String(i).padStart(3,'0')}.jpg`, cat: 'art' });
     }
 
@@ -395,8 +396,9 @@
     let filteredImages = [];
     let currentLightboxIndex = 0;
 
-    function loadImages() {
-      filterGallery('all');
+    // Auto-login if session still valid (must be after allImages is populated)
+    if (sessionStorage.getItem('galerie_auth') === '1') {
+      showGallery();
     }
 
     function filterGallery(cat) {
