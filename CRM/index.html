@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI x Leaders | CRM & Pipeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --pink:#FF48AA;--pink-light:#FF6FBF;--pink-glow:rgba(255,72,170,0.15);
+  --pink-border:rgba(255,72,170,0.25);--bg:#0F1117;--bg-surface:#191B1F;
+  --bg-card:#22252A;--bg-card-hover:#2A2D33;--bg-elevated:#2F3238;
+  --text:#FFFFFF;--text-secondary:#C9CDD3;--text-muted:#8B919A;
+  --border:rgba(255,255,255,0.08);--border-hover:rgba(255,255,255,0.15);
+  --green:#10B981;--green-bg:rgba(16,185,129,0.12);
+  --orange:#F59E0B;--orange-bg:rgba(245,158,11,0.12);
+  --red:#EF4444;--red-bg:rgba(239,68,68,0.12);
+  --blue:#3B82F6;--blue-bg:rgba(59,130,246,0.12);
+  --purple:#8B5CF6;--purple-bg:rgba(139,92,246,0.12);
+  --cyan:#06B6D4;--cyan-bg:rgba(6,182,212,0.12);
+  --radius:12px;--radius-sm:8px;--radius-xs:6px;
+}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.bg-gradient{position:fixed;inset:0;background:radial-gradient(ellipse at 20% -10%,rgba(255,72,170,0.06) 0%,transparent 50%),radial-gradient(ellipse at 80% 110%,rgba(59,130,246,0.04) 0%,transparent 50%);z-index:0;pointer-events:none}
+
+/* Layout */
+.app{display:flex;min-height:100vh;position:relative;z-index:1}
+.sidebar{width:260px;background:var(--bg-surface);border-right:1px solid var(--border);padding:24px 16px;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:10}
+.main{margin-left:260px;flex:1;padding:32px 40px;min-height:100vh}
+
+/* Logo */
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:700;padding:0 8px 24px;border-bottom:1px solid var(--border);margin-bottom:16px;letter-spacing:0.3px}
+.logo span{color:var(--pink)}
+.logo small{display:block;font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:500;color:var(--text-muted);margin-top:4px;letter-spacing:1px;text-transform:uppercase}
+
+/* Nav */
+.nav{display:flex;flex-direction:column;gap:2px;flex:1}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-sm);cursor:pointer;color:var(--text-muted);font-size:0.875rem;font-weight:500;transition:all 0.15s;border:none;background:none;text-align:left;width:100%}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,0.04)}
+.nav-item.active{color:var(--text);background:var(--pink-glow);border:1px solid var(--pink-border)}
+.nav-item .icon{font-size:1.1rem;width:24px;text-align:center}
+.nav-item .badge{margin-left:auto;background:var(--pink);color:#fff;font-size:0.65rem;padding:2px 7px;border-radius:10px;font-weight:700}
+.nav-section{font-size:0.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);padding:16px 12px 8px;font-weight:600}
+
+/* Sidebar footer */
+.sidebar-footer{border-top:1px solid var(--border);padding-top:16px;margin-top:auto}
+.sidebar-footer .meta{font-size:0.75rem;color:var(--text-muted);padding:0 8px;line-height:1.6}
+.sidebar-footer .meta strong{color:var(--text-secondary)}
+
+/* Header */
+.page-header{margin-bottom:32px}
+.page-header h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.8rem;font-weight:800;margin-bottom:6px}
+.page-header h1 em{color:var(--pink);font-style:italic}
+.page-header p{color:var(--text-muted);font-size:0.9rem}
+
+/* KPI Cards */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:32px}
+.kpi{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;transition:all 0.2s}
+.kpi:hover{border-color:var(--border-hover);transform:translateY(-1px)}
+.kpi .label{font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;font-weight:600;margin-bottom:8px}
+.kpi .value{font-size:1.8rem;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;line-height:1.1}
+.kpi .sub{font-size:0.8rem;color:var(--text-muted);margin-top:6px}
+.kpi .value.pink{color:var(--pink)}
+.kpi .value.green{color:var(--green)}
+.kpi .value.blue{color:var(--blue)}
+.kpi .value.orange{color:var(--orange)}
+
+/* Kanban */
+.kanban{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:32px}
+.kanban-col{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;min-height:200px}
+.kanban-col-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.kanban-col-header h3{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.8px;font-weight:700}
+.kanban-col-header .count{font-size:0.7rem;background:var(--bg-elevated);padding:2px 8px;border-radius:10px;color:var(--text-muted)}
+.kanban-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:8px;cursor:pointer;transition:all 0.15s}
+.kanban-card:hover{border-color:var(--pink-border);background:var(--bg-card-hover)}
+.kanban-card .name{font-weight:600;font-size:0.875rem;margin-bottom:4px}
+.kanban-card .amount{color:var(--pink);font-weight:700;font-size:0.85rem}
+.kanban-card .owner-tag{display:inline-block;font-size:0.7rem;padding:2px 8px;border-radius:4px;margin-top:6px;font-weight:600}
+.owner-sonia{background:var(--purple-bg);color:var(--purple)}
+.owner-elodie{background:var(--cyan-bg);color:var(--cyan)}
+.owner-shared{background:var(--orange-bg);color:var(--orange)}
+.kanban-card .note{font-size:0.75rem;color:var(--text-muted);margin-top:6px;line-height:1.4}
+
+/* Table */
+.table-wrapper{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.table-toolbar{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.search-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 14px;color:var(--text);font-size:0.85rem;width:260px;font-family:inherit;transition:border 0.15s}
+.search-box:focus{outline:none;border-color:var(--pink)}
+.search-box::placeholder{color:var(--text-muted)}
+.filter-btn{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xs);padding:7px 14px;color:var(--text-muted);font-size:0.8rem;cursor:pointer;font-family:inherit;font-weight:500;transition:all 0.15s}
+.filter-btn:hover,.filter-btn.active{border-color:var(--pink);color:var(--pink);background:var(--pink-glow)}
+.table-count{margin-left:auto;font-size:0.8rem;color:var(--text-muted)}
+
+table{width:100%;border-collapse:collapse}
+thead{background:var(--bg-card)}
+th{text-align:left;padding:12px 16px;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none}
+th:hover{color:var(--text)}
+td{padding:12px 16px;font-size:0.85rem;border-bottom:1px solid var(--border);color:var(--text-secondary);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.td-name{color:var(--text);font-weight:600}
+.td-email{color:var(--text-muted);font-size:0.8rem}
+.td-amount{color:var(--pink);font-weight:700}
+
+/* Status badges */
+.status{display:inline-block;padding:3px 10px;border-radius:4px;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.status-gagne,.status-inscrit{background:var(--green-bg);color:var(--green)}
+.status-en-cours,.status-closing{background:var(--blue-bg);color:var(--blue)}
+.status-proposition,.status-relance{background:var(--orange-bg);color:var(--orange)}
+.status-lead,.status-nouveau_lead,.status-attente{background:var(--purple-bg);color:var(--purple)}
+.status-perdu{background:var(--red-bg);color:var(--red)}
+.status-action{background:var(--cyan-bg);color:var(--cyan)}
+
+/* MC score bar */
+.mc-bar{display:flex;align-items:center;gap:6px}
+.mc-dots{display:flex;gap:2px}
+.mc-dot{width:6px;height:16px;border-radius:2px;background:var(--bg-elevated)}
+.mc-dot.filled{background:var(--pink)}
+.mc-score{font-size:0.75rem;color:var(--text-muted);font-weight:600}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:0}
+.tab{padding:10px 18px;font-size:0.85rem;font-weight:600;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;position:relative;transition:color 0.15s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--pink)}
+.tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--pink);border-radius:2px 2px 0 0}
+
+/* Commission section */
+.commission-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.commission-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+.commission-card h3{font-size:0.9rem;font-weight:700;margin-bottom:16px;color:var(--text)}
+.commission-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.commission-row:last-child{border:none}
+.commission-row .label{color:var(--text-secondary);font-size:0.85rem}
+.commission-row .value{font-weight:700;font-size:0.9rem}
+
+/* Detail modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex;align-items:center;justify-content:center}
+.modal{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius);width:560px;max-width:90vw;max-height:85vh;overflow-y:auto;padding:32px}
+.modal h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;margin-bottom:4px}
+.modal .subtitle{color:var(--text-muted);font-size:0.85rem;margin-bottom:20px}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text-muted);font-size:1.5rem;cursor:pointer}
+.modal-field{margin-bottom:14px}
+.modal-field .label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);font-weight:600;margin-bottom:4px}
+.modal-field .val{font-size:0.9rem;color:var(--text-secondary);line-height:1.5}
+.modal-field .val a{color:var(--pink)}
+.modal-actions{display:flex;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.btn-pink{background:var(--pink);color:#fff;border:none;padding:10px 24px;border-radius:50px;font-weight:700;font-size:0.85rem;cursor:pointer;font-family:inherit;transition:all 0.15s}
+.btn-pink:hover{background:var(--pink-light);transform:translateY(-1px)}
+.btn-ghost{background:none;border:1px solid var(--border);color:var(--text-secondary);padding:10px 24px;border-radius:50px;font-weight:600;font-size:0.85rem;cursor:pointer;font-family:inherit}
+.btn-ghost:hover{border-color:var(--text-muted)}
+
+/* Revenue chart placeholder */
+.chart-container{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:24px}
+.chart-container h3{font-size:0.9rem;font-weight:700;margin-bottom:16px}
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:160px;padding-top:20px}
+.bar-group{display:flex;flex-direction:column;align-items:center;flex:1;gap:6px}
+.bar{width:100%;border-radius:4px 4px 0 0;min-height:4px;transition:height 0.5s ease}
+.bar-label{font-size:0.65rem;color:var(--text-muted);text-align:center;font-weight:600}
+.bar-value{font-size:0.7rem;font-weight:700;color:var(--text-secondary)}
+
+/* Pagination */
+.pagination{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-top:1px solid var(--border)}
+.pagination button{background:var(--bg-card);border:1px solid var(--border);padding:6px 14px;border-radius:var(--radius-xs);color:var(--text-muted);font-size:0.8rem;cursor:pointer;font-family:inherit}
+.pagination button:hover:not(:disabled){border-color:var(--pink);color:var(--pink)}
+.pagination button:disabled{opacity:0.3;cursor:default}
+.pagination .info{font-size:0.8rem;color:var(--text-muted)}
+
+/* Page views */
+.view{display:none}
+.view.active{display:block}
+
+/* Toast notification */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--bg-card);border:1px solid var(--green);border-radius:var(--radius-sm);padding:14px 20px;color:var(--green);font-size:0.85rem;font-weight:600;z-index:200;transform:translateY(80px);opacity:0;transition:all 0.3s ease}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* Form fields in modal */
+.modal-input{width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xs);padding:8px 12px;color:var(--text);font-size:0.85rem;font-family:inherit;transition:border 0.15s}
+.modal-input:focus{outline:none;border-color:var(--pink)}
+.modal-select{appearance:none;background:var(--bg-card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239CA3AF' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 10px center;border:1px solid var(--border);border-radius:var(--radius-xs);padding:8px 30px 8px 12px;color:var(--text);font-size:0.85rem;font-family:inherit;cursor:pointer;width:100%}
+.modal-select:focus{outline:none;border-color:var(--pink)}
+textarea.modal-input{min-height:60px;resize:vertical}
+.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* Drag & drop */
+.kanban-card[draggable="true"]{cursor:grab}
+.kanban-card.dragging{opacity:0.4;transform:scale(0.95)}
+.kanban-col.drag-over{background:var(--bg-card);border-color:var(--pink-border);box-shadow:inset 0 0 20px var(--pink-glow)}
+.kanban-col.drag-over .kanban-col-header{color:var(--pink)}
+
+/* Client type badge */
+.type-badge{display:inline-block;padding:3px 10px;border-radius:4px;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.type-bootcamp4{background:var(--pink-glow);color:var(--pink)}
+.type-alumni{background:var(--blue-bg);color:var(--blue)}
+.type-projet{background:var(--green-bg);color:var(--green)}
+
+/* Responsive */
+@media(max-width:1024px){
+  .sidebar{width:220px;padding:16px 12px}
+  .main{margin-left:220px;padding:24px}
+  .kanban{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .sidebar{display:none}
+  .main{margin-left:0;padding:16px}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .kanban{grid-template-columns:1fr}
+  .commission-grid{grid-template-columns:1fr}
+  .table-toolbar{flex-direction:column;align-items:stretch}
+  .search-box{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="bg-gradient"></div>
+
+<div class="app">
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="logo">AI<span>&times;</span>Leaders <small>CRM & Pipeline</small></div>
+  <nav class="nav">
+    <div class="nav-section">Vue d'ensemble</div>
+    <button class="nav-item active" data-view="dashboard"><span class="icon">&#9670;</span> Dashboard</button>
+    <div class="nav-section">Pipeline</div>
+    <button class="nav-item" data-view="projets"><span class="icon">&#9733;</span> Projets & Studio <span class="badge" id="badge-projets">17</span></button>
+    <button class="nav-item" data-view="bootcamp"><span class="icon">&#9829;</span> Bootcamp #4 <span class="badge" id="badge-bootcamp">23</span></button>
+    <button class="nav-item" data-view="leads"><span class="icon">&#9783;</span> CRM Leads <span class="badge" id="badge-leads">367</span></button>
+    <button class="nav-item" data-view="alumni"><span class="icon">&#9734;</span> Alumni <span class="badge" id="badge-alumni">61</span></button>
+    <div class="nav-section">Portefeuille</div>
+    <button class="nav-item" data-view="clients"><span class="icon">&#9830;</span> Clients <span class="badge" id="badge-clients">0</span></button>
+    <div class="nav-section">Finance</div>
+    <button class="nav-item" data-view="revenue"><span class="icon">&#8364;</span> Chiffre d'Affaires</button>
+    <button class="nav-item" data-view="commissions"><span class="icon">&#9733;</span> Commissions Sonia</button>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="meta">
+      <strong>MAJ 31 mars 2026</strong><br>
+      Pipeline: 428 leads<br>
+      Sources: CRM + LinkedIn + WhatsApp
+    </div>
+  </div>
+</aside>
+
+<!-- Main -->
+<main class="main">
+
+<!-- === DASHBOARD === -->
+<div class="view active" id="view-dashboard">
+  <div class="page-header">
+    <h1>Pipeline <em>AI x Leaders</em></h1>
+    <p>Vue d'ensemble de l'activite commerciale - MAJ 31 mars 2026</p>
+  </div>
+  <div class="kpi-grid" id="kpi-grid"></div>
+
+  <div class="chart-container">
+    <h3>Pipeline Projets par stade</h3>
+    <div class="bar-chart" id="pipeline-chart"></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+    <div class="chart-container">
+      <h3>Top 10 Leads les plus engages</h3>
+      <div id="top-leads"></div>
+    </div>
+    <div class="chart-container">
+      <h3>Derniers projets actifs</h3>
+      <div id="recent-projects"></div>
+    </div>
+  </div>
+</div>
+
+<!-- === PROJETS === -->
+<div class="view" id="view-projets">
+  <div class="page-header">
+    <h1>Projets & <em>Studio</em></h1>
+    <p>Pipeline projets consulting, transformation, formation sur-mesure</p>
+  </div>
+  <div class="kpi-grid" id="kpi-projets"></div>
+  <div class="kanban" id="kanban-projets"></div>
+</div>
+
+<!-- === BOOTCAMP === -->
+<div class="view" id="view-bootcamp">
+  <div class="page-header">
+    <h1>Bootcamp <em>#4</em></h1>
+    <p>The AI Leadership Program - Inscrits, pipeline et relances</p>
+  </div>
+  <div class="kpi-grid" id="kpi-bootcamp"></div>
+  <div class="tabs" id="bootcamp-tabs">
+    <button class="tab active" data-filter="inscrit">Inscrits valides</button>
+    <button class="tab" data-filter="relance">Relances Sonia</button>
+    <button class="tab" data-filter="attente">Leads en attente</button>
+    <button class="tab" data-filter="nouveau_lead">Nouveaux leads</button>
+    <button class="tab" data-filter="all">Tous</button>
+  </div>
+  <div class="table-wrapper">
+    <div class="table-toolbar">
+      <input type="text" class="search-box" id="bootcamp-search" placeholder="Rechercher un inscrit...">
+      <span class="table-count" id="bootcamp-count"></span>
+    </div>
+    <div style="overflow-x:auto"><table id="bootcamp-table">
+      <thead><tr><th>Nom</th><th>Entreprise</th><th>Montant</th><th>Owner</th><th>Statut</th><th>Notes</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <div class="pagination" id="bootcamp-pagination"></div>
+  </div>
+</div>
+
+<!-- === CRM LEADS === -->
+<div class="view" id="view-leads">
+  <div class="page-header">
+    <h1>CRM <em>Leads</em></h1>
+    <p>Base de contacts issus des masterclasses et du reseau</p>
+  </div>
+  <div class="kpi-grid" id="kpi-leads"></div>
+  <div class="table-wrapper">
+    <div class="table-toolbar">
+      <input type="text" class="search-box" id="leads-search" placeholder="Rechercher un lead...">
+      <button class="filter-btn active" data-owner="all">Tous</button>
+      <button class="filter-btn" data-owner="elodie">Elodie</button>
+      <button class="filter-btn" data-owner="sonia">Sonia</button>
+      <button class="filter-btn" data-mc-min="3">3+ MC</button>
+      <button class="filter-btn" data-mc-min="5">5+ MC</button>
+      <span class="table-count" id="leads-count"></span>
+    </div>
+    <div style="overflow-x:auto"><table id="leads-table">
+      <thead><tr><th>Nom</th><th>Email</th><th>Fonction</th><th>Engagement</th><th>Statut</th><th>Owner</th><th>Contact</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <div class="pagination" id="leads-pagination"></div>
+  </div>
+</div>
+
+<!-- === ALUMNI === -->
+<div class="view" id="view-alumni">
+  <div class="page-header">
+    <h1>Alumni <em>Bootcamp</em></h1>
+    <p>Les 61 alumni des Bootcamps 1, 2 et 3</p>
+  </div>
+  <div class="table-wrapper">
+    <div class="table-toolbar">
+      <input type="text" class="search-box" id="alumni-search" placeholder="Rechercher un alumni...">
+      <button class="filter-btn active" data-bootcamp="all">Tous</button>
+      <button class="filter-btn" data-bootcamp="Bootcamp 1">B1</button>
+      <button class="filter-btn" data-bootcamp="Bootcamp 2">B2</button>
+      <button class="filter-btn" data-bootcamp="Bootcamp 3">B3</button>
+      <span class="table-count" id="alumni-count"></span>
+    </div>
+    <div style="overflow-x:auto"><table id="alumni-table">
+      <thead><tr><th>Nom</th><th>Email</th><th>Fonction</th><th>Bootcamp</th><th>Engagement</th><th>Owner</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- === CLIENTS === -->
+<div class="view" id="view-clients">
+  <div class="page-header">
+    <h1>Nos <em>Clients</em></h1>
+    <p>Tous les clients AI x Leaders - Bootcamp inscrits, alumni et projets gagnes</p>
+  </div>
+  <div class="kpi-grid" id="kpi-clients"></div>
+  <div class="table-wrapper">
+    <div class="table-toolbar">
+      <input type="text" class="search-box" id="clients-search" placeholder="Rechercher un client...">
+      <button class="filter-btn active" data-client-type="all">Tous</button>
+      <button class="filter-btn" data-client-type="bootcamp4">Bootcamp #4</button>
+      <button class="filter-btn" data-client-type="alumni">Alumni</button>
+      <button class="filter-btn" data-client-type="projet">Projets</button>
+      <span class="table-count" id="clients-count"></span>
+    </div>
+    <div style="overflow-x:auto"><table id="clients-table">
+      <thead><tr><th>Nom</th><th>Email</th><th>Entreprise</th><th>Type</th><th>Montant</th><th>Owner</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- === REVENUE === -->
+<div class="view" id="view-revenue">
+  <div class="page-header">
+    <h1>Chiffre <em>d'Affaires</em></h1>
+    <p>Revenue valide 2026</p>
+  </div>
+  <div class="tabs" id="revenue-tabs">
+    <button class="tab" data-period="mois">Par mois</button>
+    <button class="tab active" data-period="trimestre">Par trimestre</button>
+    <button class="tab" data-period="annee">Par annee</button>
+  </div>
+  <div class="kpi-grid" id="kpi-revenue"></div>
+  <div class="chart-container">
+    <h3 id="ca-chart-title">CA valide par trimestre</h3>
+    <div id="ca-par-mois"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px">
+    <div class="chart-container">
+      <h3>Detail par mois</h3>
+      <div id="revenue-by-source"></div>
+    </div>
+    <div class="chart-container">
+      <h3>Revenue par owner</h3>
+      <div id="revenue-by-owner"></div>
+    </div>
+  </div>
+  <div class="chart-container" style="margin-top:24px">
+    <h3>Tresorerie previsionnelle</h3>
+    <div id="tresorerie-chart"></div>
+  </div>
+</div>
+
+<!-- === COMMISSIONS === -->
+<div class="view" id="view-commissions">
+  <div class="page-header">
+    <h1>Commissions <em>Sonia</em></h1>
+    <p>Suivi du business development - commission sur ventes realisees</p>
+  </div>
+  <div class="kpi-grid" id="kpi-commissions"></div>
+  <div class="commission-grid" id="commission-detail"></div>
+</div>
+
+</main>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== DATA =====
+const DATA = {"bootcamp":[{"nom":"Veronique Fourniol","email":"vfourniol@hotmail.fr","tel":"33664054082","entreprise":"Cargill (employeur)","montant":4000.0,"owner":"Sonia","notes":"espace dirigeant atelier","statut":"inscrit"},{"nom":"Catherine Le Faou","email":"catherine.lefaou@orange.fr","tel":"33680636569","entreprise":"Chargé de mission","montant":4000.0,"owner":"Sonia","notes":"RDV jeudi 15h30 avec Elodie","statut":"inscrit"},{"nom":"Nicolas Robin","email":"nicolasrobinabonnements@gmail.com","tel":"33632507216","entreprise":"transition","montant":1600.0,"owner":"Sonia","notes":"2 calls","statut":"inscrit"},{"nom":"Anne Corbel Trinh","email":"anne.trinh@oregomai.com","tel":"33689845699","entreprise":"Consutlante","montant":2500.0,"owner":"Sonia / Elodie","notes":"Contact francois therin","statut":"inscrit"},{"nom":"Frédéric Brochin","email":"frederic.brochin@gmail.com","tel":"33620382941","entreprise":"transition","montant":1600.0,"owner":"Sonia","notes":"espace dirigeant atelier","statut":"inscrit"},{"nom":"Agnes scamps","email":"agnes.scamps@gmail.com","tel":"33612421749","entreprise":"Transition","montant":1600.0,"owner":"Sonia /Elodie","notes":"3 calls","statut":"inscrit"},{"nom":"Catherine Colucci","email":"ktycolucci@gmail.com","tel":"33664779539","entreprise":"Directrice Innovation ITM","montant":2000.0,"owner":"Sonia","notes":"foultitude echange / devis","statut":"inscrit"},{"nom":"Franck Larue","email":"franck_larue@orange.fr","tel":"33685224788","entreprise":"transition","montant":1600.0,"owner":"Sonia","notes":"foultitude echange / devis","statut":"inscrit"},{"nom":"Emmanuel KATZ","email":"emmanuel.katz@gmail.com","tel":"33615458737","entreprise":"Consultant / transition","montant":1600.0,"owner":"Sonia","notes":"reseau club 47","statut":"inscrit"},{"nom":"Marie-Alix Leroy","email":"leroymariealix@gmail.com","tel":"33637254141","entreprise":"directrice stratégie de marque TBWA","montant":2000.0,"owner":"Sonia","notes":"Onboarding envoye Anne","statut":"inscrit"},{"nom":"Claire Boulanger","email":"c.boulanger@free.fr","tel":"33761884881","entreprise":"transition","montant":2000.0,"owner":"Sonia","notes":"Contact Henriette Leparoux DIM","statut":"inscrit"},{"nom":"Helene Lequeue","email":"helene.lequeux78@gmail.com","tel":"33622860433","entreprise":"Directrice de projet","montant":2000.0,"owner":"Sonia","notes":"Avarap","statut":"inscrit"},{"nom":"Philippe Caminade","email":"pcaminade@orange.fr","tel":"33685306089","entreprise":"transition","montant":1600.0,"owner":"Sonia","notes":"espace dirigeant atelier","statut":"inscrit"},{"nom":"Jerome Franconeri","email":"jerome.franconeri@gmail.com","tel":"33625892021","entreprise":"transition","montant":2000.0,"owner":"Sonia","notes":"Avarap 2 rdv","statut":"inscrit"},{"nom":"Marie Le Margueresse","email":"marie@mursetmerveilles.fr","tel":"33676788222","entreprise":"Murs et Merveilles","montant":4000.0,"owner":"Sonia","notes":"Ex DIM","statut":"inscrit"},{"nom":"Celine Riboulleau","email":"criboulleau@gmail.com","tel":"33613094816","entreprise":"transition","montant":1600.0,"owner":"Sonia","notes":"espace dirigeant atelier","statut":"inscrit"},{"nom":"Laurence Roy","email":"lroyrojo@eurvad.com","entreprise":"Partner Eurvad","montant":4000.0,"owner":"Elodie","notes":"CRM 3MC - Lead Elodie","statut":"inscrit"},{"nom":"François Wrzesinski","email":"francois.wrzesinski@credit-agricole-sa.fr","entreprise":"Crédit Agricole","montant":4000.0,"owner":"Elodie","notes":"Nouvel inscrit B4","statut":"inscrit"},{"nom":"Laure de Carayon","email":"l2carayon@gmail.com","montant":2000.0,"owner":"Elodie","notes":"Call decouverte 25 mars - inscrite B4","statut":"inscrit"},{"nom":"David Zou","email":"dzou1184@gmail.com","montant":2000.0,"owner":"Elodie","notes":"Call decouverte 26 mars","statut":"inscrit"},{"nom":"Michelle Cornu","email":"michelle.cornu@icloud.com","montant":0.0,"owner":"Elodie","notes":"Inscrite B4","statut":"inscrit"},{"nom":"Laetitia Permalama","email":"backoffice@expertis-gp.fr","entreprise":"Expertis GP","montant":0.0,"owner":"Sonia","notes":"Inscrite B4","statut":"inscrit"},{"nom":"Myriam Julien","email":"myriam_julien@cargill.com","entreprise":"Cargill","montant":1600.0,"owner":"Elodie","notes":"Cargill - inscrite B4","statut":"inscrit"},{"nom":"Nicolas Vachon","email":"Offre bouclage","tel":"Wonderbox","entreprise":"nicolas.vachon@wonderbox.com","montant":1600.0,"owner":"relance faite no go","notes":"NO GO BOOTCAMPS MARS","statut":"relance"},{"nom":"Jean-Baptiste","email":"Offre bouclage","tel":"AVARAP","montant":1600.0,"owner":"relance faite pas de reponse","notes":"Via AVARAP","statut":"relance"},{"nom":"Benedicte","email":"Offre bouclage","tel":"AVARAP","montant":1600.0,"owner":"relance faite pas de reponse","notes":"Via AVARAP","statut":"relance"},{"nom":"Charlotte Albarel","montant":0.0,"owner":"","statut":"relance"},{"nom":"Ines Lepoutre","email":"Offre bouclage","tel":"Espace Dirigeant","montant":1600.0,"owner":"relance faite","notes":"A relancer mercredi 18","statut":"relance"},{"nom":"Magali Raugel","email":"Offre bouclage","entreprise":"mraugel@gmail.com","montant":1600.0,"owner":"Pas retour financement OPCO","notes":"Toujours tres interessee - OPCO en attente 30 mars","statut":"relance"},{"nom":"Martin Dixneuf","email":"No go","tel":"LEK Consulting","entreprise":"mdixneuf@hotmail.fr","montant":1600.0,"owner":"NO GO budget","notes":"NO GO budget - 30 mars","statut":"relance"},{"nom":"Laurent Siffre","email":"Offre de bouclage","tel":"AVARAP","montant":1600.0,"owner":"relance faite no go","notes":"NO GO BOOTCAMPS MARS","statut":"relance"},{"nom":"Marie Malphettes","email":"Offre bouclage","tel":"AVARAP","montant":1600.0,"owner":"relance faite pas de reponse","notes":"A relancer mercredi 18","statut":"relance"},{"nom":"Isabelle Pescot","email":"En attente","tel":"RESEAU OUDINOT","montant":0.0,"owner":"Relancer","notes":"Ce n'est pas pour inscription bootcamps mais présentation d'une master class au reseau oudinot 600 cadres dirigeants","statut":"attente"},{"nom":"Anne-Laure Laidet","montant":0.0,"owner":"","statut":"attente"},{"nom":"Jennifer Magnan","email":"En attente","tel":"Lacoste","entreprise":"jmagnan@lacoste.com","montant":0.0,"owner":"Pas retour financement OPCO Lacoste","notes":"Toujours interessee + mari interesse prochaine session - 30 mars","statut":"attente"},{"nom":"Frederique Hebert","email":"En attente","tel":"OSEVIA","montant":0.0,"owner":"trop tot pour cette session","notes":"intéressée mais pas pour cette session - trop tôt versus démarrage nouveau job","statut":"attente"},{"nom":"Geraldine Bauvin","email":"En attente","tel":"LEONIDAS","montant":0.0,"owner":"ATTENTE BRIEF - Relancer via video Paques","notes":"demande de formation Adhoc attente d'un brief post salon franchise","statut":"attente"},{"nom":"Chantal Goosen","tel":"LEONIDAS","montant":0.0,"owner":"","notes":"demande de formation Adhoc","statut":"attente"},{"nom":"Ludovic Pineau-Valencienne","email":"En attente","montant":0.0,"owner":"NO GO confirme","notes":"NO GO confirme - 30 mars","statut":"attente"},{"nom":"Laurine Bouleau","email":"Nouveau lead","tel":"Groupe Schertz Optique","montant":0.0,"owner":"RDV 2 AVRIL 14H","notes":"Dir Marketing - RDV confirme","statut":"nouveau_lead"},{"nom":"Priscille Morla","email":"Nouveau lead","tel":"Lustucru","montant":0.0,"owner":"Dej 17 mars","notes":"en parle en interne","statut":"nouveau_lead"},{"nom":"Celine Pointeau","email":"Nouveau lead","montant":0.0,"owner":"Contacter","notes":"en attente d'une réponse","statut":"nouveau_lead"},{"nom":"Severine Dullin","montant":0.0,"owner":"","statut":"nouveau_lead"},{"nom":"Charlotte Albarel","email":"No go","tel":"espace dirigeant en transition","montant":0.0,"owner":"NO GO pas la bande passante","notes":"NO GO pas la bande passante - 30 mars","statut":"nouveau_lead"},{"nom":"Yves Bouvert","email":"Nouveau lead","tel":"Pest control partnership","montant":0.0,"owner":"Envoi dossier OPCO en cours avec Nicole","notes":"Financement OPCO en cours avec Nicole - 30 mars","statut":"nouveau_lead"},{"nom":"Cécilia Tassin","email":"Nouveau lead","tel":"Black and gold .com","montant":0.0,"owner":"en voi de toute les info","statut":"nouveau_lead"},{"nom":"Valerie Aguillon","email":"Nouveau lead","tel":"swatch","entreprise":"Directrice Marketing","montant":0.0,"owner":"diner 16 mars","notes":"je vais lui travaille use case peut potentiellement être interresée par un team buiding IA","statut":"nouveau_lead"},{"nom":"Stefanie Oudard","email":"Nouveau lead","tel":"avocate","montant":0.0,"owner":"envoi de toutes les informations sur programme pour ces clients en transition","statut":"nouveau_lead"},{"nom":"Emmanuelle Saucier","montant":0.0,"owner":"","statut":"nouveau_lead"},{"nom":"Bruno Silvestri","email":"Nouveau lead","entreprise":"contact.bsilvestri@gmail.com","montant":0.0,"owner":"Call decouverte 30 mars","notes":"Tel 0651866803 - Lead Elodie","statut":"nouveau_lead"},{"nom":"Christophe Yeremian","email":"Nouveau lead","tel":"Reseau Cafe Mode Luxe Retail","montant":0.0,"owner":"RDV mardi 31 mars","notes":"Reseau cadre dirigeant en transition - Lead Sonia","statut":"nouveau_lead"},{"nom":"Isabelle Ragonneaux","email":"Nouveau lead","tel":"Colissimo Dir Biz Dev","montant":0.0,"owner":"A appeler - lead chaud","notes":"Via Christine Huynh LVMH - Tel 0621032481 - Lead Sonia","statut":"nouveau_lead"},{"nom":"SANS REPONSE LINKEDIN","montant":0.0,"owner":"","statut":"nouveau_lead"},{"nom":"Benoit Loux","email":"Sans reponse","montant":0.0,"owner":"Relancer LinkedIn","notes":"2 relances aucune réponse","statut":"nouveau_lead"},{"nom":"Sophie Rohon Chervin","email":"Sans reponse","montant":0.0,"owner":"Relancer LinkedIn","notes":"2 relances aucune réponse","statut":"nouveau_lead"},{"nom":"Catherine Cloix","email":"Sans reponse","montant":0.0,"owner":"Relancer LinkedIn","notes":"3 relances aucune reponse","statut":"nouveau_lead"},{"nom":"Laurent Thibaudeau","email":"Sans reponse","montant":0.0,"owner":"Relancer LinkedIn","notes":"reponse en cours de recutement s'est inscrit à master mclass recherche emploi","statut":"nouveau_lead"},{"nom":"Thomas Roche","email":"Sans reponse","montant":0.0,"owner":"Relancer","notes":"Relance sans reponse - 30 mars","statut":"nouveau_lead"},{"nom":"Morgane Cessou","email":"Sans reponse","montant":0.0,"owner":"Relancer","notes":"Relance sans reponse - 30 mars","statut":"nouveau_lead"},{"nom":"Marie Laure Dequean","email":"Sans reponse","montant":0.0,"owner":"Relancer","notes":"Relance sans reponse - 30 mars","statut":"nouveau_lead"},{"nom":"Sebastien Duhautois","email":"Sans reponse","montant":0.0,"owner":"Relancer","notes":"Relance sans reponse - 30 mars","statut":"nouveau_lead"},{"nom":"NO GO","montant":0.0,"owner":"","statut":"nouveau_lead"},{"nom":"Caroline Cornut","montant":0.0,"owner":"","statut":"nouveau_lead"},{"nom":"Raphaelle Camus","email":"No go","montant":0.0,"owner":"","notes":"Nouveau job","statut":"nouveau_lead"},{"nom":"Anne Sophie Mashi","email":"No go","montant":0.0,"owner":"","notes":"NO GO budget - 30 mars","statut":"nouveau_lead"},{"nom":"Pierre Tezier","email":"No go","montant":0.0,"owner":"","notes":"NO GO budget - 30 mars","statut":"nouveau_lead"},{"nom":"Isabelle Charles","email":"No go","montant":0.0,"owner":"","notes":"Fait deja formation ESCP - 30 mars","statut":"nouveau_lead"},{"nom":"LEADS ELODIE - BOOTCAMP #4","montant":0.0,"owner":"","statut":"nouveau_lead"},{"nom":"Anne Corbel Trinh","email":"LEAD CHAUD","tel":"Direct","montant":0,"owner":"Elodie","notes":"Prix bloque a 4000 euros","statut":"nouveau_lead"},{"nom":"Sybille Grison","email":"LEAD","tel":"Direct","montant":0.0,"owner":"Elodie","notes":"En discussion","statut":"nouveau_lead"},{"nom":"Marie Le Magueresse","email":"LEAD","tel":"Direct","montant":0.0,"owner":"Elodie","notes":"En discussion","statut":"nouveau_lead"},{"nom":"Guillaume Sennequier","email":"LEAD","tel":"Direct","entreprise":"guillaume@sennequier.biz","montant":0.0,"owner":"Elodie","notes":"URGENT relancer","statut":"nouveau_lead"},{"nom":"Caroline Zaoui","email":"LEAD","tel":"Direct","entreprise":"caroline.zaoui@gmail.com","montant":0.0,"owner":"Elodie","notes":"URGENT relancer","statut":"nouveau_lead"},{"nom":"Franck Larue","email":"LEAD","tel":"Direct","entreprise":"franck_larue@orange.fr","montant":0.0,"owner":"Elodie","notes":"URGENT relancer - Cowork","statut":"nouveau_lead"},{"nom":"Laurence Roy","email":"LEAD","tel":"CRM 3MC","entreprise":"laurenceroyrojo (LinkedIn)","montant":0.0,"owner":"Elodie","notes":"URGENT relancer","statut":"nouveau_lead"},{"nom":"Valerie Garot","email":"LEAD B5","tel":"Direct","montant":0.0,"owner":"Elodie","notes":"Trop juste pour B4, lead pour B5","statut":"nouveau_lead"},{"nom":"LEADS SONIA - AVARAP / AUTRES","montant":0.0,"owner":"","statut":"nouveau_lead"},{"nom":"Florence Hermelin","email":"LEAD","tel":"AVARAP","montant":0.0,"owner":"Sonia","notes":"Via Sonia","statut":"nouveau_lead"},{"nom":"Nathalie Mazella","email":"LEAD","tel":"AVARAP","montant":0.0,"owner":"Sonia","notes":"Via Sonia","statut":"nouveau_lead"},{"nom":"Isabelle Koenig","email":"LEAD","tel":"AVARAP","montant":0.0,"owner":"Sonia","notes":"Via Sonia","statut":"nouveau_lead"},{"nom":"Evelyne Sarian","email":"LEAD","tel":"AVARAP","montant":0.0,"owner":"Sonia","notes":"Via Sonia","statut":"nouveau_lead"},{"nom":"Stephanie Delestre","email":"LEAD","tel":"AVARAP","montant":0.0,"owner":"Sonia","notes":"Via Sonia","statut":"nouveau_lead"},{"nom":"REPONSES LINKEDIN (a convertir)","montant":0.0,"owner":"","statut":"nouveau_lead"},{"nom":"Laetitia De Oliveira Cueille","email":"11 mars","tel":"Repondu","entreprise":"3 MC","montant":0,"owner":"Relancer","notes":"no go","statut":"nouveau_lead"},{"nom":"Kimera Severe","email":"11 mars","tel":"Conversation active","entreprise":"2 MC","montant":0,"owner":"Relancer","statut":"nouveau_lead"},{"nom":"Sophie Chevallier","email":"10 mars","tel":"Conversation active","entreprise":"3 MC","montant":0,"owner":"Relancer","statut":"nouveau_lead"},{"nom":"Catherine Colucci","email":"10 mars","tel":"Conversation active","entreprise":"6 MC","montant":0,"owner":"Relancer","notes":"dejeuner 30 MARS","statut":"nouveau_lead"},{"nom":"Amelie Starace","email":"10 mars","tel":"Repondu \"top, j'espere que ca va le faire\"","entreprise":"1 MC","montant":0,"owner":"Relancer","statut":"nouveau_lead"},{"nom":"Amandine Bargain","email":"10 mars","tel":"Repondu","entreprise":"3 MC","montant":0,"owner":"Relancer","statut":"nouveau_lead"},{"nom":"Ludovic Pineau-Valencienne","email":"9 mars","tel":"Echange RDV","montant":0,"owner":"NO GO confirme","notes":"NO GO confirme - 30 mars","statut":"nouveau_lead"},{"nom":"Pierre Tomasina","email":"9 mars","tel":"Conversation","montant":0,"owner":"Relancer","statut":"nouveau_lead"},{"nom":"Celine Chantry-Darmon","email":"9 mars","tel":"Remerciement","entreprise":"2 MC","montant":0,"owner":"Relancer","notes":"Sonio","statut":"nouveau_lead"},{"nom":"Agata Panek","email":"9 mars","tel":"Remerciement","entreprise":"2 MC","montant":0,"owner":"Relancer","statut":"nouveau_lead"},{"nom":"Daniel Invernon","email":"9 mars","tel":"Conversation","entreprise":"3 MC","montant":0,"owner":"Relancer","statut":"nouveau_lead"},{"nom":"Mickael Wojtczak","email":"9 mars","tel":"RDV vendredi propose","montant":0,"owner":"Confirmer RDV","statut":"nouveau_lead"},{"nom":"Alix de Bellescize","email":"10 mars","tel":"Repondu","montant":0,"owner":"Relancer","statut":"nouveau_lead"},{"nom":"Isabelle Imbert","email":"6 mars","tel":"Contact entrant","entreprise":"1 MC","montant":0,"owner":"Relancer","statut":"nouveau_lead"},{"nom":"Kevin Chalambert","email":"6 mars","tel":"Follow-up entrant","montant":0,"owner":"Relancer","statut":"nouveau_lead"},{"nom":"Linda Heim","email":"27 fevr","tel":"Relance habitue","entreprise":"4 MC","montant":0,"owner":"Relancer","statut":"nouveau_lead"}],"projets":[{"projet":"Leonidas (Isabelle Serriere)","type":"Projet","montant":3500.0,"stade":"GAGNE","owner":"Sonia","notes":"Livre"},{"projet":"Leonidas formation ADHOC","type":"Projet","montant":15000.0,"stade":"EN COURS","owner":"Sonia & Elodie","notes":"Relancer Geraldine via video Paques + TEAMS pour brief - 30 mars"},{"projet":"LVMH","type":"Projet","montant":30000.0,"stade":"EN COURS","owner":"Elodie","notes":"Double IA Acculturation"},{"projet":"Murs et Merveilles","type":"Projet","montant":29500.0,"stade":"CLOSING","owner":"Sonia & Elodie","notes":"Validation Seminaire RDV 22 avril - Atelier IC + ITW collab - Retravail devis banquier 30 mars"},{"projet":"Negobrain (Julien Pelabere)","type":"Projet","montant":18000.0,"stade":"EN COURS","owner":"Elodie","notes":"Proposition envoyee 10 mars"},{"projet":"DIM (Sprint IA Marketing)","type":"Projet","montant":15000.0,"stade":"PROPOSITION","owner":"Sonia","notes":"Proposition envoyee + relance Mail Valerie Lac 18 mars"},{"projet":"IFT","type":"Projet","montant":15000.0,"stade":"LEAD","owner":"Sonia","notes":"RDV prospection Denis Basque + Antoine Costa - Nouveau RDV 9 avril"},{"projet":"Schertz Optique","type":"Projet","montant":0.0,"stade":"LEAD","owner":"Sonia","notes":"RDV Laurine Bouleau Dir Marketing + Maxime Kouchnir DG - 30 mars"},{"projet":"Intercontinental","type":"Projet","montant":11000.0,"stade":"EN COURS","owner":"Elodie","notes":""},{"projet":"Enodis","type":"Projet","montant":10000.0,"stade":"ACTION","owner":"Elodie","notes":"Envoyer compte rendu + proposition"},{"projet":"ICM (Francois Therin)","type":"Projet","montant":10000.0,"stade":"EN COURS","owner":"Elodie","notes":"Accompagnement IA + journee fin mars"},{"projet":"Cristallerie d'Arc","type":"Projet","montant":10000.0,"stade":"EN COURS","owner":"Elodie","notes":"Actions marketing"},{"projet":"Akkodis","type":"Projet","montant":10000.0,"stade":"EN COURS","owner":"Elodie","notes":"Sparring partner dirigeants"},{"projet":"Team Creatif","type":"Projet","montant":5000.0,"stade":"RELANCE","owner":"Elodie","notes":"RDV avec commercial pour creer son double"},{"projet":"Bodemer (Manon Daher)","type":"Projet","montant":0.0,"stade":"RELANCE","owner":"Elodie","notes":"Relancer suite 2025"},{"projet":"Aurelia Petragallo (Shanghai)","type":"Projet","montant":0.0,"stade":"LEAD","owner":"Elodie","notes":"Lead projet a Shanghai"},{"projet":"Reseau Cafe Mode Luxe Retail (C. Yeremian)","type":"Projet","montant":0.0,"stade":"LEAD","owner":"Sonia","notes":"RDV mardi 31 mars - reseau cadre dirigeant en transition"}],"leads":[{"prenom":"Catherine","nom":"Colucci","email":"Ktycolucci@gmail.com","tel":"+33664779539","fonction":"Directrice marketing inno et R&D","entreprise":"Directrice inno marketing R&D","mc_count":6,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Caroline","nom":"Cornut","email":"carolinecornut@outlook.com","mc_count":5,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Fireflies.ai","nom":"Notetaker","email":"fred@fireflies.ai","mc_count":5,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Patrice","nom":"Casenave","email":"pcasenave@orhigin.com","mc_count":4,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"| Exclu de la liste par Elodie le 10/03/2026","source":"File1"},{"prenom":"Christophe","nom":"CAZARD","email":"ccazard@orange.fr","fonction":"Directeur communication digitale","mc_count":4,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Linda","nom":"Heim","email":"linda.heim9@gmail.com","fonction":"Directrice marketing","mc_count":4,"statut":"Relancé","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Amandine","nom":"Bargain","email":"bargainamandine@gmail.com","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Diane","nom":"BENOIT","email":"dianebenoit99@gmail.com","fonction":"Direction Marketing (membre du club 47 !)","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Sophie","nom":"Chevallier","email":"sophie.chevallier18@gmail.com","fonction":"CRO","entreprise":"Sans","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Muriel","nom":"Condamin","email":"condaminmuriel@gmail.com","fonction":"Indépendante Formatrice IA","entreprise":"TWIGAE","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Laetitia","nom":"De Oliveira","email":"lcueille@gmail.com","mc_count":3,"statut":"À inviter","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Armelle","nom":"Guizot","email":"Guizot.armelle@gmail.com","fonction":"Dir marques et rse","entreprise":"Marques et rse","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Daniel","nom":"Invernon","email":"Daniel.justmagic@gmail.com","fonction":"Dirigeant","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Adrien","nom":"Juif","email":"adrien.com@gmail.com","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Agnes","nom":"Mfayokurera","email":"Agnes.mfayokurera@gmail.com","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"richard","nom":"ndumu","email":"bekkoloco@gmail.com","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Nathalie","nom":"Ohier","email":"nathalie.ohier@hotmail.fr","fonction":"CMO","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Magali","nom":"Raugel","email":"mraugel@gmail.com","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation envoyée 10/03/2026","source":"File1"},{"prenom":"Capucine","nom":"RAYNAUD","email":"capu_capucine@yahoo.fr","fonction":"DRH","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Laurence","nom":"Rojo","email":"lroyrojo@eurvad.com","fonction":"Partner","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Melanie","nom":"Rudolf von rohr","email":"Melru@hotmail.fr","fonction":"Solopreneur","mc_count":3,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Anne-Laure","nom":"Tembely","email":"al.laidet@gmail.com","fonction":"Directrice commerciale","entreprise":"dim","mc_count":3,"statut":"Relancé","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"NADIA","nom":"ABDELLOUCHE","email":"nadia.abdellouche@dim.com","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Gregory","nom":"BENOIST","email":"greg_benoist@hotmail.com","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Olivier","nom":"Bertin","email":"olbertin@me.com","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Sophie","nom":"Bodin","email":"Sophie.bodin.pro@gmail.com","fonction":"Ceo","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Livia","nom":"Bonhoure","email":"liviabonhoure@onthe-move.com","fonction":"Fondatrice","entreprise":"Strategy People Consulting","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Schlomy","nom":"Botbol","email":"schlomy.botbol@gmail.com","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Muriel","nom":"Bureau","email":"murielbureau07@gmail.com","tel":"+33673744962","entreprise":"Transition","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Soeur de Sophie Debby | Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Impossible d'identifier le bon profil LinkedIn","source":"File1"},{"prenom":"Christel","nom":"Campan","email":"Christel.campan@bonaventura-yachting.fr","fonction":"Présidente","entreprise":"Bonaventura Yachting","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"céline","nom":"Chantry-Darmon","email":"celinechantry@gmail.com","fonction":"Data scientist","entreprise":"Sonio","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Rachel","nom":"Chiche","email":"rachel.chiche@gmail.com","fonction":"CEO Lead & Connect","entreprise":"Lead & Connect","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation déjà en attente","source":"File1"},{"prenom":"Arnaud","nom":"cismondi","email":"cismondiarnaud@gmail.com","fonction":"Formateur IA / Digitales / Sales","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Jean-Claude","nom":"Cohen","email":"Cohenjeanclaude@free.fr","fonction":"Directeur digital","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Caroline","nom":"cornu","tel":"662845661","fonction":"Directrice marketing","entreprise":"francaise des jeux","mc_count":2,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","notes":"X","source":"File2"},{"prenom":"Laetitia","nom":"Cueille","tel":"677947473","mc_count":2,"owner":"sonia","conn_elodie":"Oui","conn_sonia":"Oui","msg_envoye":"Non","notes":"X","source":"File2"},{"prenom":"Martin","nom":"DIXNEUF","email":"mdixneuf@hotmail.fr","fonction":"Consultant en stratégie","entreprise":"LEK Consulting","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","notes":"| Déjà envoyé session précédente 02/03/2026","source":"File1"},{"prenom":"Thierry","nom":"Dubern","email":"thierry.dubern@outlook.fr","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Valérie","nom":"Durandy","email":"vdurandy@gmail.com","fonction":"directrice marketing offre produits","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation déjà en attente","source":"File1"},{"prenom":"Séverin","nom":"GIMENEZ","email":"sgimenez@versenic.net","fonction":"Directeur Marketing","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Florian","nom":"Hernandez","email":"hernandez.v.florian@gmail.com","fonction":"CEO","entreprise":"DNLR consulting","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","notes":"| Déjà envoyé session précédente 02/03/2026","source":"File1"},{"prenom":"Larisa","nom":"Krasheninnikova","email":"larisa.kr@yahoo.com","mc_count":2,"statut":"Relancé","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Yann","nom":"Lacrampe","email":"yannlacrampe@gmail.com","fonction":"Directeur Marketing","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","notes":"| Déjà envoyé session précédente 02/03/2026","source":"File1"},{"prenom":"anne laure","nom":"laidet","tel":"620543439","entreprise":"DIM","mc_count":2,"owner":"sonia","conn_elodie":"Oui","conn_sonia":"Oui","msg_envoye":"Non","notes":"X","source":"File2"},{"prenom":"alain","nom":"laufenburger","email":"alainlaufenburger@gmail.com","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Anne-Cécile","nom":"Le Dain","email":"annececile29@gmail.com","mc_count":2,"statut":"Relancé","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Guillaume","nom":"Lelong","email":"glelong@octoplusconseil.com","mc_count":2,"statut":"Relancé","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Jennifer","nom":"MAGNAN","email":"jmagnan@lacoste.com","mc_count":2,"statut":"À inviter","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation envoyée 10/03/2026","source":"File1"},{"prenom":"Sébastien","nom":"Monard","email":"sebmonard@yahoo.fr","fonction":"Directeur Communication","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Céline","nom":"NICOULAUD","email":"c.nicoulaud@cehenne-patrimoine.com","fonction":"Dirigeante","entreprise":"CEHENNE PATRIMOINE","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation déjà en attente","source":"File1"},{"prenom":"Caroline","nom":"NOBILE","email":"caroline.nobile@inswip.fr","fonction":"33 6 82 15 35 07","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Marina","nom":"Oukacine","email":"marina.oukacine@yahoo.fr","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation envoyée 11/03/2026","source":"File1"},{"prenom":"Agata","nom":"Panek","email":"A.Panek26@gmail.com","fonction":"Responsable de Communication interne","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Anne","nom":"Perrot","email":"annepro.perrot@gmail.com","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation envoyée 11/03/2026","source":"File1"},{"prenom":"Olivier","nom":"Rabian","email":"o.rabian@expertis-gp.fr","fonction":"Link","entreprise":"Expertis","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Irina","nom":"Raskina","email":"irina.raskina@bioinnovex.com","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Christelle","nom":"Reydellet","email":"christelle.reydellet@vins-bordeaux.fr","fonction":"Responsable études consommateurs","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","notes":"| Déjà envoyé session précédente 02/03/2026","source":"File1"},{"prenom":"Etienne","nom":"Rivoallan","email":"etienne.rivoallan@uptonum.fr","mc_count":2,"statut":"Relancé","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Chloé","nom":"Rothenbühler","email":"chloe.rothenbuhler@gmail.com","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Edouard","nom":"Schwebel","email":"edschwebel@gmail.com","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation déjà en attente","source":"File1"},{"prenom":"Kimera","nom":"Severe","email":"severekimera@gmail.com","fonction":"Entrepreneuse","entreprise":"Entrepreneuse","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation envoyée 11/03/2026","source":"File1"},{"prenom":"Laurent","nom":"SIFFRE","email":"laurent.siffre@lsimpactconseil.com","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Morgane","nom":"Soulier","email":"morgane.soulier@gmail.com","fonction":"Consultante","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Arnaud","nom":"Syoen","email":"Arnaudsyoen@gmail.com","fonction":"Solopreneur","entreprise":"Solopreneur","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","notes":"| Déjà envoyé session précédente 02/03/2026","source":"File1"},{"prenom":"Marine","nom":"Ségol","email":"Marine.segol.pro@hotmail.com","fonction":"Directrice de projet","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation déjà en attente","source":"File1"},{"prenom":"Gautier","nom":"Thillard","email":"gautier.thillard@m180.com","fonction":"Directeur associé","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Pas de profil LinkedIn trouvé","source":"File1"},{"prenom":"Rozenn","nom":"Triolaire","email":"Rozenn.Triolaire@gmail.com","fonction":"Directrice de Zone, ex CMO","entreprise":"Nestle","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Nicolas","nom":"VACHON","email":"nicolas.vachon@wonderbox.com","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation envoyée 11/03/2026","source":"File1"},{"prenom":"Veronica","nom":"Virzi","email":"vrnc.vrz@gmail.com","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Anne","nom":"Wallois","email":"awallois@hotmail.com","fonction":"Wonderbox","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation envoyée 11/03/2026","source":"File1"},{"prenom":"nina","nom":"zeng","email":"nina_zeng@icloud.com","mc_count":2,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation envoyée 11/03/2026","source":"File1"},{"prenom":"Emilie","nom":"Abeille","email":"abeilleemilie@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Patrick","nom":"Avedissian","email":"patrick.avedissian@sapro.com.tr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Fred","nom":"Bargain","email":"Fb@neila.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Anne","nom":"Barlatier","email":"annebarlatier@gmail.com","fonction":"Avocat","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Constance","nom":"Barthuel","email":"constance.barthuel.ext@lvmh.com","fonction":"Consultante en accélération digitale","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Claire","nom":"Bassot","email":"Clairebassot@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Patricia","nom":"Basthiste","email":"Patricia.basthiste@hotmail.fr","fonction":"Cheffe de groupe Marketing","entreprise":"Eureden Long Life (d’aucy)","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Sophie","nom":"Baudin","mc_count":1,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Stéphanie","nom":"BELLELIS","email":"stephanie.bellelis@alliance-healthcare.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Alexandre","nom":"Belo","email":"alexandre_belo@hotmail.com","fonction":"Directeur financier","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"HELENE","nom":"BENARD","email":"helene.benard@fonnhalewenez.com","fonction":"dirigeante","entreprise":"fonn ha lewenez","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Audrey","nom":"Bernard","email":"audrey@abconsult360.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Delphine","nom":"BERT","fonction":"associe","entreprise":"aesarae Partner","mc_count":1,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"fabienne","nom":"blan","email":"fabl77073@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Claire","nom":"Boulanger","email":"c.boulanger@free.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Laurine","nom":"Bouleau","email":"L.bouleau@groupe-schertz.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Hugo","nom":"Bourderioux","email":"hugo.bourderioux@daimlertruck.com","fonction":"Directeur Service Public et Opérateurs","entreprise":"Daimler Truck France","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Maxime","nom":"Bourget","email":"bourgetm@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Lionel","nom":"Brau","email":"lionel.brau@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Laurence","nom":"Bret Stern","email":"laurence@mountain-path.com","fonction":"MD","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Marie","nom":"Briquet","email":"mariev.briquet@gmail.com","fonction":"Directrice Marketing","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Benjamin","nom":"BURLETT","email":"benjamin.burlett@gmail.com","fonction":"Responsable d'accompagnement","entreprise":"BBV","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Elodie","nom":"CACAN","email":"e.cacan@fiteco.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Anne","nom":"Caron","email":"anne@annecaronconsulting.com","fonction":"Managing Director","entreprise":"ACC","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"aurelie","nom":"caron","email":"aurelie.caron@dim.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Sylvie","nom":"Cavelier","email":"Sylviecavelier@orange.fr","fonction":"Dir dev et inno","entreprise":"Dir dev et inno","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Dan","nom":"Cebula","email":"dan.cebula@depurexperiences.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Bertrand","nom":"Cerisier","email":"bertcrs@icloud.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Isabelle","nom":"Charles","email":"isabelle.charles00@outlook.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Angelina","nom":"Christev","email":"Angelinachristev@gmail.com","fonction":"Consultante IA","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Laurent","nom":"CHRISTOPHE","email":"laurent.christophe@home-made.net","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Léa","nom":"Congard","email":"lea.congard@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Michelle","nom":"Cornu","email":"michelle_cornu@yahoo.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Marlene","nom":"Cost","email":"marlene.cost@yahoo.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Camille","nom":"DE  VREGILLE","tel":"676035735","fonction":"general Manager","entreprise":"Le prix","mc_count":1,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","notes":"X","source":"File2"},{"prenom":"Gonzague","nom":"de Lencquesaing","email":"gdelencquesaing@gmail.com","fonction":"Directeur Achats","entreprise":"Nexmove","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Laurence","nom":"de Varax","email":"Laurencedevarax@gmail.com","fonction":"Consultant","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Camille","nom":"de Vregille","email":"devregillec@hotmail.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Valérie","nom":"Debuisson","tel":"+33663982495","fonction":"Responsable commerciale France","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Benoit","nom":"Delavarene","email":"benoit.delavarene@team-creatif.com","fonction":"Team Créatif","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Jean-Louis","nom":"Denonain","email":"jean-louis.denonain@orange.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Magali","nom":"Deroulede","email":"mderoulede@haussmann-es.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Benjamin","nom":"DEVILLERS","email":"be.devillers@gmail.com","fonction":"Senior PM","entreprise":"Adeena","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Anne sophie","nom":"DEVINEAU","tel":"651131616","fonction":"Consultante Manager","mc_count":1,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Marine","nom":"Dieudonné","email":"marine.dieudonne@mdstrategie.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Martin","nom":"Dix neuf","tel":"745112215","mc_count":1,"owner":"sonia","conn_elodie":"Oui","conn_sonia":"Oui","msg_envoye":"Non","notes":"X","source":"File2"},{"prenom":"Marie","nom":"Djemmali","email":"marie.djemmali@edhec.edu","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Emmanuelle","nom":"Donnard","email":"emmanuelle.donnard@club-internet.fr","fonction":"Picard","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Christophe","nom":"DRAIN","email":"nordikfinance@gmail.com","fonction":"Directeur","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"veronique","nom":"dugoujon","email":"vdugoujon@intellians.fr","fonction":"gerante","entreprise":"intellians","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Elodie","nom":"Déon","email":"elodie.barbier@gmail.com","mc_count":1,"statut":"À inviter","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Kevin","nom":"Fassio","email":"fassio.kevin@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Edouard","nom":"Faucheux","email":"edouard.faucheux@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Lahocine","nom":"Fayard","email":"lahocine@outlook.com","fonction":"SOL France","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"PATRICK","nom":"FEDULLO","email":"patrickfedullo@gmail.com","fonction":"directeur marketing","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Jérôme","nom":"Fenyo","email":"jerome.fenyo@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Nicolas","nom":"Frisch","email":"nicolas.frisch@mousline.com","fonction":"Pipeline: Proposition (3000€)","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Frederic","nom":"G","email":"masterdefrey7@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Herve","nom":"G","email":"userbox668@gmail.com","fonction":"Linked","entreprise":"Xxx","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"ANTOINE","nom":"GARDETTE","email":"Antoine.gardette@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Valérie","nom":"Garot","email":"Vgarot@stratamconsulting.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Solène","nom":"Gasnier","email":"solene.gasnier@hotmail.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Delphine","nom":"Gaspard","email":"delphine.gaspard@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Sylviane","nom":"Gendrot","email":"sylviane.gendrot@totalenergies.com","fonction":"Head of Talent Development & Operations Renewables","entreprise":"TOTAL","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Jamel","nom":"Ghechoua","email":"Jamel@miria.agency","fonction":"Product Manager GenAi","entreprise":"Miria","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Sarah","nom":"GHISLAIN","email":"ghislainsarah@gmail.com","fonction":"Directrice Développement RH","entreprise":"En transition professionnelle","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Laurent","nom":"gilbert","fonction":"PDG","entreprise":"Lame de fond","mc_count":1,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Laurie","nom":"Gouin","email":"laurie.gouin@team-creatif.com","fonction":"Team Créatif","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Amelie","nom":"Gourbiere","email":"agourbiere@hotmail.fr","fonction":"Direction commerciale","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Lucile","nom":"GOUVERNEL","email":"lucile.gouvernel@gmail.com","fonction":"indépendante","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"John-Edwin","nom":"Graf","email":"jeg@my-memory.io","fonction":"CEO","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Anne","nom":"Gravé","email":"anne.grave@wanadoo.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Emmanuelle","nom":"Grimbert","email":"emmanuelle.grimbert@hotmail.fr","mc_count":1,"statut":"À inviter","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Stanislav","nom":"Grinchenko","email":"stasagr@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Dorothée","nom":"Grou","email":"dorothee_grou@hotmail.com","fonction":"Transition","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Colley","nom":"Guillaume","email":"guillaume.colley.leclerc@volvo.com","fonction":"Innovation & IA","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Pascale","nom":"Guyonnet-Debersac","email":"pascalegd@free.fr","fonction":"Directrice Scientifique & Communication Scientifique","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Aurelie","nom":"HABASQUE","tel":"601945727","entreprise":"transition","mc_count":1,"owner":"sonia","conn_elodie":"Oui","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Aurélie","nom":"Habasque","email":"aurelie.habasque@orange.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"beatrice ( belha )","nom":"HADDAD","tel":"663146695","mc_count":1,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"beatrice","nom":"haddad","email":"belhatriks@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Patxi","nom":"Hastoy","email":"phastoy.biz@gmail.com","mc_count":1,"statut":"Relancé","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"aurelie","nom":"hemmer","email":"aurelie.hemmer@nutrial.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Karine","nom":"Herdalot","email":"karine.herdalot1@fr.nestle.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Emmanuelle","nom":"Houcke","email":"emmanuellehoucke@gmail.com","mc_count":1,"statut":"Relancé","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"JEROME","nom":"JACQUOT","email":"jerome.jacquot@orange.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Frederika","nom":"Jader","email":"frederika.jader@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Charles","nom":"Jaunet","email":"charles.jaunet@jcdecaux.com","fonction":"Decaux","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Valentine","nom":"JIAN","email":"valentine.jian@gmail.com","fonction":"Directrice Expérience Client Omnicanal","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Marie","nom":"Jolivet","email":"mariejolivet@rejananaturopathe.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Richard","nom":"Karacian","email":"r.karacian@gmail.com","fonction":"Nice Matin","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Emmanuel","nom":"Katz","email":"Emmanuel.katz@gmail.com","fonction":"Directeur marketing et commercial","entreprise":"Directeur Marketing et Commercial","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Sophie","nom":"Keghian","email":"Sophie.keghian@laposte.net","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Lara","nom":"Kornel","email":"lara.kornel.ext@lvmh.com","fonction":"Consultante en Communication Editoriale","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Inés","nom":"KUCHARZ","email":"xcc@orange.fr","mc_count":1,"statut":"Relancé","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Antoine","nom":"Lacour","email":"antoine.lacour@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Florence","nom":"Lagnel","email":"florence.lagnel@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Rita","nom":"Lamotte","email":"ritalamotte@gmail.com","fonction":"Filmmaker","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Bertrand","nom":"Landreau","email":"blandreau@bybl-conseil.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Vincent","nom":"Lannoy","email":"vlannoy@meminii.com","fonction":"-","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Henriette","nom":"LAPEYROUX","tel":"685489084","fonction":"Directrice Marketing","entreprise":"transition","mc_count":1,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Anne-Sophie","nom":"Larue Pinna","email":"solarue@gmail.com","fonction":"Solo","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Valérie","nom":"Latanne","email":"valerie.latanne@iadfrance.fr","fonction":"Mandataire immobilier","entreprise":"Iad","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"JEAN-CHRISTOPHE","nom":"LAURENT","email":"jclaurent@penonpartners.com","mc_count":1,"statut":"Relancé","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Sandra","nom":"Laverne","email":"Sandralaverne@gmail.com","fonction":"Coach trainer","entreprise":"Padma","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Nathan","nom":"Layet","email":"nathan@grof.io","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"CLAIRE","nom":"LE NOACH","email":"claire.le-noach@hpe.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Marie-Alix","nom":"Le Roy","email":"leroymariealix@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Stéphane","nom":"Le Roy","email":"stleroy@cogep.fr","fonction":"DSI","entreprise":"Cogep","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Lucie","nom":"Leclercq","email":"lucie77190@live.fr","mc_count":1,"statut":"À inviter","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Alexia","nom":"Lefeuvre","email":"alex.lefeuvre@hotmail.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Damien","nom":"Legoff","email":"damien.legoff@laposte.fr","fonction":"La Poste","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Alexia","nom":"Legros","email":"alexia.legrs@gmail.com","fonction":"Chef de groupe","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Christophe","nom":"Lenne","email":"clenne@dunod.com","fonction":"édition","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"HENRIETTE","nom":"LEPAROUX","email":"henriettelopy@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Helene","nom":"Lequeux","email":"hgougeard@yahoo.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Julie","nom":"Lerebours","email":"Julie.lerebours@labeyrie-fine-foods.com","tel":"+33622195636","fonction":"Dm","entreprise":"LABEYRIE FINE FOODS","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"P","nom":"Lesaulnier","email":"s9m9hvqf2j@privaterelay.appleid.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Stéphane","nom":"Lettner","email":"stephlettner@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Min","nom":"Li","email":"minli412@gmail.com","fonction":"-","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Laura","nom":"Lockwood","email":"laura.lockwood1@gmail.com","fonction":"Créatrice d'entreprise","entreprise":"Indep","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Sophie","nom":"Lombard","email":"soph.lombard@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Jean-Marc","nom":"Lombardo","email":"jml13@free.fr","fonction":"gérant","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Katell","nom":"Lorber","email":"katell.lorber@hotmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Luc","nom":"Lu","email":"Lucien.compagnie@gmail.com","mc_count":1,"statut":"À inviter","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Christèle","nom":"LUCAS","email":"christele.lucas@hotmail.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Pierre","nom":"Lugan","email":"pierre.lugan81@gmail.com","fonction":"Responsable Approvisionnement","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Nuria","nom":"MACIAS","email":"nmacias@eurokera.com","tel":"+33627820915","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Cecile","nom":"Marquet","email":"cmarquet09@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Edouard","nom":"Mascle","email":"e.mascle@gmail.com","fonction":"Directeur des opérations","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Emilie","nom":"MASSERON","email":"em.ecomin@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Vincent","nom":"MAUREAU","email":"v.maureau@ir-l.com","fonction":"Gérant","entreprise":"Cloud-store.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Caroline","nom":"Maurel","email":"maurel.caroline@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Aaron","nom":"Mbuyi","email":"aaronmbuyi04@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Ann","nom":"Mcgee","email":"annmcgee@nowready.online","fonction":"No","entreprise":"Employee","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Domitille","nom":"Meheut","email":"domitille.meheut@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Pascal","nom":"Mellul","email":"pascal.mellul@gmail.com","mc_count":1,"statut":"Relancé","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Catherine","nom":"Mikonio","email":"catherine@mikonio.fr","fonction":"Consultante Innovation Santé","entreprise":"Catherine Mikonio","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Nathalie","nom":"MINARD","email":"nathalie.minard@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"muriel","nom":"moscardini","email":"muriel.moscardini@gmail.com","mc_count":1,"statut":"À inviter","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Jérôme","nom":"Mourey","email":"jerome.mourey.75@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Bénédicte","nom":"NIEMEC","email":"benedicte.niemec001@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Sylvain","nom":"Obriot","email":"sylvain@everest.studio","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Remi","nom":"Ohayon","email":"remi@ohayon.pro","fonction":"Président","entreprise":"Api&you","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Diane","nom":"ORSET-BLANC","email":"diane.orset-blanc@grenoble-em.com","fonction":"Chef de projet","entreprise":"GEM","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Delphine","nom":"Oung","email":"delphine.oung@obratori.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Myriam","nom":"Pabion","email":"myriam.pabion@ehl.ch","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Franck","nom":"Pagny","email":"factevo@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Marie Christine","nom":"PARIOT","tel":"676314343","fonction":"Consultante en accompagnement du changement","entreprise":"Orange","mc_count":1,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Frédéric","nom":"Pascal","email":"fredericp.pascal@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Aurelie","nom":"Pecquet","email":"aurelie.pecquet@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Julien","nom":"Pelabere","email":"jpelabere@institut-nera.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Perrine","nom":"Pelletier","email":"perrine@datavalaw.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Laetitia","nom":"Permalama","email":"backoffice@expertis-gp.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Emmanuelle","nom":"Pichon","email":"Pichonemma@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Elsa","nom":"Pinosa","email":"elsapinosa@yahoo.fr","fonction":"Mayoli","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Florian","nom":"Pittion-Rossillon","email":"florian@lightswan.fr","fonction":"Président","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Alona","nom":"Ponomareva","email":"aponomareva@worldbank.org","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Vincent","nom":"Posnic","email":"vincentposnic@gmail.com","fonction":"Business France","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Annaig","nom":"POULIQUEN","tel":"679248699","fonction":"Chef de groupe markeeting","entreprise":"Coopérative Sodiial","mc_count":1,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Annaïg","nom":"Pouliquen","email":"annaig.pouliquen@laita.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Sophie","nom":"Pridavok","email":"atparadisium@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Delphine","nom":"Querard Bioton","email":"delphine.querard@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Elise","nom":"Rabiot","email":"elise@etwebera.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Silvia","nom":"Rama","email":"silviarama@yahoo.fr","fonction":"Directrice marketing","entreprise":"Directrice marketing","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Laurence","nom":"Renondin","email":"l.renondin@even-fo.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Bénédicte","nom":"Rey","email":"icibenedicte@gmail.com","fonction":"CMO en transition","entreprise":"Personnelle","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Brune","nom":"Ribadeau Dumas","email":"brune@kimpa.co","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"patricia","nom":"richard","email":"richardpatmail@gmail.com","fonction":"Artiste contemporaine | Abstrait – Couleur – Émotion ✨","entreprise":"freelance","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Adeline","nom":"RIVAS","email":"adeline.rivas@laposte.net","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Christophe","nom":"ROBERT","email":"coaching@christopherrobert.fr","tel":"+33609809379","fonction":"CEO COACH","entreprise":"Christophe robert","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Nicolas","nom":"Robin","email":"nicolas.robin.abonnements@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"thomas","nom":"roche","email":"thomas.roche.fr@gmail.com","fonction":"directeur projet","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Gregory","nom":"Rossi","email":"G.rossi@expertis-gp.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Laurence","nom":"Rousset","email":"laurence.rousset@pijule.com","fonction":"Stratégie Innovation et Marketing créatrice de croissance","entreprise":"Transition","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Christophe","nom":"Routhieau","email":"christophe@jikken.ai","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Pascal","nom":"ROUX","email":"pascal.roux@leave-legacy.com","fonction":"President","entreprise":"Leave a Legacy","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Jean-Charles","nom":"Roy","email":"Jc.Roy@vivocaz.fr","fonction":"CEO","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Anne-Sophie","nom":"Roy Prevost","email":"annesophieroy@hotmail.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Carole","nom":"Sakoun","email":"karole7502@gmail.com","fonction":"Marketing & communication Manager","entreprise":"Next Move","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Joseph","nom":"Salameh","email":"drjsalameh@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Jean-Baptiste","nom":"Sallé","email":"jbsalle@opandgo.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Markus","nom":"SANDMAYR","email":"markussandmayr@gmail.com","fonction":"Consultant","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Pauline","nom":"Schipani-Deschryver","email":"pauline@saggialuce.com","fonction":"Accompagnatrice numérique","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Olivier","nom":"SEres","email":"oseres@adnmobile.com","fonction":"Gérant associé","entreprise":"ADN Mobile","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Charlotte","nom":"SEUROT","email":"charlotte.seurot@hotmail.fr","mc_count":1,"statut":"À inviter","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Brendan","nom":"smith","email":"brendan.smith@bmsloyalty.com","fonction":"Loyalty Director","entreprise":"BMS","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Anne","nom":"Sophie","email":"annesophiepartage@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Daylene","nom":"Sottin","email":"daylene.sottin@gmail.com","fonction":"Reuter","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Olivier","nom":"Stibler","email":"o.stibler@santiane.fr","mc_count":1,"statut":"Relancé","owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Claire","nom":"sturer","email":"clairesturer@yahoo.fr","fonction":"Directerice marketing","entreprise":"CASINO","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Josiane","nom":"Tamer","email":"josianetamer@outlook.fr","fonction":"Murex","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Christele","nom":"Tevere","email":"christele.tevere@baloise.lu","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Francois","nom":"Thoquet","email":"Francois@3fconsulting.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Virginie","nom":"Trocherie","email":"v.trocherie@maison-lemarie.fr","fonction":"Cmo","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Thibault","nom":"Troussier","email":"thibault.troussier@gmail.com","fonction":"Head of Communication","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Marc","nom":"Tual","email":"marctual@gmail.com","fonction":"formateur consultant","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Sania","nom":"Tuovic","email":"sania.tuovic@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Emilie","nom":"Urbany","email":"eurbany@gmail.com","fonction":"Kindryll","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Valerie","nom":"Valette","email":"valerie.valette@pole-emploi.fr","fonction":"Chef de projet","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Ben","nom":"Vallet","email":"Benoit@vallet.org","fonction":"Cro","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Stéphanie","nom":"VAN COPENOLLE","fonction":"directrice generale","entreprise":"les secrets de Loly","mc_count":1,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Soline","nom":"Varga","email":"solinevarga@gmail.com","fonction":"DRH","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Sophie","nom":"Vergnaud","email":"sophie.vergnaud63@gmail.com","fonction":"CEO","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Anne","nom":"Vibert","email":"avibert@chantellelinderie.com","fonction":"Resp com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Isabelle","nom":"Vincent","email":"isa.vincent38@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Benoit","nom":"Voute","email":"benoit.voute@gmail.com","fonction":"Diligent","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Barbara","nom":"Werschine","email":"bwerschine@gmail.com","fonction":"CEO","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Oui","source":"File1"},{"prenom":"Michael","nom":"Zemmour","email":"m.zemmour@zcom.fr","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"David","nom":"Zou","email":"dzou1184@gmail.com","mc_count":1,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Marie","nom":"Alleno","email":"Marie.alleno@gmail.com","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Antoine","nom":"anzianni","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Anne","nom":"BATANY","email":"0671758122@orange.gr","fonction":"PMO","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Geraldine","nom":"bauvin","tel":"32499558145","fonction":"Responsable commercial","entreprise":"Leonidas","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"delphine","nom":"ber gabel","tel":"684803367","entreprise":"pullman","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"sophie","nom":"bertholom","entreprise":"agence fee clochette","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Thibault","nom":"Blin","email":"thibault.blin@acensi.fr","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Benedicte","nom":"BOERIO","email":"benedicte.boerio@gmail.com","fonction":"Chief Sales Officer","entreprise":"Transition","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"claire","nom":"botreaux","mc_count":0,"statut":"Inscrit","owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Oui","source":"File2"},{"prenom":"Yves","nom":"Boulvert","tel":"677745865","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Severine","nom":"Bourre","tel":"+33662150516","fonction":"Responsable de l’offre chez Woodbrass.com","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Vincent","nom":"Bouvier","email":"vincentbouvier@hotmail.com","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Jeff","nom":"CALY","email":"jeffcaly@gmail.com","fonction":"Founder","entreprise":"Prompting Records","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Raphaelle","nom":"Camus","tel":"678885497","fonction":"directrice transformation","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Cécile","nom":"Canet-Teil","email":"canetcecile@icloud.com","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Nicolas","nom":"Capron","email":"ncapron@gmail.com","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Elene","nom":"Centeno","email":"ece1946@gmail.com","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Claire","nom":"Chartier","email":"clrchartier@gmail.com","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Audrey","nom":"choucroune","tel":"664869090","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Raul","nom":"CRUZ BONILLA","email":"Raulcruzbonilla@gmail.com","fonction":"CEO","entreprise":"Care Brand Management","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Christine","nom":"de Longevialle","email":"Christine.delongevialle@gmail.com","fonction":"Directrice de fondation d’entreprise","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Nathalie","nom":"Desaix","email":"ndesaix75@glail.com","fonction":"Directrice communication","entreprise":"ND conseil","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Arnaud","nom":"Dessain","email":"arnaud.dessain@williamsinclair.com","fonction":"associe","entreprise":"gws","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Elodie","nom":"Douville","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Armelle","nom":"Dugas De La Boissonny","email":"adugas@dirigeantsetpartenaires.fr","fonction":"Coach","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Laure","nom":"Durand","email":"laure_durand@carrefour.com","entreprise":"Carrefour Bank","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"olivier","nom":"Dézé","email":"olivier.deze@gmail.com","fonction":"Associé","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Anto","nom":"Forti","email":"Antoniofortiandco@gmail.com","fonction":"Founder","entreprise":"AF and Co","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"herve","nom":"GENOTTIN","fonction":"Chef DE PROJET IT","entreprise":"transition","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Adélaïde","nom":"Godard","email":"contact@godarda.fr","fonction":"Indépendante","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"gaetan","nom":"Goffi","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Benjamin","nom":"Gonthier","email":"benjamin@bengary.fr","fonction":"COO","entreprise":"Bengary","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Jean-François","nom":"Granat","email":"jfgranat@outlook.com","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Mathieu","nom":"Grasset","email":"Grasset.mathieu@yahoo.fr","fonction":"Directeur programme nouveaux produits","entreprise":"Nexmove","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Timothée","nom":"Guillois","email":"tim.guillois@mindhunters.fr","fonction":"CEO","entreprise":"mind HUNTERS","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Valentine","nom":"Hamon","email":"Valentine.hamon@laposte.net","fonction":"Chef de produits","entreprise":"d’aucy","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"frederique","nom":"hebert","tel":"685134903","fonction":"Coach / consultante","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Stephanie","nom":"Henry","tel":"769764089","entreprise":"Thérapeute holistique","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"jessica","nom":"HIRT","fonction":"direction generale CMO","entreprise":"LOREAL","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Francis","nom":"Honarmand","email":"Emir.stetienne@gmail.com","fonction":"Responsable","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Marina","nom":"HOUKACINE","tel":"689423343","fonction":"Chef DE PROJET IT","entreprise":"CIMPA","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","notes":"Skipped: pas 1er degré sur LinkedIn 10/03/2026 | Invitation envoyée 11/03/2026","source":"File2"},{"prenom":"Elodie","nom":"Hughes","email":"elodie.hughes@gmail.com","fonction":"CEO","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Julien","nom":"Jacques","email":"julienruben.jaques@gmail.com","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Stéphanie","nom":"Jallet","email":"stephanie.jallet@gmail.com","tel":"+33621614570","fonction":"Directrice de marque dans la grande distribution dont Auchan et Monoprix","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"valerie","nom":"lac","fonction":"responsable formation","entreprise":"DIM","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Pauline","nom":"laplace","tel":"660831952","entreprise":"ESSITY","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Vincent","nom":"LARGILLIERE","email":"vincentlargilliere@gmail.com","fonction":"Associate Professor","entreprise":"Université Paris Dauphine","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Guylaine","nom":"LE BOULCH","fonction":"DAF en trnasition","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Eric","nom":"Le Cerf","email":"ericlecerf1@gmail.com","fonction":"GM de Tropicana france","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Ines","nom":"LE POUTRE","fonction":"constultante marketing","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Benoit","nom":"loux","fonction":"Directeur commercial","entreprise":"redoute","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Marie","nom":"Malphette","tel":"615720598","entreprise":"media performance","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","notes":"X","source":"File2"},{"prenom":"Laure","nom":"martin","email":"martin.laure.pro@gmail.com","tel":"+33675063770","fonction":"En transition","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"kadia","nom":"moisson","email":"kadia.moisson2007@gmail.com","fonction":"DIRECTRICE AFRIQUE","entreprise":"GRANT ALEXANDER","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Caroline","nom":"MOREL","email":"maurel.caroline@gmail.com","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Catherine","nom":"Nobilé","email":"caroline.inswip@gmail.com","tel":"+33682153507","fonction":"Directrice Marketing | Coach certifiée HEC","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Stephanie","nom":"Oudard","tel":"632466338","entreprise":"Avocate","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"manu","nom":"paillet","mc_count":0,"statut":"Inscrit","owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Martin","nom":"Paree","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Charlène","nom":"Patras","email":"charlene.patras@gmail.com","fonction":"Consultante Marketing","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Misty","nom":"Paul","email":"mistypaul@natureway.space","fonction":"Employee","entreprise":"Company","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Clotilde","nom":"Percie","email":"clotilde.percie@green-conseil.com","fonction":"Responsable Communication","entreprise":"GREEN Conseil","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Catherine","nom":"Petilon","email":"cpetilon@icloud.com","fonction":"Directrice Marketing","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Maud","nom":"Petitgars","email":"mpetitgars@gmail.com","fonction":"Content Manager","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Yves","nom":"Pouderoux","email":"yves.pouderoux@gmail.com","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Laura","nom":"Rabel","email":"laura-rabel@outlook.com","fonction":"Chef de produit senior","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Olivier","nom":"Raugel","fonction":"directeur general","entreprise":"IFT","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Earl","nom":"Rogers","email":"earlrogers@firstrate.click","fonction":"Employee","entreprise":"Company","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Nathalie","nom":"Salesse","tel":"615017848","fonction":"directrice RH","entreprise":"UPSA","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Valérie","nom":"Sanchez","email":"Valc67@hotmail.fr","fonction":"Responsable sites Web et applications","entreprise":"Matmut","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Emmanuelle","nom":"Servajean-Hilst","email":"emmanuelle_morice@hotmail.com","entreprise":"TRIBALLAT","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Mercedes","nom":"Sgobba","email":"Mercedes.sgobba.ex@eureden.com","fonction":"DM","entreprise":"Eureden","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Christine","nom":"Soto","email":"christinesoto@parlonsdecom.com","fonction":"Consultante Communication Culturelle IA","entreprise":"Parlons De Com'","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Samantha","nom":"Taieb","email":"samantha.taieb92@gmail.com","fonction":"Chief Marketing Officer","entreprise":"La poste","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Fatima","nom":"TAMLILTI","email":"tamlifa@gmail.com","fonction":"Consultante","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Véronique","nom":"Tassigny","email":"veronique@tassigny.eu","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Laurent","nom":"THIBEAUDEAU","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Stéphane","nom":"Torrens","email":"stephane.torrens@gmail.com","fonction":"Stephane.torrens","entreprise":"Cso","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Maggy","nom":"tual","mc_count":0,"owner":"sonia","conn_elodie":"Non","conn_sonia":"Oui","msg_envoye":"Non","source":"File2"},{"prenom":"Jerome","nom":"Vezin","email":"J3015425@gmail.com","fonction":"COO","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Anne","nom":"Vignati","email":"Annezilr@gmail.com","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Mélodie","nom":"Vives","email":"melodie@klaak.fr","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Mascha","nom":"Wismans","email":"Mw@nfcc.fr","fonction":"Business Director","entreprise":"Netherlands France Chamber of Commerce","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Stéphanie","nom":"ZANZUCCHI","email":"stephzanzucchi@gmail.com","fonction":"Directrice Customer Success","entreprise":"en transition professionnelle","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Fabrice","nom":"Zbinden","email":"fabricezbinden24@gmail.com","fonction":"DAF","entreprise":"Saint-Gobain Seva","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"},{"prenom":"Perrine","nom":"ZECRI","email":"pzecri@outlook.com","fonction":"DG","entreprise":"La French Company","mc_count":0,"owner":"elodie","conn_elodie":"Oui","conn_sonia":"Non","msg_envoye":"Non","source":"File1"}],"alumni":[{"prenom":"Audrey","nom":"Aboucaya","email":"audrey.aboucaya@edhec.com","fonction":"Responsable Marketing Digital et communication","bootcamp":"Bootcamp 1","mc_count":6,"owner":"elodie"},{"prenom":"Sandrine","nom":"Ambrosi","email":"sandrine.ambrosi@gmail.com","fonction":"dir marketing","bootcamp":"Bootcamp 1","mc_count":3,"owner":"elodie"},{"prenom":"Ludovic","nom":"Chaudessolle","fonction":"DG","entreprise":"Bel","bootcamp":"Bootcamp 1","mc_count":0,"owner":"elodie"},{"prenom":"Stéphanie","nom":"Chenavier","email":"Steph.chenavier@yahoo.fr","fonction":"Directrice marketing produit","entreprise":"Directrice marketing produit","bootcamp":"Bootcamp 1","mc_count":5,"owner":"elodie"},{"prenom":"Violette","nom":"Coquatrix","email":"violette.coquatrix@gmail.com","fonction":"VP Ops","bootcamp":"Bootcamp 1","mc_count":5,"owner":"elodie"},{"prenom":"Sophie","nom":"Deby","email":"sophiedeby70@gmail.com","fonction":"Mapa (Signé)","bootcamp":"Bootcamp 1","mc_count":1,"owner":"elodie"},{"prenom":"Charlotte","nom":"Delbes","email":"Cdelbes01@gmail.com","fonction":"CMO","bootcamp":"Bootcamp 1","mc_count":7,"owner":"elodie"},{"prenom":"pierre","nom":"filaudeau","email":"pierrefilaudeau@gmail.com","fonction":"CMO","bootcamp":"Bootcamp 1","mc_count":6,"owner":"elodie"},{"prenom":"Sandrine","nom":"Gallay","email":"sdn.gallay@gmail.com","bootcamp":"Bootcamp 1","mc_count":3,"owner":"elodie"},{"prenom":"Nicole","nom":"Goujon","fonction":"CMO","entreprise":"Arc France","bootcamp":"Bootcamp 1","mc_count":0,"owner":"elodie"},{"prenom":"chloe","nom":"grabli","email":"chloe.grabli@gmail.com","fonction":"consultante","entreprise":"CG CONSULTANT","bootcamp":"Bootcamp 1","mc_count":3,"owner":"elodie"},{"prenom":"HELOISE","nom":"LEMEILLET","email":"heloise.lemeillet@gmail.com","fonction":"Global VP HR Tech, Digital & Data","entreprise":"LVMH","bootcamp":"Bootcamp 1","mc_count":7,"owner":"elodie"},{"prenom":"Sonia","nom":"Mancy","email":"mancysonia@gmail.com","fonction":"directrice Marketing","bootcamp":"Bootcamp 1","mc_count":9,"owner":"elodie"},{"prenom":"Frederique","nom":"Martinez","email":"Frederique.martinez@gmail.com","fonction":"CMO","bootcamp":"Bootcamp 1","mc_count":3,"owner":"elodie"},{"prenom":"alexandrine","nom":"Pingel","email":"A.pingelpro@gmail.com","fonction":"directrice unité CEA Bretagne","entreprise":"CEA","bootcamp":"Bootcamp 1","mc_count":4,"owner":"elodie"},{"prenom":"Camille","nom":"Saint-Sernin","email":"saintserninc@hotmail.com","bootcamp":"Bootcamp 1","mc_count":2,"owner":"elodie"},{"prenom":"Anne","nom":"THEBAUT","email":"anne.thebaut@gmail.com","fonction":"responsable marketing","entreprise":"Eluk","bootcamp":"Bootcamp 1","mc_count":4,"owner":"elodie"},{"prenom":"FRANCOIS","nom":"THERIN","email":"therinf@hotmail.com","bootcamp":"Bootcamp 1","mc_count":1,"owner":"elodie"},{"prenom":"Hervé","nom":"Thielan","email":"hthielan@yahoo.com","fonction":"Sans !","bootcamp":"Bootcamp 1","mc_count":2,"owner":"elodie"},{"prenom":"Florence","nom":"Vallee","email":"Florence_vallee@hotmail.fr","bootcamp":"Bootcamp 1","mc_count":1,"owner":"elodie"},{"prenom":"Emmanuelle","nom":"Aouate","email":"emmanuelle.aouate@team-creatif.com","fonction":"DRH","entreprise":"Team Créatif","bootcamp":"Bootcamp 2","mc_count":0,"owner":"elodie"},{"prenom":"Marie-Laure","nom":"Barreau","bootcamp":"Bootcamp 2","mc_count":0,"owner":"elodie"},{"prenom":"Nathalie","nom":"Brochand","email":"nathalie.brochanddm@gmail.com","fonction":"Senior Vice-President Global Head of Categories at Danone I International: Europe, Asia, China","entreprise":"Danone","bootcamp":"Bootcamp 2","mc_count":0,"owner":"elodie"},{"prenom":"Stéphanie","nom":"Cotton","email":"cottonsteph@aol.com","fonction":"Directrice marketing","bootcamp":"Bootcamp 2","mc_count":7,"owner":"elodie"},{"prenom":"Charlotte","nom":"David","email":"ch.david5775@gmail.com","fonction":"Directrice Générale","bootcamp":"Bootcamp 2","mc_count":4,"owner":"elodie"},{"prenom":"Amaury","nom":"de Beaumont","email":"amaury.de-beaumont@orange.fr","bootcamp":"Bootcamp 2","mc_count":6,"owner":"elodie"},{"prenom":"Sandrine","nom":"Denoual","fonction":"Directeur Commercial et Marketing","entreprise":"Lustucru Rivoire & Carret - Groupe PASTACORP","bootcamp":"Bootcamp 2","mc_count":0,"owner":"elodie"},{"prenom":"Emmanuel","nom":"Donati","email":"emmanuel@donati.net","bootcamp":"Bootcamp 2","mc_count":1,"owner":"elodie"},{"prenom":"Sarah","nom":"Hedgar","email":"sarah.hedgar@ic-bordeaux.com","fonction":"DRH","entreprise":"INTERCONTINENTAL","bootcamp":"Bootcamp 2","mc_count":5,"owner":"elodie"},{"prenom":"Christine","nom":"Huynh","email":"Christine.huynh@lvmh.com","fonction":"Head of transfo","entreprise":"Lvmh","bootcamp":"Bootcamp 2","mc_count":5,"owner":"elodie"},{"prenom":"magaly","nom":"JAQUARD","email":"mjaquard@yahoo.fr","fonction":"coach","bootcamp":"Bootcamp 2","mc_count":1,"owner":"elodie"},{"prenom":"Tanja","nom":"Lefèvre","email":"tanja.lefevre@gmail.com","fonction":"Directrice Communication Groupe","entreprise":"ex Groupe Brandt","bootcamp":"Bootcamp 2","mc_count":5,"owner":"elodie"},{"prenom":"Sophie","nom":"MALAUZAT","email":"smalauzat@heritagefrance.fr","fonction":"Directrice Marketing Héritage","entreprise":"HERITAGE","bootcamp":"Bootcamp 2","mc_count":1,"owner":"elodie"},{"prenom":"barbara","nom":"Meyer","email":"meyerbarbara@me.com","bootcamp":"Bootcamp 2","mc_count":4,"owner":"elodie"},{"prenom":"guillaume","nom":"Orhant","email":"guillaume.orhant@gmail.com","fonction":"CMO","entreprise":"Solo preneur","bootcamp":"Bootcamp 2","mc_count":6,"owner":"elodie"},{"prenom":"Caroline","nom":"Puechoultres","email":"caroline.puechoultres@gmail.com","fonction":"Senior advisor & Operating Partner","entreprise":"Replay Conseil","bootcamp":"Bootcamp 2","mc_count":4,"owner":"elodie"},{"prenom":"laurence","nom":"Pugin","email":"Laurence@pugin.ch","fonction":"dm","entreprise":"Transition","bootcamp":"Bootcamp 2","mc_count":5,"owner":"elodie"},{"prenom":"Eric","nom":"Saint-André","bootcamp":"Bootcamp 2","mc_count":0,"owner":"elodie"},{"prenom":"Marianne","nom":"Tanguy-Rossé","email":"m.tanguy-rosse@groupe-delineo.fr","fonction":"Directeur Marketing I CMO I","bootcamp":"Bootcamp 2","mc_count":0,"owner":"elodie"},{"prenom":"Gaelle","nom":"Bouvet","email":"gbouvet@leyton.com","fonction":"Sales & R&D - Leyton","entreprise":"Leyton","bootcamp":"Bootcamp 2, 3","mc_count":1,"owner":"elodie"},{"prenom":"Karine","nom":"Hemery","email":"Karine.hemery7824@gmail.com","fonction":"Future médiatrice","entreprise":"Bonne","bootcamp":"Bootcamp 2, 3","mc_count":1,"owner":"elodie"},{"prenom":"Nicole","nom":"ANTONIETTI","email":"nicole.antonietti@catalyse-digitale.fr","fonction":"Gérante","entreprise":"CATALYSE DIGITALE","bootcamp":"Bootcamp 3","mc_count":4,"owner":"elodie"},{"prenom":"Sylvain","nom":"Baudouin","email":"s.baudouin3178@gmail.com","bootcamp":"Bootcamp 3","mc_count":3,"owner":"elodie"},{"prenom":"Claire","nom":"Botreau","email":"Claire.botreau@gmail.com","bootcamp":"Bootcamp 3","mc_count":2,"owner":"elodie"},{"prenom":"Rachida","nom":"Bouaiss","email":"rachida.bouaiss@brainergy.fr","fonction":"Directrice","entreprise":"Brainergy","bootcamp":"Bootcamp 3","mc_count":3,"owner":"elodie"},{"prenom":"ALIX","nom":"DE BELLESCIZE","email":"alix.de.bellescize@krialys.com","bootcamp":"Bootcamp 3","mc_count":2,"owner":"elodie"},{"prenom":"Amaury","nom":"Demode","email":"amaury.demode@gmail.com","bootcamp":"Bootcamp 3","mc_count":4,"owner":"elodie"},{"prenom":"Annabelle","nom":"Ducellier","email":"annabelle.ducellier@akkodis.com","fonction":"Directrice marketing","entreprise":"AKKODIS","bootcamp":"Bootcamp 3","mc_count":2,"owner":"elodie"},{"prenom":"DAVID","nom":"EXPERTON","email":"david.experton@gmail.com","bootcamp":"Bootcamp 3","mc_count":3,"owner":"elodie"},{"prenom":"Jérémy","nom":"Fichebin","email":"jeremie@sharefraiche.com","fonction":"Influence @ Share Fraiche","entreprise":"Share Fraiche","bootcamp":"Bootcamp 3","mc_count":2,"owner":"elodie"},{"prenom":"Fabienne","nom":"Gervaise","email":"Fabiennegervaise@yahoo.fr","bootcamp":"Bootcamp 3","mc_count":2,"owner":"elodie"},{"prenom":"Mélanie","nom":"Lafarge","email":"lafarge.melanie@gmail.com","fonction":"Mitsubishi","bootcamp":"Bootcamp 3","mc_count":1,"owner":"elodie"},{"prenom":"Audrey","nom":"Le Borgne","email":"audreyleborgne@gmail.com","fonction":"fondatrice de MaïMaï Consulting","entreprise":"MaïMaï Consulting","bootcamp":"Bootcamp 3","mc_count":6,"owner":"elodie"},{"prenom":"Matt","nom":"LENTZ","email":"matthieu.lentz@gmail.com","bootcamp":"Bootcamp 3","mc_count":2,"owner":"elodie"},{"prenom":"CELINE","nom":"MALLE","email":"celinemalle@gmail.com","fonction":"Responsable des opérations","entreprise":"Adeena","bootcamp":"Bootcamp 3","mc_count":2,"owner":"elodie"},{"prenom":"Emmanuel","nom":"Pillet","email":"manupillet@yahoo.fr","bootcamp":"Bootcamp 3","mc_count":2,"owner":"elodie"},{"prenom":"Laure","nom":"PINNA","email":"laure@womenwarriors.fr","entreprise":"Women Warriors","bootcamp":"Bootcamp 3","mc_count":1,"owner":"elodie"},{"prenom":"Irina","nom":"Rakin","bootcamp":"Bootcamp 3","mc_count":2,"owner":"sonia"},{"prenom":"Christophe","nom":"Rouvière","email":"crouviere@finance-et-strategie.fr","bootcamp":"Bootcamp 3","mc_count":3,"owner":"elodie"},{"prenom":"Fanny","nom":"Roux","bootcamp":"Bootcamp 3","mc_count":0,"owner":"elodie"},{"prenom":"Mariette","nom":"Sicard","email":"msicard@groupeseb.com","fonction":"Head of Food science excellence center","bootcamp":"Bootcamp 3","mc_count":5,"owner":"elodie"}]};
+
+// ===== STATE =====
+const state = {
+  currentView: 'dashboard',
+  bootcampFilter: 'inscrit',
+  bootcampSearch: '',
+  bootcampPage: 0,
+  leadsSearch: '',
+  leadsOwner: 'all',
+  leadsMcMin: 0,
+  leadsPage: 0,
+  leadsSortCol: 'mc_count',
+  leadsSortDir: -1,
+  alumniSearch: '',
+  alumniBootcamp: 'all',
+  clientsSearch: '',
+  clientsType: 'all',
+  revenuePeriod: 'trimestre',
+  PAGE_SIZE: 30
+};
+
+// ===== UTILS =====
+const fmt = n => new Intl.NumberFormat('fr-FR').format(Math.round(n));
+const fmtEur = n => fmt(n) + ' \u20ac';
+const esc = s => s ? String(s).replace(/</g,'&lt;').replace(/>/g,'&gt;') : '';
+const ownerClass = o => {
+  const ol = (o||'').toLowerCase();
+  if(ol.includes('sonia') && ol.includes('elodie')) return 'owner-shared';
+  if(ol.includes('sonia')) return 'owner-sonia';
+  return 'owner-elodie';
+};
+const statusClass = s => 'status status-' + (s||'lead').toLowerCase().replace(/[\s_]/g,'-').replace(/[^a-z-]/g,'');
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function mcBar(count, max=8) {
+  let dots = '';
+  for(let i=0;i<max;i++) dots += `<div class="mc-dot${i<count?' filled':''}"></div>`;
+  return `<div class="mc-bar"><div class="mc-dots">${dots}</div><span class="mc-score">${count}</span></div>`;
+}
+
+// ===== NAVIGATION =====
+document.querySelectorAll('.nav-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const view = btn.dataset.view;
+    state.currentView = view;
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-' + view).classList.add('active');
+    render();
+  });
+});
+
+// ===== RENDER DASHBOARD =====
+function renderDashboard() {
+  const inscrits = DATA.bootcamp.filter(b => b.statut === 'inscrit');
+  const revBootcamp = inscrits.reduce((s,b) => s + (b.montant||0), 0);
+  const projGagne = DATA.projets.filter(p => p.stade === 'GAGNE').reduce((s,p) => s + (p.montant||0), 0);
+  const revTotal = revBootcamp + projGagne;
+  const pipelineProj = DATA.projets.filter(p => ['EN COURS','CLOSING','PROPOSITION'].includes(p.stade)).reduce((s,p) => s + (p.montant||0), 0);
+  const leadsChauds = DATA.leads.filter(l => l.mc_count >= 3).length;
+
+  document.getElementById('kpi-grid').innerHTML = `
+    <div class="kpi"><div class="label">Revenue valide</div><div class="value green">${fmtEur(revTotal)}</div><div class="sub">Bootcamp + Projets gagnes</div></div>
+    <div class="kpi"><div class="label">Pipeline projets</div><div class="value blue">${fmtEur(pipelineProj)}</div><div class="sub">Closing + En cours + Propositions</div></div>
+    <div class="kpi"><div class="label">Inscrits Bootcamp #4</div><div class="value pink">${inscrits.length}</div><div class="sub">${fmtEur(revBootcamp)}</div></div>
+    <div class="kpi"><div class="label">Leads chauds (3+ MC)</div><div class="value orange">${leadsChauds}</div><div class="sub">sur ${DATA.leads.length} leads total</div></div>
+    <div class="kpi"><div class="label">CRM total</div><div class="value">${DATA.leads.length}</div><div class="sub">Contacts qualifies</div></div>
+    <div class="kpi"><div class="label">Alumni actifs</div><div class="value">${DATA.alumni.length}</div><div class="sub">Bootcamps 1-2-3</div></div>
+  `;
+
+  // Pipeline chart
+  const stages = [
+    {label:'Gagne',val:projGagne,color:'var(--green)'},
+    {label:'En cours',val:DATA.projets.filter(p=>p.stade==='EN COURS').reduce((s,p)=>s+(p.montant||0),0),color:'var(--blue)'},
+    {label:'Closing',val:DATA.projets.filter(p=>p.stade==='CLOSING').reduce((s,p)=>s+(p.montant||0),0),color:'var(--pink)'},
+    {label:'Proposition',val:DATA.projets.filter(p=>p.stade==='PROPOSITION').reduce((s,p)=>s+(p.montant||0),0),color:'var(--orange)'},
+    {label:'Lead',val:DATA.projets.filter(p=>p.stade==='LEAD').reduce((s,p)=>s+(p.montant||0),0),color:'var(--purple)'},
+  ];
+  const maxVal = Math.max(...stages.map(s=>s.val),1);
+  document.getElementById('pipeline-chart').innerHTML = stages.map(s => `
+    <div class="bar-group">
+      <div class="bar-value">${fmtEur(s.val)}</div>
+      <div class="bar" style="height:${Math.max((s.val/maxVal)*130,4)}px;background:${s.color}"></div>
+      <div class="bar-label">${s.label}</div>
+    </div>
+  `).join('');
+
+  // Top leads
+  const topLeads = [...DATA.leads].sort((a,b) => (b.mc_count||0) - (a.mc_count||0)).slice(0,10);
+  document.getElementById('top-leads').innerHTML = topLeads.map(l => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+      <div><span style="font-weight:600;font-size:0.85rem">${esc(l.prenom)} ${esc(l.nom)}</span>
+      ${l.fonction?`<span style="color:var(--text-muted);font-size:0.75rem;margin-left:8px">${esc(l.fonction)}</span>`:''}</div>
+      ${mcBar(l.mc_count)}
+    </div>
+  `).join('');
+
+  // Recent projects
+  const activeProj = DATA.projets.filter(p => ['EN COURS','CLOSING','PROPOSITION','ACTION'].includes(p.stade));
+  document.getElementById('recent-projects').innerHTML = activeProj.map(p => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+      <div><span style="font-weight:600;font-size:0.85rem">${esc(p.projet)}</span>
+      <span class="${statusClass(p.stade)}" style="margin-left:8px">${esc(p.stade)}</span></div>
+      <span class="td-amount">${p.montant ? fmtEur(p.montant) : '-'}</span>
+    </div>
+  `).join('');
+}
+
+// ===== RENDER PROJETS (Kanban) =====
+function renderProjets() {
+  const stages = ['GAGNE','EN COURS','CLOSING','PROPOSITION','LEAD','RELANCE','ACTION','PERDU'];
+  const stageColors = {GAGNE:'var(--green)',['EN COURS']:'var(--blue)',CLOSING:'var(--pink)',PROPOSITION:'var(--orange)',LEAD:'var(--purple)',RELANCE:'var(--orange)',ACTION:'var(--cyan)',PERDU:'var(--red)'};
+
+  const pipeTotal = DATA.projets.filter(p=>['EN COURS','CLOSING','PROPOSITION'].includes(p.stade)).reduce((s,p)=>s+(p.montant||0),0);
+  const gagneTotal = DATA.projets.filter(p=>p.stade==='GAGNE').reduce((s,p)=>s+(p.montant||0),0);
+
+  document.getElementById('kpi-projets').innerHTML = `
+    <div class="kpi"><div class="label">Pipeline active</div><div class="value blue">${fmtEur(pipeTotal)}</div></div>
+    <div class="kpi"><div class="label">Gagne</div><div class="value green">${fmtEur(gagneTotal)}</div></div>
+    <div class="kpi"><div class="label">Projets actifs</div><div class="value">${DATA.projets.filter(p=>p.stade!=='GAGNE'&&p.stade!=='PERDU').length}</div></div>
+    <div class="kpi"><div class="label">Total projets</div><div class="value">${DATA.projets.length}</div></div>
+  `;
+
+  let kanbanHTML = '';
+  for(const stage of stages) {
+    const items = DATA.projets.filter(p => p.stade === stage);
+    if(!items.length) continue;
+    const total = items.reduce((s,p) => s + (p.montant||0), 0);
+    kanbanHTML += `<div class="kanban-col" data-stage="${stage}" style="border-top:3px solid ${stageColors[stage]||'var(--text-muted)'}">
+      <div class="kanban-col-header"><h3>${stage}</h3><span class="count">${items.length} | ${fmtEur(total)}</span></div>
+      ${items.map(p => `
+        <div class="kanban-card" draggable="true" data-idx="${DATA.projets.indexOf(p)}" onclick="showProjetDetail(${DATA.projets.indexOf(p)})">
+          <div class="name">${esc(p.projet)}</div>
+          ${p.montant ? `<div class="amount">${fmtEur(p.montant)}</div>` : ''}
+          <span class="owner-tag ${ownerClass(p.owner)}">${esc(p.owner)}</span>
+          ${p.notes ? `<div class="note">${esc(p.notes).substring(0,80)}${p.notes.length>80?'...':''}</div>` : ''}
+        </div>
+      `).join('')}
+    </div>`;
+  }
+  document.getElementById('kanban-projets').innerHTML = kanbanHTML;
+  initDragDrop();
+}
+
+function initDragDrop() {
+  let dragIdx = null;
+  document.querySelectorAll('.kanban-card[draggable]').forEach(card => {
+    card.addEventListener('dragstart', e => {
+      dragIdx = parseInt(card.dataset.idx);
+      card.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    card.addEventListener('dragend', () => {
+      card.classList.remove('dragging');
+      document.querySelectorAll('.kanban-col').forEach(c => c.classList.remove('drag-over'));
+    });
+  });
+  document.querySelectorAll('.kanban-col[data-stage]').forEach(col => {
+    col.addEventListener('dragover', e => { e.preventDefault(); col.classList.add('drag-over'); });
+    col.addEventListener('dragleave', () => col.classList.remove('drag-over'));
+    col.addEventListener('drop', e => {
+      e.preventDefault();
+      col.classList.remove('drag-over');
+      if(dragIdx === null) return;
+      const newStage = col.dataset.stage;
+      const p = DATA.projets[dragIdx];
+      if(p && p.stade !== newStage) {
+        p.stade = newStage;
+        renderProjets();
+        toast(`${p.projet} deplace vers ${newStage}`);
+      }
+      dragIdx = null;
+    });
+  });
+}
+
+// ===== RENDER BOOTCAMP =====
+function renderBootcamp() {
+  const inscrits = DATA.bootcamp.filter(b => b.statut === 'inscrit');
+  const revTotal = inscrits.reduce((s,b) => s + (b.montant||0), 0);
+  const sonia = inscrits.filter(b => b.owner.toLowerCase().includes('sonia')).length;
+
+  document.getElementById('kpi-bootcamp').innerHTML = `
+    <div class="kpi"><div class="label">Inscrits valides</div><div class="value green">${inscrits.length}</div></div>
+    <div class="kpi"><div class="label">Revenue bootcamp</div><div class="value pink">${fmtEur(revTotal)}</div></div>
+    <div class="kpi"><div class="label">Pipeline totale</div><div class="value">${DATA.bootcamp.length}</div></div>
+    <div class="kpi"><div class="label">Apportes par Sonia</div><div class="value purple" style="color:var(--purple)">${sonia}</div></div>
+  `;
+
+  let filtered = DATA.bootcamp;
+  if(state.bootcampFilter !== 'all') filtered = filtered.filter(b => b.statut === state.bootcampFilter);
+  if(state.bootcampSearch) {
+    const q = state.bootcampSearch.toLowerCase();
+    filtered = filtered.filter(b => (b.nom||'').toLowerCase().includes(q) || (b.entreprise||'').toLowerCase().includes(q) || (b.email||'').toLowerCase().includes(q));
+  }
+
+  const total = filtered.length;
+  const start = state.bootcampPage * state.PAGE_SIZE;
+  const page = filtered.slice(start, start + state.PAGE_SIZE);
+
+  document.getElementById('bootcamp-count').textContent = total + ' resultat' + (total>1?'s':'');
+
+  document.querySelector('#bootcamp-table tbody').innerHTML = page.map(b => `
+    <tr>
+      <td class="td-name">${esc(b.nom)}</td>
+      <td>${esc(b.entreprise)}</td>
+      <td class="td-amount">${b.montant ? fmtEur(b.montant) : '-'}</td>
+      <td><span class="owner-tag ${ownerClass(b.owner)}">${esc(b.owner)}</span></td>
+      <td><span class="${statusClass(b.statut)}">${esc(b.statut)}</span></td>
+      <td title="${esc(b.notes)}">${esc((b.notes||'').substring(0,40))}${(b.notes||'').length>40?'...':''}</td>
+    </tr>
+  `).join('');
+
+  renderPagination('bootcamp-pagination', total, state.bootcampPage, p => { state.bootcampPage = p; renderBootcamp(); });
+}
+
+// ===== RENDER LEADS =====
+function getClientEmails() {
+  const emails = new Set();
+  const names = new Set();
+  DATA.bootcamp.filter(b => b.statut === 'inscrit').forEach(b => {
+    if(b.email) emails.add(b.email.toLowerCase());
+    names.add(b.nom.toLowerCase().trim());
+  });
+  DATA.alumni.forEach(a => {
+    if(a.email) emails.add(a.email.toLowerCase());
+    names.add(`${a.prenom} ${a.nom}`.toLowerCase().trim());
+  });
+  DATA.projets.filter(p => p.stade === 'GAGNE').forEach(p => {
+    names.add(p.projet.toLowerCase().trim());
+  });
+  return {emails, names};
+}
+
+function renderLeads() {
+  const clients = getClientEmails();
+  let filtered = DATA.leads.filter(l => {
+    if(l.email && clients.emails.has(l.email.toLowerCase())) return false;
+    if(clients.names.has(`${l.prenom} ${l.nom}`.toLowerCase().trim())) return false;
+    return true;
+  });
+
+  if(state.leadsOwner !== 'all') filtered = filtered.filter(l => (l.owner||'').toLowerCase() === state.leadsOwner);
+  if(state.leadsMcMin > 0) filtered = filtered.filter(l => (l.mc_count||0) >= state.leadsMcMin);
+  if(state.leadsSearch) {
+    const q = state.leadsSearch.toLowerCase();
+    filtered = filtered.filter(l => `${l.prenom} ${l.nom} ${l.email||''} ${l.fonction||''} ${l.entreprise||''}`.toLowerCase().includes(q));
+  }
+
+  // Sort
+  filtered.sort((a,b) => {
+    const col = state.leadsSortCol;
+    let va = a[col] || '', vb = b[col] || '';
+    if(typeof va === 'number') return (va - vb) * state.leadsSortDir;
+    return String(va).localeCompare(String(vb)) * state.leadsSortDir;
+  });
+
+  const byOwner = {elodie: DATA.leads.filter(l=>(l.owner||'')==='elodie').length, sonia: DATA.leads.filter(l=>(l.owner||'')==='sonia').length};
+  const hot = DATA.leads.filter(l=>l.mc_count>=3).length;
+
+  document.getElementById('kpi-leads').innerHTML = `
+    <div class="kpi"><div class="label">Total leads</div><div class="value">${DATA.leads.length}</div></div>
+    <div class="kpi"><div class="label">Leads chauds (3+ MC)</div><div class="value orange">${hot}</div></div>
+    <div class="kpi"><div class="label">Leads Elodie</div><div class="value" style="color:var(--cyan)">${byOwner.elodie}</div></div>
+    <div class="kpi"><div class="label">Leads Sonia</div><div class="value" style="color:var(--purple)">${byOwner.sonia}</div></div>
+  `;
+
+  const total = filtered.length;
+  const start = state.leadsPage * state.PAGE_SIZE;
+  const page = filtered.slice(start, start + state.PAGE_SIZE);
+
+  document.getElementById('leads-count').textContent = total + ' resultat' + (total>1?'s':'');
+
+  document.querySelector('#leads-table tbody').innerHTML = page.map((l,i) => `
+    <tr style="cursor:pointer" onclick="showLeadDetail(${DATA.leads.indexOf(l)})">
+      <td class="td-name">${esc(l.prenom)} ${esc(l.nom)}</td>
+      <td class="td-email">${esc(l.email)}</td>
+      <td>${esc(l.fonction)}</td>
+      <td>${mcBar(l.mc_count||0)}</td>
+      <td>${l.statut ? `<span class="${statusClass(l.statut)}">${esc(l.statut)}</span>` : ''}</td>
+      <td><span class="owner-tag ${ownerClass(l.owner)}">${esc(l.owner)}</span></td>
+      <td>${l.conn_elodie==='Oui'?'<span title="Connecte Elodie" style="color:var(--cyan)">&#9679;</span>':''}${l.conn_sonia==='Oui'?'<span title="Connecte Sonia" style="color:var(--purple)">&#9679;</span>':''}</td>
+    </tr>
+  `).join('');
+
+  renderPagination('leads-pagination', total, state.leadsPage, p => { state.leadsPage = p; renderLeads(); });
+}
+
+// ===== RENDER ALUMNI =====
+function renderAlumni() {
+  let filtered = [...DATA.alumni];
+  if(state.alumniBootcamp !== 'all') filtered = filtered.filter(a => a.bootcamp === state.alumniBootcamp);
+  if(state.alumniSearch) {
+    const q = state.alumniSearch.toLowerCase();
+    filtered = filtered.filter(a => `${a.prenom} ${a.nom} ${a.email||''} ${a.fonction||''}`.toLowerCase().includes(q));
+  }
+
+  document.getElementById('alumni-count').textContent = filtered.length + ' alumni';
+
+  document.querySelector('#alumni-table tbody').innerHTML = filtered.map(a => `
+    <tr>
+      <td class="td-name">${esc(a.prenom)} ${esc(a.nom)}</td>
+      <td class="td-email">${esc(a.email)}</td>
+      <td>${esc(a.fonction)}</td>
+      <td><span class="${statusClass(a.bootcamp)}">${esc(a.bootcamp)}</span></td>
+      <td>${mcBar(a.mc_count||0)}</td>
+      <td><span class="owner-tag ${ownerClass(a.owner)}">${esc(a.owner)}</span></td>
+    </tr>
+  `).join('');
+}
+
+// ===== RENDER REVENUE =====
+// CA data
+const CA_DATA = [
+  {mois:'Janvier', trimestre:'Q1', annee:'2026', items:[
+    {nom:'Bootcamp 3', montant:19500, type:'bootcamp'},
+    {nom:'Akkodis', montant:5000, type:'projet'},
+    {nom:'Arc France', montant:5000, type:'projet'},
+    {nom:'Credit Agricole', montant:16500, type:'projet'},
+    {nom:'Blini', montant:3000, type:'projet'},
+  ]},
+  {mois:'Fevrier', trimestre:'Q1', annee:'2026', items:[
+    {nom:'Leonidas', montant:3500, type:'projet'},
+    {nom:'Bootcamp 4', montant:24650, type:'bootcamp'},
+    {nom:'Akkodis', montant:3000, type:'projet'},
+    {nom:'Sarah Intercontinental', montant:11000, type:'projet'},
+    {nom:'Negobrain', montant:10000, type:'projet'},
+  ]},
+  {mois:'Mars', trimestre:'Q1', annee:'2026', items:[
+    {nom:'Murs et Merveilles', montant:25000, type:'projet'},
+    {nom:'ICN', montant:45000, type:'projet'},
+    {nom:'Bootcamp 4', montant:24650, type:'bootcamp'},
+    {nom:'Natran', montant:9000, type:'projet'},
+  ]},
+];
+
+function renderRevenue() {
+  const period = state.revenuePeriod || 'trimestre';
+  const enCoursProj = DATA.projets.filter(p => p.stade === 'EN COURS').reduce((s,p) => s + (p.montant||0), 0);
+  const closingProj = DATA.projets.filter(p => p.stade === 'CLOSING').reduce((s,p) => s + (p.montant||0), 0);
+
+  // Group by period
+  let groups;
+  if(period === 'mois') {
+    groups = CA_DATA.map(m => ({label:m.mois, items:m.items, total:m.items.reduce((s,i)=>s+i.montant,0)}));
+  } else if(period === 'trimestre') {
+    const byQ = {};
+    CA_DATA.forEach(m => {
+      const key = m.trimestre + ' ' + m.annee;
+      if(!byQ[key]) byQ[key] = {label:key, items:[], total:0};
+      byQ[key].items.push(...m.items);
+      byQ[key].total += m.items.reduce((s,i)=>s+i.montant,0);
+    });
+    groups = Object.values(byQ);
+  } else {
+    const byY = {};
+    CA_DATA.forEach(m => {
+      if(!byY[m.annee]) byY[m.annee] = {label:m.annee, items:[], total:0};
+      byY[m.annee].items.push(...m.items);
+      byY[m.annee].total += m.items.reduce((s,i)=>s+i.montant,0);
+    });
+    groups = Object.values(byY);
+  }
+
+  const caTotal = groups.reduce((s,g)=>s+g.total,0);
+  const allItems = groups.flatMap(g=>g.items);
+  const caBootcamp = allItems.filter(i=>i.type==='bootcamp').reduce((s,i)=>s+i.montant,0);
+  const caProjets = allItems.filter(i=>i.type==='projet').reduce((s,i)=>s+i.montant,0);
+  const nbPeriods = groups.length || 1;
+  const labels = {mois:'mensuelle', trimestre:'trimestrielle', annee:'annuelle'};
+
+  document.getElementById('ca-chart-title').textContent = 'CA valide par ' + (period === 'mois' ? 'mois' : period === 'trimestre' ? 'trimestre' : 'annee');
+
+  document.getElementById('kpi-revenue').innerHTML = `
+    <div class="kpi"><div class="label">CA valide total</div><div class="value green">${fmtEur(caTotal)}</div><div class="sub">${groups.map(g=>g.label).join(' - ')}</div></div>
+    <div class="kpi"><div class="label">CA Bootcamps</div><div class="value pink">${fmtEur(caBootcamp)}</div><div class="sub">${caTotal?((caBootcamp/caTotal)*100).toFixed(0):'0'}% du CA</div></div>
+    <div class="kpi"><div class="label">CA Projets</div><div class="value blue">${fmtEur(caProjets)}</div><div class="sub">${caTotal?((caProjets/caTotal)*100).toFixed(0):'0'}% du CA</div></div>
+    <div class="kpi"><div class="label">Moyenne ${labels[period]}</div><div class="value">${fmtEur(Math.round(caTotal/nbPeriods))}</div><div class="sub">par ${period}</div></div>
+    <div class="kpi"><div class="label">Pipeline a venir</div><div class="value orange">${fmtEur(enCoursProj + closingProj)}</div><div class="sub">En cours + Closing</div></div>
+  `;
+
+  // Bar chart
+  const maxG = Math.max(...groups.map(g=>g.total), 1);
+  const barColors = ['var(--blue)','var(--purple)','var(--pink)','var(--cyan)','var(--orange)','var(--green)'];
+  document.getElementById('ca-par-mois').innerHTML = `
+    <div style="display:flex;align-items:flex-end;gap:24px;height:220px;padding:20px 0">
+      ${groups.map((g,i) => {
+        const h = Math.max((g.total/maxG)*180, 8);
+        return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px">
+          <div style="font-size:1.1rem;font-weight:800;color:${barColors[i%barColors.length]}">${fmtEur(g.total)}</div>
+          <div style="width:100%;height:${h}px;background:${barColors[i%barColors.length]};border-radius:8px 8px 0 0;transition:height 0.5s"></div>
+          <div style="font-size:0.85rem;font-weight:700;color:var(--text-secondary)">${g.label}</div>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+
+  // Detail
+  document.getElementById('revenue-by-source').innerHTML = groups.map((g,gi) => `
+    <div style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <span style="font-weight:700;font-size:0.85rem;color:${barColors[gi%barColors.length]}">${g.label}</span>
+        <span style="font-weight:800;font-size:0.95rem;color:${barColors[gi%barColors.length]}">${fmtEur(g.total)}</span>
+      </div>
+      ${g.items.map(item => `
+        <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)">
+          <span style="font-size:0.8rem;color:var(--text-secondary)">${esc(item.nom)} <span style="color:var(--text-muted);font-size:0.7rem">${item.type==='bootcamp'?'BOOTCAMP':'PROJET'}</span></span>
+          <span style="font-weight:600;font-size:0.8rem">${fmtEur(item.montant)}</span>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+
+  // Owner
+  const inscrits = DATA.bootcamp.filter(b => b.statut === 'inscrit');
+  const soniaBootcamp = inscrits.filter(b => b.owner.toLowerCase().includes('sonia') && !b.owner.toLowerCase().includes('elodie')).reduce((s,b)=>s+(b.montant||0),0);
+  const elodieBootcamp = inscrits.filter(b => b.owner.toLowerCase().includes('elodie') && !b.owner.toLowerCase().includes('sonia')).reduce((s,b)=>s+(b.montant||0),0);
+  const sharedBootcamp = inscrits.filter(b => b.owner.toLowerCase().includes('sonia') && b.owner.toLowerCase().includes('elodie')).reduce((s,b)=>s+(b.montant||0),0);
+  const ownerData = [
+    {label:'Sonia (Bootcamp B4)', val:soniaBootcamp, color:'var(--purple)'},
+    {label:'Elodie (Bootcamp B4)', val:elodieBootcamp, color:'var(--cyan)'},
+    {label:'Partage (Bootcamp B4)', val:sharedBootcamp, color:'var(--orange)'},
+  ];
+  const maxOwn = Math.max(...ownerData.map(s=>s.val),1);
+  document.getElementById('revenue-by-owner').innerHTML = ownerData.map(s => `
+    <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)">
+      <div style="width:140px;font-size:0.8rem;color:var(--text-muted)">${s.label}</div>
+      <div style="flex:1;height:20px;background:var(--bg-elevated);border-radius:4px;overflow:hidden">
+        <div style="height:100%;width:${(s.val/maxOwn)*100}%;background:${s.color};border-radius:4px"></div>
+      </div>
+      <div style="width:80px;text-align:right;font-weight:700;font-size:0.8rem">${fmtEur(s.val)}</div>
+    </div>
+  `).join('');
+
+  // Tresorerie
+  document.getElementById('tresorerie-chart').innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <div style="background:var(--bg-elevated);border-radius:var(--radius-sm);padding:16px;text-align:center">
+        <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">CA encaisse</div>
+        <div style="font-size:1.4rem;font-weight:800;color:var(--green)">${fmtEur(caTotal)}</div>
+      </div>
+      <div style="background:var(--bg-elevated);border-radius:var(--radius-sm);padding:16px;text-align:center">
+        <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">A encaisser (closing)</div>
+        <div style="font-size:1.4rem;font-weight:800;color:var(--orange)">${fmtEur(closingProj)}</div>
+      </div>
+      <div style="background:var(--bg-elevated);border-radius:var(--radius-sm);padding:16px;text-align:center">
+        <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">Pipeline probable</div>
+        <div style="font-size:1.4rem;font-weight:800;color:var(--blue)">${fmtEur(enCoursProj)}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ===== RENDER COMMISSIONS =====
+function renderCommissions() {
+  const inscrits = DATA.bootcamp.filter(b => b.statut === 'inscrit');
+  const COMMISSION_RATE = 0.10;
+
+  // Sonia bootcamp direct
+  const soniaDirectBC = inscrits.filter(b => {
+    const o = b.owner.toLowerCase();
+    return o.includes('sonia') && !o.includes('elodie');
+  });
+  const soniaSharedBC = inscrits.filter(b => {
+    const o = b.owner.toLowerCase();
+    return o.includes('sonia') && o.includes('elodie');
+  });
+  const soniaDirectRevBC = soniaDirectBC.reduce((s,b) => s + (b.montant||0), 0);
+  const soniaSharedRevBC = soniaSharedBC.reduce((s,b) => s + (b.montant||0), 0);
+
+  // Sonia projets gagnes
+  const soniaDirectProj = DATA.projets.filter(p => {
+    const o = p.owner.toLowerCase();
+    return o.includes('sonia') && !o.includes('elodie') && p.stade === 'GAGNE';
+  });
+  const soniaSharedProj = DATA.projets.filter(p => {
+    const o = p.owner.toLowerCase();
+    return o.includes('sonia') && o.includes('elodie') && p.stade === 'GAGNE';
+  });
+  const soniaDirectRevProj = soniaDirectProj.reduce((s,p) => s + (p.montant||0), 0);
+  const soniaSharedRevProj = soniaSharedProj.reduce((s,p) => s + (p.montant||0), 0);
+
+  const totalRevSonia = soniaDirectRevBC + soniaSharedRevBC + soniaDirectRevProj + soniaSharedRevProj;
+  const commissionDirect = (soniaDirectRevBC + soniaDirectRevProj) * COMMISSION_RATE;
+  const commissionShared = (soniaSharedRevBC + soniaSharedRevProj) * (COMMISSION_RATE / 2);
+  const totalCommission = commissionDirect + commissionShared;
+
+  document.getElementById('kpi-commissions').innerHTML = `
+    <div class="kpi"><div class="label">Commission totale</div><div class="value pink">${fmtEur(totalCommission)}</div><div class="sub">10% direct / 5% partage</div></div>
+    <div class="kpi"><div class="label">Revenue genere par Sonia</div><div class="value" style="color:var(--purple)">${fmtEur(totalRevSonia)}</div></div>
+    <div class="kpi"><div class="label">Inscrits Sonia (direct)</div><div class="value">${soniaDirectBC.length}</div></div>
+    <div class="kpi"><div class="label">Inscrits Sonia (partage)</div><div class="value">${soniaSharedBC.length}</div></div>
+  `;
+
+  document.getElementById('commission-detail').innerHTML = `
+    <div class="commission-card">
+      <h3>Bootcamp #4 - Detail</h3>
+      ${soniaDirectBC.map(b => `
+        <div class="commission-row">
+          <span class="label">${esc(b.nom)}</span>
+          <span class="value" style="color:var(--pink)">${fmtEur((b.montant||0) * COMMISSION_RATE)}</span>
+        </div>
+      `).join('')}
+      ${soniaSharedBC.map(b => `
+        <div class="commission-row">
+          <span class="label">${esc(b.nom)} <span style="color:var(--orange);font-size:0.7rem">(partage)</span></span>
+          <span class="value" style="color:var(--orange)">${fmtEur((b.montant||0) * COMMISSION_RATE / 2)}</span>
+        </div>
+      `).join('')}
+      <div class="commission-row" style="font-weight:700;border-top:2px solid var(--border);padding-top:12px;margin-top:4px">
+        <span>Total Bootcamp</span>
+        <span style="color:var(--pink)">${fmtEur(commissionDirect - (soniaDirectRevProj * COMMISSION_RATE) + commissionShared - (soniaSharedRevProj * COMMISSION_RATE / 2))}</span>
+      </div>
+    </div>
+    <div class="commission-card">
+      <h3>Projets - Detail</h3>
+      ${soniaDirectProj.map(p => `
+        <div class="commission-row">
+          <span class="label">${esc(p.projet)}</span>
+          <span class="value" style="color:var(--pink)">${fmtEur((p.montant||0) * COMMISSION_RATE)}</span>
+        </div>
+      `).join('')}
+      ${soniaSharedProj.map(p => `
+        <div class="commission-row">
+          <span class="label">${esc(p.projet)} <span style="color:var(--orange);font-size:0.7rem">(partage)</span></span>
+          <span class="value" style="color:var(--orange)">${fmtEur((p.montant||0) * COMMISSION_RATE / 2)}</span>
+        </div>
+      `).join('')}
+      ${(!soniaDirectProj.length && !soniaSharedProj.length) ? '<div style="padding:16px 0;color:var(--text-muted);font-size:0.85rem">Aucun projet gagne par Sonia pour le moment</div>' : ''}
+      <div class="commission-row" style="font-weight:700;border-top:2px solid var(--border);padding-top:12px;margin-top:4px">
+        <span>Total Commission</span>
+        <span style="color:var(--green);font-size:1.1rem">${fmtEur(totalCommission)}</span>
+      </div>
+    </div>
+  `;
+}
+
+// ===== PAGINATION =====
+function renderPagination(containerId, total, currentPage, callback) {
+  const totalPages = Math.ceil(total / state.PAGE_SIZE);
+  const el = document.getElementById(containerId);
+  if(totalPages <= 1) { el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <button ${currentPage === 0 ? 'disabled' : ''} onclick="void(0)" id="${containerId}-prev">&larr; Precedent</button>
+    <span class="info">Page ${currentPage + 1} / ${totalPages}</span>
+    <button ${currentPage >= totalPages - 1 ? 'disabled' : ''} onclick="void(0)" id="${containerId}-next">Suivant &rarr;</button>
+  `;
+  const prev = document.getElementById(containerId + '-prev');
+  const next = document.getElementById(containerId + '-next');
+  if(prev) prev.addEventListener('click', () => callback(currentPage - 1));
+  if(next) next.addEventListener('click', () => callback(currentPage + 1));
+}
+
+// ===== DETAIL MODALS =====
+function showProjetDetail(idx) {
+  const p = DATA.projets[idx];
+  if(!p) return;
+  const stades = ['GAGNE','EN COURS','CLOSING','PROPOSITION','LEAD','RELANCE','ACTION','PERDU'];
+  const categories = ['Projet','Studio','Transformation','Agents IA','Formation'];
+  document.getElementById('modal-content').innerHTML = `
+    <h2 style="margin-bottom:16px">${esc(p.projet)}</h2>
+    <div class="modal-field"><div class="label">Nom du projet</div><input class="modal-input" id="edit-nom" value="${esc(p.projet)}"></div>
+    <div class="modal-row">
+      <div class="modal-field"><div class="label">Montant</div><input class="modal-input" id="edit-montant" type="number" value="${p.montant||0}"></div>
+      <div class="modal-field"><div class="label">Stade</div><select class="modal-select" id="edit-stade">${stades.map(s=>`<option value="${s}"${s===p.stade?' selected':''}>${s}</option>`).join('')}</select></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field"><div class="label">Owner</div><select class="modal-select" id="edit-owner"><option${p.owner==='Elodie'?' selected':''}>Elodie</option><option${p.owner==='Sonia'?' selected':''}>Sonia</option><option${(p.owner||'').includes('&')?' selected':''}>Sonia & Elodie</option></select></div>
+      <div class="modal-field"><div class="label">Categorie</div><select class="modal-select" id="edit-type">${categories.map(c=>`<option value="${c}"${c===p.type?' selected':''}>${c}</option>`).join('')}</select></div>
+    </div>
+    <div class="modal-field"><div class="label">Notes</div><textarea class="modal-input" id="edit-notes">${esc(p.notes)}</textarea></div>
+    <div class="modal-actions">
+      <button class="btn-pink" onclick="saveProjet(${idx})">Enregistrer</button>
+      <button class="btn-ghost" onclick="closeModal()">Annuler</button>
+    </div>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function saveProjet(idx) {
+  const p = DATA.projets[idx];
+  p.projet = document.getElementById('edit-nom').value;
+  p.montant = parseFloat(document.getElementById('edit-montant').value) || 0;
+  p.stade = document.getElementById('edit-stade').value;
+  p.owner = document.getElementById('edit-owner').value;
+  p.type = document.getElementById('edit-type').value;
+  p.notes = document.getElementById('edit-notes').value;
+  closeModal();
+  render();
+  toast('Projet mis a jour : ' + p.projet);
+}
+
+function showLeadDetail(idx) {
+  const l = DATA.leads[idx];
+  if(!l) return;
+  const statuts = ['','Relance','A inviter','Inscrit','Perdu'];
+  document.getElementById('modal-content').innerHTML = `
+    <h2 style="margin-bottom:16px">${esc(l.prenom)} ${esc(l.nom)}</h2>
+    <div class="modal-row">
+      <div class="modal-field"><div class="label">Prenom</div><input class="modal-input" id="edit-prenom" value="${esc(l.prenom)}"></div>
+      <div class="modal-field"><div class="label">Nom</div><input class="modal-input" id="edit-lnom" value="${esc(l.nom)}"></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field"><div class="label">Email</div><input class="modal-input" id="edit-email" value="${esc(l.email)}"></div>
+      <div class="modal-field"><div class="label">Telephone</div><input class="modal-input" id="edit-tel" value="${esc(l.tel||'')}"></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field"><div class="label">Fonction</div><input class="modal-input" id="edit-fonction" value="${esc(l.fonction||'')}"></div>
+      <div class="modal-field"><div class="label">Entreprise</div><input class="modal-input" id="edit-entreprise" value="${esc(l.entreprise||'')}"></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field"><div class="label">Owner</div><select class="modal-select" id="edit-lowner"><option value="elodie"${l.owner==='elodie'?' selected':''}>Elodie</option><option value="sonia"${l.owner==='sonia'?' selected':''}>Sonia</option></select></div>
+      <div class="modal-field"><div class="label">Statut</div><select class="modal-select" id="edit-lstatut">${statuts.map(s=>`<option value="${s}"${s===l.statut?' selected':''}>${s||'Aucun'}</option>`).join('')}</select></div>
+    </div>
+    <div class="modal-field"><div class="label">Engagement</div><div class="val">${mcBar(l.mc_count||0)} masterclasses</div></div>
+    <div class="modal-field"><div class="label">Notes</div><textarea class="modal-input" id="edit-lnotes">${esc(l.notes||'')}</textarea></div>
+    <div class="modal-actions">
+      <button class="btn-pink" onclick="saveLead(${idx})">Enregistrer</button>
+      <button class="btn-ghost" onclick="closeModal()">Annuler</button>
+    </div>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function saveLead(idx) {
+  const l = DATA.leads[idx];
+  l.prenom = document.getElementById('edit-prenom').value;
+  l.nom = document.getElementById('edit-lnom').value;
+  l.email = document.getElementById('edit-email').value;
+  l.tel = document.getElementById('edit-tel').value;
+  l.fonction = document.getElementById('edit-fonction').value;
+  l.entreprise = document.getElementById('edit-entreprise').value;
+  l.owner = document.getElementById('edit-lowner').value;
+  l.statut = document.getElementById('edit-lstatut').value;
+  l.notes = document.getElementById('edit-lnotes').value;
+  closeModal();
+  render();
+  toast('Lead mis a jour : ' + l.prenom + ' ' + l.nom);
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+document.getElementById('modal-overlay').addEventListener('click', e => {
+  if(e.target === e.currentTarget) closeModal();
+});
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+// ===== EVENT LISTENERS =====
+// Bootcamp tabs
+document.getElementById('bootcamp-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if(!tab) return;
+  document.querySelectorAll('#bootcamp-tabs .tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  state.bootcampFilter = tab.dataset.filter;
+  state.bootcampPage = 0;
+  renderBootcamp();
+});
+
+// Bootcamp search
+document.getElementById('bootcamp-search').addEventListener('input', e => {
+  state.bootcampSearch = e.target.value;
+  state.bootcampPage = 0;
+  renderBootcamp();
+});
+
+// Leads search
+document.getElementById('leads-search').addEventListener('input', e => {
+  state.leadsSearch = e.target.value;
+  state.leadsPage = 0;
+  renderLeads();
+});
+
+// Leads filters
+document.querySelector('#view-leads .table-toolbar').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  if(btn.dataset.owner !== undefined) {
+    state.leadsOwner = btn.dataset.owner;
+    state.leadsMcMin = 0;
+    document.querySelectorAll('#view-leads .filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  } else if(btn.dataset.mcMin !== undefined) {
+    const min = parseInt(btn.dataset.mcMin);
+    state.leadsMcMin = state.leadsMcMin === min ? 0 : min;
+    state.leadsOwner = 'all';
+    document.querySelectorAll('#view-leads .filter-btn').forEach(b => b.classList.remove('active'));
+    if(state.leadsMcMin > 0) btn.classList.add('active');
+    else document.querySelector('#view-leads .filter-btn[data-owner="all"]').classList.add('active');
+  }
+  state.leadsPage = 0;
+  renderLeads();
+});
+
+// Leads sort
+document.querySelector('#leads-table thead').addEventListener('click', e => {
+  const th = e.target.closest('th');
+  if(!th) return;
+  const cols = ['nom','email','fonction','mc_count','statut','owner','conn_elodie'];
+  const idx = Array.from(th.parentNode.children).indexOf(th);
+  if(idx >= 0 && cols[idx]) {
+    if(state.leadsSortCol === cols[idx]) state.leadsSortDir *= -1;
+    else { state.leadsSortCol = cols[idx]; state.leadsSortDir = -1; }
+    renderLeads();
+  }
+});
+
+// Alumni filters
+document.querySelector('#view-alumni .table-toolbar').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  state.alumniBootcamp = btn.dataset.bootcamp;
+  document.querySelectorAll('#view-alumni .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAlumni();
+});
+
+document.getElementById('alumni-search').addEventListener('input', e => {
+  state.alumniSearch = e.target.value;
+  renderAlumni();
+});
+
+// ===== RENDER CLIENTS =====
+function getClients() {
+  const clients = [];
+  DATA.bootcamp.filter(b => b.statut === 'inscrit').forEach(b => {
+    clients.push({nom: b.nom, email: b.email||'', entreprise: b.entreprise||'', type: 'bootcamp4', montant: b.montant||0, owner: b.owner||''});
+  });
+  DATA.alumni.forEach(a => {
+    const already = clients.find(c => c.email && a.email && c.email.toLowerCase() === a.email.toLowerCase());
+    if(!already) {
+      clients.push({nom: `${a.prenom} ${a.nom}`, email: a.email||'', entreprise: a.entreprise||'', type: 'alumni', montant: 0, owner: a.owner||''});
+    }
+  });
+  DATA.projets.filter(p => p.stade === 'GAGNE').forEach(p => {
+    clients.push({nom: p.projet, email: '', entreprise: '', type: 'projet', montant: p.montant||0, owner: p.owner||''});
+  });
+  return clients;
+}
+
+function renderClients() {
+  const allClients = getClients();
+  let filtered = [...allClients];
+  if(state.clientsType !== 'all') filtered = filtered.filter(c => c.type === state.clientsType);
+  if(state.clientsSearch) {
+    const q = state.clientsSearch.toLowerCase();
+    filtered = filtered.filter(c => `${c.nom} ${c.email} ${c.entreprise}`.toLowerCase().includes(q));
+  }
+
+  const b4 = allClients.filter(c=>c.type==='bootcamp4');
+  const al = allClients.filter(c=>c.type==='alumni');
+  const pr = allClients.filter(c=>c.type==='projet');
+  const revClients = allClients.reduce((s,c)=>s+(c.montant||0),0);
+
+  document.getElementById('badge-clients').textContent = allClients.length;
+  document.getElementById('kpi-clients').innerHTML = `
+    <div class="kpi"><div class="label">Total clients</div><div class="value green">${allClients.length}</div></div>
+    <div class="kpi"><div class="label">Bootcamp #4</div><div class="value pink">${b4.length}</div></div>
+    <div class="kpi"><div class="label">Alumni B1-B3</div><div class="value blue">${al.length}</div></div>
+    <div class="kpi"><div class="label">Projets gagnes</div><div class="value orange">${pr.length}</div></div>
+  `;
+
+  document.getElementById('clients-count').textContent = filtered.length + ' client' + (filtered.length>1?'s':'');
+
+  document.querySelector('#clients-table tbody').innerHTML = filtered.map(c => `
+    <tr>
+      <td class="td-name">${esc(c.nom)}</td>
+      <td class="td-email">${esc(c.email)}</td>
+      <td>${esc(c.entreprise)}</td>
+      <td><span class="type-badge type-${c.type}">${c.type === 'bootcamp4' ? 'Bootcamp #4' : c.type === 'alumni' ? 'Alumni' : 'Projet'}</span></td>
+      <td class="td-amount">${c.montant ? fmtEur(c.montant) : '-'}</td>
+      <td><span class="owner-tag ${ownerClass(c.owner)}">${esc(c.owner)}</span></td>
+    </tr>
+  `).join('');
+}
+
+// Clients events
+document.getElementById('clients-search').addEventListener('input', e => {
+  state.clientsSearch = e.target.value;
+  renderClients();
+});
+document.querySelector('#view-clients .table-toolbar').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if(!btn || !btn.dataset.clientType) return;
+  state.clientsType = btn.dataset.clientType;
+  document.querySelectorAll('#view-clients .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderClients();
+});
+
+// Revenue tabs
+document.getElementById('revenue-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if(!tab) return;
+  document.querySelectorAll('#revenue-tabs .tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  state.revenuePeriod = tab.dataset.period;
+  renderRevenue();
+});
+
+// ===== MAIN RENDER =====
+function render() {
+  switch(state.currentView) {
+    case 'dashboard': renderDashboard(); break;
+    case 'projets': renderProjets(); break;
+    case 'bootcamp': renderBootcamp(); break;
+    case 'leads': renderLeads(); break;
+    case 'alumni': renderAlumni(); break;
+    case 'revenue': renderRevenue(); break;
+    case 'commissions': renderCommissions(); break;
+    case 'clients': renderClients(); break;
+  }
+}
+
+// Init
+render();
+</script>
+</body>
+</html>
