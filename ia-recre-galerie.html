@@ -314,13 +314,13 @@
   <div id="galleryContainer" class="gallery-container">
     <div class="gallery-header">
       <h1>Galerie Saison 2</h1>
-      <p>115 photos — 21 Mars 2026 — Artifex Lab, Paris</p>
+      <p>105 photos — 21 Mars 2026 — Artifex Lab, Paris</p>
     </div>
 
     <div class="gallery-tabs">
       <button class="gallery-tab active" onclick="filterGallery('all')">Tout</button>
       <button class="gallery-tab" onclick="filterGallery('event')">L'Event</button>
-      <button class="gallery-tab" onclick="filterGallery('dessin')">Dessins des Enfants</button>
+      <button class="gallery-tab" onclick="filterGallery('dessin')">Créations des Enfants</button>
       <button class="gallery-tab" onclick="filterGallery('art')">Univers Arnaud</button>
     </div>
 
@@ -376,21 +376,116 @@
     }
 
     // --- Gallery ---
-    const DESSIN_IDS = [0, 15, 23, 25, 34, 50, 52, 57];
-    const allImages = [];
-
-    // Event photos (event_XXX) — skip the ones that are dessins
-    for (let i = 0; i < 60; i++) {
-      if (DESSIN_IDS.includes(i)) {
-        allImages.push({ src: `galerie/dessin_${String(i).padStart(3,'0')}.jpg`, cat: 'dessin' });
-      } else {
-        allImages.push({ src: `galerie/event_${String(i).padStart(3,'0')}.jpg`, cat: 'event' });
-      }
-    }
-    // Univers Arnaud
-    for (let i = 60; i < 115; i++) {
-      allImages.push({ src: `galerie/univers-arnaud_${String(i).padStart(3,'0')}.jpg`, cat: 'art' });
-    }
+    const allImages = [
+      // Créations des enfants (dessins + pâte à modeler)
+      { src: 'galerie/dessin_000.jpg', cat: 'dessin' },
+      { src: 'galerie/dessin_015.jpg', cat: 'dessin' },
+      { src: 'galerie/dessin_042.jpg', cat: 'dessin' },
+      { src: 'galerie/dessin_052.jpg', cat: 'dessin' },
+      { src: 'galerie/dessin_057.jpg', cat: 'dessin' },
+      { src: 'galerie/dessin_060.jpg', cat: 'dessin' },
+      // Photos de l'event
+      { src: 'galerie/event_001.jpg', cat: 'event' },
+      { src: 'galerie/event_002.jpg', cat: 'event' },
+      { src: 'galerie/event_004.jpg', cat: 'event' },
+      { src: 'galerie/event_005.jpg', cat: 'event' },
+      { src: 'galerie/event_007.jpg', cat: 'event' },
+      { src: 'galerie/event_008.jpg', cat: 'event' },
+      { src: 'galerie/event_010.jpg', cat: 'event' },
+      { src: 'galerie/event_012.jpg', cat: 'event' },
+      { src: 'galerie/event_013.jpg', cat: 'event' },
+      { src: 'galerie/event_014.jpg', cat: 'event' },
+      { src: 'galerie/event_017.jpg', cat: 'event' },
+      { src: 'galerie/event_019.jpg', cat: 'event' },
+      { src: 'galerie/event_021.jpg', cat: 'event' },
+      { src: 'galerie/event_024.jpg', cat: 'event' },
+      { src: 'galerie/event_025.jpg', cat: 'event' },
+      { src: 'galerie/event_026.jpg', cat: 'event' },
+      { src: 'galerie/event_027.jpg', cat: 'event' },
+      { src: 'galerie/event_029.jpg', cat: 'event' },
+      { src: 'galerie/event_030.jpg', cat: 'event' },
+      { src: 'galerie/event_031.jpg', cat: 'event' },
+      { src: 'galerie/event_032.jpg', cat: 'event' },
+      { src: 'galerie/event_033.jpg', cat: 'event' },
+      { src: 'galerie/event_034.jpg', cat: 'event' },
+      { src: 'galerie/event_036.jpg', cat: 'event' },
+      { src: 'galerie/event_038.jpg', cat: 'event' },
+      { src: 'galerie/event_039.jpg', cat: 'event' },
+      { src: 'galerie/event_041.jpg', cat: 'event' },
+      { src: 'galerie/event_043.jpg', cat: 'event' },
+      { src: 'galerie/event_044.jpg', cat: 'event' },
+      { src: 'galerie/event_045.jpg', cat: 'event' },
+      { src: 'galerie/event_046.jpg', cat: 'event' },
+      { src: 'galerie/event_048.jpg', cat: 'event' },
+      { src: 'galerie/event_049.jpg', cat: 'event' },
+      { src: 'galerie/event_050.jpg', cat: 'event' },
+      { src: 'galerie/event_051.jpg', cat: 'event' },
+      { src: 'galerie/event_053.jpg', cat: 'event' },
+      { src: 'galerie/event_054.jpg', cat: 'event' },
+      { src: 'galerie/event_055.jpg', cat: 'event' },
+      { src: 'galerie/event_056.jpg', cat: 'event' },
+      { src: 'galerie/event_059.jpg', cat: 'event' },
+      { src: 'galerie/event_060.jpg', cat: 'event' },
+      { src: 'galerie/event_061.jpg', cat: 'event' },
+      { src: 'galerie/event_062.jpg', cat: 'event' },
+      { src: 'galerie/event_063.jpg', cat: 'event' },
+      // Univers Arnaud
+      { src: 'galerie/univers-arnaud_060.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_061.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_062.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_063.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_064.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_065.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_066.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_067.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_068.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_069.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_070.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_071.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_072.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_073.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_074.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_075.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_076.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_077.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_078.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_079.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_080.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_081.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_082.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_083.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_084.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_085.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_086.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_087.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_088.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_089.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_090.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_091.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_092.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_093.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_094.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_095.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_096.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_097.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_098.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_099.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_100.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_101.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_102.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_103.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_104.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_105.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_106.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_107.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_108.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_109.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_110.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_111.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_112.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_113.jpg', cat: 'art' },
+      { src: 'galerie/univers-arnaud_114.jpg', cat: 'art' },
+    ];
 
     let currentFilter = 'all';
     let filteredImages = [];
