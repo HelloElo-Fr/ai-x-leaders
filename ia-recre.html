@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IA Récré — Battle Royale Créatif</title>
-  <meta name="description" content="IA Récré : l'atelier Battle Royale Créatif où les enfants de 8 à 14 ans créent avec l'IA. 21 Mars 2026 au Théâtre de l'IA avec l'artiste Arnaud Weber.">
+  <title>IA Récré — Retour sur la Saison 2</title>
+  <meta name="description" content="IA Récré Saison 2 : 20 enfants, 4 films créés en 4 heures avec l'IA. Découvrez les courts-métrages et le recap de cet atelier créatif inédit.">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="IA Récré — Battle Royale Créatif">
-  <meta property="og:description" content="L'atelier où les enfants créent avec l'IA. 21 Mars 2026 au Théâtre de l'IA.">
+  <meta property="og:title" content="IA Récré — Retour sur la Saison 2">
+  <meta property="og:description" content="20 enfants, 4 films créés en 4 heures avec l'IA. Découvrez les créations de la Saison 2.">
   <meta property="og:type" content="website">
 
   <!-- Favicon -->
@@ -994,6 +994,178 @@
       font-weight: 700;
     }
 
+    /* ===== FILMS GRID ===== */
+    .films-section { margin-bottom: 80px; }
+    .films-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .film-card {
+      background: var(--fn-card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.08);
+      transition: 0.3s;
+    }
+    .film-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--fn-yellow);
+      box-shadow: 0 0 30px rgba(247, 234, 21, 0.15);
+    }
+    .film-card iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: block;
+      border: none;
+    }
+    .film-card-info {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .film-card-info h3 {
+      font-family: var(--font-action);
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      color: white;
+    }
+    .films-subtitle {
+      text-align: center;
+      color: #ccc;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-top: -30px;
+      margin-bottom: 40px;
+    }
+
+    /* ===== RECAP VIDEO ===== */
+    .recap-video-section {
+      margin-bottom: 80px;
+      text-align: center;
+    }
+    .recap-video-wrap {
+      max-width: 350px;
+      margin: 0 auto 24px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 3px solid var(--fn-purple);
+      box-shadow: 0 0 40px rgba(133, 45, 242, 0.25);
+    }
+    .recap-video-wrap iframe {
+      width: 100%;
+      aspect-ratio: 9/16;
+      display: block;
+      border: none;
+    }
+    .recap-newsletter-link {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--fn-purple);
+      color: white;
+      font-family: var(--font-action);
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      border-radius: 8px;
+      transition: 0.2s;
+      transform: skewX(-5deg);
+    }
+    .recap-newsletter-link:hover {
+      background: #9b4dff;
+      box-shadow: 0 0 20px rgba(133, 45, 242, 0.4);
+      transform: skewX(-5deg) scale(1.05);
+    }
+
+    /* ===== STORY STUDIO COMING SOON ===== */
+    .story-studio-section {
+      margin-bottom: 0;
+      padding: 80px 0;
+    }
+    .story-studio-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #852DF2 0%, #0078FF 50%, #852DF2 100%);
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .story-studio-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.12;
+      background-image: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.2) 20px, rgba(255,255,255,0.2) 40px);
+    }
+    .story-studio-card > * { position: relative; z-index: 1; }
+    .story-studio-badge {
+      display: inline-block;
+      background: var(--fn-yellow);
+      color: black;
+      font-family: var(--font-action);
+      font-size: 0.85rem;
+      padding: 6px 18px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 10px rgba(247, 234, 21, 0.3); }
+      50% { box-shadow: 0 0 30px rgba(247, 234, 21, 0.6), 0 0 60px rgba(247, 234, 21, 0.2); }
+    }
+    .story-studio-card h2 {
+      font-family: var(--font-action);
+      font-size: clamp(3rem, 6vw, 5rem);
+      color: white;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+    }
+    .story-studio-card .studio-desc {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.15rem;
+      font-weight: 700;
+      max-width: 600px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+    .story-studio-form {
+      display: flex;
+      gap: 12px;
+      max-width: 460px;
+      margin: 0 auto;
+      justify-content: center;
+    }
+    .story-studio-form input[type="email"] {
+      flex: 1;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      padding: 14px 18px;
+      color: white;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      backdrop-filter: blur(4px);
+    }
+    .story-studio-form input[type="email"]::placeholder { color: rgba(255,255,255,0.6); }
+    .story-studio-form input[type="email"]:focus { outline: none; border-color: var(--fn-yellow); }
+    .story-studio-form button {
+      background: var(--fn-yellow);
+      color: black;
+      font-family: var(--font-action);
+      font-size: 1rem;
+      padding: 14px 24px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: 0.2s;
+    }
+    .story-studio-form button:hover {
+      background: white;
+      box-shadow: 0 0 20px rgba(247, 234, 21, 0.4);
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 900px) {
       .artist-card { min-height: 20rem; }
@@ -1025,6 +1197,10 @@
       .recap-main blockquote { font-size: 1.4rem; }
       .mission-stat-card .big-num { font-size: 3rem; }
       .team-grid { grid-template-columns: 1fr 1fr; }
+      .films-grid { grid-template-columns: 1fr; }
+      .story-studio-card { padding: 40px 20px; }
+      .story-studio-form { flex-direction: column; }
+      .recap-video-wrap { max-width: 280px; }
     }
     @media (max-width: 480px) {
       .nav-logo { font-size: 1.4rem; }
@@ -1044,14 +1220,14 @@
     <div class="nav-left">
       <div class="nav-logo"><img src="logo-ia-recre.png" alt="IA Recre"></div>
       <div class="nav-links">
-        <a href="#mission">Programme</a>
+        <a href="#films">Les Films</a>
         <a href="#equipe">L'Equipe</a>
-        <a href="#faq">FAQ</a>
+        <a href="#saison2">Saison 2</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
     <div class="nav-right">
-      <a href="ia-recre-inscription.html" class="nav-btn-primary">S'inscrire</a>
+      <a href="#films" class="nav-btn-primary">Les Films</a>
     </div>
   </nav>
 
@@ -1071,25 +1247,25 @@
         ></video>
         <button id="soundToggle" class="sound-toggle" aria-label="Activer le son">🔇</button>
       </div>
-      <p class="hero-tagline">L'ATELIER OU LES ENFANTS CREENT AVEC L'IA.</p>
+      <p class="hero-tagline">20 ENFANTS. 4 FILMS. 4 HEURES. PURE IA.</p>
     </section>
 
     <!-- ===== LOOT INFO CARDS ===== -->
     <div class="loot-grid">
       <div class="loot-card yellow">
-        <div class="loot-emoji">📅</div>
-        <h3>Samedi 21 Mars</h3>
-        <p>09h30 — 14h00</p>
+        <div class="loot-emoji">👾</div>
+        <h3>20 Enfants</h3>
+        <p>De 8 a 14 ans</p>
       </div>
       <div class="loot-card purple">
-        <div class="loot-emoji">📍</div>
-        <h3>Artifex Lab</h3>
-        <p>10 Rue la Vacquerie, 75011 Paris</p>
+        <div class="loot-emoji">🎬</div>
+        <h3>4 Films Crees</h3>
+        <p>Courts-metrages 100% IA</p>
       </div>
       <div class="loot-card blue">
         <div class="loot-emoji">⚡</div>
-        <h3>50&euro; / enfant</h3>
-        <p>Dejeuner inclus // 20 places max</p>
+        <h3>4 Heures</h3>
+        <p>De creation non-stop</p>
       </div>
     </div>
 
@@ -1133,6 +1309,51 @@
         </div>
       </div>
     </div>
+
+    <!-- ===== LES FILMS DES ENFANTS ===== -->
+    <section class="films-section" id="films">
+      <h2 class="section-title">Les Films des Enfants</h2>
+      <p class="films-subtitle">4 courts-metrages crees en 4 heures par des enfants de 8 a 14 ans</p>
+      <div class="films-grid">
+        <div class="film-card">
+          <iframe src="https://www.youtube.com/embed/plXHiHl5vuc" title="Coucher de Soleil sur Monstroville" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          <div class="film-card-info">
+            <span class="rarity-badge rarity-legendary">Legendaire</span>
+            <h3>Coucher de Soleil sur Monstroville</h3>
+          </div>
+        </div>
+        <div class="film-card">
+          <iframe src="https://www.youtube.com/embed/YKYOM0zA1p4" title="Ananas Party" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          <div class="film-card-info">
+            <span class="rarity-badge rarity-epic">Epique</span>
+            <h3>Ananas Party</h3>
+          </div>
+        </div>
+        <div class="film-card">
+          <iframe src="https://www.youtube.com/embed/_r2jIvTJQ9s" title="Pataplof" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          <div class="film-card-info">
+            <span class="rarity-badge rarity-rare">Rare</span>
+            <h3>Pataplof</h3>
+          </div>
+        </div>
+        <div class="film-card">
+          <iframe src="https://www.youtube.com/embed/H1vZp-uc2Y8" title="Le Guerrier des Cabanes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          <div class="film-card-info">
+            <span class="rarity-badge rarity-legendary">Legendaire</span>
+            <h3>Le Guerrier des Cabanes</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RECAP VIDEO ===== -->
+    <section class="recap-video-section">
+      <h2 class="section-title">Le Recap en 60 Secondes</h2>
+      <div class="recap-video-wrap">
+        <iframe src="https://www.youtube.com/embed/eVuWqFyjut4" title="Recap IA Recre Saison 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <a href="https://aixleaders.substack.com/p/ia-recre-saison-2-20-enfants-4-films" target="_blank" class="recap-newsletter-link">Lire l'article complet &rarr;</a>
+    </section>
 
     <!-- ===== MISSION BRIEFING ===== -->
     <section class="mission-section" id="mission">
@@ -1284,23 +1505,24 @@
       </div>
     </div>
 
-    <!-- ===== 1ERE EDITION (RECAP) ===== -->
-    <section class="recap-section" id="edition1">
-      <h2 class="section-title">1ere Edition</h2>
+    <!-- ===== RETOUR SAISON 2 ===== -->
+    <section class="recap-section" id="saison2">
+      <h2 class="section-title">Retour sur la Saison 2</h2>
       <div class="recap-grid">
         <div class="recap-main">
-          <blockquote>"Ils ont bluffe l'IA elle-meme !"</blockquote>
-          <p>Lors de la premiere edition d'IA Recre, 20 enfants ont cree des oeuvres bluffantes en seulement 3 heures. Des portraits fantastiques aux clips musicaux generes par IA, chaque squad a repousse les limites de la creativite numerique.</p>
-          <p>L'energie creative etait incroyable : les enfants ont non seulement appris a utiliser les outils IA, mais ils ont invente de nouvelles facons de les combiner. Certains projets ont meme surpris l'artiste encadrant !</p>
+          <blockquote>"4 films en 4 heures. Par des enfants."</blockquote>
+          <p>Le 21 mars 2026, 20 enfants ont investi le Theatre de l'IA a Artifex Lab. Repartis en 4 squads, ils ont imagine, scenarie et produit 4 courts-metrages complets en seulement 4 heures — de l'ecriture au montage, entierement avec des outils d'IA generative.</p>
+          <p>Des monstres de Monstroville a la fete de l'ananas, en passant par les aventures de Pataplof et un guerrier des cabanes, chaque film porte la signature unique de ses jeunes createurs. L'energie etait electrique, la creativite sans limites.</p>
+          <a href="https://aixleaders.substack.com/p/ia-recre-saison-2-20-enfants-4-films" target="_blank" class="recap-newsletter-link" style="margin-top: 8px; font-size: 0.9rem;">Lire le recap complet &rarr;</a>
         </div>
         <div class="recap-col">
           <div class="recap-temo blue">
-            <h4>8-9 ans</h4>
-            <p>"On a fait un monstre trop stylé avec l'IA et apres on lui a fait chanter une chanson !" — Participants de la 1ere edition</p>
+            <h4>Les Petits (8-9 ans)</h4>
+            <p>"On a fait un monstre trop style avec l'IA et apres on lui a fait chanter une chanson !" — Squad Monstroville</p>
           </div>
           <div class="recap-temo gold">
-            <h4>10-14 ans</h4>
-            <p>"J'ai cree un clip video complet en 2 heures, c'est le truc le plus cool que j'ai fait de ma vie !" — Participants de la 1ere edition</p>
+            <h4>Les Grands (10-14 ans)</h4>
+            <p>"J'ai cree un film complet en 4 heures, c'est le truc le plus cool que j'ai fait de ma vie !" — Squad Guerrier des Cabanes</p>
           </div>
         </div>
       </div>
@@ -1320,15 +1542,15 @@
 
     <!-- ===== FAQ PARENTS ===== -->
     <section class="faq-section" id="faq">
-      <h2 class="section-title">FAQ Parents</h2>
+      <h2 class="section-title">FAQ</h2>
       <div class="faq-list">
         <div class="faq-item">
-          <h4>Combien ca coute ?</h4>
-          <p>50&euro; par enfant (1 parent accompagnateur inclus). Le dejeuner enfant est inclus dans le prix.</p>
+          <h4>C'est quoi IA Recre ?</h4>
+          <p>Un atelier creatif ou des enfants de 8 a 14 ans creent des films, de la musique et des images avec l'IA, encadres par des artistes et l'equipe IA Recre.</p>
         </div>
         <div class="faq-item">
-          <h4>Comment s'inscrire ?</h4>
-          <p>Via notre formulaire en ligne. Les places sont limitees a 20 enfants par session.</p>
+          <h4>Quand aura lieu la prochaine edition ?</h4>
+          <p>La Saison 3 est en preparation ! Inscrivez-vous a notre newsletter pour etre prevenu des prochaines dates.</p>
         </div>
         <div class="faq-item">
           <h4>Faut-il des pre-requis ?</h4>
@@ -1339,8 +1561,8 @@
           <p>Arnaud Weber (artiste IA) et l'equipe IA Recre. Ratio 1 adulte pour 5 enfants. Les leaders de squads sont des kids de 10-14 ans formes par l'equipe.</p>
         </div>
         <div class="faq-item">
-          <h4>Combien de places ?</h4>
-          <p>20 places max par session. Premier arrive, premier servi !</p>
+          <h4>C'est quoi Story Studio ?</h4>
+          <p>Une app pour creer des films avec l'IA, nee de l'experience IA Recre. Bientot disponible — inscrivez-vous pour etre prevenu !</p>
         </div>
       </div>
     </section>
@@ -1358,15 +1580,33 @@
   </div>
 
   <!-- ===== CTA FINAL ===== -->
-  <section class="cta-ready" id="inscription">
+  <section class="cta-ready" id="saison2-cta">
     <div class="container">
       <div class="cta-ready-card">
         <div class="cta-ready-content">
           <div class="cta-logo-text"><img src="logo-ia-recre.png" alt="IA Recre" style="height: clamp(80px, 12vw, 160px); width: auto;"></div>
-          <p>50&euro; / enfant + 1 parent &bull; Dejeuner inclus &bull; 20 places max</p>
-          <a href="ia-recre-inscription.html" class="btn-fn">RESERVER MON SLOT</a>
-          <div class="cta-ready-date">21 MARS 2026 &bull; 09h30 - 14h00 &bull; ARTIFEX LAB, PARIS 11e</div>
+          <p>20 enfants &bull; 4 films &bull; 4 heures &bull; 100% IA</p>
+          <a href="#films" class="btn-fn">DECOUVRIR LES FILMS</a>
+          <div class="cta-ready-date">SAISON 2 &bull; 21 MARS 2026 &bull; ARTIFEX LAB, PARIS 11e</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STORY STUDIO COMING SOON ===== -->
+  <section class="story-studio-section">
+    <div class="container">
+      <div class="story-studio-card">
+        <span class="story-studio-badge">Coming Soon</span>
+        <h2>Story Studio</h2>
+        <p class="studio-desc">L'app qui permet aux enfants de creer leurs propres films avec l'IA. Nee de l'experience IA Recre, Story Studio arrive bientot.</p>
+        <form class="story-studio-form" action="https://formsubmit.co/elodie@lightmeup.io" method="POST">
+          <input type="hidden" name="_subject" value="Story Studio - Alerte lancement">
+          <input type="hidden" name="_next" value="https://ia-recre.com/ia-recre.html">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="email" name="email" placeholder="Ton email pour etre prevenu" required>
+          <button type="submit">Me prevenir</button>
+        </form>
       </div>
     </div>
   </section>
@@ -1416,9 +1656,10 @@
         <div>
           <h4>Liens</h4>
           <ul>
+            <li><a href="https://aixleaders.substack.com/p/ia-recre-saison-2-20-enfants-4-films" target="_blank">Recap Saison 2</a></li>
             <li><a href="https://aixleaders.substack.com" target="_blank">Newsletter AI x Leaders</a></li>
             <li><a href="https://artifex-lab.com" target="_blank">Artifex Lab</a></li>
-            <li><a href="ia-recre-inscription.html">S'inscrire</a></li>
+            <li><a href="#films">Les Films</a></li>
           </ul>
         </div>
         <div>
@@ -1426,7 +1667,7 @@
           <ul>
             <li><a href="#mission">Le concept</a></li>
             <li><a href="#artiste">L'artiste</a></li>
-            <li><a href="#edition1">1ere edition</a></li>
+            <li><a href="#saison2">Saison 2</a></li>
           </ul>
         </div>
       </div>
