@@ -262,8 +262,8 @@ textarea.modal-input{min-height:60px;resize:vertical}
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
     <div class="chart-container">
-      <h3>Top 10 Leads les plus engages</h3>
-      <div id="top-leads"></div>
+      <h3>Actions recommandees</h3>
+      <div id="sales-tips"></div>
     </div>
     <div class="chart-container">
       <h3>Derniers projets actifs</h3>
@@ -529,15 +529,27 @@ function renderDashboard() {
     </div>
   `).join('');
 
-  // Top leads
-  const topLeads = [...DATA.leads].sort((a,b) => (b.mc_count||0) - (a.mc_count||0)).slice(0,10);
-  document.getElementById('top-leads').innerHTML = topLeads.map(l => `
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
-      <div><span style="font-weight:600;font-size:0.85rem">${esc(l.prenom)} ${esc(l.nom)}</span>
-      ${l.fonction?`<span style="color:var(--text-muted);font-size:0.75rem;margin-left:8px">${esc(l.fonction)}</span>`:''}</div>
-      ${mcBar(l.mc_count)}
+  // Sales tips
+  const tips = [];
+  const closingProjects = DATA.projets.filter(p => p.stade === 'CLOSING');
+  closingProjects.forEach(p => tips.push({icon:'&#128293;', text:`<strong>${esc(p.projet)}</strong> est en closing (${fmtEur(p.montant)}) — relancer pour signer cette semaine`, priority:1}));
+  const relanceProj = DATA.projets.filter(p => p.stade === 'RELANCE');
+  relanceProj.forEach(p => tips.push({icon:'&#9888;', text:`<strong>${esc(p.projet)}</strong> en relance — planifier un call de suivi`, priority:2}));
+  const actionProj = DATA.projets.filter(p => p.stade === 'ACTION');
+  actionProj.forEach(p => tips.push({icon:'&#9997;', text:`<strong>${esc(p.projet)}</strong> — ${esc(p.notes) || 'action requise'}`, priority:2}));
+  const propositionProj = DATA.projets.filter(p => p.stade === 'PROPOSITION');
+  propositionProj.forEach(p => tips.push({icon:'&#128172;', text:`<strong>${esc(p.projet)}</strong> — proposition envoyee, relancer dans 48h`, priority:3}));
+  const bootcampAttente = DATA.bootcamp.filter(b => b.statut === 'attente');
+  if(bootcampAttente.length) tips.push({icon:'&#128161;', text:`<strong>${bootcampAttente.length} leads bootcamp en attente</strong> — relancer avec offre de bouclage`, priority:2});
+  const newLeads = DATA.bootcamp.filter(b => b.statut === 'nouveau_lead');
+  if(newLeads.length > 5) tips.push({icon:'&#127775;', text:`<strong>${newLeads.length} nouveaux leads bootcamp</strong> — qualifier et prendre RDV`, priority:3});
+  tips.sort((a,b) => a.priority - b.priority);
+  document.getElementById('sales-tips').innerHTML = tips.slice(0,8).map(t => `
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+      <span style="font-size:1.1rem;flex-shrink:0">${t.icon}</span>
+      <span style="font-size:0.8rem;color:var(--text-secondary);line-height:1.5">${t.text}</span>
     </div>
-  `).join('');
+  `).join('') || '<div style="padding:16px 0;color:var(--text-muted)">Aucune action urgente</div>';
 
   // Recent projects
   const activeProj = DATA.projets.filter(p => ['EN COURS','CLOSING','PROPOSITION','ACTION'].includes(p.stade));
