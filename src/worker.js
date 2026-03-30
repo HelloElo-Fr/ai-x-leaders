@@ -258,6 +258,16 @@ function surveyAdminPage(allData) {
       }
       sessionsHtml += '</div></div>';
     }
+    // Comments
+    const comments = data.votes.filter(v => v.answers.comment).map(v => v.answers.comment);
+    if (comments.length > 0) {
+      sessionsHtml += '<div class="question-block"><h3>Commentaires</h3><div class="comments-list">';
+      for (const c of comments) {
+        sessionsHtml += `<div class="comment-item">${c.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>`;
+      }
+      sessionsHtml += '</div></div>';
+    }
+
     sessionsHtml += '</div>';
   }
 
@@ -290,6 +300,8 @@ h1 em{color:var(--pink);font-style:italic}
 .bar-track{flex:1;height:28px;background:rgba(255,255,255,0.04);border-radius:8px;overflow:hidden}
 .bar-fill{height:100%;background:linear-gradient(90deg,var(--pink),#8B5CF6);border-radius:8px;transition:width 0.5s ease;min-width:2px}
 .bar-value{width:70px;text-align:right;font-size:0.8rem;color:var(--text-muted);flex-shrink:0}
+.comments-list{display:flex;flex-direction:column;gap:8px}
+.comment-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 16px;font-size:0.85rem;color:#d1d5db;line-height:1.5;font-style:italic}
 @media(max-width:600px){.bar-label{width:100px;font-size:0.75rem}.bar-value{width:55px;font-size:0.72rem}}
 </style>
 </head>

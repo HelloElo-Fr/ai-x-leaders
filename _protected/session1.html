@@ -326,6 +326,27 @@
             background: rgba(255, 72, 170, 0.15);
             box-shadow: 0 0 12px rgba(255, 72, 170, 0.2);
         }
+        .survey-comment textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.85rem;
+            resize: vertical;
+            min-height: 70px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .survey-comment textarea::placeholder { color: var(--text-muted); }
+        .survey-comment textarea:focus { border-color: var(--pink); }
+        .survey-comment p {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
         .survey-thanks {
             text-align: center;
             padding: 24px;
@@ -398,6 +419,11 @@
                     <button class="emoji-btn" data-value="slow">&#128034; <span class="label">Trop lent</span></button>
                     <button class="emoji-btn" data-value="more">&#129321; <span class="label">J'en veux plus !</span></button>
                 </div>
+            </div>
+
+            <div class="survey-question survey-comment" data-q="comment">
+                <p>Un mot, une id&eacute;e, un souhait ? &#128221;</p>
+                <textarea id="surveyComment" placeholder="Dis-nous ce que tu veux... (optionnel)"></textarea>
             </div>
         </div>
         <div class="survey-thanks" id="surveyThanks">&#10024; Merci pour ton retour ! &Agrave; la semaine prochaine &#128640;</div>
@@ -541,7 +567,9 @@
         }
 
         const answers = {};
-        const totalQuestions = surveyBox.querySelectorAll('.survey-question').length;
+        const emojiQuestions = surveyBox.querySelectorAll('.survey-question:not(.survey-comment)');
+        const totalQuestions = emojiQuestions.length;
+        const commentEl = document.getElementById('surveyComment');
 
         surveyBox.querySelectorAll('.emoji-btn').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -554,14 +582,16 @@
 
                 answers[qName] = this.dataset.value;
 
-                // All questions answered?
+                // All emoji questions answered?
                 if (Object.keys(answers).length === totalQuestions) {
-                    localStorage.setItem(SESSION_KEY, JSON.stringify(answers));
+                    const comment = commentEl ? commentEl.value.trim() : '';
+                    const payload = comment ? { ...answers, comment } : { ...answers };
+                    localStorage.setItem(SESSION_KEY, JSON.stringify(payload));
                     // Send to server
                     fetch('/api/survey', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ session: 'session1', answers })
+                        body: JSON.stringify({ session: 'session1', answers: payload })
                     }).catch(() => {});
                     setTimeout(() => {
                         surveyBox.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
