@@ -294,6 +294,36 @@ export default {
       });
     }
 
+    // ── GET /session1 (et autres pages de session protegees) ──
+    const sessionMatch = url.pathname.match(/^\/(session\d+)$/);
+    if (sessionMatch) {
+      if (!secret) {
+        return new Response('DASHBOARD_PASSWORD non configure.', { status: 500 });
+      }
+      const isAuth = await verifySession(request.headers.get('Cookie'), secret);
+      if (!isAuth) {
+        return new Response(loginPage(), {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      }
+      const pageName = sessionMatch[1];
+      const pageUrl = new URL(`/_protected/${pageName}.html`, url.origin);
+      const pageReq = new Request(pageUrl.toString(), { headers: request.headers });
+      const pageRes = await env.ASSETS.fetch(pageReq);
+      if (pageRes.status === 404) {
+        return new Response('Not Found', { status: 404 });
+      }
+      const html = await pageRes.text();
+      return new Response(html, {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'private, no-cache',
+        },
+      });
+    }
+
     // ── API : chatbot Elo IA ──
     if (url.pathname === '/api/chat' && request.method === 'POST') {
       const apiKey = env.ANTHROPIC_API_KEY;
