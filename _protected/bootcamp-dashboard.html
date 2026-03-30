@@ -365,76 +365,67 @@
         }
 
         /* Progress bar */
-        .progress-section { margin-bottom: 28px; }
-        .progress-header {
+        .progress-section {
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 12px;
-        }
-        .progress-header .progress-label {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-        .progress-header .progress-pct {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--pink-light);
-        }
-        .progress-track {
-            width: 100%;
-            height: 16px;
+            align-items: center;
+            gap: 16px;
             background: var(--bg-card);
-            border-radius: 10px;
             border: 1px solid var(--border);
+            border-radius: 60px;
+            padding: 10px 20px;
+            margin-bottom: 28px;
+        }
+        .progress-label {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .progress-steps {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+        }
+        .progress-step {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.06);
+            position: relative;
             overflow: hidden;
-            position: relative;
         }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--pink), #8B5CF6);
-            border-radius: 10px;
-            transition: width 1s ease;
-            position: relative;
+        .progress-step.done {
+            background: var(--pink);
+            box-shadow: 0 0 8px rgba(255, 72, 170, 0.3);
         }
-        .progress-fill::after {
+        .progress-step.current {
+            background: rgba(255, 72, 170, 0.2);
+            border: 1px solid rgba(255, 72, 170, 0.4);
+        }
+        .progress-step.current::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
-            animation: shimmer 2s infinite;
-        }
-        @keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
-        .progress-dots {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 6px;
-            padding: 0 2px;
-        }
-        .progress-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--border);
-        }
-        .progress-dot.done {
-            background: var(--pink);
-            box-shadow: 0 0 6px rgba(255, 72, 170, 0.4);
-        }
-        .progress-dot.current {
+            top: 0; left: 0; bottom: 0;
+            width: 40%;
             background: var(--pink-light);
-            box-shadow: 0 0 8px rgba(255, 72, 170, 0.6);
-            animation: pulse 2s infinite;
+            border-radius: 3px;
+            animation: currentPulse 2s ease-in-out infinite;
         }
-        @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.4)} }
-        .progress-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 8px;
-            font-size: 0.72rem;
-            color: var(--text-muted);
+        @keyframes currentPulse { 0%,100%{opacity:0.6} 50%{opacity:1} }
+        .progress-counter {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--pink-light);
+            white-space: nowrap;
+        }
+        @media (max-width: 600px) {
+            .progress-section { padding: 8px 14px; gap: 10px; }
+            .progress-label { display: none; }
         }
 
         /* Week grid */
@@ -658,31 +649,22 @@
         </header>
 
         <div class="progress-section">
-            <div class="progress-header">
-                <span class="progress-label">&#127942; Progression du bootcamp</span>
-                <span class="progress-pct">1/12 &mdash; 8%</span>
+            <span class="progress-label">Semaine</span>
+            <div class="progress-steps">
+                <div class="progress-step done"></div>
+                <div class="progress-step current"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
             </div>
-            <div class="progress-track">
-                <div class="progress-fill" style="width: 8.33%"></div>
-            </div>
-            <div class="progress-dots">
-                <div class="progress-dot done"></div>
-                <div class="progress-dot current"></div>
-                <div class="progress-dot"></div>
-                <div class="progress-dot"></div>
-                <div class="progress-dot"></div>
-                <div class="progress-dot"></div>
-                <div class="progress-dot"></div>
-                <div class="progress-dot"></div>
-                <div class="progress-dot"></div>
-                <div class="progress-dot"></div>
-                <div class="progress-dot"></div>
-                <div class="progress-dot"></div>
-            </div>
-            <div class="progress-meta">
-                <span>27 mars</span>
-                <span>19 juin</span>
-            </div>
+            <span class="progress-counter">1/12</span>
         </div>
 
         <div class="quick-links">
