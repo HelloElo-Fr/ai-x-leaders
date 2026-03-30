@@ -426,7 +426,7 @@
                 <textarea id="surveyComment" placeholder="Dis-nous ce que tu veux... (optionnel)"></textarea>
             </div>
         </div>
-        <div class="survey-thanks" id="surveyThanks">&#10024; Merci pour ton retour ! &Agrave; la semaine prochaine &#128640;</div>
+        <div class="survey-thanks" id="surveyThanks">&#10024; Merci pour ton retour ! &Agrave; la semaine prochaine &#128640;<br><a href="#" id="surveyRedo" style="font-size:0.75rem;color:var(--text-muted);font-weight:400;margin-top:8px;display:inline-block">Refaire le survey</a></div>
 
         <!-- THEMES -->
         <div class="section-title"><span>&#127891;</span> Ce qu'on a fait cette semaine</div>
@@ -559,52 +559,79 @@
         const surveyBox = document.getElementById('surveyBox');
         const surveyThanks = document.getElementById('surveyThanks');
 
-        // Already answered? Hide survey, show thanks
-        if (localStorage.getItem(SESSION_KEY)) {
+        function hideSurveyShowThanks() {
+            surveyBox.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            surveyBox.style.opacity = '0';
+            surveyBox.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                surveyBox.style.display = 'none';
+                surveyThanks.style.display = 'block';
+                surveyThanks.style.animation = 'fadeIn 0.5s ease';
+            }, 500);
+        }
+
+        // Already answered AND confirmed by server? Hide survey
+        if (localStorage.getItem(SESSION_KEY) === 'confirmed') {
             surveyBox.style.display = 'none';
             surveyThanks.style.display = 'block';
             return;
         }
+        // Old format (before server check) — re-show survey
+        if (localStorage.getItem(SESSION_KEY) && localStorage.getItem(SESSION_KEY) !== 'confirmed') {
+            localStorage.removeItem(SESSION_KEY);
+        }
 
-        const answers = {};
-        const emojiQuestions = surveyBox.querySelectorAll('.survey-question:not(.survey-comment)');
-        const totalQuestions = emojiQuestions.length;
-        const commentEl = document.getElementById('surveyComment');
+        function initSurvey() {
+            surveyBox.style.display = '';
+            surveyBox.style.opacity = '1';
+            surveyBox.style.transform = '';
+            surveyThanks.style.display = 'none';
+            surveyBox.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
+            const commentEl = document.getElementById('surveyComment');
+            if (commentEl) commentEl.value = '';
 
-        surveyBox.querySelectorAll('.emoji-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const question = this.closest('.survey-question');
-                const qName = question.dataset.q;
+            const answers = {};
+            const emojiQuestions = surveyBox.querySelectorAll('.survey-question:not(.survey-comment)');
+            const totalQuestions = emojiQuestions.length;
 
-                // Deselect siblings
-                question.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
-                this.classList.add('selected');
+            surveyBox.querySelectorAll('.emoji-btn').forEach(btn => {
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+                newBtn.addEventListener('click', function() {
+                    const question = this.closest('.survey-question');
+                    const qName = question.dataset.q;
+                    question.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    answers[qName] = this.dataset.value;
 
-                answers[qName] = this.dataset.value;
-
-                // All emoji questions answered?
-                if (Object.keys(answers).length === totalQuestions) {
-                    const comment = commentEl ? commentEl.value.trim() : '';
-                    const payload = comment ? { ...answers, comment } : { ...answers };
-                    localStorage.setItem(SESSION_KEY, JSON.stringify(payload));
-                    // Send to server
-                    fetch('/api/survey', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ session: 'session1', answers: payload })
-                    }).catch(() => {});
-                    setTimeout(() => {
-                        surveyBox.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                        surveyBox.style.opacity = '0';
-                        surveyBox.style.transform = 'translateY(-10px)';
-                        setTimeout(() => {
-                            surveyBox.style.display = 'none';
-                            surveyThanks.style.display = 'block';
-                            surveyThanks.style.animation = 'fadeIn 0.5s ease';
-                        }, 500);
-                    }, 600);
-                }
+                    if (Object.keys(answers).length === totalQuestions) {
+                        const comment = commentEl ? commentEl.value.trim() : '';
+                        const payload = comment ? { ...answers, comment } : { ...answers };
+                        // Send to server FIRST, only save locally if server confirms
+                        fetch('/api/survey', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ session: 'session1', answers: payload })
+                        }).then(res => {
+                            if (res.ok) {
+                                localStorage.setItem(SESSION_KEY, 'confirmed');
+                                setTimeout(hideSurveyShowThanks, 400);
+                            }
+                        }).catch(() => {
+                            // Server error — don't save locally, they can retry
+                        });
+                    }
+                });
             });
+        }
+
+        initSurvey();
+
+        // Redo button
+        document.getElementById('surveyRedo').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem(SESSION_KEY);
+            initSurvey();
         });
     })();
     </script>
