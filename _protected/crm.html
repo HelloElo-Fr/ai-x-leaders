@@ -177,6 +177,14 @@ tr:hover td{background:rgba(255,255,255,0.02)}
 .toast{position:fixed;bottom:24px;right:24px;background:var(--bg-card);border:1px solid var(--green);border-radius:var(--radius-sm);padding:14px 20px;color:var(--green);font-size:0.85rem;font-weight:600;z-index:200;transform:translateY(80px);opacity:0;transition:all 0.3s ease}
 .toast.show{transform:translateY(0);opacity:1}
 
+/* Form fields in modal */
+.modal-input{width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xs);padding:8px 12px;color:var(--text);font-size:0.85rem;font-family:inherit;transition:border 0.15s}
+.modal-input:focus{outline:none;border-color:var(--pink)}
+.modal-select{appearance:none;background:var(--bg-card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239CA3AF' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right 10px center;border:1px solid var(--border);border-radius:var(--radius-xs);padding:8px 30px 8px 12px;color:var(--text);font-size:0.85rem;font-family:inherit;cursor:pointer;width:100%}
+.modal-select:focus{outline:none;border-color:var(--pink)}
+textarea.modal-input{min-height:60px;resize:vertical}
+.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
 /* Drag & drop */
 .kanban-card[draggable="true"]{cursor:grab}
 .kanban-card.dragging{opacity:0.4;transform:scale(0.95)}
@@ -375,11 +383,16 @@ tr:hover td{background:rgba(255,255,255,0.02)}
 <div class="view" id="view-revenue">
   <div class="page-header">
     <h1>Chiffre <em>d'Affaires</em></h1>
-    <p>Revenue valide Q1 2026 - Detail par mois</p>
+    <p>Revenue valide 2026</p>
+  </div>
+  <div class="tabs" id="revenue-tabs">
+    <button class="tab" data-period="mois">Par mois</button>
+    <button class="tab active" data-period="trimestre">Par trimestre</button>
+    <button class="tab" data-period="annee">Par annee</button>
   </div>
   <div class="kpi-grid" id="kpi-revenue"></div>
   <div class="chart-container">
-    <h3>CA valide par mois</h3>
+    <h3 id="ca-chart-title">CA valide par trimestre</h3>
     <div id="ca-par-mois"></div>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px">
@@ -439,6 +452,7 @@ const state = {
   alumniBootcamp: 'all',
   clientsSearch: '',
   clientsType: 'all',
+  revenuePeriod: 'trimestre',
   PAGE_SIZE: 30
 };
 
@@ -538,8 +552,8 @@ function renderDashboard() {
 
 // ===== RENDER PROJETS (Kanban) =====
 function renderProjets() {
-  const stages = ['GAGNE','EN COURS','CLOSING','PROPOSITION','LEAD','RELANCE','ACTION'];
-  const stageColors = {GAGNE:'var(--green)',['EN COURS']:'var(--blue)',CLOSING:'var(--pink)',PROPOSITION:'var(--orange)',LEAD:'var(--purple)',RELANCE:'var(--orange)',ACTION:'var(--cyan)'};
+  const stages = ['GAGNE','EN COURS','CLOSING','PROPOSITION','LEAD','RELANCE','ACTION','PERDU'];
+  const stageColors = {GAGNE:'var(--green)',['EN COURS']:'var(--blue)',CLOSING:'var(--pink)',PROPOSITION:'var(--orange)',LEAD:'var(--purple)',RELANCE:'var(--orange)',ACTION:'var(--cyan)',PERDU:'var(--red)'};
 
   const pipeTotal = DATA.projets.filter(p=>['EN COURS','CLOSING','PROPOSITION'].includes(p.stade)).reduce((s,p)=>s+(p.montant||0),0);
   const gagneTotal = DATA.projets.filter(p=>p.stade==='GAGNE').reduce((s,p)=>s+(p.montant||0),0);
@@ -740,88 +754,112 @@ function renderAlumni() {
 }
 
 // ===== RENDER REVENUE =====
-function renderRevenue() {
-  // CA reel par mois (donnees Elodie)
-  const caParMois = [
-    {mois:'Janvier', items:[
-      {nom:'Bootcamp 3', montant:19500, type:'bootcamp'},
-      {nom:'Akkodis', montant:5000, type:'projet'},
-      {nom:'Arc France', montant:5000, type:'projet'},
-      {nom:'Credit Agricole', montant:16500, type:'projet'},
-      {nom:'Blini', montant:3000, type:'projet'},
-    ]},
-    {mois:'Fevrier', items:[
-      {nom:'Leonidas', montant:3500, type:'projet'},
-      {nom:'Bootcamp 4', montant:24650, type:'bootcamp'},
-      {nom:'Akkodis', montant:3000, type:'projet'},
-      {nom:'Sarah Intercontinental', montant:11000, type:'projet'},
-      {nom:'Negobrain', montant:10000, type:'projet'},
-    ]},
-    {mois:'Mars', items:[
-      {nom:'Murs et Merveilles', montant:25000, type:'projet'},
-      {nom:'ICN', montant:45000, type:'projet'},
-      {nom:'Bootcamp 4', montant:24650, type:'bootcamp'},
-      {nom:'Natran', montant:9000, type:'projet'},
-    ]},
-  ];
+// CA data
+const CA_DATA = [
+  {mois:'Janvier', trimestre:'Q1', annee:'2026', items:[
+    {nom:'Bootcamp 3', montant:19500, type:'bootcamp'},
+    {nom:'Akkodis', montant:5000, type:'projet'},
+    {nom:'Arc France', montant:5000, type:'projet'},
+    {nom:'Credit Agricole', montant:16500, type:'projet'},
+    {nom:'Blini', montant:3000, type:'projet'},
+  ]},
+  {mois:'Fevrier', trimestre:'Q1', annee:'2026', items:[
+    {nom:'Leonidas', montant:3500, type:'projet'},
+    {nom:'Bootcamp 4', montant:24650, type:'bootcamp'},
+    {nom:'Akkodis', montant:3000, type:'projet'},
+    {nom:'Sarah Intercontinental', montant:11000, type:'projet'},
+    {nom:'Negobrain', montant:10000, type:'projet'},
+  ]},
+  {mois:'Mars', trimestre:'Q1', annee:'2026', items:[
+    {nom:'Murs et Merveilles', montant:25000, type:'projet'},
+    {nom:'ICN', montant:45000, type:'projet'},
+    {nom:'Bootcamp 4', montant:24650, type:'bootcamp'},
+    {nom:'Natran', montant:9000, type:'projet'},
+  ]},
+];
 
-  const totaux = caParMois.map(m => ({mois:m.mois, total:m.items.reduce((s,i)=>s+i.montant,0), items:m.items}));
-  const caTotal = totaux.reduce((s,m)=>s+m.total,0);
-  const caBootcamp = caParMois.flatMap(m=>m.items).filter(i=>i.type==='bootcamp').reduce((s,i)=>s+i.montant,0);
-  const caProjets = caParMois.flatMap(m=>m.items).filter(i=>i.type==='projet').reduce((s,i)=>s+i.montant,0);
+function renderRevenue() {
+  const period = state.revenuePeriod || 'trimestre';
   const enCoursProj = DATA.projets.filter(p => p.stade === 'EN COURS').reduce((s,p) => s + (p.montant||0), 0);
   const closingProj = DATA.projets.filter(p => p.stade === 'CLOSING').reduce((s,p) => s + (p.montant||0), 0);
-  const moyenneMois = Math.round(caTotal / 3);
+
+  // Group by period
+  let groups;
+  if(period === 'mois') {
+    groups = CA_DATA.map(m => ({label:m.mois, items:m.items, total:m.items.reduce((s,i)=>s+i.montant,0)}));
+  } else if(period === 'trimestre') {
+    const byQ = {};
+    CA_DATA.forEach(m => {
+      const key = m.trimestre + ' ' + m.annee;
+      if(!byQ[key]) byQ[key] = {label:key, items:[], total:0};
+      byQ[key].items.push(...m.items);
+      byQ[key].total += m.items.reduce((s,i)=>s+i.montant,0);
+    });
+    groups = Object.values(byQ);
+  } else {
+    const byY = {};
+    CA_DATA.forEach(m => {
+      if(!byY[m.annee]) byY[m.annee] = {label:m.annee, items:[], total:0};
+      byY[m.annee].items.push(...m.items);
+      byY[m.annee].total += m.items.reduce((s,i)=>s+i.montant,0);
+    });
+    groups = Object.values(byY);
+  }
+
+  const caTotal = groups.reduce((s,g)=>s+g.total,0);
+  const allItems = groups.flatMap(g=>g.items);
+  const caBootcamp = allItems.filter(i=>i.type==='bootcamp').reduce((s,i)=>s+i.montant,0);
+  const caProjets = allItems.filter(i=>i.type==='projet').reduce((s,i)=>s+i.montant,0);
+  const nbPeriods = groups.length || 1;
+  const labels = {mois:'mensuelle', trimestre:'trimestrielle', annee:'annuelle'};
+
+  document.getElementById('ca-chart-title').textContent = 'CA valide par ' + (period === 'mois' ? 'mois' : period === 'trimestre' ? 'trimestre' : 'annee');
 
   document.getElementById('kpi-revenue').innerHTML = `
-    <div class="kpi"><div class="label">CA valide Q1 2026</div><div class="value green">${fmtEur(caTotal)}</div><div class="sub">Janvier - Mars</div></div>
-    <div class="kpi"><div class="label">CA Bootcamps</div><div class="value pink">${fmtEur(caBootcamp)}</div><div class="sub">${((caBootcamp/caTotal)*100).toFixed(0)}% du CA</div></div>
-    <div class="kpi"><div class="label">CA Projets</div><div class="value blue">${fmtEur(caProjets)}</div><div class="sub">${((caProjets/caTotal)*100).toFixed(0)}% du CA</div></div>
-    <div class="kpi"><div class="label">Moyenne mensuelle</div><div class="value">${fmtEur(moyenneMois)}</div><div class="sub">par mois</div></div>
+    <div class="kpi"><div class="label">CA valide total</div><div class="value green">${fmtEur(caTotal)}</div><div class="sub">${groups.map(g=>g.label).join(' - ')}</div></div>
+    <div class="kpi"><div class="label">CA Bootcamps</div><div class="value pink">${fmtEur(caBootcamp)}</div><div class="sub">${caTotal?((caBootcamp/caTotal)*100).toFixed(0):'0'}% du CA</div></div>
+    <div class="kpi"><div class="label">CA Projets</div><div class="value blue">${fmtEur(caProjets)}</div><div class="sub">${caTotal?((caProjets/caTotal)*100).toFixed(0):'0'}% du CA</div></div>
+    <div class="kpi"><div class="label">Moyenne ${labels[period]}</div><div class="value">${fmtEur(Math.round(caTotal/nbPeriods))}</div><div class="sub">par ${period}</div></div>
     <div class="kpi"><div class="label">Pipeline a venir</div><div class="value orange">${fmtEur(enCoursProj + closingProj)}</div><div class="sub">En cours + Closing</div></div>
   `;
 
-  // CA par mois - bar chart
-  const maxMois = Math.max(...totaux.map(m=>m.total));
+  // Bar chart
+  const maxG = Math.max(...groups.map(g=>g.total), 1);
+  const barColors = ['var(--blue)','var(--purple)','var(--pink)','var(--cyan)','var(--orange)','var(--green)'];
   document.getElementById('ca-par-mois').innerHTML = `
     <div style="display:flex;align-items:flex-end;gap:24px;height:220px;padding:20px 0">
-      ${totaux.map((m,i) => {
-        const colors = ['var(--blue)','var(--purple)','var(--pink)'];
-        const h = Math.max((m.total/maxMois)*180, 8);
+      ${groups.map((g,i) => {
+        const h = Math.max((g.total/maxG)*180, 8);
         return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px">
-          <div style="font-size:1.1rem;font-weight:800;color:${colors[i]}">${fmtEur(m.total)}</div>
-          <div style="width:100%;height:${h}px;background:${colors[i]};border-radius:8px 8px 0 0;transition:height 0.5s"></div>
-          <div style="font-size:0.85rem;font-weight:700;color:var(--text-secondary)">${m.mois}</div>
+          <div style="font-size:1.1rem;font-weight:800;color:${barColors[i%barColors.length]}">${fmtEur(g.total)}</div>
+          <div style="width:100%;height:${h}px;background:${barColors[i%barColors.length]};border-radius:8px 8px 0 0;transition:height 0.5s"></div>
+          <div style="font-size:0.85rem;font-weight:700;color:var(--text-secondary)">${g.label}</div>
         </div>`;
       }).join('')}
     </div>
   `;
 
-  // Detail par mois
-  document.getElementById('revenue-by-source').innerHTML = totaux.map((m,mi) => {
-    const colors = ['var(--blue)','var(--purple)','var(--pink)'];
-    return `
-      <div style="margin-bottom:16px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-          <span style="font-weight:700;font-size:0.85rem;color:${colors[mi]}">${m.mois}</span>
-          <span style="font-weight:800;font-size:0.95rem;color:${colors[mi]}">${fmtEur(m.total)}</span>
-        </div>
-        ${m.items.map(item => `
-          <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)">
-            <span style="font-size:0.8rem;color:var(--text-secondary)">${esc(item.nom)} <span style="color:var(--text-muted);font-size:0.7rem">${item.type==='bootcamp'?'BOOTCAMP':'PROJET'}</span></span>
-            <span style="font-weight:600;font-size:0.8rem">${fmtEur(item.montant)}</span>
-          </div>
-        `).join('')}
+  // Detail
+  document.getElementById('revenue-by-source').innerHTML = groups.map((g,gi) => `
+    <div style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <span style="font-weight:700;font-size:0.85rem;color:${barColors[gi%barColors.length]}">${g.label}</span>
+        <span style="font-weight:800;font-size:0.95rem;color:${barColors[gi%barColors.length]}">${fmtEur(g.total)}</span>
       </div>
-    `;
-  }).join('');
+      ${g.items.map(item => `
+        <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)">
+          <span style="font-size:0.8rem;color:var(--text-secondary)">${esc(item.nom)} <span style="color:var(--text-muted);font-size:0.7rem">${item.type==='bootcamp'?'BOOTCAMP':'PROJET'}</span></span>
+          <span style="font-weight:600;font-size:0.8rem">${fmtEur(item.montant)}</span>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
 
-  // Revenue by owner (from pipeline data)
+  // Owner
   const inscrits = DATA.bootcamp.filter(b => b.statut === 'inscrit');
   const soniaBootcamp = inscrits.filter(b => b.owner.toLowerCase().includes('sonia') && !b.owner.toLowerCase().includes('elodie')).reduce((s,b)=>s+(b.montant||0),0);
   const elodieBootcamp = inscrits.filter(b => b.owner.toLowerCase().includes('elodie') && !b.owner.toLowerCase().includes('sonia')).reduce((s,b)=>s+(b.montant||0),0);
   const sharedBootcamp = inscrits.filter(b => b.owner.toLowerCase().includes('sonia') && b.owner.toLowerCase().includes('elodie')).reduce((s,b)=>s+(b.montant||0),0);
-
   const ownerData = [
     {label:'Sonia (Bootcamp B4)', val:soniaBootcamp, color:'var(--purple)'},
     {label:'Elodie (Bootcamp B4)', val:elodieBootcamp, color:'var(--cyan)'},
@@ -842,7 +880,7 @@ function renderRevenue() {
   document.getElementById('tresorerie-chart').innerHTML = `
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
       <div style="background:var(--bg-elevated);border-radius:var(--radius-sm);padding:16px;text-align:center">
-        <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">CA Q1 encaisse</div>
+        <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">CA encaisse</div>
         <div style="font-size:1.4rem;font-weight:800;color:var(--green)">${fmtEur(caTotal)}</div>
       </div>
       <div style="background:var(--bg-elevated);border-radius:var(--radius-sm);padding:16px;text-align:center">
@@ -961,33 +999,87 @@ function renderPagination(containerId, total, currentPage, callback) {
 function showProjetDetail(idx) {
   const p = DATA.projets[idx];
   if(!p) return;
+  const stades = ['GAGNE','EN COURS','CLOSING','PROPOSITION','LEAD','RELANCE','ACTION','PERDU'];
+  const categories = ['Projet','Studio','Transformation','Agents IA','Formation'];
   document.getElementById('modal-content').innerHTML = `
-    <h2>${esc(p.projet)}</h2>
-    <div class="subtitle"><span class="${statusClass(p.stade)}">${esc(p.stade)}</span> &middot; <span class="owner-tag ${ownerClass(p.owner)}">${esc(p.owner)}</span></div>
-    <div class="modal-field"><div class="label">Montant</div><div class="val" style="font-size:1.3rem;font-weight:800;color:var(--pink)">${p.montant ? fmtEur(p.montant) : 'Non defini'}</div></div>
-    <div class="modal-field"><div class="label">Type</div><div class="val">${esc(p.type)}</div></div>
-    ${p.notes ? `<div class="modal-field"><div class="label">Notes</div><div class="val">${esc(p.notes)}</div></div>` : ''}
-    <div class="modal-actions"><button class="btn-ghost" onclick="closeModal()">Fermer</button></div>
+    <h2 style="margin-bottom:16px">${esc(p.projet)}</h2>
+    <div class="modal-field"><div class="label">Nom du projet</div><input class="modal-input" id="edit-nom" value="${esc(p.projet)}"></div>
+    <div class="modal-row">
+      <div class="modal-field"><div class="label">Montant</div><input class="modal-input" id="edit-montant" type="number" value="${p.montant||0}"></div>
+      <div class="modal-field"><div class="label">Stade</div><select class="modal-select" id="edit-stade">${stades.map(s=>`<option value="${s}"${s===p.stade?' selected':''}>${s}</option>`).join('')}</select></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field"><div class="label">Owner</div><select class="modal-select" id="edit-owner"><option${p.owner==='Elodie'?' selected':''}>Elodie</option><option${p.owner==='Sonia'?' selected':''}>Sonia</option><option${(p.owner||'').includes('&')?' selected':''}>Sonia & Elodie</option></select></div>
+      <div class="modal-field"><div class="label">Categorie</div><select class="modal-select" id="edit-type">${categories.map(c=>`<option value="${c}"${c===p.type?' selected':''}>${c}</option>`).join('')}</select></div>
+    </div>
+    <div class="modal-field"><div class="label">Notes</div><textarea class="modal-input" id="edit-notes">${esc(p.notes)}</textarea></div>
+    <div class="modal-actions">
+      <button class="btn-pink" onclick="saveProjet(${idx})">Enregistrer</button>
+      <button class="btn-ghost" onclick="closeModal()">Annuler</button>
+    </div>
   `;
   document.getElementById('modal-overlay').classList.add('open');
+}
+
+function saveProjet(idx) {
+  const p = DATA.projets[idx];
+  p.projet = document.getElementById('edit-nom').value;
+  p.montant = parseFloat(document.getElementById('edit-montant').value) || 0;
+  p.stade = document.getElementById('edit-stade').value;
+  p.owner = document.getElementById('edit-owner').value;
+  p.type = document.getElementById('edit-type').value;
+  p.notes = document.getElementById('edit-notes').value;
+  closeModal();
+  render();
+  toast('Projet mis a jour : ' + p.projet);
 }
 
 function showLeadDetail(idx) {
   const l = DATA.leads[idx];
   if(!l) return;
+  const statuts = ['','Relance','A inviter','Inscrit','Perdu'];
   document.getElementById('modal-content').innerHTML = `
-    <h2>${esc(l.prenom)} ${esc(l.nom)}</h2>
-    <div class="subtitle">${esc(l.fonction)} ${l.entreprise ? '@ ' + esc(l.entreprise) : ''}</div>
-    <div class="modal-field"><div class="label">Email</div><div class="val"><a href="mailto:${esc(l.email)}">${esc(l.email)}</a></div></div>
-    ${l.tel ? `<div class="modal-field"><div class="label">Telephone</div><div class="val">${esc(l.tel)}</div></div>` : ''}
+    <h2 style="margin-bottom:16px">${esc(l.prenom)} ${esc(l.nom)}</h2>
+    <div class="modal-row">
+      <div class="modal-field"><div class="label">Prenom</div><input class="modal-input" id="edit-prenom" value="${esc(l.prenom)}"></div>
+      <div class="modal-field"><div class="label">Nom</div><input class="modal-input" id="edit-lnom" value="${esc(l.nom)}"></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field"><div class="label">Email</div><input class="modal-input" id="edit-email" value="${esc(l.email)}"></div>
+      <div class="modal-field"><div class="label">Telephone</div><input class="modal-input" id="edit-tel" value="${esc(l.tel||'')}"></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field"><div class="label">Fonction</div><input class="modal-input" id="edit-fonction" value="${esc(l.fonction||'')}"></div>
+      <div class="modal-field"><div class="label">Entreprise</div><input class="modal-input" id="edit-entreprise" value="${esc(l.entreprise||'')}"></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field"><div class="label">Owner</div><select class="modal-select" id="edit-lowner"><option value="elodie"${l.owner==='elodie'?' selected':''}>Elodie</option><option value="sonia"${l.owner==='sonia'?' selected':''}>Sonia</option></select></div>
+      <div class="modal-field"><div class="label">Statut</div><select class="modal-select" id="edit-lstatut">${statuts.map(s=>`<option value="${s}"${s===l.statut?' selected':''}>${s||'Aucun'}</option>`).join('')}</select></div>
+    </div>
     <div class="modal-field"><div class="label">Engagement</div><div class="val">${mcBar(l.mc_count||0)} masterclasses</div></div>
-    <div class="modal-field"><div class="label">Owner</div><div class="val"><span class="owner-tag ${ownerClass(l.owner)}">${esc(l.owner)}</span></div></div>
-    <div class="modal-field"><div class="label">Connexion LinkedIn</div><div class="val">Elodie: ${l.conn_elodie||'Non'} &middot; Sonia: ${l.conn_sonia||'Non'}</div></div>
-    ${l.msg_envoye ? `<div class="modal-field"><div class="label">Message envoye</div><div class="val">${esc(l.msg_envoye)}</div></div>` : ''}
-    ${l.notes ? `<div class="modal-field"><div class="label">Notes</div><div class="val">${esc(l.notes)}</div></div>` : ''}
-    <div class="modal-actions"><button class="btn-ghost" onclick="closeModal()">Fermer</button></div>
+    <div class="modal-field"><div class="label">Notes</div><textarea class="modal-input" id="edit-lnotes">${esc(l.notes||'')}</textarea></div>
+    <div class="modal-actions">
+      <button class="btn-pink" onclick="saveLead(${idx})">Enregistrer</button>
+      <button class="btn-ghost" onclick="closeModal()">Annuler</button>
+    </div>
   `;
   document.getElementById('modal-overlay').classList.add('open');
+}
+
+function saveLead(idx) {
+  const l = DATA.leads[idx];
+  l.prenom = document.getElementById('edit-prenom').value;
+  l.nom = document.getElementById('edit-lnom').value;
+  l.email = document.getElementById('edit-email').value;
+  l.tel = document.getElementById('edit-tel').value;
+  l.fonction = document.getElementById('edit-fonction').value;
+  l.entreprise = document.getElementById('edit-entreprise').value;
+  l.owner = document.getElementById('edit-lowner').value;
+  l.statut = document.getElementById('edit-lstatut').value;
+  l.notes = document.getElementById('edit-lnotes').value;
+  closeModal();
+  render();
+  toast('Lead mis a jour : ' + l.prenom + ' ' + l.nom);
 }
 
 function closeModal() {
@@ -1139,6 +1231,16 @@ document.querySelector('#view-clients .table-toolbar').addEventListener('click',
   document.querySelectorAll('#view-clients .filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderClients();
+});
+
+// Revenue tabs
+document.getElementById('revenue-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if(!tab) return;
+  document.querySelectorAll('#revenue-tabs .tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  state.revenuePeriod = tab.dataset.period;
+  renderRevenue();
 });
 
 // ===== MAIN RENDER =====
