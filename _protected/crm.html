@@ -177,6 +177,18 @@ tr:hover td{background:rgba(255,255,255,0.02)}
 .toast{position:fixed;bottom:24px;right:24px;background:var(--bg-card);border:1px solid var(--green);border-radius:var(--radius-sm);padding:14px 20px;color:var(--green);font-size:0.85rem;font-weight:600;z-index:200;transform:translateY(80px);opacity:0;transition:all 0.3s ease}
 .toast.show{transform:translateY(0);opacity:1}
 
+/* Drag & drop */
+.kanban-card[draggable="true"]{cursor:grab}
+.kanban-card.dragging{opacity:0.4;transform:scale(0.95)}
+.kanban-col.drag-over{background:var(--bg-card);border-color:var(--pink-border);box-shadow:inset 0 0 20px var(--pink-glow)}
+.kanban-col.drag-over .kanban-col-header{color:var(--pink)}
+
+/* Client type badge */
+.type-badge{display:inline-block;padding:3px 10px;border-radius:4px;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.type-bootcamp4{background:var(--pink-glow);color:var(--pink)}
+.type-alumni{background:var(--blue-bg);color:var(--blue)}
+.type-projet{background:var(--green-bg);color:var(--green)}
+
 /* Responsive */
 @media(max-width:1024px){
   .sidebar{width:220px;padding:16px 12px}
@@ -209,6 +221,8 @@ tr:hover td{background:rgba(255,255,255,0.02)}
     <button class="nav-item" data-view="bootcamp"><span class="icon">&#9829;</span> Bootcamp #4 <span class="badge" id="badge-bootcamp">23</span></button>
     <button class="nav-item" data-view="leads"><span class="icon">&#9783;</span> CRM Leads <span class="badge" id="badge-leads">367</span></button>
     <button class="nav-item" data-view="alumni"><span class="icon">&#9734;</span> Alumni <span class="badge" id="badge-alumni">61</span></button>
+    <div class="nav-section">Portefeuille</div>
+    <button class="nav-item" data-view="clients"><span class="icon">&#9830;</span> Clients <span class="badge" id="badge-clients">0</span></button>
     <div class="nav-section">Finance</div>
     <button class="nav-item" data-view="revenue"><span class="icon">&#8364;</span> Chiffre d'Affaires</button>
     <button class="nav-item" data-view="commissions"><span class="icon">&#9733;</span> Commissions Sonia</button>
@@ -334,6 +348,29 @@ tr:hover td{background:rgba(255,255,255,0.02)}
   </div>
 </div>
 
+<!-- === CLIENTS === -->
+<div class="view" id="view-clients">
+  <div class="page-header">
+    <h1>Nos <em>Clients</em></h1>
+    <p>Tous les clients AI x Leaders - Bootcamp inscrits, alumni et projets gagnes</p>
+  </div>
+  <div class="kpi-grid" id="kpi-clients"></div>
+  <div class="table-wrapper">
+    <div class="table-toolbar">
+      <input type="text" class="search-box" id="clients-search" placeholder="Rechercher un client...">
+      <button class="filter-btn active" data-client-type="all">Tous</button>
+      <button class="filter-btn" data-client-type="bootcamp4">Bootcamp #4</button>
+      <button class="filter-btn" data-client-type="alumni">Alumni</button>
+      <button class="filter-btn" data-client-type="projet">Projets</button>
+      <span class="table-count" id="clients-count"></span>
+    </div>
+    <div style="overflow-x:auto"><table id="clients-table">
+      <thead><tr><th>Nom</th><th>Email</th><th>Entreprise</th><th>Type</th><th>Montant</th><th>Owner</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+</div>
+
 <!-- === REVENUE === -->
 <div class="view" id="view-revenue">
   <div class="page-header">
@@ -396,6 +433,8 @@ const state = {
   leadsSortDir: -1,
   alumniSearch: '',
   alumniBootcamp: 'all',
+  clientsSearch: '',
+  clientsType: 'all',
   PAGE_SIZE: 30
 };
 
@@ -513,10 +552,10 @@ function renderProjets() {
     const items = DATA.projets.filter(p => p.stade === stage);
     if(!items.length) continue;
     const total = items.reduce((s,p) => s + (p.montant||0), 0);
-    kanbanHTML += `<div class="kanban-col" style="border-top:3px solid ${stageColors[stage]||'var(--text-muted)'}">
+    kanbanHTML += `<div class="kanban-col" data-stage="${stage}" style="border-top:3px solid ${stageColors[stage]||'var(--text-muted)'}">
       <div class="kanban-col-header"><h3>${stage}</h3><span class="count">${items.length} | ${fmtEur(total)}</span></div>
       ${items.map(p => `
-        <div class="kanban-card" onclick="showProjetDetail(${DATA.projets.indexOf(p)})">
+        <div class="kanban-card" draggable="true" data-idx="${DATA.projets.indexOf(p)}" onclick="showProjetDetail(${DATA.projets.indexOf(p)})">
           <div class="name">${esc(p.projet)}</div>
           ${p.montant ? `<div class="amount">${fmtEur(p.montant)}</div>` : ''}
           <span class="owner-tag ${ownerClass(p.owner)}">${esc(p.owner)}</span>
@@ -526,6 +565,39 @@ function renderProjets() {
     </div>`;
   }
   document.getElementById('kanban-projets').innerHTML = kanbanHTML;
+  initDragDrop();
+}
+
+function initDragDrop() {
+  let dragIdx = null;
+  document.querySelectorAll('.kanban-card[draggable]').forEach(card => {
+    card.addEventListener('dragstart', e => {
+      dragIdx = parseInt(card.dataset.idx);
+      card.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    card.addEventListener('dragend', () => {
+      card.classList.remove('dragging');
+      document.querySelectorAll('.kanban-col').forEach(c => c.classList.remove('drag-over'));
+    });
+  });
+  document.querySelectorAll('.kanban-col[data-stage]').forEach(col => {
+    col.addEventListener('dragover', e => { e.preventDefault(); col.classList.add('drag-over'); });
+    col.addEventListener('dragleave', () => col.classList.remove('drag-over'));
+    col.addEventListener('drop', e => {
+      e.preventDefault();
+      col.classList.remove('drag-over');
+      if(dragIdx === null) return;
+      const newStage = col.dataset.stage;
+      const p = DATA.projets[dragIdx];
+      if(p && p.stade !== newStage) {
+        p.stade = newStage;
+        renderProjets();
+        toast(`${p.projet} deplace vers ${newStage}`);
+      }
+      dragIdx = null;
+    });
+  });
 }
 
 // ===== RENDER BOOTCAMP =====
@@ -569,8 +641,30 @@ function renderBootcamp() {
 }
 
 // ===== RENDER LEADS =====
+function getClientEmails() {
+  const emails = new Set();
+  const names = new Set();
+  DATA.bootcamp.filter(b => b.statut === 'inscrit').forEach(b => {
+    if(b.email) emails.add(b.email.toLowerCase());
+    names.add(b.nom.toLowerCase().trim());
+  });
+  DATA.alumni.forEach(a => {
+    if(a.email) emails.add(a.email.toLowerCase());
+    names.add(`${a.prenom} ${a.nom}`.toLowerCase().trim());
+  });
+  DATA.projets.filter(p => p.stade === 'GAGNE').forEach(p => {
+    names.add(p.projet.toLowerCase().trim());
+  });
+  return {emails, names};
+}
+
 function renderLeads() {
-  let filtered = [...DATA.leads];
+  const clients = getClientEmails();
+  let filtered = DATA.leads.filter(l => {
+    if(l.email && clients.emails.has(l.email.toLowerCase())) return false;
+    if(clients.names.has(`${l.prenom} ${l.nom}`.toLowerCase().trim())) return false;
+    return true;
+  });
 
   if(state.leadsOwner !== 'all') filtered = filtered.filter(l => (l.owner||'').toLowerCase() === state.leadsOwner);
   if(state.leadsMcMin > 0) filtered = filtered.filter(l => (l.mc_count||0) >= state.leadsMcMin);
@@ -937,6 +1031,74 @@ document.getElementById('alumni-search').addEventListener('input', e => {
   renderAlumni();
 });
 
+// ===== RENDER CLIENTS =====
+function getClients() {
+  const clients = [];
+  DATA.bootcamp.filter(b => b.statut === 'inscrit').forEach(b => {
+    clients.push({nom: b.nom, email: b.email||'', entreprise: b.entreprise||'', type: 'bootcamp4', montant: b.montant||0, owner: b.owner||''});
+  });
+  DATA.alumni.forEach(a => {
+    const already = clients.find(c => c.email && a.email && c.email.toLowerCase() === a.email.toLowerCase());
+    if(!already) {
+      clients.push({nom: `${a.prenom} ${a.nom}`, email: a.email||'', entreprise: a.entreprise||'', type: 'alumni', montant: 0, owner: a.owner||''});
+    }
+  });
+  DATA.projets.filter(p => p.stade === 'GAGNE').forEach(p => {
+    clients.push({nom: p.projet, email: '', entreprise: '', type: 'projet', montant: p.montant||0, owner: p.owner||''});
+  });
+  return clients;
+}
+
+function renderClients() {
+  const allClients = getClients();
+  let filtered = [...allClients];
+  if(state.clientsType !== 'all') filtered = filtered.filter(c => c.type === state.clientsType);
+  if(state.clientsSearch) {
+    const q = state.clientsSearch.toLowerCase();
+    filtered = filtered.filter(c => `${c.nom} ${c.email} ${c.entreprise}`.toLowerCase().includes(q));
+  }
+
+  const b4 = allClients.filter(c=>c.type==='bootcamp4');
+  const al = allClients.filter(c=>c.type==='alumni');
+  const pr = allClients.filter(c=>c.type==='projet');
+  const revClients = allClients.reduce((s,c)=>s+(c.montant||0),0);
+
+  document.getElementById('badge-clients').textContent = allClients.length;
+  document.getElementById('kpi-clients').innerHTML = `
+    <div class="kpi"><div class="label">Total clients</div><div class="value green">${allClients.length}</div></div>
+    <div class="kpi"><div class="label">Bootcamp #4</div><div class="value pink">${b4.length}</div></div>
+    <div class="kpi"><div class="label">Alumni B1-B3</div><div class="value blue">${al.length}</div></div>
+    <div class="kpi"><div class="label">Projets gagnes</div><div class="value orange">${pr.length}</div></div>
+  `;
+
+  document.getElementById('clients-count').textContent = filtered.length + ' client' + (filtered.length>1?'s':'');
+
+  document.querySelector('#clients-table tbody').innerHTML = filtered.map(c => `
+    <tr>
+      <td class="td-name">${esc(c.nom)}</td>
+      <td class="td-email">${esc(c.email)}</td>
+      <td>${esc(c.entreprise)}</td>
+      <td><span class="type-badge type-${c.type}">${c.type === 'bootcamp4' ? 'Bootcamp #4' : c.type === 'alumni' ? 'Alumni' : 'Projet'}</span></td>
+      <td class="td-amount">${c.montant ? fmtEur(c.montant) : '-'}</td>
+      <td><span class="owner-tag ${ownerClass(c.owner)}">${esc(c.owner)}</span></td>
+    </tr>
+  `).join('');
+}
+
+// Clients events
+document.getElementById('clients-search').addEventListener('input', e => {
+  state.clientsSearch = e.target.value;
+  renderClients();
+});
+document.querySelector('#view-clients .table-toolbar').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if(!btn || !btn.dataset.clientType) return;
+  state.clientsType = btn.dataset.clientType;
+  document.querySelectorAll('#view-clients .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderClients();
+});
+
 // ===== MAIN RENDER =====
 function render() {
   switch(state.currentView) {
@@ -947,6 +1109,7 @@ function render() {
     case 'alumni': renderAlumni(); break;
     case 'revenue': renderRevenue(); break;
     case 'commissions': renderCommissions(); break;
+    case 'clients': renderClients(); break;
   }
 }
 
