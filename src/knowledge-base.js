@@ -453,7 +453,7 @@ Base URL : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-progr
 ### Session 1 — 27 mars 2026
 **Replay** : https://www.youtube.com/watch?v=CPP_bnrANIg
 **Format** : Hybride (présentiel Expertis GP + visio Zoom)
-**Animateurs** : Elodie Hughes, Richard Hughes (Nash)
+**Animateurs** : Elodie Hughes, Richard Hughes (associé)
 **Invité** : Grégory (Expertis GP, alumni bootcamp précédent)
 
 #### Participants de la promo #4
