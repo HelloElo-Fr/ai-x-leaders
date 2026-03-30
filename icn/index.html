@@ -1,0 +1,2993 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICN Creativ Day 2026 — Restitution</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFD700;
+            --green: #2AD03D;
+            --magenta: #E91E7E;
+            --orange: #FA7E42;
+            --black: #1A1A1A;
+            --cyan: #00BCD4;
+            --violet: #7C4DFF;
+            --rose: #FF5892;
+            --white: #FFFFFF;
+            --light-gray: #F9FAFB;
+            --dark-gray: #2D3436;
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--black);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* STICKY NAVIGATION */
+        nav.sticky-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-bottom: 1px solid #E5E7EB;
+            padding: 0.75rem 2rem;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+
+        nav.sticky-nav.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        nav.sticky-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav.sticky-nav a {
+            text-decoration: none;
+            color: var(--black);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        nav.sticky-nav a:hover {
+            color: var(--cyan);
+        }
+
+        nav.sticky-nav a.active {
+            color: var(--cyan);
+            font-weight: 600;
+        }
+
+        nav.sticky-nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--cyan);
+            border-radius: 2px;
+        }
+
+        /* HERO SECTION */
+        section.hero {
+            min-height: auto;
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        /* Geometric zigzag shapes inspired by ICN logo */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -80px; right: -80px;
+            width: 400px; height: 400px;
+            background: var(--yellow);
+            transform: rotate(15deg);
+            opacity: 0.12;
+            border-radius: 40px;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -60px; left: -60px;
+            width: 350px; height: 350px;
+            background: var(--magenta);
+            transform: rotate(-10deg);
+            opacity: 0.1;
+            border-radius: 40px;
+        }
+
+        .hero-blob {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.12;
+            filter: blur(80px);
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .hero-blob-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--yellow);
+            top: -150px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .hero-blob-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--green);
+            bottom: -100px;
+            left: 5%;
+            animation-delay: 3s;
+        }
+
+        .hero-blob-3 {
+            width: 350px;
+            height: 350px;
+            background: var(--magenta);
+            top: 40%;
+            right: 5%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--yellow);
+            color: var(--black);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--black);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero h1 span.accent-yellow {
+            color: var(--yellow);
+        }
+
+        .hero h1 span.accent-green {
+            color: var(--green);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            color: #374151;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 3px solid var(--yellow);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--magenta);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number:nth-child(1) { color: var(--magenta); }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        /* HERO IMAGE */
+        .hero-image {
+            width: 100%;
+            max-width: 100%;
+            margin: 2rem 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        /* SECTIONS GENERAL */
+        section {
+            position: relative;
+            scroll-margin-top: 80px;
+        }
+
+        section.light {
+            background: var(--light-gray);
+        }
+
+        section.dark {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        section.yellow-bg {
+            background: var(--light-gray);
+            color: var(--black);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            color: var(--white);
+            background: var(--magenta);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #6B7280;
+            margin-bottom: 3rem;
+            max-width: 800px;
+        }
+
+        section.dark .section-subtitle {
+            color: #6B7280;
+        }
+
+        /* OUVERTURE SECTION */
+        .ouverture-quote {
+            font-size: clamp(1.5rem, 4vw, 2.25rem);
+            font-style: italic;
+            color: var(--magenta);
+            margin: 3rem 0 4rem;
+            line-height: 1.5;
+            max-width: 900px;
+            border-left: 5px solid var(--yellow);
+            padding-left: 2rem;
+        }
+
+        .ouverture-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+            border-color: var(--cyan);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .card p {
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        /* SONDAGES SECTION */
+        .sondages-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .sondage-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            border-left: 6px solid;
+        }
+
+        .sondage-card.magenta {
+            border-left-color: var(--magenta);
+        }
+
+        .sondage-card.orange {
+            border-left-color: var(--orange);
+        }
+
+        .sondage-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .sondage-response-count {
+            font-size: 0.875rem;
+            color: #6B7280;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .sondage-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .sondage-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .sondage-bar {
+            height: 8px;
+            background: #E5E7EB;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .sondage-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .sondage-card.magenta .sondage-bar-fill {
+            background: var(--magenta);
+        }
+
+        .sondage-card.orange .sondage-bar-fill {
+            background: var(--orange);
+        }
+
+        /* SPRINT QUESTIONS */
+        .arrow-flow {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #9CA3AF;
+            margin: 3rem 0;
+            font-weight: 500;
+        }
+
+        .sprint-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .sprint-question-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            border: 1px solid #E5E7EB;
+            text-align: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .sprint-question-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border-color: var(--cyan);
+        }
+
+        .sprint-mention-count {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+        }
+
+        .sprint-question-text {
+            font-size: 0.95rem;
+            color: #374151;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* DESIGN SPRINT METHOD */
+        .method-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0 5rem;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--white);
+            border: 2px solid #E5E7EB;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-color: var(--cyan);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--yellow), var(--green));
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .step-card h4 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: var(--black);
+        }
+
+        .step-card p {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        /* CHALLENGE CARDS GRID */
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .challenge-card {
+            padding: 0;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--white);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            color: var(--white);
+            position: relative;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .challenge-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.12;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: 1;
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .challenge-card.cyan { background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%); }
+        .challenge-card.green { background: linear-gradient(135deg, #2AD03D 0%, #1B9E2B 100%); }
+        .challenge-card.rose { background: linear-gradient(135deg, #FF5892 0%, #E91E63 100%); }
+        .challenge-card.orange { background: linear-gradient(135deg, #FA7E42 0%, #E65100 100%); }
+        .challenge-card.violet { background: linear-gradient(135deg, #7C4DFF 0%, #5E35B1 100%); }
+
+        .challenge-card-top {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 1.5rem 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .challenge-facilitator-img {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255,255,255,0.5);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+
+        .challenge-facilitator-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .challenge-facilitator-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.95);
+            letter-spacing: 0.02em;
+        }
+
+        .challenge-village-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .challenge-card-body {
+            padding: 1.2rem 1.5rem 1.8rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .challenge-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--white);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+
+        .challenge-card p {
+            display: none;
+        }
+
+        /* TEAM PORTRAITS ROW */
+        .team-portraits {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            margin: 3rem 0 1rem;
+            flex-wrap: wrap;
+        }
+
+        .portrait-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .portrait-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .portrait-img:hover {
+            transform: scale(1.1);
+        }
+
+        .portrait-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .portrait-role {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: -0.3rem;
+        }
+
+        /* Portraits on light backgrounds */
+        .light .portrait-name {
+            color: var(--black);
+        }
+
+        .light .portrait-role {
+            color: #6B7280;
+        }
+
+        .light .portrait-img {
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        /* VILLAGE SECTIONS */
+        .village-section {
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .village-header {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .village-dot {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .village-dot img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .village-header h2 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .village-header-text {
+            flex: 1;
+        }
+
+        .village-challenge {
+            font-size: 1.125rem;
+            color: #6B7280;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .village-section .village-challenge {
+            color: #374151;
+        }
+
+        .village-facilitator {
+            font-size: 0.875rem;
+            color: #9CA3AF;
+            font-style: italic;
+        }
+
+        .village-teams {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            border: 2px solid #E5E7EB;
+            background: var(--white);
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .team-card.winner {
+            border: 3px solid var(--yellow);
+            background: linear-gradient(135deg, #FFFEF0 0%, #FFFFF5 100%);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .team-card.winner:hover {
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .team-card.finalist {
+            border: 2px solid var(--rose);
+            background: linear-gradient(135deg, #FFF5F8 0%, #FFFBFC 100%);
+        }
+
+        .team-card.repechage {
+            border: 2px dashed var(--yellow);
+            background: var(--white);
+        }
+
+        .team-card.placeholder {
+            border: 2px dashed #D1D5DB;
+            background: #FAFAFA;
+            opacity: 0.7;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #9CA3AF;
+        }
+
+        .team-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--rose);
+            color: var(--white);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .team-badge.winner {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        .team-badge.repechage {
+            background: var(--yellow);
+            color: var(--black);
+            padding: 0.5rem 1rem;
+        }
+
+        .team-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            margin-top: 0;
+            color: var(--black);
+        }
+
+        .team-card.placeholder .team-name {
+            display: none;
+        }
+
+        /* ACCORDION TEAM CARDS */
+        .team-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .team-summary-left {
+            flex: 1;
+        }
+
+        .team-tagline {
+            font-size: 0.95rem;
+            color: #6B7280;
+            margin-top: 0.5rem;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .team-toggle {
+            font-size: 1.5rem;
+            color: #9CA3AF;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 1rem;
+        }
+
+        .team-card.open .team-toggle {
+            transform: rotate(45deg);
+        }
+
+        .team-detail {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .team-card.open .team-detail {
+            max-height: 5000px;
+        }
+
+        .team-card.open {
+            grid-column: 1 / -1;
+        }
+
+        .team-card.open:hover {
+            transform: none;
+        }
+
+        /* PITCH CANVAS GRID */
+        .pitch-canvas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #E5E7EB;
+        }
+
+        .pitch-block {
+            display: flex;
+            gap: 0.75rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #F9FAFB;
+        }
+
+        .pitch-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        .pitch-problem .pitch-number { background: #EF4444; }
+        .pitch-solution .pitch-number { background: #3B82F6; }
+        .pitch-benefit .pitch-number { background: #10B981; }
+        .pitch-action .pitch-number { background: #F59E0B; }
+
+        .pitch-content h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6B7280;
+            margin-bottom: 0.4rem;
+        }
+
+        .pitch-content p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--black);
+        }
+
+        .pitch-punchline {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--magenta);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            background: #FFF5F7;
+            border-radius: 8px;
+            border-left: 4px solid var(--magenta);
+            line-height: 1.5;
+        }
+
+        .team-infographie {
+            margin-top: 1.5rem;
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .team-infographie:hover {
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 768px) {
+            .pitch-canvas {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .village-note {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding: 1.5rem;
+            background: #F3F4F6;
+            border-left: 4px solid #9CA3AF;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        /* removed dark village note styles */
+
+        /* VILLAGE COLORS — white bg, pop accents */
+        .village-cyan { background: var(--white); border-top: 6px solid var(--cyan); }
+        .village-cyan .village-dot { background: var(--cyan); }
+        .village-cyan .village-header h2 { color: var(--cyan); }
+
+        .village-green { background: var(--white); border-top: 6px solid var(--green); }
+        .village-green .village-dot { background: var(--green); }
+        .village-green .village-header h2 { color: var(--green); }
+
+        .village-rose { background: var(--white); border-top: 6px solid var(--rose); }
+        .village-rose .village-dot { background: var(--rose); }
+        .village-rose .village-header h2 { color: var(--rose); }
+
+        .village-orange { background: var(--white); border-top: 6px solid var(--orange); }
+        .village-orange .village-dot { background: var(--orange); }
+        .village-orange .village-header h2 { color: var(--orange); }
+
+        .village-violet { background: var(--white); border-top: 6px solid var(--violet); }
+        .village-violet .village-dot { background: var(--violet); }
+        .village-violet .village-header h2 { color: var(--violet); }
+
+        /* DÉCISION SECTION */
+        .decision-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .decision-quote {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-style: italic;
+            color: var(--magenta);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .decision-highlight {
+            background: #FFFEF0;
+            border: 2px solid var(--yellow);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            margin: 3rem auto;
+            max-width: 700px;
+        }
+
+        .decision-highlight h3 {
+            color: var(--orange);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .decision-highlight p {
+            color: #374151;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .decision-quote-2 {
+            font-size: 1.5rem;
+            color: #6B7280;
+            font-style: italic;
+            margin-top: 3rem;
+            line-height: 1.6;
+        }
+
+        /* ET MAINTENANT SECTION */
+        .next-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .next-step-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            border: 2px solid #E5E7EB;
+            text-align: center;
+            color: var(--black);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .next-step-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--cyan);
+            box-shadow: 0 12px 40px rgba(0, 188, 212, 0.15);
+        }
+
+        .next-step-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .next-step-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--white);
+            color: var(--black);
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 4px solid var(--yellow);
+            font-size: 0.875rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        footer strong {
+            font-weight: 600;
+        }
+
+        /* ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .section-container {
+                padding: 4rem 1.5rem;
+            }
+
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.75rem;
+            }
+
+            nav.sticky-nav ul {
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            nav.sticky-nav a {
+                font-size: 0.75rem;
+            }
+
+            .ouverture-cards,
+            .sondages-container,
+            .method-steps,
+            .challenge-grid,
+            .village-teams,
+            .next-steps-grid,
+            .sprint-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .village-header {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .team-badge {
+                position: static;
+                margin-bottom: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .decision-quote {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* SCROLL REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        /* STAGGER ANIMATION */
+        .team-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        .team-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        .team-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+        .team-card:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+        .team-card:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .sprint-question-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        .sprint-question-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        .sprint-question-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+        .sprint-question-card:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+        .sprint-question-card:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+        .sprint-question-card:nth-child(7) {
+            animation-delay: 0.6s;
+        }
+        .sprint-question-card:nth-child(8) {
+            animation-delay: 0.7s;
+        }
+        .sprint-question-card:nth-child(9) {
+            animation-delay: 0.8s;
+        }
+
+        .next-step-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        .next-step-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        .next-step-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        /* TEAM CARD INFOGRAPHIES */
+        .team-infographie {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: block;
+        }
+
+        .team-infographie:hover {
+            transform: scale(1.02);
+        }
+
+        /* LIGHTBOX */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            cursor: pointer;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        .lightbox-overlay img {
+            max-width: 95%;
+            max-height: 95vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- STICKY NAVIGATION -->
+    <nav class="sticky-nav" id="stickyNav">
+        <img src="restitution/Logo ICN 28 Mars.jpeg" alt="ICN Logo" style="height: 36px; object-fit: contain; margin-right: 1rem;">
+        <ul>
+            <li><a href="#hero" class="nav-link active" data-section="hero">Accueil</a></li>
+            <li><a href="#ouverture" class="nav-link" data-section="ouverture">Ouverture</a></li>
+            <li><a href="#sondages" class="nav-link" data-section="sondages">Sondages</a></li>
+            <li><a href="#sprint" class="nav-link" data-section="sprint">Design Sprint</a></li>
+            <li><a href="#villages" class="nav-link" data-section="villages">Villages</a></li>
+            <li><a href="#decision" class="nav-link" data-section="decision">D&eacute;cision</a></li>
+            <li><a href="#suite" class="nav-link" data-section="suite">Suite</a></li>
+        </ul>
+        <a href="en.html" style="margin-left: 1.5rem; padding: 0.4rem 0.8rem; background: var(--black); color: var(--white); border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-decoration: none; letter-spacing: 0.05em; white-space: nowrap;">EN &#127468;&#127463;</a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="hero-blob hero-blob-1"></div>
+        <div class="hero-blob hero-blob-2"></div>
+        <div class="hero-blob hero-blob-3"></div>
+        <div class="hero-content">
+            <div style="padding: 2rem 2rem 0;">
+                <div class="hero-badge">28 mars 2026 &middot; Campus Nancy</div>
+            </div>
+            <img src="restitution/Header-ICN.png" alt="ICN Creative Day 2026" class="hero-image">
+            <div style="padding: 0 2rem 2rem;">
+            <p class="hero-subtitle">
+                187 collaborateurs. 22 tables. 5 villages. 1 journ&eacute;e pour r&eacute;inventer ICN ensemble.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="187">0</div>
+                    <div class="stat-label">Participants</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="22">0</div>
+                    <div class="stat-label">Tables</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">Villages</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">Challenges</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="1493">0</div>
+                    <div class="stat-label">R&eacute;ponses</div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OUVERTURE SECTION -->
+    <section class="light" id="ouverture">
+        <div class="section-container">
+            <span class="section-tag">Matin</span>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                <img src="restitution/FRAN%C3%87OIS.png" alt="Fran&ccedil;ois Therin" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 3px solid var(--yellow); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <h2 class="section-title" style="margin: 0;">La vision de Fran&ccedil;ois Therin</h2>
+            </div>
+            <p class="ouverture-quote">
+                &laquo; Il y a beaucoup de gens qui sont tr&egrave;s, tr&egrave;s motiv&eacute;s pour que ICN bouge. Et &ccedil;a tombe bien, puisque ICN doit bouger. &raquo;
+            </p>
+            <div class="ouverture-cards">
+                <div class="card">
+                    <h3>Doubler sans doubler</h3>
+                    <p>Croissance ambitieuse en maintenant l'essence et la qualit&eacute; d'ICN</p>
+                </div>
+                <div class="card">
+                    <h3>S&eacute;nat acad&eacute;mique</h3>
+                    <p>Gouvernance r&eacute;novée pour plus de transparence et de partage d&eacute;cisionnaire</p>
+                </div>
+                <div class="card">
+                    <h3>Porte ouverte</h3>
+                    <p>Dialogue continu entre direction et collaborateurs pour acc&eacute;l&eacute;rer le changement</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SONDAGES SECTION -->
+    <section id="sondages">
+        <div class="section-container">
+            <span class="section-tag">Donn&eacute;es</span>
+            <h2 class="section-title">Sondages &amp; Questions pour le Sprint</h2>
+            <p class="section-subtitle">De 1 493 r&eacute;ponses &agrave; 2 questions strat&eacute;giques</p>
+
+            <div class="sondages-container">
+                <div class="sondage-card magenta">
+                    <h3 class="sondage-title">Freins structurels</h3>
+                    <p class="sondage-response-count">561 r&eacute;ponses</p>
+                    <div class="sondage-item">
+                        <div class="sondage-label">
+                            <span>Process &amp; lourdeur admin</span>
+                            <span>11%</span>
+                        </div>
+                        <div class="sondage-bar">
+                            <div class="sondage-bar-fill" style="width: 11%"></div>
+                        </div>
+                    </div>
+                    <div class="sondage-item">
+                        <div class="sondage-label">
+                            <span>Communication &amp; partage</span>
+                            <span>10%</span>
+                        </div>
+                        <div class="sondage-bar">
+                            <div class="sondage-bar-fill" style="width: 10%"></div>
+                        </div>
+                    </div>
+                    <div class="sondage-item">
+                        <div class="sondage-label">
+                            <span>Satisfaction &eacute;tudiants</span>
+                            <span>7%</span>
+                        </div>
+                        <div class="sondage-bar">
+                            <div class="sondage-bar-fill" style="width: 7%"></div>
+                        </div>
+                    </div>
+                    <div class="sondage-item">
+                        <div class="sondage-label">
+                            <span>Outils/SI obsol&egrave;tes</span>
+                            <span>6%</span>
+                        </div>
+                        <div class="sondage-bar">
+                            <div class="sondage-bar-fill" style="width: 6%"></div>
+                        </div>
+                    </div>
+                    <div class="sondage-item">
+                        <div class="sondage-label">
+                            <span>Silos &amp; manque de coh&eacute;sion</span>
+                            <span>5%</span>
+                        </div>
+                        <div class="sondage-bar">
+                            <div class="sondage-bar-fill" style="width: 5%"></div>
+                        </div>
+                    </div>
+                    <div class="sondage-item">
+                        <div class="sondage-label">
+                            <span>R&eacute;sistance au changement</span>
+                            <span>4%</span>
+                        </div>
+                        <div class="sondage-bar">
+                            <div class="sondage-bar-fill" style="width: 4%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sondage-card orange">
+                    <h3 class="sondage-title">Frustrations au quotidien</h3>
+                    <p class="sondage-response-count">932 r&eacute;ponses</p>
+                    <div class="sondage-item">
+                        <div class="sondage-label">
+                            <span>RH &amp; turnover</span>
+                            <span>23%</span>
+                        </div>
+                        <div class="sondage-bar">
+                            <div class="sondage-bar-fill" style="width: 23%"></div>
+                        </div>
+                    </div>
+                    <div class="sondage-item">
+                        <div class="sondage-label">
+                            <span>Enseignement &amp; notes</span>
+                            <span>14%</span>
+                        </div>
+                        <div class="sondage-bar">
+                            <div class="sondage-bar-fill" style="width: 14%"></div>
+                        </div>
+                    </div>
+                    <div class="sondage-item">
+                        <div class="sondage-label">
+                            <span>Process &amp; admin</span>
+                            <span>10%</span>
+                        </div>
+                        <div class="sondage-bar">
+                            <div class="sondage-bar-fill" style="width: 10%"></div>
+                        </div>
+                    </div>
+                    <div class="sondage-item">
+                        <div class="sondage-label">
+                            <span>Outils/SI obsol&egrave;tes</span>
+                            <span>6%</span>
+                        </div>
+                        <div class="sondage-bar">
+                            <div class="sondage-bar-fill" style="width: 6%"></div>
+                        </div>
+                    </div>
+                    <div class="sondage-item">
+                        <div class="sondage-label">
+                            <span>Management &amp; strat&eacute;gie</span>
+                            <span>5%</span>
+                        </div>
+                        <div class="sondage-bar">
+                            <div class="sondage-bar-fill" style="width: 5%"></div>
+                        </div>
+                    </div>
+                    <div class="sondage-item">
+                        <div class="sondage-label">
+                            <span>Surcharge &amp; urgence</span>
+                            <span>5%</span>
+                        </div>
+                        <div class="sondage-bar">
+                            <div class="sondage-bar-fill" style="width: 5%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow-flow">1 493 r&eacute;ponses &rarr; 5 d&eacute;fis s&eacute;lectionn&eacute;s</div>
+        </div>
+    </section>
+
+    <!-- DESIGN SPRINT METHOD -->
+    <section class="light" id="sprint">
+        <div class="section-container">
+            <span class="section-tag">M&eacute;thode</span>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                <img src="restitution/ELODIE.png" alt="Elodie Hughes" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 3px solid var(--magenta); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <h2 class="section-title" style="margin: 0;">Design Sprint : 3h pour changer ICN</h2>
+            </div>
+            <p class="section-subtitle">
+                M&eacute;thodologie Google, compress&eacute;e en 3 heures pour acc&eacute;l&eacute;rer l'innovation et l'engagement collectif.
+            </p>
+
+            <div class="method-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>D&eacute;mos &Eacute;clair</h4>
+                    <p>Inspiration &amp; comp&eacute;tences</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Comment Pourrions-Nous</h4>
+                    <p>Reformuler les d&eacute;fis</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>4 Id&eacute;es en 4 Min</h4>
+                    <p>G&eacute;n&eacute;rer des id&eacute;es</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h4>Canevas de Pitch</h4>
+                    <p>Structurer la solution</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <h4>Pitch &amp; Vote</h4>
+                    <p>Valider l'approche</p>
+                </div>
+            </div>
+
+            <h3 style="color: white; font-size: 1.8rem; margin-top: 4rem; margin-bottom: 0.5rem; text-align: center; font-weight: 800;">Les 5 D&eacute;fis</h3>
+            <p style="color: rgba(255,255,255,0.6); text-align: center; margin-bottom: 2rem; font-size: 1rem;">Chaque village a travaill&eacute; sur un d&eacute;fi strat&eacute;gique, guid&eacute; par un facilitateur</p>
+            <div class="challenge-grid">
+                <div class="challenge-card cyan">
+                    <div class="challenge-card-top">
+                        <img src="restitution/NASH.png" alt="Nash" class="challenge-facilitator-img">
+                        <div class="challenge-facilitator-info">
+                            <span class="challenge-facilitator-name">Nash</span>
+                            <span class="challenge-village-label">Village Cyan &middot; Culture</span>
+                        </div>
+                    </div>
+                    <div class="challenge-card-body">
+                        <h4>Comment cr&eacute;er une culture d'entreprise partag&eacute;e entre les campus ?</h4>
+                    </div>
+                </div>
+                <div class="challenge-card green">
+                    <div class="challenge-card-top">
+                        <img src="restitution/ZEENAT.png" alt="Zeenat" class="challenge-facilitator-img">
+                        <div class="challenge-facilitator-info">
+                            <span class="challenge-facilitator-name">Zeenat</span>
+                            <span class="challenge-village-label">Village Vert &middot; ATM</span>
+                        </div>
+                    </div>
+                    <div class="challenge-card-body">
+                        <h4>Comment faire d'ATM une r&eacute;alit&eacute; v&eacute;cue au quotidien ?</h4>
+                    </div>
+                </div>
+                <div class="challenge-card rose">
+                    <div class="challenge-card-top">
+                        <img src="restitution/ANNE.png" alt="Anne" class="challenge-facilitator-img">
+                        <div class="challenge-facilitator-info">
+                            <span class="challenge-facilitator-name">Anne</span>
+                            <span class="challenge-village-label">Village Rose &middot; Collaborateurs</span>
+                        </div>
+                    </div>
+                    <div class="challenge-card-body">
+                        <h4>Comment reconstruire la confiance entre collaborateurs et management ?</h4>
+                    </div>
+                </div>
+                <div class="challenge-card orange">
+                    <div class="challenge-card-top">
+                        <img src="restitution/HELOISE.png" alt="H&eacute;lo&iuml;se" class="challenge-facilitator-img">
+                        <div class="challenge-facilitator-info">
+                            <span class="challenge-facilitator-name">H&eacute;lo&iuml;se</span>
+                            <span class="challenge-village-label">Village Orange &middot; Campus</span>
+                        </div>
+                    </div>
+                    <div class="challenge-card-body">
+                        <h4>Comment faire de chaque campus un aimant distinctif ?</h4>
+                    </div>
+                </div>
+                <div class="challenge-card violet">
+                    <div class="challenge-card-top">
+                        <img src="restitution/JOHN.png" alt="John-Edwin" class="challenge-facilitator-img">
+                        <div class="challenge-facilitator-info">
+                            <span class="challenge-facilitator-name">John-Edwin</span>
+                            <span class="challenge-village-label">Village Violet &middot; &Eacute;tudiants</span>
+                        </div>
+                    </div>
+                    <div class="challenge-card-body">
+                        <h4>Comment repenser l'exp&eacute;rience &eacute;tudiante ?</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VILLAGES SECTIONS -->
+    <section class="village-section village-cyan" id="villages">
+        <div class="village-header">
+            <div class="village-dot"><img src="restitution/NASH.png" alt="Nash"></div>
+            <div class="village-header-text">
+                <h2>Village Cyan &middot; Culture</h2>
+                <div class="village-challenge">Comment cr&eacute;er une culture d'entreprise partag&eacute;e entre les campus ?</div>
+                <div class="village-facilitator">Facilit&eacute; par Nash</div>
+            </div>
+        </div>
+        <div class="village-teams">
+            <div class="team-card winner">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <span class="team-badge winner">&#127942; GAGNANT</span>
+                        <h3 class="team-name">Buenos Aires</h3>
+                        <p class="team-tagline">Casser les silos et cr&eacute;er une culture de flux</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Trop de silos entre les &eacute;quipes et les campus. L'information circule mal, l'&eacute;nergie collective reste inexploit&eacute;e.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>3 axes : (1) Espace d'&eacute;change num&eacute;rique centralis&eacute;, (2) Temps forts humains — team building, programme &quot;Vie ma vie&quot;, (3) Onboarding immersif avec rapport d'&eacute;tonnement.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Moins de friction, d&eacute;cisions plus rapides, &eacute;nergie collective d&eacute;cupli&eacute;e. Plus de souplesse et d'autonomie dans une logique de confiance.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Lancer un test du nouveau dispositif, ajuster selon les retours.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Est-ce qu'on veut construire cette ICN o&ugrave; travailler ensemble devient un avantage et plus une contrainte ? &raquo;
+                    </div>
+                    <img src="restitution/Pitch Buenos Aires.png" alt="Infographie Buenos Aires" class="team-infographie">
+                </div>
+            </div>
+
+            <div class="team-card finalist">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <span class="team-badge finalist">Finaliste</span>
+                        <h3 class="team-name">Dublin</h3>
+                        <p class="team-tagline">Impl&eacute;menter une culture constructive du conflit pour transformer les incompr&eacute;hensions en progr&egrave;s</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>L'incompr&eacute;hension entre les services g&eacute;n&egrave;re frustration, blocages et dysfonctionnement g&eacute;n&eacute;ralis&eacute;.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Des r&eacute;unions &quot;conflictuelles&quot; r&eacute;guli&egrave;res — une culture constructive du conflit. Animateurs sans responsabilit&eacute; hi&eacute;rarchique, r&eacute;unions transversales et horizontales.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>R&eacute;duction du burn-out et du turnover, augmentation de la performance et de la satisfaction, r&eacute;duction de la charge mentale.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Identifier les petits probl&egrave;mes par service, former des animateurs neutres.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Impl&eacute;menter une culture constructive du conflit. &raquo;
+                    </div>
+                    <img src="restitution/Pitch Dublin.png" alt="Infographie Dublin" class="team-infographie">
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <h3 class="team-name">Lyon</h3>
+                        <p class="team-tagline">D&eacute;finir un objectif commun pour unir les forces et reconnecter l'humain entre les campus</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Silos entre campus — l'information et l'&eacute;nergie ne circulent pas d'un site &agrave; l'autre.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>D&eacute;finir un objectif commun pour unir les forces. Reconnecter l'humain. Restructuration transversale.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Coh&eacute;sion inter-campus, vision partag&eacute;e, meilleure circulation de l'&eacute;nergie.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Organiser une assembl&eacute;e g&eacute;n&eacute;rale pour d&eacute;finir un objectif commun.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Cr&eacute;er un objectif commun qui unit tous les collaborateurs. &raquo;
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- VILLAGE VERT -->
+    <section class="village-section village-green">
+        <div class="village-header">
+            <div class="village-dot"><img src="restitution/ZEENAT.png" alt="Zeenat"></div>
+            <div class="village-header-text">
+                <h2>Village Vert &middot; ATM</h2>
+                <div class="village-challenge">Comment faire d'ATM une r&eacute;alit&eacute; v&eacute;cue au quotidien ?</div>
+                <div class="village-facilitator">Facilit&eacute; par Zeenat</div>
+            </div>
+        </div>
+        <div class="village-teams">
+            <div class="team-card winner">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <span class="team-badge winner">🏆 GAGNANT</span>
+                        <h3 class="team-name">Montreal</h3>
+                        <p class="team-tagline">Convaincre chacun de la pertinence d'ATM et en faire une r&eacute;alit&eacute; quotidienne</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>ATM reste un concept abstrait. Manque de conviction et d'appropriation par les &eacute;quipes.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Plan d'actions concret pour chaque campus, articul&eacute; autour des comp&eacute;tences ATM. Connecter ATM aux missions quotidiennes de chacun.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Engagement des &eacute;tudiants, visibilit&eacute; pour les employeurs, fiert&eacute; d'appartenance.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Constituer la task force ATM avec repr&eacute;sentants de chaque service.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Faire vivre ATM tous les jours, pas seulement en th&eacute;orie. &raquo;
+                    </div>
+                    <img src="restitution/Montreal.png" alt="Infographie Montr&eacute;al" class="team-infographie">
+                </div>
+            </div>
+
+            <div class="team-card finalist">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <span class="team-badge finalist">Finaliste</span>
+                        <h3 class="team-name">Sydney</h3>
+                        <p class="team-tagline">R&eacute;animer ATM par une task force inclusive et des artistes en r&eacute;sidence sur les campus</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>ATM a perdu ses limites et sa visibilit&eacute;. On ne sait plus ce que c'est, on ne l'utilise pas pour se diff&eacute;rencier.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Task force &eacute;tudiants + staff + enseignants + d&eacute;cideurs + alumni pour red&eacute;finir ATM. Premier projet : r&eacute;sidence artistique d'&eacute;t&eacute; sur les campus.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Rayonnement, relations avec l'ext&eacute;rieur, visibilit&eacute; presse et m&eacute;dias, position unique, campus excitant.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Cr&eacute;er la task force. Les &eacute;tudiants doivent y &ecirc;tre car « ils savent ce qu'ils veulent ».</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; R&eacute;sidence artistique d'&eacute;t&eacute; — utiliser nos campus l'&eacute;t&eacute;, et pr&eacute;senter les &oelig;uvres aux &eacute;tudiants &agrave; la rentr&eacute;e. &raquo;
+                    </div>
+                    <img src="restitution/Pitch Sydney.png" alt="Infographie Sydney" class="team-infographie">
+                </div>
+            </div>
+
+            <div class="team-card repechage">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <span class="team-badge repechage">&#11088; Golden Ticket</span>
+                        <h3 class="team-name">Amsterdam</h3>
+                        <p class="team-tagline">Cr&eacute;er des environnements p&eacute;dagogiques immersifs m&ecirc;lant art et technologie</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Les formations restent th&eacute;oriques et cloisonn&eacute;es, sans exploiter la dimension artistique propre &agrave; ICN (ARTEM).</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Environnements p&eacute;dagogiques immersifs cr&eacute;&eacute;s en interne (partie Art) : interactions avec des &laquo; computers humains &raquo;, dessins et mises en situation r&eacute;elles.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Formation RH et comp&eacute;tences pour tous &mdash; collaborateurs, directions et &eacute;tudiants. Mesure de la performance et des comp&eacute;tences.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Identifier les partenaires et forces internes (GPL) pour lancer un premier environnement immersif pilote.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; L'art au service de la p&eacute;dagogie : des environnements immersifs pour apprendre autrement. &raquo;
+                    </div>
+                    <img src="restitution/Amsterdam.png" alt="Infographie Amsterdam" class="team-infographie">
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <h3 class="team-name">Mumbai</h3>
+                        <p class="team-tagline">Int&eacute;grer les modules ATM dans les associations &eacute;tudiantes via des pitchs entrepreneuriaux</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Les modules ATM (Art, Technologie, Management) existent dans les programmes acad&eacute;miques mais ne sont pas int&eacute;gr&eacute;s dans les associations &eacute;tudiantes, limitant l'exp&eacute;rience entrepreneuriale pratique.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Int&eacute;grer les modules ATM au sein des diff&eacute;rents programmes ET des associations. Cr&eacute;er des mises en sc&egrave;ne o&ugrave; les &eacute;tudiants pitchent leurs projets comme devant un entrepreneur : aspects financiers, mon&eacute;taires, business model. G&eacute;r&eacute; par les &eacute;tudiants eux-m&ecirc;mes.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Les &eacute;tudiants acqui&egrave;rent des comp&eacute;tences entrepreneuriales concr&egrave;tes &agrave; travers les associations, en compl&eacute;ment des modules acad&eacute;miques. Autonomie et responsabilisation.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Identifier les associations volontaires et planifier le premier exercice de pitch entrepreneurial g&eacute;r&eacute; par les &eacute;tudiants.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Faire vivre l'entrepreneuriat ATM au-del&agrave; des cours : dans les associations, par les &eacute;tudiants. &raquo;
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <h3 class="team-name">Rio</h3>
+                        <p class="team-tagline">Acte ATM &mdash; un socle commun de cours transversaux entre les trois &eacute;coles</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>La philosophie ATM (Art, Technologie, Management) reste th&eacute;orique. Les &eacute;tudiants des trois &eacute;coles n'ont pas de socle commun de cours fondamentaux, ce qui emp&ecirc;che de donner vie &agrave; l'identit&eacute; ARTEM.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Cr&eacute;er un socle commun de cours transversaux entre les &eacute;coles : les &eacute;tudiants ingénieurs suivent des cours de design et marketing, les designers suivent des cours de finance et gestion de projets. Chaque &eacute;cole contribue &agrave; une cohorte de cours ATM int&eacute;gr&eacute;s dans tous les programmes.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Renforcement de l'identit&eacute; ARTEM. Les &eacute;tudiants sont pr&eacute;par&eacute;s &agrave; travailler ensemble sur des projets communs et innovants. Les enseignants sont impliqu&eacute;s dans la d&eacute;marche p&eacute;dagogique transversale.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Identifier les cours pivot des trois &eacute;coles et lancer les adaptations p&eacute;dagogiques pour cr&eacute;er le socle commun.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Acte ATM : donner vie &agrave; la philosophie ARTEM par un socle commun de savoirs partag&eacute;s. &raquo;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VILLAGE ROSE -->
+    <section class="village-section village-rose">
+        <div class="village-header">
+            <div class="village-dot"><img src="restitution/ANNE.png" alt="Anne"></div>
+            <div class="village-header-text">
+                <h2>Village Rose &middot; Collaborateurs</h2>
+                <div class="village-challenge">Comment reconstruire la confiance entre collaborateurs et management ?</div>
+                <div class="village-facilitator">Facilit&eacute; par Anne</div>
+            </div>
+        </div>
+        <div class="village-teams">
+            <div class="team-card winner">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <span class="team-badge winner">🏆 GAGNANT</span>
+                        <h3 class="team-name">Helsinki</h3>
+                        <p class="team-tagline">L'&eacute;curie ICN — gagner la course de la culture ensemble, pas juste les pilotes</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Manque de reconnaissance et de valorisation. Fonctionnement trop vertical, information silot&eacute;e.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>M&eacute;taphore F1 en 3 axes : (1) Les Rouages — passer &agrave; l'horizontalit&eacute;, (2) L'&Eacute;curie — reconnaissance de TOUTES les t&acirc;ches, revalorisation salariale, (3) Les Pilotes — &quot;Vie mon probl&egrave;me&quot;, copilotage et transparence.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Motivation, moins de turnover, satisfaction, empathie, transparence, coh&eacute;sion. Objectif : TOP 10.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>R&eacute;partition des responsabilit&eacute;s — chacun sa place sur la machine.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; La victoire &agrave; l'&eacute;curie, et pas seulement aux pilotes ! &raquo;
+                    </div>
+                    <img src="restitution/Pitch Helsinki.png" alt="Infographie Helsinki" class="team-infographie">
+                </div>
+            </div>
+
+            <div class="team-card finalist">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <span class="team-badge finalist">Finaliste</span>
+                        <h3 class="team-name">Vancouver</h3>
+                        <p class="team-tagline">Reconnecter direction, administration et enseignants par des groupes d'&eacute;change et un annuaire des expertises</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Manque de communication entre direction, administration et enseignants. L'information ne descend pas, les experts ne sont pas sollicit&eacute;s.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>(1) Groupes d'&eacute;change inter-experts chapaute&#x0301;s par managers, (2) Comptes-rendus valid&eacute;s par la direction avec info redescendante, (3) Annuaire &quot;qui fait quoi&quot; + newsletters internes.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Experts enfin sollicit&eacute;s, information qui circule, d&eacute;cisions &eacute;clair&eacute;es.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Cr&eacute;er la base de donn&eacute;es &quot;qui fait quoi&quot; + programmer r&eacute;unions crois&eacute;es.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; On a des professeurs experts dans leur domaine, on ne les utilise pas assez dans les r&eacute;unions qui ont besoin d'eux. &raquo;
+                    </div>
+                    <img src="restitution/Pitch Vancouvert.png" alt="Infographie Vancouver" class="team-infographie">
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <h3 class="team-name">Lisbonne</h3>
+                        <p class="team-tagline">Espaces cr&eacute;atifs &amp; workshops inter-services pour restaurer la confiance</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Crise de confiance et de transparence de l'information &agrave; tous les niveaux : entre collaborateurs, entre &eacute;quipes, entre staff et management. On ne comprend pas le sens des d&eacute;cisions prises.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>(1) Cr&eacute;er sur chaque campus une salle cr&eacute;ative d'&eacute;change et de recharge (coussins, musique, yoga) avec affichage de communication interne. (2) Organiser des workshops inter-services facilit&eacute;s par des personnes externes pour instiller une culture plus agile. (3) Mini Fab Lab pour booster la cr&eacute;ativit&eacute;.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Coh&eacute;sion d'ensemble &agrave; tous les niveaux hi&eacute;rarchiques. La confiance se construit par les interactions informelles et la concertation. Transparence, sens de l'action et transversalit&eacute; retrouv&eacute;s.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Chacun am&egrave;ne coussins, musique, tapis de yoga pour cr&eacute;er la premi&egrave;re salle cr&eacute;ative d'&eacute;change sur chaque campus.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; La confiance se construit par les interactions : cr&eacute;ons les espaces pour qu'elles arrivent. &raquo;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VILLAGE ORANGE -->
+    <section class="village-section village-orange">
+        <div class="village-header">
+            <div class="village-dot"><img src="restitution/HELOISE.png" alt="H&eacute;lo&iuml;se"></div>
+            <div class="village-header-text">
+                <h2>Village Orange &middot; Campus</h2>
+                <div class="village-challenge">Comment faire de chaque campus un aimant distinctif ?</div>
+                <div class="village-facilitator">Facilit&eacute; par H&eacute;lo&iuml;se</div>
+            </div>
+        </div>
+        <div class="village-teams">
+            <div class="team-card winner">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <span class="team-badge winner">&#127942; GAGNANT</span>
+                        <h3 class="team-name">Barcelona</h3>
+                        <p class="team-tagline">Des campus g&eacute;n&eacute;riques aux hubs sp&eacute;cialis&eacute;s — &quot;comme les maisons Harry Potter&quot;</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Pas d'identit&eacute; propre &agrave; chaque campus, pas d'attractivit&eacute; diff&eacute;renci&eacute;e. Pourquoi choisir Nancy plut&ocirc;t que Paris ?</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Nancy = hub finance (Luxembourg), Paris = hub luxe/hospitality, Berlin = hub entrepreneuriat/tech. Chaque hub incarne ATM de fa&ccedil;on unique. Les &eacute;tudiants d&eacute;veloppent un sentiment d'appartenance &agrave; leur campus.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>&Eacute;tudiants fiers de leur campus, entreprises savent &agrave; qui parler. Finance → Nancy, luxe → Paris, tech → Berlin.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Assembl&eacute;e constituante — groupes de travail inter-services, soumis au vote de l'&eacute;cole.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Comme Harry Potter — Gryffondor ! Chaque campus a sa propre identit&eacute;, et ensemble on cr&eacute;e le nouvel ICN. &raquo;
+                    </div>
+                    <img src="restitution/Pitch Barcelone.png" alt="Infographie Barcelona" class="team-infographie">
+                </div>
+            </div>
+
+            <div class="team-card finalist">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <span class="team-badge finalist">Finaliste</span>
+                        <h3 class="team-name">Marrakech</h3>
+                        <p class="team-tagline">Placer l'entreprise au cœur d'un &eacute;cosyst&egrave;me &agrave; 6 branches pour chaque campus</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Comment cr&eacute;er un hub puissant ICN/entreprise par campus ?</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>&Eacute;cosyst&egrave;me centr&eacute; sur l'Entreprise avec 6 branches : partenaires & m&eacute;c&eacute;nat, enseignants-chercheurs, entrepreneuriat, CFA &amp; ExEd, &eacute;tudiants, alumni. Fl&egrave;ches &agrave; double sens.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Impact financi&#x0301;er, synergie redynamisante, repositionnement ATM + IA.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Pr&eacute;senter au COMEX + cr&eacute;er des groupes de travail mixtes ICN/entreprises.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Placer l'entreprise au cœur de notre &eacute;cosyst&egrave;me. &raquo;
+                    </div>
+                    <img src="restitution/Marrakech.png" alt="Infographie Marrakech" class="team-infographie">
+                </div>
+            </div>
+
+            <div class="team-card finalist">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <span class="team-badge finalist">Finaliste</span>
+                        <h3 class="team-name">Le Cap</h3>
+                        <p class="team-tagline">SOCLE — Solidarit&eacute;, Originalit&eacute;, Cr&eacute;ativit&eacute;, Leadership, Excellence pour dire &quot;Ich bin ICN&quot;</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>&laquo; Ich bin ein Berliner &raquo; — Peut-on dire « Je suis ICN » avec fiert&eacute; sur les 3 campus ? Pas encore.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Langage commun SOCLE (Solidarit&eacute;, Originalit&eacute;, Cr&eacute;ativit&eacute;, Leadership, Excellence) + d&eacute;finition concr&egrave;te d'ATM + pack &quot;ICN Bienvenue&quot; : pitch, journ&eacute;e d'accueil, tutorat.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Identit&eacute; partag&eacute;e, fiert&eacute; d'appartenance, coh&eacute;sion inter-campus.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>D&eacute;finition claire et commune d'ATM. Pr&eacute;parer le pack « ICN Bienvenue ».</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Gr&acirc;ce au SOCLE, d&egrave;s lundi, vous pourrez tous dire : Ich bin ICN. &raquo;
+                    </div>
+                    <img src="restitution/Pitch Le Cap.png" alt="Infographie Le Cap" class="team-infographie">
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <h3 class="team-name">Seoul</h3>
+                        <p class="team-tagline">Repenser l'accueil &eacute;tudiant et l'offre produit par campus pour les m&eacute;tiers de demain</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Double probl&eacute;matique : accueil des &eacute;tudiants inadapt&eacute; et offre produit pas align&eacute;e par campus.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Pack &eacute;tudiant avec plateforme/intranet (logement, annonces, vie sociale). Adapter SP&Eacute; et parcours aux m&eacute;tiers de demain.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>&Eacute;tudiants mieux accueillis, offre lisible, meilleure employabilit&eacute;.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Co-d&eacute;finir l'offre avec les &eacute;tudiants.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Offre produit compl&egrave;te et transparente pour les &eacute;tudiants. &raquo;
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <h3 class="team-name">COMEX</h3>
+                        <p class="team-tagline">Cr&eacute;er des environnements p&eacute;dagogiques immersifs int&eacute;grant art et technologie</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>P&eacute;dagogie traditionnelle ne valorise pas assez l'art et la technologie dans l'exp&eacute;rience d'apprentissage.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Environnements p&eacute;dagogiques immersifs, interactions humains/machines, mises en situation r&eacute;elles. Formation RH et comp&eacute;tences pour tous.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Exp&eacute;rience d'apprentissage transform&eacute;e, innovation p&eacute;dagogique, attractivit&eacute;.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Identifier les partenaires et les forces internes (GPL) pour lancer le projet.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Utiliser l'art et la technologie pour vivifier l'apprentissage. &raquo;
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <h3 class="team-name">Nairobi</h3>
+                        <p class="team-tagline">ICN 2035 : ancrage territorial, v&eacute;g&eacute;talisation et 5 000 &eacute;tudiants &agrave; l'horizon</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Manque d'attractivit&eacute; et de visibilit&eacute; de chaque campus. Pas d'ancrage dans l'&eacute;cosyst&egrave;me local.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Ancrage territorial + collaboration parties prenantes internes/externes + v&eacute;g&eacute;talisation des espaces de vie et reconnexion &agrave; la nature.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Campus attractifs, identit&eacute; locale forte, objectif 5 000 &eacute;tudiants.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>D&eacute;signer un sponsor, monter une &eacute;quipe projet (communication, partenariat, marketing, RSE, finances) + une &eacute;quipe &eacute;tudiante.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Identit&eacute;, collectif, nature : revenir &agrave; l'essentiel pour atteindre 5 000 &eacute;tudiants. &raquo;
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- VILLAGE VIOLET -->
+    <section class="village-section village-violet">
+        <div class="village-header">
+            <div class="village-dot"><img src="restitution/JOHN.png" alt="John-Edwin"></div>
+            <div class="village-header-text">
+                <h2>Village Violet &middot; &Eacute;tudiants</h2>
+                <div class="village-challenge">Comment repenser l'exp&eacute;rience &eacute;tudiante ?</div>
+                <div class="village-facilitator">Facilit&eacute; par John-Edwin</div>
+            </div>
+        </div>
+        <div class="village-teams">
+            <div class="team-card winner">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <span class="team-badge winner">&#127942; GAGNANT</span>
+                        <h3 class="team-name">Tokyo</h3>
+                        <p class="team-tagline">KISS — Keep It Simple and Stupid : simplifier les process pour replacer l'&eacute;tudiant au cœur</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Process trop longs (documents de 50 pages, tutos de 60 minutes). L'&eacute;tudiant n'est pas au centre du syst&egrave;me. Manque de sentiment d'appartenance.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>(1) Raccourcir et simplifier process et communication — esprit &quot;quick start&quot;, (2) Grand concours où les &eacute;tudiants exploitent leurs comp&eacute;tences ATM pour imaginer l'&eacute;cole de demain, (3) Investir fort sur l'exp&eacute;rience &eacute;tudiante.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Sentiment d'appartenance, &eacute;tudiants ambassadeurs, passerelles entreprise-&eacute;cole. &quot;Si je vous raconte mes vacances aux Seychelles, vous allez vouloir les m&ecirc;mes.&quot;</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Groupe de travail + enqu&ecirc;te aupr&egrave;s &eacute;tudiants, staff, alumni, professeurs → actions correctives.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Si je vous raconte mes vacances aux Seychelles, vous allez vouloir les m&ecirc;mes. C'est exactement ce qu'on veut pour ICN. &raquo;
+                    </div>
+                    <img src="restitution/Pitch Tokyo.png" alt="Infographie Tokyo" class="team-infographie">
+                </div>
+            </div>
+
+            <div class="team-card finalist">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <span class="team-badge finalist">Finaliste</span>
+                        <h3 class="team-name">Singapour</h3>
+                        <p class="team-tagline">Projet CLOSE — transformer 368 plaintes en 7 cat&eacute;gories gr&acirc;ce &agrave; l'IA pour am&eacute;liorer les process</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Les plaintes &eacute;tudiantes ne sont pas exploit&eacute;es pour am&eacute;liorer les process. On gère au cas par cas sans vision d'ensemble.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Syst&egrave;me CLOSE (Capture, Label, Own, Solve, Explain) — collecter les plaintes, les structurer avec l'IA (368 plaintes → 7 cat&eacute;gories), les r&eacute;soudre et communiquer. Quick fixes + am&eacute;lioration structurelle long terme.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Process am&eacute;lior&eacute;s → staff heureux. R&eacute;ponses fiables et rapides → &eacute;tudiants heureux. Satisfaction des deux c&ocirc;t&eacute;s.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Collecter les sources de plaintes, structurer avec l'IA, nommer des project champions.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; On a vu ce matin comment l'IA peut structurer 368 plaintes en seulement sept cat&eacute;gories. &raquo;
+                    </div>
+                    <img src="restitution/Pitch Singapour.png" alt="Infographie Singapour" class="team-infographie">
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <h3 class="team-name">Berlin</h3>
+                        <p class="team-tagline">De &quot;ICN — C'est quoi ?&quot; &agrave; &quot;Fiers aujourd'hui, leaders demain&quot;</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Comment retrouver le sentiment d'appartenance et de fiert&eacute; d'&ecirc;tre &agrave; ICN ?</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Travailler ensemble pour le plaisir d'apprendre et de transmettre. (1) Renforcer la collaboration entre professeurs et &eacute;tudiants pour cr&eacute;er un sentiment d'appartenance et de fiert&eacute;, (2) Faire des &eacute;tudiants des ambassadeurs d'ICN, (3) Collaboration entreprises/alumni — les inviter pour cours, discours, &eacute;tudes de cas.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Augmenter l'implication des entreprises et des alumni avec les profs et le Career Center, &agrave; travers des talks et &eacute;tudes de cas.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Organiser une consultation repr&eacute;sentative et obligatoire aupr&egrave;s des &eacute;tudiants sur le plaisir d'apprendre.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Fiers aujourd'hui, leaders demain. &raquo;
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <h3 class="team-name">Marseille</h3>
+                        <p class="team-tagline">&Eacute;couter vraiment les insatisfactions &eacute;tudiantes par une collecte cibl&eacute;e et des groupes interservices</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Insatisfactions &eacute;tudiantes non trait&eacute;es de mani&egrave;re structur&eacute;e.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>Collecte de donn&eacute;es cibl&eacute;e + groupe de travail interservices + immersion dans les outils ASK.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>&Eacute;tudiants &eacute;cout&eacute;s, process corrig&eacute;s, satisfaction en hausse.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Monter le groupe de travail interservices + collecter via WhatsApp.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; &Eacute;couter vraiment, puis agir. &raquo;
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-summary" onclick="toggleTeam(this)">
+                    <div class="team-summary-left">
+                        <h3 class="team-name">San Francisco</h3>
+                        <p class="team-tagline">Wiki de processus &amp; barre de progression pour les demandes &eacute;tudiantes</p>
+                    </div>
+                    <span class="team-toggle">&plus;</span>
+                </div>
+                <div class="team-detail">
+                    <div class="pitch-canvas">
+                        <div class="pitch-block pitch-problem">
+                            <div class="pitch-number">1</div>
+                            <div class="pitch-content">
+                                <h4>Le Probl&egrave;me</h4>
+                                <p>Quand un &eacute;tudiant fait une demande, il ne sait pas ce qui se passe en coulisses : manque d'information, d&eacute;lai inconnu (jours, semaines, mois ?), frustration et plaintes r&eacute;currentes.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-solution">
+                            <div class="pitch-number">2</div>
+                            <div class="pitch-content">
+                                <h4>La Solution</h4>
+                                <p>(1) Cr&eacute;er un wiki interne d&eacute;taillant chaque processus, accessible aux collaborateurs ET aux &eacute;tudiants. (2) Ajouter une barre de progression sur chaque demande pour que l'&eacute;tudiant voie le statut en temps r&eacute;el. (3) Connecter le tout &agrave; Zendesk.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-benefit">
+                            <div class="pitch-number">3</div>
+                            <div class="pitch-content">
+                                <h4>B&eacute;n&eacute;fice Concret</h4>
+                                <p>Transparence totale, moins de plaintes, meilleure satisfaction des &eacute;tudiants en termes d'attentes, et r&eacute;duction de la charge de travail des &eacute;quipes.</p>
+                            </div>
+                        </div>
+                        <div class="pitch-block pitch-action">
+                            <div class="pitch-number">4</div>
+                            <div class="pitch-content">
+                                <h4>Premi&egrave;re Action Lundi</h4>
+                                <p>Lancer un sondage pour cartographier pr&eacute;cis&eacute;ment les probl&egrave;mes rencontr&eacute;s par les &eacute;tudiants dans leurs demandes.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pitch-punchline">
+                        &laquo; Rendre visible l'invisible : que chaque &eacute;tudiant sache o&ugrave; en est sa demande. &raquo;
+                    </div>
+                    <img src="restitution/San Francisco.png" alt="Infographie San Francisco" class="team-infographie">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DÉCISION SECTION -->
+    <section id="decision" style="background: var(--white);">
+        <div class="section-container">
+            <div class="decision-content">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 0.5rem;">
+                    <img src="restitution/FRAN%C3%87OIS.png" alt="Fran&ccedil;ois Therin" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 3px solid var(--yellow); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <h2 class="section-title" style="margin: 0;">La d&eacute;cision de Fran&ccedil;ois</h2>
+                </div>
+                <p style="color: #6B7280; font-size: 1rem; margin-bottom: 2rem;">Discours de cl&ocirc;ture &mdash; Fran&ccedil;ois Therin, Directeur G&eacute;n&eacute;ral ICN</p>
+
+                <!-- Remerciement -->
+                <div style="text-align: left; max-width: 800px; margin: 0 auto 2rem;">
+                    <p style="font-size: 1.05rem; line-height: 1.8; color: #374151; margin-bottom: 1.5rem;">
+                        &laquo; Merci &agrave; toutes et &agrave; tous d'avoir pris votre samedi. Je sais que ce n'est pas toujours facile. J'esp&egrave;re que vous avez pass&eacute; un moment agr&eacute;able. &raquo;
+                    </p>
+                </div>
+
+                <!-- Constat -->
+                <div style="background: #F0FDF4; border-left: 4px solid var(--green); padding: 1.5rem 2rem; border-radius: 8px; max-width: 800px; margin: 0 auto 2rem; text-align: left;">
+                    <h4 style="color: var(--green); margin-bottom: 0.75rem; font-size: 1rem;">&#9889; Le constat</h4>
+                    <p style="font-size: 1rem; line-height: 1.7; color: #374151;">
+                        &laquo; Il y a beaucoup de gens qui sont tr&egrave;s, tr&egrave;s motiv&eacute;s pour que ICN bouge, et &ccedil;a tombe bien puisque ICN doit bouger. &raquo;
+                    </p>
+                </div>
+
+                <!-- Direction commune -->
+                <div style="background: #EFF6FF; border-left: 4px solid var(--cyan); padding: 1.5rem 2rem; border-radius: 8px; max-width: 800px; margin: 0 auto 2rem; text-align: left;">
+                    <h4 style="color: var(--cyan); margin-bottom: 0.75rem; font-size: 1rem;">&#127758; La direction</h4>
+                    <p style="font-size: 1rem; line-height: 1.7; color: #374151;">
+                        &laquo; On va tous dans le m&ecirc;me sens : redonner &agrave; ICN la place qu'elle m&eacute;rite parmi les &eacute;coles en France et lui donner la place qu'elle m&eacute;rite parmi les &eacute;coles &agrave; l'international. &raquo;
+                    </p>
+                </div>
+
+                <!-- Citation clé -->
+                <p class="decision-quote" style="margin: 3rem auto;">
+                    &laquo; Choisir, c'est renoncer. &raquo;
+                </p>
+                <p style="color: #9CA3AF; font-size: 0.9rem; font-style: italic; margin-top: -2rem; margin-bottom: 2rem;">Andr&eacute; Gide, prix Nobel de litt&eacute;rature</p>
+
+                <!-- Infographie "Choosing is giving up" -->
+                <div style="width: 100%; max-width: 900px; margin: 0 auto 3rem;">
+                    <img src="restitution/Infographie de fin.png" alt="Infographie — Choosing is giving up — Vision de cl&ocirc;ture de Fran&ccedil;ois Therin" class="team-infographie" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); cursor: pointer; display: block;">
+                </div>
+
+                <div style="border-bottom: 2px solid #E5E7EB; margin: 1rem 0 2rem;"></div>
+
+                <!-- La décision -->
+                <div style="background: #FFFEF0; border: 3px solid var(--yellow); padding: 2.5rem; border-radius: 12px; max-width: 800px; margin: 0 auto 2rem;">
+                    <h3 style="color: var(--orange); font-size: 1.5rem; margin-bottom: 1rem; text-align: center;">&#127942; Tous les projets finalistes sont retenus</h3>
+                    <p style="color: #374151; font-size: 1.05rem; line-height: 1.7; text-align: left;">
+                        &laquo; Tous les projets m&eacute;ritent qu'on les passe &agrave; la moulinette des trois semaines suivantes &agrave; travailler sur la faisabilit&eacute; des projets, la mise en &oelig;uvre directe. De mon c&ocirc;t&eacute;, tous ces projets sont retenus. Ils m&eacute;ritent tous leur place. &raquo;
+                    </p>
+                </div>
+
+                <!-- Jumelage -->
+                <div style="background: #F5F3FF; border-left: 4px solid var(--violet); padding: 1.5rem 2rem; border-radius: 8px; max-width: 800px; margin: 0 auto 2rem; text-align: left;">
+                    <h4 style="color: var(--violet); margin-bottom: 0.75rem; font-size: 1rem;">&#128279; Jumelage</h4>
+                    <p style="font-size: 1rem; line-height: 1.7; color: #374151;">
+                        &laquo; Certains projets sont connexes. J'imagine qu'on peut tout &agrave; fait jumeler quelques villes. Et surtout, ils ne co&ucirc;tent rien &agrave; l'ensemble, &agrave; part du temps. &raquo;
+                    </p>
+                </div>
+
+                <!-- Ce n'est qu'un début -->
+                <div style="background: #FFF1F2; border-left: 4px solid var(--magenta); padding: 1.5rem 2rem; border-radius: 8px; max-width: 800px; margin: 0 auto 2rem; text-align: left;">
+                    <h4 style="color: var(--magenta); margin-bottom: 0.75rem; font-size: 1rem;">&#128640; Ce n'est qu'un d&eacute;but</h4>
+                    <p style="font-size: 1rem; line-height: 1.7; color: #374151;">
+                        &laquo; &Ccedil;a ne veut pas dire qu'il y a seulement les 9 ou 10 projets retenus et puis qu'on ne fait rien d'autre pendant un an. J'esp&egrave;re que &ccedil;a va donner des id&eacute;es &agrave; vous ou &agrave; d'autres de venir avec d'autres projets. &raquo;
+                    </p>
+                </div>
+
+                <!-- Amsterdam repêché -->
+                <div class="decision-highlight">
+                    <h3>&#11088; Amsterdam &mdash; Golden Ticket</h3>
+                    <p>
+                        Le projet <strong>Amsterdam</strong> (Environnements P&eacute;dagogiques Immersifs) a re&ccedil;u le <strong>Golden Ticket de l'&eacute;quipe</strong> pour sa vision innovante m&ecirc;lant art et technologie au service de la formation.
+                    </p>
+                </div>
+
+                <!-- Porte ouverte -->
+                <div style="text-align: left; max-width: 800px; margin: 2rem auto; padding: 1.5rem 2rem; background: #F9FAFB; border-radius: 8px;">
+                    <p style="font-size: 1rem; line-height: 1.7; color: #374151;">
+                        &laquo; Ma porte est toujours ouverte. Quand je suis &agrave; Nancy, quand je suis &agrave; Paris ou quand je retourne &agrave; Berlin &mdash; n'h&eacute;sitez pas. &raquo;
+                    </p>
+                </div>
+
+                <!-- Mobilisation -->
+                <div style="background: #FFF7ED; border-left: 4px solid var(--orange); padding: 1.5rem 2rem; border-radius: 8px; max-width: 800px; margin: 0 auto 2rem; text-align: left;">
+                    <h4 style="color: var(--orange); margin-bottom: 0.75rem; font-size: 1rem;">&#128170; Appel &agrave; la mobilisation</h4>
+                    <p style="font-size: 1rem; line-height: 1.7; color: #374151;">
+                        &laquo; Lundi matin et pour le prochain mois, il va falloir qu'on continue toutes et tous &agrave; se mobiliser pour faire avancer ces projets. &raquo;
+                    </p>
+                </div>
+
+                <!-- Conclusion -->
+                <p class="decision-quote-2" style="margin-top: 2rem;">
+                    &laquo; Merci encore une fois pour ce jour tr&egrave;s utile et tr&egrave;s joli. J'esp&egrave;re que nous le referons r&eacute;guli&egrave;rement. C'est un bon moyen de faire avancer ICN pour les mois &agrave; venir. &raquo;
+                </p>
+
+            </div>
+        </div>
+        <!-- Infographie déplacée après "Choisir c'est renoncer" -->
+    </section>
+
+    <!-- ET MAINTENANT SECTION -->
+    <section id="suite" style="background: var(--light-gray);">
+        <div class="section-container">
+            <h2 class="section-title">Et maintenant ?</h2>
+            <p class="section-subtitle">Le chemin vers la transformation</p>
+            <div style="text-align: center; margin: 2rem 0;">
+                <img src="restitution/ELODIE.png" alt="Elodie Hughes" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--magenta); box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+                <p style="font-size: 0.85rem; font-weight: 600; color: #374151; margin-top: 0.5rem;">Elodie Hughes</p>
+                <p style="font-size: 0.75rem; color: #9CA3AF; margin-top: -0.3rem;">Facilitatrice &amp; Designer</p>
+            </div>
+
+            <div class="next-steps-grid">
+                <div class="next-step-card">
+                    <h3>Lundi 31 mars</h3>
+                    <p>Premi&egrave;re action de chaque &eacute;quipe. Momentum et cr&eacute;dibilit&eacute;.</p>
+                </div>
+
+                <div class="next-step-card">
+                    <h3>3 semaines de sprint</h3>
+                    <p>Faisabilit&eacute;, budget, timeline pour chaque projet.</p>
+                </div>
+
+                <div class="next-step-card">
+                    <h3>Jumelage des projets</h3>
+                    <p>Identification des synergies et points d'appui mutuels.</p>
+                </div>
+
+                <div class="next-step-card">
+                    <h3>Restitution</h3>
+                    <p>Mise en place des prochaines &eacute;tapes et gouvernance du changement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>WE ARE UN1QUE</strong></p>
+        <p>ICN Creativ Day 2026 &middot; 28 mars &middot; Campus Nancy</p>
+        <p>Facil&eacute; par <strong>AI x Leaders</strong></p>
+        <p style="margin-top: 1.5rem; font-size: 0.75rem; opacity: 0.6;">187 collaborateurs. 22 tables. 5 villages. 1 journ&eacute;e. Infini de possibilit&eacute;s.</p>
+        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #E5E7EB;">
+            <img src="restitution/Logo ICN 28 Mars.jpeg" alt="ICN Logo" style="height: 100px; object-fit: contain; display: block; margin: 0 auto;">
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox-overlay">
+        <img id="lightboxImg" src="" alt="Infographie en grand">
+    </div>
+
+    <script>
+        // STICKY NAVIGATION
+        const stickyNav = document.getElementById('stickyNav');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                stickyNav.classList.add('visible');
+            } else {
+                stickyNav.classList.remove('visible');
+            }
+
+            // Update active nav link
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // SMOOTH SCROLL
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // SCROLL REVEAL ANIMATION
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card, .sprint-question-card, .team-card, .next-step-card, .challenge-card, .step-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // SONDAGE BARS ANIMATION
+        const sondageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const fills = entry.target.querySelectorAll('.sondage-bar-fill');
+                    fills.forEach(fill => {
+                        fill.style.transition = 'width 0.8s ease 0.2s';
+                    });
+                    sondageObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.sondage-card').forEach(card => {
+            sondageObserver.observe(card);
+        });
+
+        // COUNTER ANIMATION
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.stat-number[data-target]');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        const duration = 2000;
+                        const start = performance.now();
+                        const easeOutQuart = t => 1 - Math.pow(1 - t, 4);
+
+                        function update(now) {
+                            const elapsed = now - start;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const eased = easeOutQuart(progress);
+                            const current = Math.round(eased * target);
+                            counter.textContent = current >= 1000
+                                ? current.toLocaleString('fr-FR').replace(/,/g, '\u00a0')
+                                : current;
+                            if (progress < 1) requestAnimationFrame(update);
+                        }
+                        requestAnimationFrame(update);
+                    });
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.hero-stats').forEach(el => counterObserver.observe(el));
+
+        // ACCORDION TEAMS
+        function toggleTeam(el) {
+            const card = el.closest('.team-card');
+            card.classList.toggle('open');
+        }
+
+        // LIGHTBOX
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        document.querySelectorAll('.team-infographie').forEach(img => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            });
+        });
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        // INJECT MAILTO CONTACT LINK IN EACH PITCH
+        document.querySelectorAll('.team-detail').forEach(detail => {
+            const teamName = detail.closest('.team-card').querySelector('.team-name')?.textContent || '';
+            const link = document.createElement('div');
+            link.style.cssText = 'margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #E5E7EB; text-align: center;';
+            link.innerHTML = '<a href="mailto:elodie@lightmeup.io?subject=Rectification pitch ' + encodeURIComponent(teamName) + ' — ICN Creativ Day" style="color: #9CA3AF; font-size: 0.8rem; text-decoration: none; transition: color 0.2s;">&#9998; Demander une rectification sur ce pitch</a>';
+            link.querySelector('a').addEventListener('mouseenter', function() { this.style.color = '#374151'; });
+            link.querySelector('a').addEventListener('mouseleave', function() { this.style.color = '#9CA3AF'; });
+            detail.appendChild(link);
+        });
+    </script>
+</body>
+</html>
