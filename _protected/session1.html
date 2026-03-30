@@ -270,9 +270,76 @@
         }
         footer a { color: var(--pink-light); text-decoration: none; }
 
+        /* Survey */
+        .survey-box {
+            background: linear-gradient(135deg, var(--bg-card), rgba(255, 72, 170, 0.06));
+            border: 1px solid var(--pink-border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 32px;
+        }
+        .survey-box h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .survey-question {
+            margin-bottom: 20px;
+        }
+        .survey-question:last-of-type { margin-bottom: 0; }
+        .survey-question p {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .emoji-options {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .emoji-btn {
+            background: rgba(255,255,255,0.04);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text);
+        }
+        .emoji-btn span.label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+        .emoji-btn:hover {
+            border-color: var(--pink-border);
+            background: rgba(255, 72, 170, 0.08);
+            transform: scale(1.05);
+        }
+        .emoji-btn.selected {
+            border-color: var(--pink);
+            background: rgba(255, 72, 170, 0.15);
+            box-shadow: 0 0 12px rgba(255, 72, 170, 0.2);
+        }
+        .survey-thanks {
+            text-align: center;
+            padding: 24px;
+            font-size: 1rem;
+            color: var(--pink-light);
+            font-weight: 600;
+            display: none;
+        }
+
         @media (max-width: 600px) {
             .theme-grid { grid-template-columns: 1fr; }
             header h1 { font-size: 1.5rem; }
+            .emoji-btn { padding: 8px 12px; font-size: 1rem; }
+            .emoji-btn span.label { font-size: 0.72rem; }
         }
     </style>
 </head>
@@ -290,6 +357,42 @@
                 Animateurs : Elodie Hughes &amp; Richard Hughes &middot; Invit&eacute; : Gr&eacute;gory (Expertis GP)
             </div>
         </header>
+
+        <!-- SURVEY -->
+        <div class="survey-box" id="surveyBox">
+            <h2>&#128172; Ton feedback sur cette session</h2>
+
+            <div class="survey-question" data-q="energy">
+                <p>Comment tu te sens apr&egrave;s cette session ?</p>
+                <div class="emoji-options">
+                    <button class="emoji-btn" data-value="rocket">&#128640; <span class="label">On fire</span></button>
+                    <button class="emoji-btn" data-value="star">&#11088; <span class="label">Motiv&eacute;(e)</span></button>
+                    <button class="emoji-btn" data-value="think">&#129300; <span class="label">Curieux(se)</span></button>
+                    <button class="emoji-btn" data-value="mind">&#129327; <span class="label">Mind blown</span></button>
+                </div>
+            </div>
+
+            <div class="survey-question" data-q="useful">
+                <p>Le contenu &eacute;tait utile pour toi ?</p>
+                <div class="emoji-options">
+                    <button class="emoji-btn" data-value="100">&#128175; <span class="label">100%</span></button>
+                    <button class="emoji-btn" data-value="ok">&#128077; <span class="label">Bien</span></button>
+                    <button class="emoji-btn" data-value="so-so">&#128528; <span class="label">Moyen</span></button>
+                    <button class="emoji-btn" data-value="lost">&#128565; <span class="label">Perdu(e)</span></button>
+                </div>
+            </div>
+
+            <div class="survey-question" data-q="pace">
+                <p>Le rythme de la session ?</p>
+                <div class="emoji-options">
+                    <button class="emoji-btn" data-value="perfect">&#127919; <span class="label">Parfait</span></button>
+                    <button class="emoji-btn" data-value="fast">&#9889; <span class="label">Un peu rapide</span></button>
+                    <button class="emoji-btn" data-value="slow">&#128034; <span class="label">Trop lent</span></button>
+                    <button class="emoji-btn" data-value="more">&#129321; <span class="label">J'en veux plus !</span></button>
+                </div>
+            </div>
+        </div>
+        <div class="survey-thanks" id="surveyThanks">&#10024; Merci pour ton retour ! &Agrave; la semaine prochaine &#128640;</div>
 
         <!-- REPLAY -->
         <div class="replay-section">
@@ -423,5 +526,54 @@
             <p><a href="/bootcamp-dashboard">&larr; Retour au dashboard</a> &middot; The AI Leadership Program &middot; <a href="https://ai-x-leaders.com" target="_blank">AI x Leaders</a></p>
         </footer>
     </div>
+
+    <script>
+    (function() {
+        const SESSION_KEY = 'survey_session1';
+        const surveyBox = document.getElementById('surveyBox');
+        const surveyThanks = document.getElementById('surveyThanks');
+
+        // Already answered? Hide survey, show thanks
+        if (localStorage.getItem(SESSION_KEY)) {
+            surveyBox.style.display = 'none';
+            surveyThanks.style.display = 'block';
+            return;
+        }
+
+        const answers = {};
+        const totalQuestions = surveyBox.querySelectorAll('.survey-question').length;
+
+        surveyBox.querySelectorAll('.emoji-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const question = this.closest('.survey-question');
+                const qName = question.dataset.q;
+
+                // Deselect siblings
+                question.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+
+                answers[qName] = this.dataset.value;
+
+                // All questions answered?
+                if (Object.keys(answers).length === totalQuestions) {
+                    localStorage.setItem(SESSION_KEY, JSON.stringify(answers));
+                    setTimeout(() => {
+                        surveyBox.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        surveyBox.style.opacity = '0';
+                        surveyBox.style.transform = 'translateY(-10px)';
+                        setTimeout(() => {
+                            surveyBox.style.display = 'none';
+                            surveyThanks.style.display = 'block';
+                            surveyThanks.style.animation = 'fadeIn 0.5s ease';
+                        }, 500);
+                    }, 600);
+                }
+            });
+        });
+    })();
+    </script>
+    <style>
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </body>
 </html>
