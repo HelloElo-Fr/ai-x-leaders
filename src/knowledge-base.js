@@ -289,79 +289,144 @@ Arnaud Weber (IA et conscience), PPC (réinventer son entreprise), Julien Pelbè
 
 ---
 
-## 11. LIENS DIRECTS VERS CHAQUE TUTO CIRCLE
+## 11. CATALOGUE COMPLET DES TUTOS CIRCLE (99 leçons, ~9h de contenu)
 
 Base URL : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/
 
-### Prompt
-- L'art du prompt : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/737925/lessons/2866637
-- Les LLMs : Comprendre leurs Forces, Limites et Personnalités : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/737925/lessons/2836482
-- Chat GPT 5.1 - Think like me : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/737925/lessons/3062698
-- Quiz - Prompt : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/737925/lessons/3487812
+### Prompt (8 leçons, ~7 min)
+- L'art du prompt (intro) — L'IA se pilote comme un collaborateur, pas avec des formules magiques : .../sections/737925/lessons/3636136
+- L'art du "ne pas savoir prompter" — Les frameworks (CO-STAR, RISEN) sont inutiles sur les modèles récents. La vraie méthode : donner du contexte et laisser l'IA poser des questions. Inclut le prompt universel : .../sections/737925/lessons/3636137
+- L'art de la conversation : itérer, corriger, relancer — Le premier résultat est un brouillon : la valeur vient du feedback. 5 relances clés : .../sections/737925/lessons/3636189
+- Le contexte, c'est le prompt — Les 5 éléments d'un bon brief (qui tu es, ce que tu veux, pour qui, contraintes, ce que tu ne veux pas). Les 3 niveaux de contexte : .../sections/737925/lessons/3636195
+- Quand un prompt structuré sert vraiment — Les 4 seuls cas : tâches répétitives, format précis, prompts partagés, workflows automatisés : .../sections/737925/lessons/3636197
+- Kit de survie : 10 prompts prêts à l'emploi — Préparer un COMEX, mail délicat, analyser des données, brainstormer, négocier, REX, recrutement : .../sections/737925/lessons/3636201
+- Les LLMs : Forces, Limites et Personnalités — Vidéo 7min. Comparatif ChatGPT, Claude, Gemini, Grok, DeepSeek : .../sections/737925/lessons/2836482
+- Quiz Prompt : .../sections/737925/lessons/3487812
 
-### Echo
-- NotebookLM : Ton assistant de recherche qui ne dit que la vérité : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/759160/lessons/2839859
-- Vos données et NotebookLM : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/759160/lessons/2839857
-- Les coulisses de NotebookLM : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/759160/lessons/2908988
-- NotebookLM x Google Sheets : Le Tuto Ultime : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/759160/lessons/3077939
-- Quiz - Echo : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/759160/lessons/3487849
+### Echo / NotebookLM (5 leçons, ~24 min)
+- NotebookLM : Ton assistant de recherche qui ne dit que la vérité — Vidéo 10min. Zéro hallucination. Import PDF, Docs, URLs, audio, YouTube. Podcast IA, vidéo, mind map, rapports, quiz : .../sections/759160/lessons/2839859
+- Vos données et NotebookLM — Vidéo 6min. Alimenter NotebookLM avec ses propres données, organiser par thématique : .../sections/759160/lessons/2839857
+- Les coulisses de NotebookLM — Vidéo 5min. Comment Gemini 2.0 analyse les documents et crée des connexions : .../sections/759160/lessons/2908988
+- NotebookLM x Google Sheets : Le Tuto Ultime — Vidéo 4min. Analyser données tabulaires : clients, KPIs, enquêtes : .../sections/759160/lessons/3077939
+- Quiz Echo : .../sections/759160/lessons/3487849
 
-### Research
-- Introduction : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/770290/lessons/2921465
-- Recherche avec ChatGPT : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/770290/lessons/2931461
-- Recherche avec Gemini : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/770290/lessons/2931462
-- Recherche avec Perplexity : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/770290/lessons/2931469
-- Recherche avec Grok : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/770290/lessons/2931493
-- Recherche avec DeepSeek : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/770290/lessons/2931494
-- Deep Research ≠ Vérité : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/770290/lessons/3120774
-- Quiz - Research : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/770290/lessons/3488102
+### Research (8 leçons, ~14 min)
+- Introduction — Vidéo 14min. Search vs Deep Research. Comparatif Perplexity, ChatGPT, Claude, Gemini, Grok, DeepSeek. 10 prompts de recherche. Méthode 'LLM Battle' : .../sections/770290/lessons/2921465
+- Recherche avec ChatGPT — Activer recherche web, Deep Research (o4-mini) : .../sections/770290/lessons/2931461
+- Recherche avec Gemini — Deep Research intégré, Google Workspace, multimodal : .../sections/770290/lessons/2931462
+- Recherche avec Perplexity — Le plus performant pour les sources. Citations auto, 5 Deep Research/jour gratuits : .../sections/770290/lessons/2931469
+- Recherche avec Grok — Temps réel via X/Twitter, signaux faibles, tendances : .../sections/770290/lessons/2931493
+- Recherche avec DeepSeek — IA chinoise pour recherche technique et data : .../sections/770290/lessons/2931494
+- Deep Research ≠ Vérité — Esprit critique, biais des IA, croiser les sources : .../sections/770290/lessons/2950709
+- Quiz Research : .../sections/770290/lessons/3487898
 
-### Compute
-- Analyser un fichier comme un consultant — Claude dans Excel : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/800512/lessons/3350477
-- Quiz - Compute : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/800512/lessons/3488005
+### Record (3 leçons, ~9 min)
+- Pourquoi enregistrer ta vie ? — Vidéo 9min. On oublie 80% de ce qu'on vit. Cadre RGPD. Workflow : enregistrer → NotebookLM → analyser → archiver : .../sections/767339/lessons/2909138
+- Comparatif des solutions d'enregistrement — Fireflies, Otter, Granola. Critères de choix, RGPD, intégrations : .../sections/767339/lessons/3397716
+- Quiz Record : .../sections/767339/lessons/3487912
 
-### Battle
-- Battle : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/824098/lessons/3132267
-- Quiz - Battle : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/824098/lessons/3488011
+### Learn (4 leçons, ~9 min)
+- Learn — Vidéo 8min. Transformer des livres en podcasts, fiches de révision, NotebookLM comme coach : .../sections/770292/lessons/2921478
+- Trouver tes vidéos sur YouTube — Vidéo 2min. IA pour trouver et résumer les meilleures vidéos : .../sections/770292/lessons/3009768
+- Les ressources pour apprendre — Liste curatée : livres, newsletters, chaînes YouTube, podcasts, communautés : .../sections/770292/lessons/3009769
+- Quiz Learn : .../sections/770292/lessons/3487946
 
-### Double
-- Compile ta Data dans NotebookLM : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/815916/lessons/3101986
-- Interview (Optionnelle) : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/815916/lessons/3102219
-- Prépare ton Double IA avec un seul prompt (Gemini → Custom Role) : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/815916/lessons/3102242
-- Utilise ton Double IA (écriture, analyse, décision) : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/815916/lessons/3103989
-- Quiz - Double : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/815916/lessons/3488020
+### Create (6 leçons, ~43 min)
+- Create (intro) — Vidéo 6min. Créer images, vidéos, présentations, campagnes marketing sans compétence technique : .../sections/775188/lessons/3042805
+- Donner vie à ton contenu avec Gemini — Vidéo 6min. Génération d'images, texte en contenu visuel : .../sections/775188/lessons/3042775
+- Pomelli : L'IA qui fait tes campagnes — Vidéo 6min. Campagnes marketing complètes (visuels, copy, déclinaisons) en minutes : .../sections/775188/lessons/3042919
+- Gamma : Le space mountain des présentations — Vidéo 20min. Tuto complet, de l'idée au deck, templates, export : .../sections/775188/lessons/3043348
+- Heygen : Donne vie à tes avatars — Vidéo 5min. Avatars vidéo IA, formation, messages multilingues : .../sections/775188/lessons/3043901
+- Quiz Create : .../sections/775188/lessons/3487959
 
-### Double suite
-- Introduction : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/952178/lessons/3609309
-- NotebookLM : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/952178/lessons/3608589
-- Gemini : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/952178/lessons/3608591
-- Gamma : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/952178/lessons/3608556
-- Claude : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/952178/lessons/3608906
-- Cowork : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/952178/lessons/3608588
+### Compute (4 leçons, ~12 min)
+- Compute (intro) — Vidéo 12min. Analyser Excel, CSV, PDF comme un consultant data, sans compétence technique : .../sections/800512/lessons/3075934
+- Analyser un fichier - GPT - Gemini — Upload, questions à poser, interprétation, cas business : .../sections/800512/lessons/3350477
+- Analyser un fichier - Claude dans Excel — Claude intégré dans Excel, installation, cas d'usage : .../sections/800512/lessons/3422713
+- Quiz Compute : .../sections/800512/lessons/3488005
 
-### Gemini
-- Découvre Gemini 3 : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/816470/lessons/3207744
-- De l'idée au produit à la vidéo (Gemini + Nano Banana Pro + Flow) : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/816470/lessons/3303427
-- Build by Gemini : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/816470/lessons/3270508
-- Construire une Arène IA : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/816470/lessons/3414405
-- Quiz - Gemini : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/816470/lessons/3488131
+### Battle (2 leçons, ~3 min)
+- Battle — Vidéo 3min. Méthode 'LLM Battle' : confronter plusieurs IA pour éliminer biais et hallucinations : .../sections/824098/lessons/3132267
+- Quiz Battle : .../sections/824098/lessons/3488011
 
-### Agentique
-- Claude Co-Work : Diriger à l'ère de l'IA autonome : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/922396/lessons/3494133
+### Double (5 leçons)
+- Compile ta Data dans NotebookLM — Les 4 piliers : Connaissance, Savoir-faire, Savoir-être, Expérience. 8-20 sources : .../sections/815916/lessons/3101986
+- Interview (Optionnelle) — L'IA te pose des questions sur ta vision, tes méthodes, tes valeurs : .../sections/815916/lessons/3102219
+- Prépare ton Double IA (Gemini → Custom Role) — Transformer son corpus en Double fonctionnel avec un prompt unique : .../sections/815916/lessons/3102242
+- Utilise ton Double IA (écriture, analyse, décision) — Guide pratique au quotidien : .../sections/815916/lessons/3103989
+- Quiz Double : .../sections/815916/lessons/3488020
 
-### Grock
-- L'IA du temps réel pour dirigeants : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/872749/lessons/3307645
-- Quiz - Grock : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/872749/lessons/3488197
+### Slides (6 leçons, ~24 min)
+- Introduction — Vue d'ensemble : NotebookLM, Gemini, Gamma, Claude, Cowork : .../sections/952178/lessons/3609309
+- NotebookLM — Vidéo 4min. Extraire points clés, structurer un plan, générer slides : .../sections/952178/lessons/3608589
+- Gemini — Vidéo 7min. Google Slides, contenu visuel, design : .../sections/952178/lessons/3608591
+- Gamma — Vidéo 6min. De l'idée au deck, templates, animations, export : .../sections/952178/lessons/3608556
+- Claude — Vidéo 4min. Structuration, rédaction, artifacts React pour slides interactives : .../sections/952178/lessons/3608906
+- Cowork — Vidéo 3min. Générer des PowerPoint depuis une conversation Claude : .../sections/952178/lessons/3608588
 
-### Les outils créas et les hacks
-- Banana - repimpe ta photo de profil : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/800430/lessons/2909185
-- Modifier une infographie NotebookLM sans tout refaire : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/800430/lessons/3357516
-- Flow - Animer une image en quelques minutes : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/800430/lessons/2909378
-- Atlas vs Comet : Quel navigateur IA choisir : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/800430/lessons/2953214
-- Crée ta propre musique avec l'IA : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/800430/lessons/2955444
-- Comet : Le navigateur qui bosse à ta place : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/800430/lessons/2921471
-- Installe ton VPN pour être en mode US : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/800430/lessons/3043753
-- Eleven Labs : le guide rapide pour créer, cloner et transformer ta voix : https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/800430/lessons/3076489
+### Double (suite) (8 leçons)
+- Quand ton Double sort de ta tête — Déployer le Double pour l'équipe, les clients, les partenaires : .../sections/816440/lessons/3192315
+- Les différents types de Doubles — Expert, coach, commercial, formateur : .../sections/816440/lessons/3192333
+- Double 2.0 — Versions cadrées — Versions limitées et sécurisées, contrôler ce qu'il sait et dit : .../sections/816440/lessons/3203454
+- Extraire la bonne connaissance selon le type de Double — Quelle data pour quel usage : .../sections/816440/lessons/3203521
+- Créer un GPT personnalisé — Custom GPT pas à pas, configuration, instructions, partage : .../sections/816440/lessons/3203587
+- Créer un Gem Gemini — L'équivalent Google du Custom GPT, intégration Workspace : .../sections/816440/lessons/3203646
+- Créer un agent ElevenLabs (voix + agent) — Cloner sa voix et créer un agent vocal conversationnel : .../sections/816440/lessons/3203708
+- Quiz Double suite : .../sections/816440/lessons/3488115
+
+### Agentique (2 leçons)
+- Du Stagiaire au Chief of Staff — Les 6 niveaux de maturité IA : Stagiaire, Enquêteur, Collaborateur (Dust, MCP), Faiseur (GenUI), Chief of Staff (Builder, Navigator), Orchestration (multi-agents Opal, n8n) : .../sections/862774/lessons/3276043
+- Quiz Agentique : .../sections/862774/lessons/3488125
+
+### Gemini (6 leçons, ~1h20)
+- Découvre Gemini 3 — Vidéo 1h. Masterclass complète, Nano Banana, Flow, Workspace, Build : .../sections/816470/lessons/3104158
+- De l'idée au produit à la vidéo (débutant) — Vidéo 10min. Pipeline créatif Nano Banana Pro + Flow de A à Z : .../sections/816470/lessons/3136882
+- Build by Gemini — Vidéo 4min. Créer des applications web sans coder : .../sections/816470/lessons/3122634
+- Publier ton site Build sur Cloudflare — Vidéo 5min. Déployer son site pour le rendre public : .../sections/816470/lessons/3289069
+- Construire une Arène IA — Confronter plusieurs IA pour le désaccord productif et la décision stratégique : .../sections/816470/lessons/3414405
+- Quiz Gemini : .../sections/816470/lessons/3488131
+
+### Claude (6 leçons)
+- Claude Co-Work : Diriger à l'ère de l'IA autonome — Démo complète : ranger un dossier, audit juridique (NDA), audit financier, SWOT + PRD. Architecture Plugins/Skills/Workflows : .../sections/922396/lessons/3494133
+- Comprendre l'écosystème Claude — Claude.ai, API, Claude Code, Cowork. Positionnement vs ChatGPT vs Gemini : .../sections/922396/lessons/3594556
+- Changer d'IA sans perdre votre cerveau numérique — Portabilité : migrer données et workflows entre IA : .../sections/922396/lessons/3594576
+- Cowork : Claude qui bosse POUR toi — Installation, configuration, connexion aux dossiers, premiers workflows : .../sections/922396/lessons/3619003
+- Claude Code : Crée sans coder — Scripts, outils, automatisations en langage naturel : .../sections/922396/lessons/3619014
+- Claude Code + VS Code : Le setup avancé — Intégrer Claude Code dans VS Code : .../sections/922396/lessons/3619082
+
+### Grock (2 leçons)
+- L'IA du temps réel pour dirigeants — Tuto Grok : veille instantanée via X/Twitter, tendances, signaux faibles, réputation, concurrence : .../sections/872749/lessons/3307645
+- Quiz Grock : .../sections/872749/lessons/3488197
+
+### Les outils créas et les hacks (10 leçons, ~33 min)
+- Banana : repimpe ta photo de profil — Vidéo 1min. Photo de profil IA : .../sections/800430/lessons/2909185
+- Modifier une infographie NotebookLM sans tout refaire — Retouches ciblées : .../sections/800430/lessons/3357516
+- Flow : Animer une image en quelques minutes — Vidéo 1min. Image statique → vidéo : .../sections/800430/lessons/2909378
+- Atlas vs Comet : Quel navigateur IA choisir — Vidéo 19min. Comparatif approfondi : .../sections/800430/lessons/2953214
+- Crée ta propre musique avec l'IA — Vidéo 4min. Morceaux, jingles, musique d'ambiance : .../sections/800430/lessons/2955444
+- Comet : Le navigateur qui bosse à ta place — Navigation automatisée, recherche, formulaires : .../sections/800430/lessons/2921471
+- Installe ton VPN pour être en mode US — Guide rapide VPN : .../sections/800430/lessons/3043753
+- Eleven Labs : créer, cloner et transformer ta voix — Vidéo 8min. Clonage vocal, text-to-speech, agents vocaux : .../sections/800430/lessons/3076489
+- My FeedIn — Optimiser sa présence et engagement LinkedIn : .../sections/800430/lessons/3104343
+- Quiz Outils créas : .../sections/800430/lessons/3491321
+
+### Masterclass Nouveautés (10 leçons, ~4h34)
+- OPENCLAW : L'agent qui fait tout sans toi — Agent IA autonome, démo et implications : .../sections/862144/lessons/3609379
+- Claude dans Excel — Analyse de fichiers comme un consultant, démo live : .../sections/862144/lessons/3422658
+- Happy 2026 : le tuto qui fait de toi une star — Contenu créatif IA : .../sections/862144/lessons/3288538
+- Crée tes personae interactifs — 1h06. Simuler une équipe UX, tester des idées avec avatars clients : .../sections/862144/lessons/3273744
+- Découvrir Gemini 3 — 1h. Rediffusion masterclass complète : .../sections/862144/lessons/3288531
+- RIP PowerPoint — 1h. Alternatives IA : Gamma, Gemini Slides, Claude Artifacts : .../sections/862144/lessons/3205233
+- Créer une pub complète (NanoBanana Pro + Flow + Veo 3) — Vidéo 15min. Pipeline pub vidéo avancé : .../sections/862144/lessons/3131946
+- ChatGPT 5.1 - Think like me — 1h07. L'IA qui apprend à raisonner comme toi : .../sections/862144/lessons/3062698
+- Les coulisses de NotebookLM — Vidéo 5min. Rediffusion : .../sections/862144/lessons/3288536
+- Accélérer ta recherche d'emploi avec l'IA — Optimiser CV, préparer entretiens, cibler les offres : .../sections/862144/lessons/3639960
+
+### Masterclass Mindset avec nos invités (4 leçons)
+- IA sans conscience n'est que ruine de l'âme ! avec Arnaud Weber — Éthique et conscience dans l'usage de l'IA : .../sections/943521/lessons/3576098
+- Réinventer son entreprise à l'ère de l'IA avec PPC — Mythes vs méthodes, de l'expérimentation à la transformation : .../sections/943521/lessons/3576108
+- Double IA : négocier avec l'IA avec Julien Pelbère — L'art de négocier AVEC l'IA, application du Double à la négociation : .../sections/943521/lessons/3576113
+- Avant de vous remplacer, l'IA va vous épuiser ! avec Christophe Routhieau — Surcharge informationnelle, fatigue décisionnelle, comment se protéger : .../sections/943521/lessons/3594083
 
 ---
 
