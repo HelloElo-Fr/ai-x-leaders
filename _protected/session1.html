@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semaine 1 — The AI Leadership Program #4</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --pink: #FF48AA;
+            --pink-light: #FF6FBF;
+            --pink-glow: rgba(255, 72, 170, 0.15);
+            --pink-border: rgba(255, 72, 170, 0.25);
+            --bg: #191B1F;
+            --bg-card: #22252A;
+            --bg-card-hover: #2A2D33;
+            --text: #FFFFFF;
+            --text-muted: #9CA3AF;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 30% 0%, rgba(255, 72, 170, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 100%, rgba(255, 72, 170, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 32px 0 16px;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: var(--pink-light); }
+
+        header {
+            padding: 0 0 32px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 32px;
+        }
+        .week-badge {
+            display: inline-block;
+            background: var(--pink);
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        header h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+        header h1 em { color: var(--pink); font-style: italic; }
+        .session-meta {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Replay */
+        .replay-section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--pink-border);
+            box-shadow: 0 0 40px rgba(255, 72, 170, 0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Cards */
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-bottom: 40px;
+        }
+        .theme-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            transition: all 0.25s ease;
+        }
+        .theme-card:hover {
+            border-color: var(--pink-border);
+            background: var(--bg-card-hover);
+        }
+        .theme-card .icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .theme-card h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .theme-card p {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        /* Tutos */
+        .tuto-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        .tuto-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.25s ease;
+        }
+        .tuto-link:hover {
+            border-color: var(--pink-border);
+            background: var(--bg-card-hover);
+        }
+        .tuto-link .tuto-icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        .tuto-link .tuto-info {
+            flex: 1;
+        }
+        .tuto-link .tuto-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+        }
+        .tuto-link .tuto-desc {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+        .tuto-link .tuto-arrow {
+            color: var(--pink-light);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        /* Devoirs */
+        .homework-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+        .homework-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .homework-list li:last-child { border-bottom: none; }
+        .hw-check {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            border: 2px solid var(--pink-border);
+            flex-shrink: 0;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .hw-check:hover { border-color: var(--pink); }
+        .hw-check.checked {
+            background: var(--pink);
+            border-color: var(--pink);
+        }
+        .hw-check.checked::after {
+            content: '\2713';
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Quote */
+        .quote-box {
+            background: linear-gradient(135deg, var(--bg-card), rgba(255, 72, 170, 0.06));
+            border: 1px solid var(--pink-border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .quote-box blockquote {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--pink-light);
+            margin-bottom: 8px;
+        }
+        .quote-box cite {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            font-style: normal;
+        }
+
+        footer {
+            text-align: center;
+            padding: 32px 0;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            border-top: 1px solid var(--border);
+        }
+        footer a { color: var(--pink-light); text-decoration: none; }
+
+        @media (max-width: 600px) {
+            .theme-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div class="container">
+
+        <a href="bootcamp-dashboard.html" class="back-link">&larr; Retour au dashboard</a>
+
+        <header>
+            <div class="week-badge">SEMAINE 01</div>
+            <h1>Lancement du <em>Bootcamp #4</em></h1>
+            <div class="session-meta">
+                Vendredi 27 mars 2026 &middot; Hybride (Expertis GP + Zoom)<br>
+                Animateurs : Elodie Hughes &amp; Richard Hughes (Nash) &middot; Invit&eacute; : Gr&eacute;gory (Expertis GP)
+            </div>
+        </header>
+
+        <!-- REPLAY -->
+        <div class="replay-section">
+            <div class="section-title"><span>&#9654;</span> Replay de la session</div>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/CPP_bnrANIg" title="Replay Session 1 - Bootcamp #4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- THEMES -->
+        <div class="section-title"><span>&#127891;</span> Ce qu'on a fait cette semaine</div>
+        <div class="theme-grid">
+            <div class="theme-card">
+                <div class="icon">&#128248;</div>
+                <h3>Atelier photo de profil IA</h3>
+                <p>Gemini + Nano Banana : photo LinkedIn pro, grille 3x3, transfert de style Fortnite pour le trombinoscope.</p>
+            </div>
+            <div class="theme-card">
+                <div class="icon">&#127916;</div>
+                <h3>Transformation de contenu en live</h3>
+                <p>A partir de la retranscription du tour de table : slides NotebookLM, podcast audio, slides Gamma. Z&eacute;ro contenu &eacute;crit &agrave; la main.</p>
+            </div>
+            <div class="theme-card">
+                <div class="icon">&#128172;</div>
+                <h3>T&eacute;moignage de Gr&eacute;gory</h3>
+                <p>Alumni bootcamp, a cr&eacute;&eacute; un site web en quelques minutes avec Google AI Studio. Son beau-p&egrave;re avait pay&eacute; 40 000&euro; pour le m&ecirc;me r&eacute;sultat.</p>
+            </div>
+            <div class="theme-card">
+                <div class="icon">&#128736;</div>
+                <h3>Pr&eacute;sentation des outils</h3>
+                <p>Dashboard, Circle, coachings individuels, WhatsApp, masterclasses. Et le chatbot Elod'AI int&eacute;gr&eacute; au dashboard.</p>
+            </div>
+        </div>
+
+        <!-- TUTOS CIRCLE -->
+        <div class="section-title"><span>&#128218;</span> Tutos &agrave; consulter sur Circle</div>
+        <div class="tuto-list">
+            <a href="https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/800430/lessons/2909185" class="tuto-link" target="_blank">
+                <div class="tuto-icon">&#128248;</div>
+                <div class="tuto-info">
+                    <div class="tuto-title">Banana &mdash; Repimpe ta photo de profil</div>
+                    <div class="tuto-desc">Le tuto complet pour cr&eacute;er ta photo LinkedIn avec Nano Banana</div>
+                </div>
+                <div class="tuto-arrow">&rarr;</div>
+            </a>
+            <a href="https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/737925/lessons/2866637" class="tuto-link" target="_blank">
+                <div class="tuto-icon">&#128172;</div>
+                <div class="tuto-info">
+                    <div class="tuto-title">L'art du prompt</div>
+                    <div class="tuto-desc">Parler simplement &agrave; l'IA, pas besoin de prompts complexes</div>
+                </div>
+                <div class="tuto-arrow">&rarr;</div>
+            </a>
+            <a href="https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/737925/lessons/2836482" class="tuto-link" target="_blank">
+                <div class="tuto-icon">&#129302;</div>
+                <div class="tuto-info">
+                    <div class="tuto-title">Les LLMs : Forces, Limites et Personnalit&eacute;s</div>
+                    <div class="tuto-desc">Comprendre les diff&eacute;rences entre ChatGPT, Claude, Gemini, Perplexity</div>
+                </div>
+                <div class="tuto-arrow">&rarr;</div>
+            </a>
+            <a href="https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9/sections/759160/lessons/2839859" class="tuto-link" target="_blank">
+                <div class="tuto-icon">&#128214;</div>
+                <div class="tuto-info">
+                    <div class="tuto-title">NotebookLM : Ton assistant de recherche</div>
+                    <div class="tuto-desc">L'outil utilis&eacute; en live pour g&eacute;n&eacute;rer slides et podcasts</div>
+                </div>
+                <div class="tuto-arrow">&rarr;</div>
+            </a>
+            <a href="https://the-ai-leadership-program.circle.so/c/the-ai-leadership-program-aed6c9" class="tuto-link" target="_blank">
+                <div class="tuto-icon">&#128218;</div>
+                <div class="tuto-info">
+                    <div class="tuto-title">Acc&eacute;der &agrave; tous les tutos Circle</div>
+                    <div class="tuto-desc">Explorer l'ensemble des le&ccedil;ons disponibles</div>
+                </div>
+                <div class="tuto-arrow">&rarr;</div>
+            </a>
+        </div>
+
+        <!-- DEVOIRS -->
+        <div class="section-title"><span>&#9989;</span> Devoirs de la semaine</div>
+        <ul class="homework-list">
+            <li>
+                <div class="hw-check" onclick="this.classList.toggle('checked')"></div>
+                <span>Refaire ta photo de profil LinkedIn avec <strong>Gemini / Nano Banana</strong></span>
+            </li>
+            <li>
+                <div class="hw-check" onclick="this.classList.toggle('checked')"></div>
+                <span>Cr&eacute;er ton <strong>avatar Fortnite</strong> et l'envoyer dans le groupe WhatsApp</span>
+            </li>
+            <li>
+                <div class="hw-check" onclick="this.classList.toggle('checked')"></div>
+                <span>Te connecter &agrave; <strong>Circle</strong> et explorer les tutos disponibles</span>
+            </li>
+            <li>
+                <div class="hw-check" onclick="this.classList.toggle('checked')"></div>
+                <span>Acc&eacute;der au <strong>dashboard</strong> et tester le chatbot Elod'AI</span>
+            </li>
+            <li>
+                <div class="hw-check" onclick="this.classList.toggle('checked')"></div>
+                <span>Rejoindre le <strong>groupe WhatsApp</strong> de la promo</span>
+            </li>
+        </ul>
+
+        <!-- QUOTE -->
+        <div class="quote-box">
+            <blockquote>&laquo; N'apprenez pas &agrave; coder. Apprenez &agrave; questionner. &raquo;</blockquote>
+            <cite>&mdash; Elodie Hughes</cite>
+        </div>
+
+        <footer>
+            <p><a href="bootcamp-dashboard.html">&larr; Retour au dashboard</a> &middot; The AI Leadership Program &middot; <a href="https://ai-x-leaders.com" target="_blank">AI x Leaders</a></p>
+        </footer>
+    </div>
+</body>
+</html>
