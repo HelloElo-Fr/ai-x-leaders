@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IA Récré — Galerie Saison 2</title>
+  <link rel="icon" type="image/svg+xml" href="favicon-ia-recre.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-ia-recre.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-ia-recre.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Noto+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { border: none; cursor: pointer; font-family: inherit; }
+
+    :root {
+      --fn-purple: #852DF2;
+      --fn-blue: #0078FF;
+      --fn-yellow: #F7EA15;
+      --fn-gold: #FFAA00;
+      --fn-dark: #121212;
+      --fn-card-bg: rgba(42, 42, 42, 0.9);
+      --font-action: 'Luckiest Guy', cursive;
+      --font-body: 'Noto Sans', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: #1a1a1a;
+      color: white;
+      overflow-x: hidden;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      background: #18181c;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .nav-logo img { height: 40px; width: auto; }
+    .nav-btn-primary {
+      background: #f3ff00;
+      color: black;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.875rem;
+      transition: background 0.2s;
+    }
+    .nav-btn-primary:hover { background: #dce600; }
+
+    /* ===== PASSWORD SCREEN ===== */
+    .password-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .password-screen h1 {
+      font-family: var(--font-action);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      text-transform: uppercase;
+      color: white;
+      text-shadow: 3px 3px 0 var(--fn-purple);
+      margin-bottom: 16px;
+      transform: skewX(-10deg);
+    }
+    .password-screen p {
+      color: #ccc;
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+      max-width: 500px;
+    }
+    .password-form {
+      display: flex;
+      gap: 12px;
+      max-width: 400px;
+      width: 100%;
+    }
+    .password-form input {
+      flex: 1;
+      background: #2a2a2a;
+      border: 2px solid #444;
+      border-radius: 8px;
+      padding: 14px 18px;
+      color: white;
+      font-family: var(--font-body);
+      font-size: 1rem;
+    }
+    .password-form input::placeholder { color: #888; }
+    .password-form input:focus { outline: none; border-color: var(--fn-yellow); }
+    .password-form button {
+      background: var(--fn-yellow);
+      color: black;
+      font-family: var(--font-action);
+      font-size: 1rem;
+      padding: 14px 24px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: 0.2s;
+    }
+    .password-form button:hover {
+      background: white;
+      box-shadow: 0 0 20px rgba(247, 234, 21, 0.4);
+    }
+    .password-error {
+      color: #ff4444;
+      font-weight: 700;
+      margin-top: 12px;
+      display: none;
+    }
+    .password-lock-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+
+    /* ===== GALLERY ===== */
+    .gallery-container {
+      display: none;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .gallery-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .gallery-header h1 {
+      font-family: var(--font-action);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      text-transform: uppercase;
+      color: white;
+      text-shadow: 3px 3px 0 var(--fn-purple);
+      transform: skewX(-10deg);
+      margin-bottom: 12px;
+    }
+    .gallery-header p {
+      color: #ccc;
+      font-size: 1rem;
+    }
+    .gallery-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .gallery-tab {
+      padding: 10px 24px;
+      background: var(--fn-card-bg);
+      color: #ccc;
+      font-family: var(--font-action);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .gallery-tab:hover { border-color: var(--fn-purple); color: white; }
+    .gallery-tab.active {
+      background: var(--fn-purple);
+      color: white;
+      border-color: var(--fn-purple);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.3s;
+      border: 2px solid rgba(255,255,255,0.05);
+      aspect-ratio: 4/3;
+    }
+    .gallery-item:hover {
+      transform: scale(1.03);
+      border-color: var(--fn-yellow);
+      box-shadow: 0 0 20px rgba(247, 234, 21, 0.15);
+      z-index: 2;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 0 60px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    .lightbox-close:hover { background: var(--fn-purple); border-color: var(--fn-purple); }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      color: white;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    .lightbox-nav:hover { background: var(--fn-purple); border-color: var(--fn-purple); }
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+    .lightbox-counter {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-action);
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+      .gallery-item { border-radius: 8px; }
+      .password-form { flex-direction: column; }
+      .lightbox-nav { width: 40px; height: 40px; font-size: 18px; }
+      .lightbox-prev { left: 8px; }
+      .lightbox-next { right: 8px; }
+    }
+
+    /* ===== FOOTER ===== */
+    .footer-mini {
+      text-align: center;
+      padding: 32px 20px;
+      color: #666;
+      font-size: 0.85rem;
+      border-top: 1px solid #333;
+      margin-top: 60px;
+    }
+    .footer-mini a { color: var(--fn-blue); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="ia-recre.html" class="nav-logo"><img src="logo-ia-recre.png" alt="IA Recre"></a>
+    <a href="ia-recre.html" class="nav-btn-primary">Retour au site</a>
+  </nav>
+
+  <!-- ===== PASSWORD SCREEN ===== -->
+  <div id="passwordScreen" class="password-screen">
+    <div class="password-lock-icon">🔒</div>
+    <h1>Galerie Parents</h1>
+    <p>Cette galerie est réservée aux parents des participants de l'IA Récré Saison 2. Entrez le mot de passe communiqué par l'équipe.</p>
+    <form class="password-form" onsubmit="return checkPassword(event)">
+      <input type="password" id="passwordInput" placeholder="Mot de passe" autofocus required>
+      <button type="submit">Entrer</button>
+    </form>
+    <p class="password-error" id="passwordError">Mot de passe incorrect</p>
+  </div>
+
+  <!-- ===== GALLERY ===== -->
+  <div id="galleryContainer" class="gallery-container">
+    <div class="gallery-header">
+      <h1>Galerie Saison 2</h1>
+      <p>115 photos — 21 Mars 2026 — Artifex Lab, Paris</p>
+    </div>
+
+    <div class="gallery-tabs">
+      <button class="gallery-tab active" onclick="filterGallery('all')">Tout</button>
+      <button class="gallery-tab" onclick="filterGallery('event')">L'Event</button>
+      <button class="gallery-tab" onclick="filterGallery('art')">Univers Arnaud</button>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid"></div>
+
+    <div class="footer-mini">
+      <p>&copy; 2026 IA Récré &middot; <a href="ia-recre.html">Retour au site</a></p>
+    </div>
+  </div>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">&#8249;</button>
+    <img id="lightboxImg" src="" alt="">
+    <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">&#8250;</button>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+  </div>
+
+  <script>
+    // --- Password ---
+    // Simple hash check (not cryptographic, just to keep casual visitors out)
+    const PASS_HASH = '1738608841';
+
+    function simpleHash(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash |= 0;
+      }
+      return hash.toString();
+    }
+
+    function checkPassword(e) {
+      e.preventDefault();
+      const input = document.getElementById('passwordInput').value;
+      if (simpleHash(input) === PASS_HASH) {
+        sessionStorage.setItem('galerie_auth', '1');
+        showGallery();
+      } else {
+        document.getElementById('passwordError').style.display = 'block';
+        document.getElementById('passwordInput').value = '';
+        document.getElementById('passwordInput').focus();
+      }
+      return false;
+    }
+
+    function showGallery() {
+      document.getElementById('passwordScreen').style.display = 'none';
+      document.getElementById('galleryContainer').style.display = 'block';
+      loadImages();
+    }
+
+    // Auto-login if session still valid
+    if (sessionStorage.getItem('galerie_auth') === '1') {
+      showGallery();
+    }
+
+    // --- Gallery ---
+    const EVENT_COUNT = 60;  // event_000 to event_059
+    const ART_COUNT = 55;    // univers-arnaud_060 to univers-arnaud_114
+
+    const allImages = [];
+    for (let i = 0; i < EVENT_COUNT; i++) {
+      allImages.push({ src: `galerie/event_${String(i).padStart(3,'0')}.jpg`, cat: 'event' });
+    }
+    for (let i = 60; i < 60 + ART_COUNT; i++) {
+      allImages.push({ src: `galerie/univers-arnaud_${String(i).padStart(3,'0')}.jpg`, cat: 'art' });
+    }
+
+    let currentFilter = 'all';
+    let filteredImages = [];
+    let currentLightboxIndex = 0;
+
+    function loadImages() {
+      filterGallery('all');
+    }
+
+    function filterGallery(cat) {
+      currentFilter = cat;
+      filteredImages = cat === 'all' ? [...allImages] : allImages.filter(img => img.cat === cat);
+
+      // Update tabs
+      document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`.gallery-tab[onclick="filterGallery('${cat}')"]`).classList.add('active');
+
+      // Render grid
+      const grid = document.getElementById('galleryGrid');
+      grid.innerHTML = filteredImages.map((img, i) => `
+        <div class="gallery-item" onclick="openLightbox(${i})">
+          <img src="${img.src}" alt="Photo IA Récré" loading="lazy">
+        </div>
+      `).join('');
+    }
+
+    // --- Lightbox ---
+    function openLightbox(index) {
+      currentLightboxIndex = index;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function navLightbox(dir) {
+      currentLightboxIndex = (currentLightboxIndex + dir + filteredImages.length) % filteredImages.length;
+      updateLightbox();
+    }
+
+    function updateLightbox() {
+      document.getElementById('lightboxImg').src = filteredImages[currentLightboxIndex].src;
+      document.getElementById('lightboxCounter').textContent = `${currentLightboxIndex + 1} / ${filteredImages.length}`;
+    }
+
+    // Keyboard nav
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('lightbox').classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navLightbox(-1);
+      if (e.key === 'ArrowRight') navLightbox(1);
+    });
+
+    // Click outside to close
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('lightbox')) closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
