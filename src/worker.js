@@ -210,6 +210,112 @@ function loginPage(error = '') {
 </html>`;
 }
 
+// ── Page admin survey ──
+
+function surveyAdminPage(allData) {
+  const QUESTIONS = {
+    energy: {
+      label: 'Comment tu te sens apres cette session ?',
+      options: { rocket: '🚀 On fire', star: '⭐ Motive(e)', think: '🤔 Curieux(se)', mind: '🤯 Mind blown' }
+    },
+    useful: {
+      label: 'Le contenu etait utile ?',
+      options: { '100': '💯 100%', ok: '👍 Bien', 'so-so': '😐 Moyen', lost: '😵 Perdu(e)' }
+    },
+    pace: {
+      label: 'Le rythme de la session ?',
+      options: { perfect: '🎯 Parfait', fast: '⚡ Un peu rapide', slow: '🐢 Trop lent', more: '🤩 J\'en veux plus !' }
+    }
+  };
+
+  let sessionsHtml = '';
+  const sessionKeys = Object.keys(allData).sort();
+
+  if (sessionKeys.length === 0) {
+    sessionsHtml = '<div style="text-align:center;color:#9CA3AF;padding:40px;">Aucun vote pour le moment</div>';
+  }
+
+  for (const sessionId of sessionKeys) {
+    const data = allData[sessionId];
+    const num = sessionId.replace('session', '');
+    sessionsHtml += `<div class="session-block"><h2>📊 Session ${num} <span class="vote-count">${data.count} vote${data.count > 1 ? 's' : ''}</span></h2>`;
+
+    for (const [qKey, qDef] of Object.entries(QUESTIONS)) {
+      // Count votes per option
+      const counts = {};
+      for (const opt of Object.keys(qDef.options)) counts[opt] = 0;
+      for (const vote of data.votes) {
+        const val = vote.answers[qKey];
+        if (val && counts[val] !== undefined) counts[val]++;
+      }
+      const total = data.votes.length;
+
+      sessionsHtml += `<div class="question-block"><h3>${qDef.label}</h3><div class="bars">`;
+      for (const [opt, label] of Object.entries(qDef.options)) {
+        const count = counts[opt];
+        const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+        sessionsHtml += `<div class="bar-row"><div class="bar-label">${label}</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div><div class="bar-value">${count} (${pct}%)</div></div>`;
+      }
+      sessionsHtml += '</div></div>';
+    }
+    // Comments
+    const comments = data.votes.filter(v => v.answers.comment).map(v => v.answers.comment);
+    if (comments.length > 0) {
+      sessionsHtml += '<div class="question-block"><h3>Commentaires</h3><div class="comments-list">';
+      for (const c of comments) {
+        sessionsHtml += `<div class="comment-item">${c.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>`;
+      }
+      sessionsHtml += '</div></div>';
+    }
+
+    sessionsHtml += '</div>';
+  }
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Survey — AI Leadership Program</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--pink:#FF48AA;--pink-light:#FF6FBF;--pink-glow:rgba(255,72,170,0.15);--pink-border:rgba(255,72,170,0.25);--bg:#191B1F;--bg-card:#22252A;--text:#FFF;--text-muted:#9CA3AF;--border:rgba(255,255,255,0.08)}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.bg-gradient{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 0%,rgba(255,72,170,0.08) 0%,transparent 50%),radial-gradient(ellipse at 70% 100%,rgba(255,72,170,0.05) 0%,transparent 50%);z-index:0}
+.container{max-width:800px;margin:0 auto;padding:32px 24px;position:relative;z-index:1}
+.back-link{display:inline-flex;align-items:center;gap:8px;color:var(--text-muted);text-decoration:none;font-size:0.85rem;margin-bottom:24px;transition:color 0.2s}
+.back-link:hover{color:var(--pink-light)}
+h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.8rem;font-weight:800;margin-bottom:32px}
+h1 em{color:var(--pink);font-style:italic}
+.session-block{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:24px}
+.session-block h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.vote-count{background:rgba(255,72,170,0.12);color:var(--pink-light);font-size:0.75rem;font-weight:600;padding:4px 12px;border-radius:20px}
+.question-block{margin-bottom:24px}
+.question-block:last-child{margin-bottom:0}
+.question-block h3{font-size:0.9rem;font-weight:600;margin-bottom:12px;color:var(--text-muted)}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar-row{display:flex;align-items:center;gap:12px}
+.bar-label{width:160px;font-size:0.85rem;flex-shrink:0}
+.bar-track{flex:1;height:28px;background:rgba(255,255,255,0.04);border-radius:8px;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--pink),#8B5CF6);border-radius:8px;transition:width 0.5s ease;min-width:2px}
+.bar-value{width:70px;text-align:right;font-size:0.8rem;color:var(--text-muted);flex-shrink:0}
+.comments-list{display:flex;flex-direction:column;gap:8px}
+.comment-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 16px;font-size:0.85rem;color:#d1d5db;line-height:1.5;font-style:italic}
+@media(max-width:600px){.bar-label{width:100px;font-size:0.75rem}.bar-value{width:55px;font-size:0.72rem}}
+</style>
+</head>
+<body>
+<div class="bg-gradient"></div>
+<div class="container">
+<a href="/bootcamp-dashboard" class="back-link">&larr; Retour au dashboard</a>
+<h1>Feedback <em>Survey</em> 📊</h1>
+${sessionsHtml}
+</div>
+</body>
+</html>`;
+}
+
 // ── Worker principal ──
 
 export default {
@@ -285,6 +391,36 @@ export default {
       const dashboardRes = await env.ASSETS.fetch(dashboardReq);
       const html = await dashboardRes.text();
 
+      return new Response(html, {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'private, no-cache',
+        },
+      });
+    }
+
+    // ── GET /session1 (et autres pages de session protegees) ──
+    const sessionMatch = url.pathname.match(/^\/(session\d+)$/);
+    if (sessionMatch) {
+      if (!secret) {
+        return new Response('DASHBOARD_PASSWORD non configure.', { status: 500 });
+      }
+      const isAuth = await verifySession(request.headers.get('Cookie'), secret);
+      if (!isAuth) {
+        return new Response(loginPage(), {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      }
+      const pageName = sessionMatch[1];
+      const pageUrl = new URL(`/_protected/${pageName}.html`, url.origin);
+      const pageReq = new Request(pageUrl.toString(), { headers: request.headers });
+      const pageRes = await env.ASSETS.fetch(pageReq);
+      if (pageRes.status === 404) {
+        return new Response('Not Found', { status: 404 });
+      }
+      const html = await pageRes.text();
       return new Response(html, {
         status: 200,
         headers: {
@@ -409,6 +545,64 @@ export default {
           headers: { 'Content-Type': 'application/json' },
         });
       }
+    }
+
+    // ── API : survey votes ──
+    if (url.pathname === '/api/survey' && request.method === 'POST') {
+      const isAuth = await verifySession(request.headers.get('Cookie'), secret);
+      if (!isAuth) {
+        return new Response(JSON.stringify({ error: 'Non autorise' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+      try {
+        const body = await request.json();
+        const session = body.session; // e.g. "session1"
+        const answers = body.answers; // e.g. { energy: "rocket", useful: "100", pace: "perfect" }
+        if (!session || !answers || typeof answers !== 'object') {
+          return new Response(JSON.stringify({ error: 'Donnees invalides' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+        // Get existing data for this session
+        const key = `survey_${session}`;
+        const existing = await env.SURVEY_KV.get(key, 'json') || { votes: [], count: 0 };
+        existing.votes.push({ answers, ts: Date.now() });
+        existing.count = existing.votes.length;
+        await env.SURVEY_KV.put(key, JSON.stringify(existing));
+        return new Response(JSON.stringify({ ok: true }), {
+          headers: { 'Content-Type': 'application/json' },
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: err.message }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+    }
+
+    // ── Admin : resultats survey ──
+    if (url.pathname === '/admin/survey') {
+      const isAuth = await verifySession(request.headers.get('Cookie'), secret);
+      if (!isAuth) {
+        return new Response(loginPage(), {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      }
+      // Fetch all survey keys
+      const list = await env.SURVEY_KV.list({ prefix: 'survey_' });
+      const allData = {};
+      for (const key of list.keys) {
+        const data = await env.SURVEY_KV.get(key.name, 'json');
+        allData[key.name.replace('survey_', '')] = data;
+      }
+      return new Response(surveyAdminPage(allData), {
+        status: 200,
+        headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'private, no-cache' },
+      });
     }
 
     // ── CORS preflight pour /api/chat ──
