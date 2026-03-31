@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICN Creative Sprint 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFD700;
+            --green: #2AD03D;
+            --magenta: #E91E7E;
+            --orange: #FA7E42;
+            --black: #1A1A1A;
+            --cyan: #00BCD4;
+            --violet: #7C4DFF;
+            --rose: #FF5892;
+            --white: #FFFFFF;
+            --light-gray: #F9FAFB;
+            --dark-gray: #2D3436;
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--black);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* SIMPLE TOP NAV */
+        .top-nav {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-bottom: 1px solid #E5E7EB;
+            padding: 0.75rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 100%;
+        }
+
+        .top-nav a.back-link {
+            text-decoration: none;
+            color: var(--cyan);
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .top-nav a.back-link:hover {
+            color: var(--violet);
+        }
+
+        .top-nav .nav-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--black);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* HERO SECTION */
+        section.hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1A1A1A 0%, #2D3436 100%);
+            color: var(--white);
+            padding: 6rem 2rem 5rem;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -80px; right: -80px;
+            width: 400px; height: 400px;
+            background: var(--cyan);
+            transform: rotate(15deg);
+            opacity: 0.12;
+            border-radius: 40px;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -60px; left: -60px;
+            width: 350px; height: 350px;
+            background: var(--orange);
+            transform: rotate(-10deg);
+            opacity: 0.1;
+            border-radius: 40px;
+        }
+
+        .hero-blob {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.12;
+            filter: blur(80px);
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .hero-blob-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--cyan);
+            top: -150px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .hero-blob-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--green);
+            bottom: -100px;
+            left: 5%;
+            animation-delay: 3s;
+        }
+
+        .hero-blob-3 {
+            width: 350px;
+            height: 350px;
+            background: var(--violet);
+            top: 40%;
+            right: 5%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--orange);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero h1 .accent-cyan { color: var(--cyan); }
+        .hero h1 .accent-orange { color: var(--orange); }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 3vw, 1.35rem);
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--cyan);
+        }
+
+        .hero-stat .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: rgba(255,255,255,0.6);
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        /* SECTIONS GENERAL */
+        section {
+            position: relative;
+            scroll-margin-top: 60px;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            color: var(--white);
+            background: var(--magenta);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #6B7280;
+            margin-bottom: 3rem;
+            max-width: 800px;
+        }
+
+        /* PROJECT CARDS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            border: 2px solid #E5E7EB;
+            background: var(--white);
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .project-card.open {
+            grid-column: 1 / -1;
+        }
+
+        .project-card.open:hover {
+            transform: none;
+        }
+
+        .project-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.75rem;
+        }
+
+        .project-cities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .project-city-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #F3F4F6;
+            color: #374151;
+        }
+
+        .project-city-tag.winner {
+            background: #FFFEF0;
+            border: 1px solid var(--yellow);
+        }
+
+        .project-city-tag.finalist {
+            background: #FFF5F8;
+            border: 1px solid var(--rose);
+        }
+
+        .project-city-tag.golden {
+            background: #FFFEF0;
+            border: 1px solid var(--yellow);
+        }
+
+        .project-theme {
+            font-size: 0.95rem;
+            color: #6B7280;
+            margin-top: 0.75rem;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .project-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .project-summary-left {
+            flex: 1;
+        }
+
+        .project-toggle {
+            font-size: 1.5rem;
+            color: #9CA3AF;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .project-card.open .project-toggle {
+            transform: rotate(45deg);
+        }
+
+        .project-detail {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .project-card.open .project-detail {
+            max-height: 5000px;
+        }
+
+        .project-detail-inner {
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            border-top: 2px solid #E5E7EB;
+        }
+
+        .project-detail-block {
+            margin-bottom: 1.5rem;
+        }
+
+        .project-detail-block h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .project-detail-block p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #374151;
+        }
+
+        .project-join-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--white);
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .project-join-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        /* BRIDGES */
+        .project-bridges {
+            margin-top: 3rem;
+            padding: 2.5rem;
+            background: var(--white);
+            border: 2px solid #E5E7EB;
+            border-radius: var(--border-radius);
+        }
+
+        .project-bridges h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .bridge-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #F9FAFB;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+            color: #374151;
+            line-height: 1.5;
+        }
+
+        .bridge-arrow {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        /* SPRINT MVP SECTION */
+        .sprint-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto;
+            padding-left: 3rem;
+        }
+
+        .sprint-timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--cyan), var(--green), var(--violet), var(--orange), var(--yellow));
+            border-radius: 2px;
+        }
+
+        .sprint-phase {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem 2rem;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+
+        .sprint-phase:hover {
+            transform: translateX(8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .sprint-phase::before {
+            content: '';
+            position: absolute;
+            left: -2.25rem;
+            top: 1.75rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 3px solid var(--white);
+            box-shadow: 0 0 0 2px var(--cyan);
+        }
+
+        .sprint-phase.phase-0::before { background: var(--cyan); box-shadow: 0 0 0 2px var(--cyan); }
+        .sprint-phase.phase-1::before { background: var(--green); box-shadow: 0 0 0 2px var(--green); }
+        .sprint-phase.phase-2::before { background: var(--violet); box-shadow: 0 0 0 2px var(--violet); }
+        .sprint-phase.phase-3::before { background: var(--orange); box-shadow: 0 0 0 2px var(--orange); }
+        .sprint-phase.phase-final::before { background: var(--yellow); box-shadow: 0 0 0 2px var(--yellow); }
+
+        .sprint-phase-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .sprint-phase-date {
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .sprint-phase h4 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: var(--black);
+        }
+
+        .sprint-phase p {
+            font-size: 0.9rem;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        .sprint-roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .sprint-role-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            border: 2px solid #E5E7EB;
+            text-align: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .sprint-role-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--cyan);
+            box-shadow: 0 12px 40px rgba(0, 188, 212, 0.15);
+        }
+
+        .sprint-role-card h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sprint-role-card .role-time {
+            font-size: 0.85rem;
+            color: var(--magenta);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .sprint-role-card p {
+            font-size: 0.9rem;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        .sprint-cta-banner {
+            margin-top: 3rem;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--cyan) 0%, #0097A7 100%);
+            border-radius: var(--border-radius);
+            text-align: center;
+            color: var(--white);
+        }
+
+        .sprint-cta-banner h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .sprint-cta-banner a,
+        .sprint-cta-banner button {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: var(--white);
+            color: var(--cyan);
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sprint-cta-banner a:hover,
+        .sprint-cta-banner button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .project-card:nth-child(2) { animation-delay: 0.1s; }
+        .project-card:nth-child(3) { animation-delay: 0.2s; }
+        .project-card:nth-child(4) { animation-delay: 0.3s; }
+        .project-card:nth-child(5) { animation-delay: 0.4s; }
+        .project-card:nth-child(6) { animation-delay: 0.5s; }
+        .project-card:nth-child(7) { animation-delay: 0.6s; }
+
+        .sprint-role-card:nth-child(2) { animation-delay: 0.1s; }
+        .sprint-role-card:nth-child(3) { animation-delay: 0.2s; }
+
+        /* FOOTER */
+        footer {
+            background: var(--white);
+            color: var(--black);
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 4px solid var(--yellow);
+            font-size: 0.875rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        footer strong {
+            font-weight: 600;
+        }
+
+        /* MODAL OVERLAY */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .modal-header h2 {
+            font-size: 1.35rem;
+            line-height: 1.3;
+            padding-right: 1rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.75rem;
+            cursor: pointer;
+            color: #9CA3AF;
+            transition: color 0.2s;
+            flex-shrink: 0;
+            line-height: 1;
+            padding: 0;
+        }
+
+        .modal-close:hover {
+            color: var(--black);
+        }
+
+        .modal-body {
+            padding: 1.5rem 2rem 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group label .required {
+            color: var(--magenta);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 0.65rem 0.85rem;
+            border: 1.5px solid #D1D5DB;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s;
+            color: var(--black);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.3rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.85rem;
+            color: #374151;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"],
+        .radio-option input[type="checkbox"] {
+            accent-color: var(--cyan);
+            cursor: pointer;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: #6B7280;
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            accent-color: var(--cyan);
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .form-submit-btn {
+            width: 100%;
+            padding: 0.85rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+            background: var(--cyan);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .form-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 188, 212, 0.3);
+        }
+
+        .form-submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .form-submit-btn.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .form-submit-btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 3px solid var(--white);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .form-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #ECFDF5;
+            color: #065F46;
+            border: 1px solid #A7F3D0;
+            display: block;
+        }
+
+        .form-message.error {
+            background: #FEF2F2;
+            color: #991B1B;
+            border: 1px solid #FECACA;
+            display: block;
+        }
+
+        .form-error-retry {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: #991B1B;
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .section-container {
+                padding: 4rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats-row {
+                gap: 1.5rem;
+            }
+
+            .hero-stat .num {
+                font-size: 2rem;
+            }
+
+            .projects-grid,
+            .sprint-roles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sprint-timeline {
+                padding-left: 2.5rem;
+            }
+
+            .top-nav {
+                padding: 0.5rem 1rem;
+            }
+
+            .top-nav .nav-title {
+                font-size: 0.75rem;
+            }
+
+            .modal-card {
+                max-height: 95vh;
+            }
+
+            .modal-header {
+                padding: 1.5rem 1.5rem 0;
+            }
+
+            .modal-body {
+                padding: 1.25rem 1.5rem 1.5rem;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP NAV -->
+    <nav class="top-nav">
+        <a href="en.html" class="back-link">&larr; Back to Restitution</a>
+        <span class="nav-title">Creative Sprint</span>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-blob hero-blob-1"></div>
+        <div class="hero-blob hero-blob-2"></div>
+        <div class="hero-blob hero-blob-3"></div>
+        <div class="hero-content">
+            <span class="hero-badge">April 7 &rarr; April 28, 2026</span>
+            <h1><span class="accent-cyan">CREATIVE</span> <span class="accent-orange">SPRINT</span></h1>
+            <p class="hero-subtitle">From 22 pitches to 7 actionable projects &mdash; 3 weeks to turn ideas into testable MVPs</p>
+            <div class="hero-stats-row">
+                <div class="hero-stat">
+                    <div class="num">7</div>
+                    <div class="label">Projects</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="num">3</div>
+                    <div class="label">Weeks</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="num">5</div>
+                    <div class="label">Coaching Sessions</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="num">1</div>
+                    <div class="label">Final Pitch</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7 CONSOLIDATED PROJECTS -->
+    <section id="projects" style="background: var(--light-gray);">
+        <div class="section-container">
+            <span class="section-tag" style="background: var(--cyan);">Next Steps</span>
+            <h2 class="section-title">7 Consolidated Projects</h2>
+            <p class="section-subtitle">From 22 pitches to 7 actionable projects &mdash; twinned cities, shared ambitions, ready for the sprint.</p>
+
+            <div class="projects-grid">
+
+                <!-- PROJECT 1 -->
+                <div class="project-card">
+                    <div class="project-summary" onclick="toggleProject(this)">
+                        <div class="project-summary-left">
+                            <div class="project-number" style="background: var(--cyan);">1</div>
+                            <h3 class="team-name" style="margin-bottom: 0.25rem;">Smart Process &amp; Resolution</h3>
+                            <div class="project-cities">
+                                <span class="project-city-tag winner">&#127942; Tokyo</span>
+                                <span class="project-city-tag finalist">Singapour</span>
+                            </div>
+                            <p class="project-theme">Simplify processes upstream (KISS) + resolve complaints downstream (CLOSE)</p>
+                        </div>
+                        <span class="project-toggle">&plus;</span>
+                    </div>
+                    <div class="project-detail">
+                        <div class="project-detail-inner">
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--cyan);">&#128279; Why This Pairing</h4>
+                                <p>Tokyo wants to simplify internal processes with a KISS approach &mdash; they talk about an "obstacle course" for ATM competition students. Singapour built CLOSE, a 5-step system to structure complaints with AI (368 complaints &rarr; 7 categories). Both attack the same problem from two ends: simplify upstream (Tokyo) and resolve downstream (Singapour). Together, it's an end-to-end process streamlining project.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--violet);">&#127919; Tokyo &mdash; KISS</h4>
+                                <p>Keep It Simple and Stupid: shorten processes, "quick start" spirit, major ATM competition for students to reimagine the school. Focus on student experience and sense of belonging.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--violet);">&#127919; Singapour &mdash; CLOSE</h4>
+                                <p>Capture, Label, Own, Solve, Explain. Collect complaints, structure them with AI into 7 categories, resolve and communicate. Quick fixes + long-term structural improvement.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--green);">&#127309; Natural Bridges</h4>
+                                <p>Tokyo simplifies upstream, Singapour resolves downstream. Together they create a complete process improvement loop: prevention + resolution.</p>
+                            </div>
+                            <button class="project-join-btn" style="background: var(--cyan);" onclick="openModal('Smart Process &amp; Resolution', 'smart-process')">&#128587; Join this project</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 2 -->
+                <div class="project-card">
+                    <div class="project-summary" onclick="toggleProject(this)">
+                        <div class="project-summary-left">
+                            <div class="project-number" style="background: var(--green);">2</div>
+                            <h3 class="team-name" style="margin-bottom: 0.25rem;">ICN Connected</h3>
+                            <div class="project-cities">
+                                <span class="project-city-tag winner">Buenos Aires</span>
+                                <span class="project-city-tag finalist">Vancouver</span>
+                            </div>
+                            <p class="project-theme">Break down inter-department silos &mdash; digital platform + skills directory</p>
+                        </div>
+                        <span class="project-toggle">&plus;</span>
+                    </div>
+                    <div class="project-detail">
+                        <div class="project-detail-inner">
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--green);">&#128279; Why This Pairing</h4>
+                                <p>Buenos Aires talks about "silos" and proposes a digital platform + "Walk in my shoes" between departments. Vancouver talks about "who does what" and proposes expertise exchange groups + skills database. Same diagnosis (we don't know each other between departments), same remedy (build bridges). Buenos Aires brings the immersive aspect, Vancouver brings the information structure. The most natural pairing.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--violet);">&#127919; Buenos Aires</h4>
+                                <p>Break silos with a centralized digital exchange space, "Live My Life" immersive program, and wow-factor onboarding. Less friction, faster decisions, multiplied collective energy.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--violet);">&#127919; Vancouver</h4>
+                                <p>Inter-expert exchange groups, "who does what" directory, internal newsletters. Experts finally consulted, information flowing, informed decisions.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--green);">&#127309; Natural Bridges</h4>
+                                <p>Buenos Aires brings human immersion (Walk in my shoes), Vancouver brings information architecture (skills directory). Together: people know each other AND know who does what.</p>
+                            </div>
+                            <button class="project-join-btn" style="background: var(--green);" onclick="openModal('ICN Connected', 'icn-connected')">&#128587; Join this project</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 3 -->
+                <div class="project-card">
+                    <div class="project-summary" onclick="toggleProject(this)">
+                        <div class="project-summary-left">
+                            <div class="project-number" style="background: var(--violet);">3</div>
+                            <h3 class="team-name" style="margin-bottom: 0.25rem;">The Stable &mdash; Feedback Culture</h3>
+                            <div class="project-cities">
+                                <span class="project-city-tag winner">&#127942; Helsinki</span>
+                                <span class="project-city-tag finalist">Dublin</span>
+                            </div>
+                            <p class="project-theme">F1 metaphor: recognition + constructive tension resolution</p>
+                        </div>
+                        <span class="project-toggle">&plus;</span>
+                    </div>
+                    <div class="project-detail">
+                        <div class="project-detail-inner">
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--violet);">&#128279; Why This Pairing</h4>
+                                <p>Helsinki uses the F1 stable metaphor &mdash; "Walk in my shoes", recognition, horizontality. Dublin proposes a "constructive conflict culture" with neutral facilitators. Both projects are on the same ground: transforming how people talk to each other at ICN. Helsinki through recognition and mutual support, Dublin through tension resolution. Direct complementarity.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--violet);">&#127919; Helsinki &mdash; The Stable</h4>
+                                <p>F1 metaphor on 3 axes: The Gears (horizontality), The Stable (recognition of ALL tasks, salary revaluation), The Pilots ("Live my challenge", co-piloting, transparency). Goal: TOP 10.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--violet);">&#127919; Dublin &mdash; Constructive Conflict</h4>
+                                <p>Regular "conflict" meetings with neutral facilitators, cross-functional and horizontal meetings. Reduction of burnout and turnover, increased performance and satisfaction.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--green);">&#127309; Natural Bridges</h4>
+                                <p>Helsinki provides the recognition framework (positive), Dublin provides the tension resolution framework (constructive). Together: a complete feedback culture where people feel valued AND heard.</p>
+                            </div>
+                            <button class="project-join-btn" style="background: var(--violet);" onclick="openModal('The Stable — Feedback Culture', 'the-stable')">&#128587; Join this project</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 4 -->
+                <div class="project-card">
+                    <div class="project-summary" onclick="toggleProject(this)">
+                        <div class="project-summary-left">
+                            <div class="project-number" style="background: var(--orange);">4</div>
+                            <h3 class="team-name" style="margin-bottom: 0.25rem;">ATM in Action</h3>
+                            <div class="project-cities">
+                                <span class="project-city-tag winner">&#127942; Montr&eacute;al</span>
+                                <span class="project-city-tag finalist">Sydney</span>
+                            </div>
+                            <p class="project-theme">Make ATM tangible daily &mdash; identity + concrete initiatives</p>
+                        </div>
+                        <span class="project-toggle">&plus;</span>
+                    </div>
+                    <div class="project-detail">
+                        <div class="project-detail-inner">
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--orange);">&#128279; Why This Pairing</h4>
+                                <p>Montr&eacute;al won with a project centered on ATM identity. Sydney proposes an ATM task force + summer artist residency + student inclusion in projects. Same ambition to make ATM tangible daily &mdash; Montr&eacute;al provides the identity framework, Sydney brings concrete initiatives (residency, task force). Logical merger.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--violet);">&#127919; Montr&eacute;al</h4>
+                                <p>Concrete action plan for each campus articulated around ATM skills. Connect ATM to everyone's daily missions. Student engagement, visibility for employers, pride of belonging.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--violet);">&#127919; Sydney</h4>
+                                <p>Task force of students + staff + teachers + decision-makers + alumni. Summer artist residency on campuses. Influence, external relations, press and media visibility.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--green);">&#127309; Natural Bridges</h4>
+                                <p>Montr&eacute;al defines what ATM means (identity), Sydney makes it happen (residency, task force). Together: ATM has a clear definition AND visible actions.</p>
+                            </div>
+                            <button class="project-join-btn" style="background: var(--orange);" onclick="openModal('ATM in Action', 'atm-in-action')">&#128587; Join this project</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 5 -->
+                <div class="project-card">
+                    <div class="project-summary" onclick="toggleProject(this)">
+                        <div class="project-summary-left">
+                            <div class="project-number" style="background: var(--rose);">5</div>
+                            <h3 class="team-name" style="margin-bottom: 0.25rem;">Campus Magnets</h3>
+                            <div class="project-cities">
+                                <span class="project-city-tag winner">&#127942; Barcelona</span>
+                                <span class="project-city-tag finalist">Le Cap</span>
+                            </div>
+                            <p class="project-theme">Distinctive campus identity (Harry Potter) + shared values foundation (SOCLE)</p>
+                        </div>
+                        <span class="project-toggle">&plus;</span>
+                    </div>
+                    <div class="project-detail">
+                        <div class="project-detail-inner">
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--rose);">&#128279; Why This Pairing</h4>
+                                <p>Barcelona imagined an identity hub per campus (Nancy = finance, Paris = luxury, Berlin = tech) with a constituent assembly &mdash; "Harry Potter" for houses. Le Cap proposes SOCLE (shared values) + an "ICN Welcome" pack for newcomers. Barcelona differentiates campuses, Le Cap unifies them through shared foundations. The tension between both is productive: each campus has its color AND shares common values.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--violet);">&#127919; Barcelona &mdash; Harry Potter Houses</h4>
+                                <p>Nancy = finance hub (Luxembourg), Paris = luxury/hospitality hub, Berlin = entrepreneurship/tech hub. Each hub embodies ATM uniquely. Constituent assembly + school vote.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--violet);">&#127919; Le Cap &mdash; SOCLE</h4>
+                                <p>FOUNDATION language (Solidarity, Originality, Creativity, Leadership, Excellence) + concrete ATM definition + "ICN Welcome" package: pitch, welcome day, tutoring.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--green);">&#127309; Natural Bridges</h4>
+                                <p>Barcelona differentiates (each campus gets its color), Le Cap unifies (shared values). The productive tension: identity AND belonging. Each campus is unique AND part of one ICN.</p>
+                            </div>
+                            <button class="project-join-btn" style="background: var(--rose);" onclick="openModal('Campus Magnets', 'campus-magnets')">&#128587; Join this project</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 6 -->
+                <div class="project-card">
+                    <div class="project-summary" onclick="toggleProject(this)">
+                        <div class="project-summary-left">
+                            <div class="project-number" style="background: var(--orange);">6</div>
+                            <h3 class="team-name" style="margin-bottom: 0.25rem;">Immersive ATM &#11088; Golden Ticket</h3>
+                            <div class="project-cities">
+                                <span class="project-city-tag golden">&#11088; Amsterdam</span>
+                            </div>
+                            <p class="project-theme">Immersive AI + creative onboarding &mdash; unique positioning</p>
+                        </div>
+                        <span class="project-toggle">&plus;</span>
+                    </div>
+                    <div class="project-detail">
+                        <div class="project-detail-inner">
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--orange);">&#11088; Why Standalone</h4>
+                                <p>Amsterdam has a unique positioning: immersive AI + creative onboarding. No other project covers this ground. It deserves dedicated support. Received the Golden Ticket from the facilitation team for its innovation.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--violet);">&#127919; Amsterdam &mdash; Immersive Learning</h4>
+                                <p>Immersive learning environments created in-house (Art component): interactions with "human computers," drawings and real-life simulations. HR training and skills development for everyone &mdash; staff, departments and students. Measurable performance and competency tracking.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--green);">&#127309; Unique Value</h4>
+                                <p>The only project that directly leverages ARTEM's artistic DNA through immersive technology. A distinctive differentiator for ICN's positioning in the market.</p>
+                            </div>
+                            <button class="project-join-btn" style="background: var(--orange);" onclick="openModal('Immersive ATM — Golden Ticket', 'immersive-atm')">&#128587; Join this project</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 7 -->
+                <div class="project-card">
+                    <div class="project-summary" onclick="toggleProject(this)">
+                        <div class="project-summary-left">
+                            <div class="project-number" style="background: var(--cyan);">7</div>
+                            <h3 class="team-name" style="margin-bottom: 0.25rem;">Enterprise Hub</h3>
+                            <div class="project-cities">
+                                <span class="project-city-tag finalist">Marrakech</span>
+                            </div>
+                            <p class="project-theme">Enterprise ecosystem in 6 branches &mdash; the only externally-facing project</p>
+                        </div>
+                        <span class="project-toggle">&plus;</span>
+                    </div>
+                    <div class="project-detail">
+                        <div class="project-detail-inner">
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--cyan);">&#128279; Why Standalone</h4>
+                                <p>Marrakech proposes an enterprise ecosystem in 6 branches. It's a structural project facing externally (business partnerships), distinct from all other internally-facing projects. Autonomous by nature.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--violet);">&#127919; Marrakech &mdash; Business Ecosystem</h4>
+                                <p>Ecosystem centered on Business with 6 branches: partners &amp; patronage, faculty researchers, entrepreneurship, CFA &amp; ExEd, students, alumni. Two-way arrows. Financial impact, re-energizing synergy, repositioning ATM + AI.</p>
+                            </div>
+                            <div class="project-detail-block">
+                                <h4 style="color: var(--green);">&#127309; Unique Value</h4>
+                                <p>The only project that directly addresses ICN's external ecosystem and business partnerships. A structural project that creates value beyond internal transformation.</p>
+                            </div>
+                            <button class="project-join-btn" style="background: var(--cyan);" onclick="openModal('Enterprise Hub', 'enterprise-hub')">&#128587; Join this project</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- NATURAL BRIDGES -->
+            <div class="project-bridges">
+                <h3>&#128268; Natural Bridges Between Projects</h3>
+                <div class="bridge-item">
+                    <span class="bridge-arrow">&#128994;</span>
+                    <span><strong>ICN Connected</strong> &#8596; <strong>The Stable</strong> &mdash; Breaking silos creates the ground for feedback culture</span>
+                </div>
+                <div class="bridge-item">
+                    <span class="bridge-arrow">&#128993;</span>
+                    <span><strong>Campus Magnets</strong> &#8596; <strong>Enterprise Hub</strong> &mdash; Campus identity connects with external ecosystem</span>
+                </div>
+                <div class="bridge-item">
+                    <span class="bridge-arrow">&#128992;</span>
+                    <span><strong>ATM in Action</strong> &#8596; <strong>Immersive ATM</strong> &mdash; Two facets: identity (Action) and experience (Immersive)</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SPRINT MVP SECTION -->
+    <section id="sprint-mvp" style="background: var(--white);">
+        <div class="section-container">
+            <span class="section-tag" style="background: var(--orange);">Sprint</span>
+            <h2 class="section-title">Creative Sprint</h2>
+            <p class="section-subtitle">3 weeks to turn your ideas into testable projects &mdash; April 7 &rarr; April 28, 2026</p>
+
+            <div class="sprint-timeline">
+
+                <div class="sprint-phase phase-0">
+                    <span class="sprint-phase-tag" style="background: var(--cyan);">Phase 0</span>
+                    <div class="sprint-phase-date">April 1&ndash;4, 2026</div>
+                    <h4>Team Building</h4>
+                    <p>Masterclass launch, team building, project assignments. Meet your team and align on the vision.</p>
+                </div>
+
+                <div class="sprint-phase phase-1">
+                    <span class="sprint-phase-tag" style="background: var(--green);">Week 1</span>
+                    <div class="sprint-phase-date">April 7&ndash;11, 2026</div>
+                    <h4>Frame</h4>
+                    <p>Coaching 1, user interviews, MVP brief. Define the problem precisely and identify your first users.</p>
+                </div>
+
+                <div class="sprint-phase phase-2">
+                    <span class="sprint-phase-tag" style="background: var(--violet);">Week 2</span>
+                    <div class="sprint-phase-date">April 14&ndash;18, 2026</div>
+                    <h4>Prototype</h4>
+                    <p>Coaching 2, build your prototype, plan user tests. Make the idea tangible and testable.</p>
+                </div>
+
+                <div class="sprint-phase phase-3">
+                    <span class="sprint-phase-tag" style="background: var(--orange);">Week 3</span>
+                    <div class="sprint-phase-date">April 21&ndash;25, 2026</div>
+                    <h4>Test &amp; Pitch</h4>
+                    <p>Coaching 3, run 5+ user tests, prepare your final pitch. Validate with real users and iterate.</p>
+                </div>
+
+                <div class="sprint-phase phase-final">
+                    <span class="sprint-phase-tag" style="background: var(--yellow); color: var(--black);">Final</span>
+                    <div class="sprint-phase-date">April 28, 2026</div>
+                    <h4>Final Presentation</h4>
+                    <p>Pitch your tested MVP to Fran&ccedil;ois Therin and the ICN leadership team. Show what you built, what you learned, what's next.</p>
+                </div>
+
+            </div>
+
+            <h3 style="text-align: center; font-size: 1.5rem; margin-top: 4rem; margin-bottom: 0.5rem;">Choose Your Role</h3>
+            <p style="text-align: center; color: #6B7280; margin-bottom: 1rem;">Every level of involvement counts.</p>
+
+            <div class="sprint-roles-grid">
+                <div class="sprint-role-card">
+                    <h3>&#128640; Project Lead</h3>
+                    <div class="role-time">4&ndash;5h / week</div>
+                    <p>Drive the project. Coordinate the team, run coaching sessions, own the roadmap and the final pitch.</p>
+                </div>
+                <div class="sprint-role-card">
+                    <h3>&#128736;&#65039; Regular Contributor</h3>
+                    <div class="role-time">2&ndash;3h / week</div>
+                    <p>Active member. Participate in user interviews, prototype building, and weekly syncs.</p>
+                </div>
+                <div class="sprint-role-card">
+                    <h3>&#127891; Ad-hoc Expert</h3>
+                    <div class="role-time">On demand</div>
+                    <p>Share your expertise when needed. Join specific sessions, review prototypes, connect the team to the right people.</p>
+                </div>
+            </div>
+
+            <div style="max-width: 800px; margin: 3rem auto; padding: 2rem; background: #FFF7ED; border-left: 4px solid var(--orange); border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem;">
+                    <img src="restitution/FRAN%C3%87OIS.png" alt="Fran&ccedil;ois Therin" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--yellow);">
+                    <strong style="color: var(--orange); font-size: 0.9rem;">Fran&ccedil;ois Therin, General Director ICN</strong>
+                </div>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: #374151; font-style: italic;">
+                    "Monday morning and for the next month, we all need to keep mobilizing to move these projects forward."
+                </p>
+            </div>
+
+            <div class="sprint-cta-banner">
+                <h3>Ready to join a project?</h3>
+                <p style="margin-bottom: 1.5rem; font-size: 1rem; opacity: 0.9;">Discover the 7 consolidated projects, find your match, and apply in one click.</p>
+                <a href="#projects">&#8593; See the 7 projects and apply</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>WE ARE UN1QUE</strong></p>
+        <p>ICN Creativ Day 2026 &middot; March 28 &middot; Nancy Campus</p>
+        <p>Facilitated by <strong>AI x Leaders</strong></p>
+        <p style="margin-top: 1.5rem; font-size: 0.75rem; opacity: 0.6;">187 collaborators. 22 tables. 5 villages. 1 day. Infinite possibilities.</p>
+        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #E5E7EB;">
+            <img src="restitution/Logo ICN 28 Mars.jpeg" alt="ICN Logo" style="height: 100px; object-fit: contain; display: block; margin: 0 auto;">
+        </div>
+    </footer>
+
+    <!-- APPLICATION MODAL -->
+    <div class="modal-overlay" id="applicationModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 id="modalProjectName">Join Project</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="applicationForm" onsubmit="submitForm(event)">
+                    <input type="hidden" id="formProject" name="project" value="">
+
+                    <!-- Full Name -->
+                    <div class="form-group">
+                        <label>Full Name <span class="required">*</span></label>
+                        <input type="text" id="formName" name="name" required placeholder="Your full name">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" id="formEmail" name="email" required placeholder="you@example.com">
+                    </div>
+
+                    <!-- Campus -->
+                    <div class="form-group">
+                        <label>Campus <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="campus" value="Nancy" required> Nancy</label>
+                            <label class="radio-option"><input type="radio" name="campus" value="Paris"> Paris</label>
+                            <label class="radio-option"><input type="radio" name="campus" value="Berlin"> Berlin</label>
+                        </div>
+                    </div>
+
+                    <!-- Original Team -->
+                    <div class="form-group">
+                        <label>Were you on the original team? <span class="required">*</span></label>
+                        <div class="radio-group" id="originalTeamOptions">
+                            <!-- Populated dynamically per project -->
+                        </div>
+                    </div>
+
+                    <!-- Desired Involvement -->
+                    <div class="form-group">
+                        <label>Desired involvement <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="involvement" value="Project Lead (4-5h/week)" required> Project Lead 4-5h/week</label>
+                            <label class="radio-option"><input type="radio" name="involvement" value="Regular Contributor (2-3h/week)"> Regular Contributor 2-3h/week</label>
+                            <label class="radio-option"><input type="radio" name="involvement" value="Ad-hoc Expert (on demand)"> Ad-hoc Expert on demand</label>
+                        </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="form-group">
+                        <label>Skills you bring <span class="required">*</span></label>
+                        <textarea id="formSkills" name="skills" required placeholder="e.g. project management, data analysis, design thinking..."></textarea>
+                    </div>
+
+                    <!-- Motivation -->
+                    <div class="form-group">
+                        <label>Motivation <span class="required">*</span> <span style="font-weight: 400; color: #9CA3AF;">(1-2 sentences)</span></label>
+                        <textarea id="formMotivation" name="motivation" required placeholder="Why does this project excite you?"></textarea>
+                    </div>
+
+                    <!-- Availability -->
+                    <div class="form-group">
+                        <label>Available for first coaching week of April 7? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="availability" value="Yes" required> Yes</label>
+                            <label class="radio-option"><input type="radio" name="availability" value="Maybe"> Maybe</label>
+                            <label class="radio-option"><input type="radio" name="availability" value="No"> No</label>
+                        </div>
+                    </div>
+
+                    <!-- RGPD Consent -->
+                    <div class="form-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="formConsent" name="consent" required>
+                            <span>I consent to the processing of my personal data for the purpose of this application. Data will be stored securely and used only for the ICN Creative Sprint project coordination. You may request deletion at any time by contacting elodie@ai-x-leaders.com. <span class="required">*</span></span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="form-submit-btn" id="submitBtn">Submit Application</button>
+                </form>
+
+                <div class="form-message" id="formMessage"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // PROJECT DATA — team options per project
+        const projectTeamOptions = {
+            'smart-process': [
+                { value: 'Yes (Tokyo)', label: 'Yes (Tokyo — winner)' },
+                { value: 'Yes (Singapour)', label: 'Yes (Singapour — finalist)' },
+                { value: 'No, I\'m new', label: 'No, I\'m new' }
+            ],
+            'icn-connected': [
+                { value: 'Yes (Buenos Aires)', label: 'Yes (Buenos Aires — winner)' },
+                { value: 'Yes (Vancouver)', label: 'Yes (Vancouver — finalist)' },
+                { value: 'No, I\'m new', label: 'No, I\'m new' }
+            ],
+            'the-stable': [
+                { value: 'Yes (Helsinki)', label: 'Yes (Helsinki — winner)' },
+                { value: 'Yes (Dublin)', label: 'Yes (Dublin — finalist)' },
+                { value: 'No, I\'m new', label: 'No, I\'m new' }
+            ],
+            'atm-in-action': [
+                { value: 'Yes (Montréal)', label: 'Yes (Montréal — winner)' },
+                { value: 'Yes (Sydney)', label: 'Yes (Sydney — finalist)' },
+                { value: 'No, I\'m new', label: 'No, I\'m new' }
+            ],
+            'campus-magnets': [
+                { value: 'Yes (Barcelona)', label: 'Yes (Barcelona — winner)' },
+                { value: 'Yes (Le Cap)', label: 'Yes (Le Cap — finalist)' },
+                { value: 'No, I\'m new', label: 'No, I\'m new' }
+            ],
+            'immersive-atm': [
+                { value: 'Yes (Amsterdam)', label: 'Yes (Amsterdam — golden ticket)' },
+                { value: 'No, I\'m new', label: 'No, I\'m new' }
+            ],
+            'enterprise-hub': [
+                { value: 'Yes (Marrakech)', label: 'Yes (Marrakech — finalist)' },
+                { value: 'No, I\'m new', label: 'No, I\'m new' }
+            ]
+        };
+
+        let currentProjectKey = '';
+
+        // ACCORDION PROJECTS
+        function toggleProject(el) {
+            const card = el.closest('.project-card');
+            card.classList.toggle('open');
+        }
+
+        // OPEN MODAL
+        function openModal(projectName, projectKey) {
+            currentProjectKey = projectKey;
+            const modal = document.getElementById('applicationModal');
+            const form = document.getElementById('applicationForm');
+            const message = document.getElementById('formMessage');
+            const submitBtn = document.getElementById('submitBtn');
+
+            // Reset form
+            form.reset();
+            message.className = 'form-message';
+            message.style.display = 'none';
+            message.innerHTML = '';
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('loading');
+            submitBtn.textContent = 'Submit Application';
+            form.style.display = 'block';
+
+            // Set project name
+            document.getElementById('modalProjectName').textContent = 'Apply: ' + projectName;
+            document.getElementById('formProject').value = projectName;
+
+            // Populate original team options
+            const optionsContainer = document.getElementById('originalTeamOptions');
+            optionsContainer.innerHTML = '';
+            const options = projectTeamOptions[projectKey] || [];
+            options.forEach((opt, i) => {
+                const label = document.createElement('label');
+                label.className = 'radio-option';
+                label.innerHTML = '<input type="radio" name="originalTeam" value="' + opt.value + '"' + (i === 0 ? ' required' : '') + '> ' + opt.label;
+                optionsContainer.appendChild(label);
+            });
+
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // CLOSE MODAL
+        function closeModal() {
+            const modal = document.getElementById('applicationModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Close on click outside
+        document.getElementById('applicationModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // FORM SUBMISSION
+        async function submitForm(e) {
+            e.preventDefault();
+
+            const form = document.getElementById('applicationForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const message = document.getElementById('formMessage');
+
+            // Validate email format
+            const email = document.getElementById('formEmail').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                message.className = 'form-message error';
+                message.innerHTML = 'Please enter a valid email address.';
+                message.style.display = 'block';
+                return;
+            }
+
+            // Validate consent
+            if (!document.getElementById('formConsent').checked) {
+                message.className = 'form-message error';
+                message.innerHTML = 'Please accept the RGPD consent to continue.';
+                message.style.display = 'block';
+                return;
+            }
+
+            // Collect form data
+            const formData = new FormData(form);
+            const payload = {
+                project: formData.get('project'),
+                name: formData.get('name'),
+                email: formData.get('email'),
+                campus: formData.get('campus'),
+                originalTeam: formData.get('originalTeam'),
+                involvement: formData.get('involvement'),
+                skills: formData.get('skills'),
+                motivation: formData.get('motivation'),
+                availability: formData.get('availability'),
+                consent: formData.get('consent') ? 'Yes' : 'No',
+                timestamp: new Date().toISOString()
+            };
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = 'Submitting...';
+            message.style.display = 'none';
+
+            try {
+                const response = await fetch('https://script.google.com/macros/s/PLACEHOLDER/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                // With no-cors mode, we assume success if no error thrown
+                form.style.display = 'none';
+                message.className = 'form-message success';
+                message.innerHTML = 'Your application has been submitted! We\'ll be in touch soon.';
+                message.style.display = 'block';
+
+            } catch (error) {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = 'Submit Application';
+                message.className = 'form-message error';
+                message.innerHTML = 'Something went wrong. Please try again.<br><button class="form-error-retry" onclick="submitForm(event)">Retry</button>';
+                message.style.display = 'block';
+            }
+        }
+
+        // SCROLL REVEAL ANIMATION
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.project-card, .sprint-role-card, .sprint-phase, .bridge-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+</html>
