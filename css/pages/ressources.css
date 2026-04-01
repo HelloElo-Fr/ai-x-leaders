@@ -1,4 +1,4 @@
-/* ========== RESSOURCES HERO ========== */
+/* ========== RESSOURCES HERO — Dark mode ========== */
 
 .ressources-hero {
   background: var(--bg-pure-black);
@@ -13,7 +13,7 @@
 .ressources-hero .subtitle {
   font-size: var(--text-body-lg);
   color: var(--text-secondary);
-  max-width: 640px;
+  max-width: 600px;
   line-height: var(--leading-relaxed);
 }
 
@@ -23,24 +23,65 @@
   }
 }
 
-/* ========== BLOCS LIBRE / MEMBRES ========== */
+/* ========== ASK & SOLVE BLOCK ========== */
 
-.bloc-libre {
-  background: #000000;
+.ask-solve-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
 }
 
-.bloc-membres {
-  background: #191B1F;
+@media (max-width: 767px) {
+  .ask-solve-block {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ask-solve-block-text h2 {
+  text-align: left;
+}
+
+.ask-solve-block-text p {
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 24px;
+}
+
+.ask-solve-block-text .social-proof {
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  font-weight: 600;
+  margin-top: 16px;
+}
+
+.ask-solve-block-visual {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ask-solve-block-visual .icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+
+.ask-solve-block-visual p {
+  font-size: var(--text-small);
+  color: var(--text-muted);
 }
 
 /* ========== SECTIONS ========== */
 
 .ressources-section {
-  padding: 80px 0;
-}
-
-.bloc-libre .ressources-section:first-child {
-  padding-top: 100px;
+  padding: 100px 0;
 }
 
 .section--offwhite {
@@ -58,12 +99,6 @@
   max-width: 600px;
   margin: 0 auto 48px;
   line-height: var(--leading-relaxed);
-}
-
-.subsection-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 32px;
 }
 
 /* ========== RESSOURCES GRID ========== */
@@ -93,7 +128,6 @@
   padding: 32px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   transition: border-color var(--transition-fast), transform var(--transition-fast);
-  position: relative;
 }
 
 .ressource-card:hover {
@@ -116,14 +150,7 @@
   line-height: 1.6;
 }
 
-.ressource-card .social-proof {
-  color: var(--text-muted);
-  font-size: var(--text-small);
-  font-weight: 600;
-  margin-top: 0;
-}
-
-/* ========== RESSOURCE IMAGE ========== */
+/* ========== RESSOURCE IMAGE (Masterclass cards) ========== */
 
 .ressource-img {
   border-radius: 12px;
@@ -136,90 +163,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-/* ========== TAGS : GRATUIT + MEMBRES ========== */
-
-.tag-free {
-  display: inline-block;
-  background: rgba(16, 185, 129, 0.15);
-  color: #10B981;
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 16px;
-}
-
-.tag-members {
-  display: inline-block;
-  background: rgba(255, 72, 170, 0.15);
-  color: #FF48AA;
-  border: 1px solid rgba(255, 72, 170, 0.3);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 16px;
-}
-
-/* ========== CARD MEMBRES (verrouillée) ========== */
-
-.card-members {
-  position: relative;
-  opacity: 0.85;
-}
-
-.card-members::after {
-  content: '\1F512';
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  font-size: 1.2rem;
-}
-
-.card-members:hover {
-  opacity: 1;
-}
-
-.card-members--wide {
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-/* ========== SÉPARATEUR MEMBRES ========== */
-
-.members-separator {
-  text-align: center;
-  padding: 60px 0;
-  position: relative;
-  background: linear-gradient(180deg, #000000, #191B1F);
-}
-
-.members-separator::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 72, 170, 0.3), transparent);
-}
-
-.members-separator span {
-  background: #0d0e10;
-  padding: 0 24px;
-  position: relative;
-  color: #FF48AA;
-  font-weight: 700;
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
 }
 
 /* ========== NEWSLETTER PREVIEW ========== */
@@ -265,86 +208,121 @@
   line-height: 1.4;
 }
 
-/* ========== PRICING BANNER ========== */
+/* ========== LINKEDIN CARD ========== */
 
-.pricing-banner {
-  background: var(--bg-card, #2B2E33);
-  border-radius: 24px;
-  padding: 48px;
-  text-align: center;
-  border: 1px solid rgba(255, 72, 170, 0.1);
+.ressource-card--linkedin {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
 }
 
-.pricing-banner h3 {
-  font-size: 1.75rem;
-  margin-bottom: 8px;
+.linkedin-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 16px;
 }
 
-.pricing-banner > p {
-  color: var(--text-secondary);
-  margin-bottom: 8px;
+.linkedin-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.pricing-note {
-  color: #9CA3AF !important;
-  font-size: 0.875rem;
+.linkedin-avatar--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 72, 170, 0.15);
+  color: var(--pink-primary);
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.linkedin-stats {
+  font-weight: 600;
+  font-size: var(--text-small);
+  color: var(--text-muted) !important;
+  margin-bottom: 8px !important;
+}
+
+.linkedin-latest {
   font-style: italic;
-  margin-bottom: 32px !important;
+  font-size: 0.9rem;
+  color: var(--text-secondary) !important;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border-left: 3px solid var(--pink-primary);
+  margin-bottom: 16px !important;
 }
 
-.pricing-options {
+/* ========== PRICING SUB-SUBTITLE ========== */
+.section-subtitle-small {
+  text-align: center;
+  color: var(--pink-primary);
+  font-size: 0.95rem;
+  margin-bottom: 32px;
+}
+
+/* ========== PRICING CARDS ========== */
+
+.pricing-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  margin-top: 32px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 @media (max-width: 767px) {
-  .pricing-options {
+  .pricing-cards {
     grid-template-columns: 1fr;
-  }
-  .pricing-banner {
-    padding: 32px 20px;
   }
 }
 
-.pricing-option {
-  background: rgba(0, 0, 0, 0.3);
+.pricing-card {
+  background: var(--bg-card);
   border-radius: 16px;
-  padding: 32px;
+  padding: 40px 32px;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.05);
   transition: border-color var(--transition-fast), transform var(--transition-fast);
 }
 
-.pricing-option:hover {
+.pricing-card:hover {
   border-color: rgba(255, 72, 170, 0.25);
   transform: translateY(-2px);
 }
 
-.pricing-option--highlight {
-  border: 2px solid #FF48AA;
-  box-shadow: 0 0 30px rgba(255, 72, 170, 0.15);
+.pricing-card--featured {
+  border-color: var(--pink-primary);
+  position: relative;
 }
 
-.pricing-option--highlight:hover {
-  border-color: #FF48AA;
+.pricing-card--featured:hover {
+  border-color: var(--pink-primary);
 }
 
-.pricing-amount {
-  font-size: 2rem;
+.pricing-card .price {
+  font-size: 2.5rem;
   font-weight: 800;
-  color: white;
   margin: 16px 0;
 }
 
-.pricing-amount span {
+.pricing-card .price span {
   font-size: 1rem;
   font-weight: 400;
-  color: #9CA3AF;
+  color: var(--text-muted);
 }
 
-.pricing-option p {
+.pricing-card p {
   color: var(--text-secondary);
   margin-bottom: 24px;
+}
+
+.pricing-card h3 {
+  margin-bottom: 0;
 }
