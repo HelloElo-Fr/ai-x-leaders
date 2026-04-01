@@ -279,8 +279,58 @@
             <li>Replays des sessions</li>
           </ul>
           <p class="camp-total">Total engagement : 1&nbsp;500&euro; HT pour 3 mois (6 sessions)</p>
-          <a href="#inscription" class="btn-primary">Je m'inscris</a>
         </div>
+      </div>
+
+      <!-- Formulaire d'inscription -->
+      <div class="camp-form-wrapper animate-on-scroll">
+        <h3 class="text-center">Je m'inscris</h3>
+        <form id="camp-form" class="camp-form">
+          <div class="camp-form-row">
+            <div class="camp-form-field">
+              <label for="camp-prenom">Pr&eacute;nom</label>
+              <input type="text" id="camp-prenom" class="form-input" placeholder="Pr&eacute;nom" required>
+            </div>
+            <div class="camp-form-field">
+              <label for="camp-nom">Nom</label>
+              <input type="text" id="camp-nom" class="form-input" placeholder="Nom" required>
+            </div>
+          </div>
+          <div class="camp-form-field">
+            <label for="camp-email">Email</label>
+            <input type="email" id="camp-email" class="form-input" placeholder="votre@email.com" required>
+          </div>
+          <div class="camp-form-row">
+            <div class="camp-form-field">
+              <label for="camp-promo">Promo</label>
+              <select id="camp-promo" class="form-select" required>
+                <option value="" disabled selected>Choisir ta promo</option>
+                <option value="Bootcamp #1">Bootcamp #1</option>
+                <option value="Bootcamp #2">Bootcamp #2</option>
+                <option value="Bootcamp #3">Bootcamp #3</option>
+                <option value="Bootcamp #4">Bootcamp #4</option>
+              </select>
+            </div>
+            <div class="camp-form-field">
+              <label for="camp-engagement">Engagement</label>
+              <select id="camp-engagement" class="form-select" required>
+                <option value="" disabled selected>Dur&eacute;e d'engagement</option>
+                <option value="3 mois">3 mois</option>
+                <option value="6 mois">6 mois</option>
+              </select>
+            </div>
+          </div>
+          <div class="camp-form-field">
+            <label for="camp-financement">Financement</label>
+            <select id="camp-financement" class="form-select" required>
+              <option value="" disabled selected>Mode de financement</option>
+              <option value="Facturation directe">Facturation directe</option>
+              <option value="Qualiopi (OPCO)">Qualiopi (OPCO)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%; margin-top: 8px;">Envoyer ma demande d'inscription</button>
+          <div class="form-message"></div>
+        </form>
       </div>
     </div>
   </section>
@@ -370,5 +420,45 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('camp-form');
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var msg = form.querySelector('.form-message');
+      var fields = form.querySelectorAll('[required]');
+      var valid = true;
+      fields.forEach(function(f) {
+        if (!f.value || !f.value.trim()) { valid = false; f.style.borderColor = 'var(--error)'; }
+        else { f.style.borderColor = ''; }
+      });
+      var emailField = document.getElementById('camp-email');
+      if (emailField && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+        valid = false; emailField.style.borderColor = 'var(--error)';
+      }
+      if (!valid) {
+        if (msg) { msg.textContent = 'Merci de remplir tous les champs.'; msg.className = 'form-message error'; }
+        return;
+      }
+      var prenom = document.getElementById('camp-prenom').value;
+      var nom = document.getElementById('camp-nom').value;
+      var email = document.getElementById('camp-email').value;
+      var promo = document.getElementById('camp-promo').value;
+      var engagement = document.getElementById('camp-engagement').value;
+      var financement = document.getElementById('camp-financement').value;
+      var subject = 'Inscription The Camp - ' + prenom + ' ' + nom;
+      var body = 'Nouvelle demande d\'inscription The Camp\n\n'
+        + 'Pr\u00e9nom : ' + prenom + '\n'
+        + 'Nom : ' + nom + '\n'
+        + 'Email : ' + email + '\n'
+        + 'Promo : ' + promo + '\n'
+        + 'Engagement : ' + engagement + '\n'
+        + 'Financement : ' + financement;
+      window.location.href = 'mailto:elodie@lightmeup.io?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      if (msg) { msg.textContent = 'Ton client mail va s\'ouvrir pour finaliser l\'inscription.'; msg.className = 'form-message success'; }
+    });
+  });
+  </script>
 </body>
 </html>
