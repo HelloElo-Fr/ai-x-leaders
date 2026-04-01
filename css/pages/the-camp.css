@@ -1,0 +1,75 @@
+/* ===== THE CAMP PAGE ===== */
+
+/* Benefits grid — 5 items */
+.camp-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1023px) {
+  .camp-benefits-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .camp-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Format grid — key/value cards */
+.camp-format-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 48px auto 0;
+}
+
+.camp-format-item {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 28px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
+.camp-format-label {
+  display: block;
+  font-size: var(--text-small);
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.camp-format-value {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+@media (max-width: 767px) {
+  .camp-format-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  .camp-format-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Pricing total line */
+.camp-total {
+  color: var(--pink-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  margin-top: -8px;
+}
