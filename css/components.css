@@ -231,6 +231,11 @@ a.btn-blue:hover,
   color: var(--success);
 }
 
+.tag-next {
+  background: rgba(255, 72, 170, 0.15);
+  color: var(--pink-primary);
+}
+
 /* ========== FORMS — Dark mode ========== */
 
 .form-group {
